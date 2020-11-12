@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("reflect"))
     implementation(files("../shared/build/libs/shared-jvm-${project.version}.jar"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
