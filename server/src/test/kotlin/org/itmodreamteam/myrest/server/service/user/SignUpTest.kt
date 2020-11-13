@@ -8,6 +8,8 @@ import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.shared.user.SignUp
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -64,7 +66,21 @@ class SignUpTest {
         assertThat(identifier.type).isEqualTo(Identifier.Type.PHONE)
         assertThat(identifier.value).isEqualTo("+79210017007")
         assertThat(identifier.verified).isFalse
+        assertThat(identifier.verificationCode).matches("\\d{6}")
         assertThat(identifier.user).isEqualTo(user)
+    }
+
+    @Test
+    fun `When sign up, then verification SMS is sent`() {
+        val signUp = SignUp("Joshua", "Ivanov", "+79210017007")
+        userService.signUp(signUp)
+
+        val identifiers = identifierRepository.findAll()
+        assertThat(identifiers).hasSize(1)
+        val code = identifiers[0].verificationCode
+
+        val expectedText = "Для продолжения регистрации на сервисе MyRest введите код подтверждения: $code"
+        verify(smsService, times(1)).send("+79210017007", expectedText)
     }
 
     @TestConfiguration

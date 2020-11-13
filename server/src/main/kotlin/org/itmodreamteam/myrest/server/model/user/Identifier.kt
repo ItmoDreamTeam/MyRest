@@ -32,7 +32,8 @@ class Identifier() : JpaEntity() {
     var verified: Boolean = false
         private set
 
-    private var verificationCode: String? = null
+    var verificationCode: String? = null
+        private set
 
     private var verificationCodeExpiry: LocalDateTime? = null
 
