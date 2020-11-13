@@ -18,8 +18,10 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":shared"))  // for gradle build
+    implementation(files("../shared/build/libs/shared-jvm-${project.version}.jar"))  // for IDEA
+
     implementation(kotlin("reflect"))
-    implementation(files("../shared/build/libs/shared-jvm-${project.version}.jar"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
