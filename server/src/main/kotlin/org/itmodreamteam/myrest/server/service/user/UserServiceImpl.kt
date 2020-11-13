@@ -47,6 +47,9 @@ class UserServiceImpl(
     override fun signIn(signIn: SignIn) {
         val identifier = identifierRepository.findByValue(signIn.phone)
             ?: throw UserException("Номер телефона не найдён")
+        if (identifier.user.locked) {
+            throw UserException("Аккаунт заблокирован. Обратитесь к администратору")
+        }
         val verificationCode = identifier.updateVerificationCode()
         val text = "Вход в MyRest. Код подтверждения: $verificationCode"
         smsService.send(identifier.value, text)
