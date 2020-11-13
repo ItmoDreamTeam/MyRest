@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
+import org.itmodreamteam.myrest.shared.user.SignIn
 import org.itmodreamteam.myrest.shared.user.SignUp
 import org.springframework.stereotype.Service
 
@@ -41,5 +42,9 @@ class UserServiceImpl(
         val verificationCode = identifier.updateVerificationCode()
         val text = "Для продолжения регистрации на сервисе MyRest введите код подтверждения: $verificationCode"
         smsService.send(identifier.value, text)
+    }
+
+    override fun signIn(signIn: SignIn) {
+        TODO("Not yet implemented")
     }
 }
