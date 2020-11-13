@@ -1,10 +1,10 @@
 package org.itmodreamteam.myrest.server.model.user
 
+import org.apache.commons.lang3.RandomStringUtils
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
-import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -44,7 +44,7 @@ class Identifier() : JpaEntity() {
     }
 
     fun updateVerificationCode(): String {
-        verificationCode = UUID.randomUUID().toString()
+        verificationCode = RandomStringUtils.randomNumeric(6)
         verificationCodeExpiry = now().plusMinutes(5)
         return verificationCode!!
     }
