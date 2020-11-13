@@ -63,6 +63,8 @@ class UserServiceImpl(
             ?: throw UserException("Ошибка авторизации. Пожалуйста, попробуйте снова")
         identifier.verify(signInVerification.code)
         val user = identifier.user
+        user.enabled = true
+        userRepository.save(user)
         val session = sessionRepository.save(Session(user))
         return ActiveSession(session.id, LocalDateTime.parse(session.created.toString()), session.token)
     }

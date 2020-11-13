@@ -55,6 +55,12 @@ class SessionTest {
         assertThat(session.created.toJavaLocalDateTime()).isCloseTo(now(), within(1, ChronoUnit.SECONDS))
     }
 
+    @Test
+    fun `When provide valid verification code, then user is enabled`() {
+        userService.startSession(SignInVerification("+79210017007", verificationCode))
+        assertThat(user.enabled).isTrue
+    }
+
     @Test(expected = UserException::class)
     fun `When provide invalid verification code, then failure`() {
         userService.startSession(SignInVerification("+79210017007", "123654"))
