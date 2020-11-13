@@ -77,6 +77,12 @@ class SignInTest {
     }
 
     @Test(expected = UserException::class)
+    fun `Given existing locked user, when sign in, then failure`() {
+        user.locked = true
+        userService.signIn(SignIn("+79210017007"))
+    }
+
+    @Test(expected = UserException::class)
     fun `When sign in with non-existent phone, then failure`() {
         userService.signIn(SignIn("+79990009900"))
     }
