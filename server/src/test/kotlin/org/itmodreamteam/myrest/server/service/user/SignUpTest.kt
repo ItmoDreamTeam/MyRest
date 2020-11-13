@@ -1,7 +1,9 @@
 package org.itmodreamteam.myrest.server.service.user
 
 import org.assertj.core.api.Assertions.assertThat
+import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.user.Identifier
+import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
@@ -81,6 +83,36 @@ class SignUpTest {
 
         val expectedText = "Для продолжения регистрации на сервисе MyRest введите код подтверждения: $code"
         verify(smsService, times(1)).send("+79210017007", expectedText)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given existing enabled user, when sign up with same phone, then failure`() {
+        val existingUser = User("User", "Existing")
+        existingUser.enabled = true
+        userRepository.save(existingUser)
+        identifierRepository.save(Identifier("+79210017007", Identifier.Type.PHONE, existingUser))
+
+        val signUp = SignUp("Joshua", "Ivanov", "+79210017007")
+        userService.signUp(signUp)
+    }
+
+    @Test
+    fun `Given existing disabled user, when sign up with same phone, then user info updated`() {
+        val existingUser = User("User", "Existing")
+        userRepository.save(existingUser)
+        identifierRepository.save(Identifier("+79210017007", Identifier.Type.PHONE, existingUser))
+
+        val signUp = SignUp("Joshua", "Ivanov", "+79210017007")
+        userService.signUp(signUp)
+
+        val users = userRepository.findAll()
+        assertThat(users).hasSize(1)
+
+        val user = users[0]
+        assertThat(user.firstName).isEqualTo("Joshua")
+        assertThat(user.lastName).isEqualTo("Ivanov")
+        assertThat(user.enabled).isFalse
+        assertThat(user.role).isNull()
     }
 
     @TestConfiguration
