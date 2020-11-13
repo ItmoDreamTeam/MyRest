@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "users")
-class User : JpaEntity() {
+class User() : JpaEntity() {
 
     var enabled: Boolean = false
 
@@ -23,6 +23,11 @@ class User : JpaEntity() {
 
     @Enumerated(EnumType.STRING)
     var role: Role? = null
+
+    constructor(firstName: String, lastName: String) : this() {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
 
     enum class Role {
         ADMIN,
