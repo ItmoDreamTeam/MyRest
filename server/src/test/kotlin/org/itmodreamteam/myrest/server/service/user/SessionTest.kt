@@ -66,6 +66,11 @@ class SessionTest {
         userService.startSession(SignInVerification("+79210017007", "123654"))
     }
 
+    @Test(expected = UserException::class)
+    fun `When provide non-existent phone, then failure`() {
+        userService.startSession(SignInVerification("+79998888888", "123654"))
+    }
+
     @TestConfiguration
     @ComponentScan
     @MockBean(SmsService::class)
