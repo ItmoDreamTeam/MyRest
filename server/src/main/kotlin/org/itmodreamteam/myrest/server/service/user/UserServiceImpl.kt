@@ -1,9 +1,12 @@
 package org.itmodreamteam.myrest.server.service.user
 
+import kotlinx.datetime.LocalDateTime
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.user.Identifier
+import org.itmodreamteam.myrest.server.model.user.Session
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.shared.user.ActiveSession
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service
 class UserServiceImpl(
     private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,
+    private val sessionRepository: SessionRepository,
     private val smsService: SmsService,
 ) : UserService {
 
@@ -55,6 +59,11 @@ class UserServiceImpl(
     }
 
     override fun startSession(signInVerification: SignInVerification): ActiveSession {
-        TODO("Not yet implemented")
+        val identifier = identifierRepository.findByValue(signInVerification.phone)
+            ?: throw UserException("Ошибка авторизации. Пожалуйста, попробуйте снова")
+        identifier.verify(signInVerification.code)
+        val user = identifier.user
+        val session = sessionRepository.save(Session(user))
+        return ActiveSession(session.id, LocalDateTime.parse(session.created.toString()), session.token)
     }
 }
