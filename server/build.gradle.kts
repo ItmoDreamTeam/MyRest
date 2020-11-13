@@ -15,6 +15,7 @@ tasks.withType<KotlinCompile>() {
 
 repositories {
     mavenCentral()
+    maven(url = "https://kotlin.bintray.com/kotlinx/")
 }
 
 dependencies {
@@ -22,6 +23,7 @@ dependencies {
     implementation(files("../shared/build/libs/shared-jvm-${project.version}.jar"))  // for IDEA
 
     implementation(kotlin("reflect"))
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")

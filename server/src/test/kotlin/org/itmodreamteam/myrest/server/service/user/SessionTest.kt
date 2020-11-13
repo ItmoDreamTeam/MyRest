@@ -1,6 +1,8 @@
 package org.itmodreamteam.myrest.server.service.user
 
+import kotlinx.datetime.toJavaLocalDateTime
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.within
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.user.Identifier
 import org.itmodreamteam.myrest.server.model.user.User
@@ -18,6 +20,8 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import java.time.LocalDateTime.now
+import java.time.temporal.ChronoUnit
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
@@ -48,6 +52,7 @@ class SessionTest {
     fun `When provide valid verification code, then session is started`() {
         val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
         assertThat(session.token).isNotBlank
+        assertThat(session.created.toJavaLocalDateTime()).isCloseTo(now(), within(1, ChronoUnit.SECONDS))
     }
 
     @Test(expected = UserException::class)
