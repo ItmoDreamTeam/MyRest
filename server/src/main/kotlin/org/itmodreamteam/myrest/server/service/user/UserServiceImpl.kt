@@ -45,6 +45,10 @@ class UserServiceImpl(
     }
 
     override fun signIn(signIn: SignIn) {
-        TODO("Not yet implemented")
+        val identifier = identifierRepository.findByValue(signIn.phone)
+            ?: throw UserException("Номер телефона не найдён")
+        val verificationCode = identifier.updateVerificationCode()
+        val text = "Вход в MyRest. Код подтверждения: $verificationCode"
+        smsService.send(identifier.value, text)
     }
 }
