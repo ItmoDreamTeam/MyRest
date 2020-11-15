@@ -67,6 +67,18 @@ class UserServiceImpl(
     }
 
     override fun verifySession(token: String): Profile {
-        TODO("Not yet implemented")
+        val session = sessionRepository.findByToken(token)
+            ?: throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        val user = session.user
+        if (user.locked) {
+            throw UserException("Аккаунт заблокирован. Обратитесь к администратору")
+        }
+        if (!user.enabled) {
+            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        }
+        if (!session.active) {
+            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        }
+        return Profile(user.firstName, user.lastName)
     }
 }
