@@ -14,6 +14,8 @@ import org.itmodreamteam.myrest.shared.user.SignInVerification
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mockStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -22,7 +24,9 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import java.time.Clock
 import java.time.LocalDateTime.now
+import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 import java.util.UUID.randomUUID
 
@@ -89,9 +93,12 @@ class SessionTest {
     @Test(expected = UserException::class)
     fun `Given expired session, when verify session, then failure`() {
         val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
-        // TODO: travel to the future
 
-        userService.verifySession(session.token)
+        val mockedClock = Clock.fixed(now().plusYears(100).toInstant(ZoneOffset.UTC), ZoneOffset.UTC)
+        mockStatic(Clock::class.java).use {
+            `when`(Clock.systemDefaultZone()).thenReturn(mockedClock)
+            userService.verifySession(session.token)
+        }
     }
 
     @Test(expected = UserException::class)

@@ -36,5 +36,7 @@ dependencies {
     implementation("org.apache.commons:commons-lang3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-core:3.6.0")
+    testImplementation("org.mockito:mockito-inline:3.6.0")
     testImplementation("com.h2database:h2")
 }
