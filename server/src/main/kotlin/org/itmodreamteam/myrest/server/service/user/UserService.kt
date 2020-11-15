@@ -1,9 +1,6 @@
 package org.itmodreamteam.myrest.server.service.user
 
-import org.itmodreamteam.myrest.shared.user.ActiveSession
-import org.itmodreamteam.myrest.shared.user.SignIn
-import org.itmodreamteam.myrest.shared.user.SignInVerification
-import org.itmodreamteam.myrest.shared.user.SignUp
+import org.itmodreamteam.myrest.shared.user.*
 
 interface UserService {
 
@@ -12,4 +9,6 @@ interface UserService {
     fun signIn(signIn: SignIn)
 
     fun startSession(signInVerification: SignInVerification): ActiveSession
+
+    fun verifySession(token: String): Profile
 }

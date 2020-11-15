@@ -7,6 +7,7 @@ import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.user.Identifier
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.shared.user.SignInVerification
@@ -18,10 +19,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import java.time.LocalDateTime.now
 import java.time.temporal.ChronoUnit
+import java.util.UUID.randomUUID
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
@@ -36,6 +39,9 @@ class SessionTest {
 
     @Autowired
     lateinit var identifierRepository: IdentifierRepository
+
+    @Autowired
+    lateinit var sessionRepository: SessionRepository
 
     lateinit var user: User
     lateinit var verificationCode: String
@@ -69,6 +75,52 @@ class SessionTest {
     @Test(expected = UserException::class)
     fun `When provide non-existent phone, then failure`() {
         userService.startSession(SignInVerification("+79998888888", "123654"))
+    }
+
+    @Test
+    fun `Given active session, when verify session, then user's profile is returned`() {
+        val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
+
+        val profile = userService.verifySession(session.token)
+        assertThat(profile.firstName).isEqualTo(user.firstName)
+        assertThat(profile.lastName).isEqualTo(user.lastName)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given expired session, when verify session, then failure`() {
+        val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
+        // TODO: travel to the future
+
+        userService.verifySession(session.token)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given inactive session, when verify session, then failure`() {
+        val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
+        sessionRepository.findByIdOrNull(session.id)?.active = false
+
+        userService.verifySession(session.token)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given active session of disabled user, when verify session, then failure`() {
+        val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
+        user.enabled = false
+
+        userService.verifySession(session.token)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given active session of locked user, when verify session, then failure`() {
+        val session = userService.startSession(SignInVerification("+79210017007", verificationCode))
+        user.locked = true
+
+        userService.verifySession(session.token)
+    }
+
+    @Test(expected = UserException::class)
+    fun `When verify session providing non-existent token, then failure`() {
+        userService.verifySession(randomUUID().toString())
     }
 
     @TestConfiguration

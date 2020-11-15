@@ -9,10 +9,7 @@ import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
-import org.itmodreamteam.myrest.shared.user.ActiveSession
-import org.itmodreamteam.myrest.shared.user.SignIn
-import org.itmodreamteam.myrest.shared.user.SignInVerification
-import org.itmodreamteam.myrest.shared.user.SignUp
+import org.itmodreamteam.myrest.shared.user.*
 import org.springframework.stereotype.Service
 
 @Service
@@ -67,5 +64,9 @@ class UserServiceImpl(
         userRepository.save(user)
         val session = sessionRepository.save(Session(user))
         return ActiveSession(session.id, LocalDateTime.parse(session.created.toString()), session.token)
+    }
+
+    override fun verifySession(token: String): Profile {
+        TODO("Not yet implemented")
     }
 }
