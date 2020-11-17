@@ -1,7 +1,7 @@
 package org.itmodreamteam.myrest.server.model.restaurant
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
-import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -53,7 +53,7 @@ class Restaurant() : JpaEntity() {
         this.status = RestaurantStatus.PENDING
     }
 
-    constructor(registerRestaurant: RegisterRestaurant) : this() {
+    constructor(registerRestaurant: RestaurantRegistrationInfo) : this() {
         this.name = registerRestaurant.name
         this.description = registerRestaurant.description
         this.legalInfo = registerRestaurant.legalInfo

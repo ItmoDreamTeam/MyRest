@@ -4,8 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.junit.Before
 import org.junit.Test
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -30,9 +28,6 @@ class RegisterTest {
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
 
-    @MockBean
-    lateinit var notificationService: NotificationService
-
     lateinit var restaurant: Restaurant
 
     @Before
@@ -42,12 +37,12 @@ class RegisterTest {
 
     @Test(expected = UserException::class)
     fun `Given existing restaurant, when created restaurant with existing name, then failure`() {
-        restaurantService.register(RegisterRestaurant("Pizza", "", ""))
+        restaurantService.register(RestaurantRegistrationInfo("Pizza", "", ""))
     }
 
     @Test
     fun `When created new restaurant with valid required arguments, then new restaurant created`() {
-        restaurantService.register(RegisterRestaurant("Pasta", "Italian food", "INN"))
+        restaurantService.register(RestaurantRegistrationInfo("Pasta", "Italian food", "INN"))
 
         var restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(2)
@@ -61,7 +56,7 @@ class RegisterTest {
 
     @Test
     fun `When created new restaurant with the whole arguments, then new restaurant created`() {
-        var createdRestaurant = RegisterRestaurant(
+        var createdRestaurant = RestaurantRegistrationInfo(
             "Pasta",
             "Italian food",
             "docs",
@@ -83,12 +78,12 @@ class RegisterTest {
 
     @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty name, then failure`() {
-        restaurantService.register(RegisterRestaurant("", "Some food", "docs"))
+        restaurantService.register(RestaurantRegistrationInfo("", "Some food", "docs"))
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty description, then failure`() {
-        restaurantService.register(RegisterRestaurant("Pasta", "", "docs"))
+        restaurantService.register(RestaurantRegistrationInfo("Pasta", "", "docs"))
     }
 
     @TestConfiguration

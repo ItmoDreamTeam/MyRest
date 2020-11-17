@@ -7,6 +7,6 @@ import org.springframework.data.domain.Pageable
 
 interface RestaurantRepository : JpaEntityRepository<Restaurant> {
 
-    fun findByNameLike(nameLike: String, pageable: Pageable): Page<Restaurant>
+    fun findByNameLike(nameLike: String, descriptionLike: String, pageable: Pageable): Page<Restaurant>
     fun findByName(name: String): Restaurant?
 }

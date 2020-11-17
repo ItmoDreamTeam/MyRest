@@ -4,15 +4,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.UpdateRestaurant
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -28,9 +26,6 @@ class UpdateTest {
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
 
-    @MockBean
-    lateinit var notificationService: NotificationService
-
     lateinit var restaurant: Restaurant
 
     @Before
@@ -40,7 +35,7 @@ class UpdateTest {
 
     @Test
     fun `Given existing restaurant, when updating it with valid arguments, then success updating`() {
-        val updatedRestaurant = UpdateRestaurant(
+        val updatedRestaurant = RestaurantUpdateInfo(
             "Pizza",
             "Italian and european food",
             "license",
@@ -63,17 +58,17 @@ class UpdateTest {
 
     @Test(expected = UserException::class)
     fun `When updating restaurant with empty name, then failure`() {
-        restaurantService.update(UpdateRestaurant(""))
+        restaurantService.update(RestaurantUpdateInfo(""))
     }
 
     @Test(expected = UserException::class)
     fun `When updating not existing restaurant, then failure`() {
-        restaurantService.update(UpdateRestaurant("Shaverma"))
+        restaurantService.update(RestaurantUpdateInfo("Shaverma"))
     }
 
     @Test(expected = UserException::class)
     fun `Given existing restaurant, when updating with empty arguments, then failure`() {
-        val updatedRestaurant = UpdateRestaurant(
+        val updatedRestaurant = RestaurantUpdateInfo(
             "Pizza",
             "",
             "",
@@ -83,7 +78,7 @@ class UpdateTest {
 
     @Test(expected = UserException::class)
     fun `When updating with null arguments, then failure`() {
-        restaurantService.update(UpdateRestaurant("Pizza"))
+        restaurantService.update(RestaurantUpdateInfo("Pizza"))
     }
 
     @TestConfiguration

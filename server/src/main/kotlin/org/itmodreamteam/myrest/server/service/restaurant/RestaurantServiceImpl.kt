@@ -1,34 +1,29 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
-import org.apache.catalina.User
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
-import org.itmodreamteam.myrest.shared.restaurant.UpdateRestaurant
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
+import org.springframework.data.domain.Page
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.stereotype.Service
-import java.lang.RuntimeException
 
 @Service
 class RestaurantServiceImpl (
     private val restaurantRepository: RestaurantRepository,
-    private val notificationService: NotificationService,
 ) : RestaurantService {
 
-    override fun register(newRestaurant: RegisterRestaurant) {
+    override fun register(newRestaurant: RestaurantRegistrationInfo) {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         if (existingRestaurant == null) {
             restaurantRepository.save(Restaurant(newRestaurant))
-            notificationService.notify("Ресторан передан на обработку")
         } else {
-            notificationService.notify("Ресторана с таким именем не существует")
             throw UserException("Ресторана с таким именем не существует")
         }
     }
 
-    override fun update(updatedRestaurant: UpdateRestaurant) {
+    override fun update(updatedRestaurant: RestaurantUpdateInfo) {
         if (updatedRestaurant.name.isEmpty()) {
             throw UserException("Неправильное имя ресторана")
         }
@@ -37,14 +32,13 @@ class RestaurantServiceImpl (
         }
         val existingRestaurant = restaurantRepository.findByName(updatedRestaurant.name)
         if (existingRestaurant == null) {
-            notificationService.notify("Невозможно обновить ресторан")
             throw UserException("Ресторана с именем ${updatedRestaurant.name} не существует")
         } else {
             updateRestaurant(existingRestaurant, updatedRestaurant)
         }
     }
 
-    private fun updateRestaurant(restaurant: Restaurant, newInfo: UpdateRestaurant) {
+    private fun updateRestaurant(restaurant: Restaurant, newInfo: RestaurantUpdateInfo) {
         if (!newInfo.description.isNullOrBlank()) {
             restaurant.description = newInfo.description!!
         }
@@ -69,5 +63,9 @@ class RestaurantServiceImpl (
         } catch (e: JpaObjectRetrievalFailureException) {
             throw  UserException("No restaurant wit $id")
         }
+    }
+
+    override fun search(keyword: String): Page<Restaurant> {
+        TODO("Not yet implemented")
     }
 }
