@@ -41,8 +41,8 @@ class GetByIdTest {
     }
 
     @Test
-    fun `Given existing identifier, when get restaurant, then return match restaurant`() {
-        var restaurant = restaurantRepository.getOne(identifier)
+    fun `Given existing identifier, when getById restaurant, then return existing restaurant`() {
+        var restaurant = restaurantService.getById(identifier!!)
 
         assertThat(restaurant.id).isEqualTo(identifier)
         assertThat(restaurant.name).isEqualTo("Pizza")
@@ -51,8 +51,8 @@ class GetByIdTest {
     }
 
     @Test(expected = UserException::class)
-    fun `When get with not existing identifier, then failure`() {
-        var restaurant = restaurantRepository.getOne(191912)
+    fun `When getById with not existing identifier, then failure`() {
+        var restaurant = restaurantService.getById(191912)
     }
 
     @TestConfiguration

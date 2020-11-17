@@ -1,12 +1,15 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
+import org.apache.catalina.User
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
 import org.itmodreamteam.myrest.shared.restaurant.UpdateRestaurant
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.stereotype.Service
+import java.lang.RuntimeException
 
 @Service
 class RestaurantServiceImpl (
@@ -60,7 +63,11 @@ class RestaurantServiceImpl (
         restaurantRepository.save(restaurant)
     }
 
-    override fun getById(id: Long) {
-        TODO("Not yet implemented")
+    override fun getById(id: Long) : Restaurant {
+        try {
+            return restaurantRepository.getOne(id)
+        } catch (e: JpaObjectRetrievalFailureException) {
+            throw  UserException("No restaurant wit $id")
+        }
     }
 }
