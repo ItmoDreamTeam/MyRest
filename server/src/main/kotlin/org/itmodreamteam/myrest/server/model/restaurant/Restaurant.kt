@@ -6,6 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.Table
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -18,10 +19,12 @@ class Restaurant() : JpaEntity() {
     lateinit var status: RestaurantStatus
 
     @NotNull
+    @NotBlank
     @Size(max = 50)
     lateinit var name: String
 
     @NotNull
+    @NotBlank
     @Size(max = 10000)
     lateinit var description: String
 

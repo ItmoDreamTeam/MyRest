@@ -1,8 +1,8 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
+import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
 
 interface RestaurantService {
 
-    fun registerRestaurant(info: RestaurantInfo)
+    fun registerRestaurant(info: RegisterRestaurant)
 }
