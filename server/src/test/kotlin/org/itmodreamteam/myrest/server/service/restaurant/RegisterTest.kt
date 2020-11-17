@@ -28,7 +28,7 @@ class RegisterTest {
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
 
-    lateinit var restaurant: Restaurant
+    private lateinit var restaurant: Restaurant
 
     @Before
     fun setup() {
@@ -36,18 +36,18 @@ class RegisterTest {
     }
 
     @Test(expected = UserException::class)
-    fun `Given existing restaurant, when created restaurant with existing name, then failure`() {
+    fun `Given existing restaurant, when create restaurant with existing name, then failure`() {
         restaurantService.register(RestaurantRegistrationInfo("Pizza", "", ""))
     }
 
     @Test
-    fun `When created new restaurant with valid required arguments, then new restaurant created`() {
+    fun `When create new restaurant with valid required arguments, then new restaurant created`() {
         restaurantService.register(RestaurantRegistrationInfo("Pasta", "Italian food", "INN"))
 
-        var restaurants = restaurantRepository.findAll()
+        val restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(2)
 
-        var newRestaurant = restaurants[1]
+        val newRestaurant = restaurants[1]
         assertThat(newRestaurant.name).isEqualTo("Pasta")
         assertThat(newRestaurant.description).isEqualTo("Italian food")
         assertThat(newRestaurant.legalInfo).isEqualTo("INN")
@@ -55,7 +55,7 @@ class RegisterTest {
     }
 
     @Test
-    fun `When created new restaurant with the whole arguments, then new restaurant created`() {
+    fun `When create new restaurant with the whole arguments, then new restaurant created`() {
         var createdRestaurant = RestaurantRegistrationInfo(
             "Pasta",
             "Italian food",
@@ -66,10 +66,10 @@ class RegisterTest {
         )
         restaurantService.register(createdRestaurant)
 
-        var restaurants = restaurantRepository.findAll()
+        val restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(2)
 
-        var newRestaurant = restaurants[1]
+        val newRestaurant = restaurants[1]
         assertThat(newRestaurant.name).isEqualTo("Pasta")
         assertThat(newRestaurant.description).isEqualTo("Italian food")
         assertThat(newRestaurant.legalInfo).isEqualTo("docs")
@@ -77,12 +77,12 @@ class RegisterTest {
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When created new restaurant with empty name, then failure`() {
+    fun `When create new restaurant with empty name, then failure`() {
         restaurantService.register(RestaurantRegistrationInfo("", "Some food", "docs"))
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When created new restaurant with empty description, then failure`() {
+    fun `When create new restaurant with empty description, then failure`() {
         restaurantService.register(RestaurantRegistrationInfo("Pasta", "", "docs"))
     }
 

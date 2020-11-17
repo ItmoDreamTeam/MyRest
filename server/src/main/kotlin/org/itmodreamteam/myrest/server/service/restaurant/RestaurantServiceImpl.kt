@@ -7,7 +7,7 @@ import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,27 +20,28 @@ class RestaurantServiceImpl (
         if (existingRestaurant == null) {
             restaurantRepository.save(Restaurant(newRestaurant))
         } else {
-            throw UserException("Ресторана с таким именем не существует")
+            throw UserException("Ресторан с таким именем уже существует")
         }
     }
 
-    override fun update(updatedRestaurant: RestaurantUpdateInfo) {
-        if (updatedRestaurant.name.isEmpty()) {
+    override fun update(restaurantUpdateInfo: RestaurantUpdateInfo) {
+        if (restaurantUpdateInfo.name.isEmpty()) {
             throw UserException("Неправильное имя ресторана")
         }
-        if (updatedRestaurant.getProperties().none { !it.isNullOrBlank() }) {
+        if (restaurantUpdateInfo.getProperties().all { it.isNullOrBlank() }) {
             throw  UserException("Нечего обновлять")
         }
-        val existingRestaurant = restaurantRepository.findByName(updatedRestaurant.name)
+        val existingRestaurant = restaurantRepository.findByName(restaurantUpdateInfo.name)
         if (existingRestaurant == null) {
-            throw UserException("Ресторана с именем ${updatedRestaurant.name} не существует")
+            throw UserException("Ресторана с именем ${restaurantUpdateInfo.name} не существует")
         } else {
-            updateRestaurant(existingRestaurant, updatedRestaurant)
+            updateRestaurant(existingRestaurant, restaurantUpdateInfo)
         }
     }
 
     private fun updateRestaurant(restaurant: Restaurant, newInfo: RestaurantUpdateInfo) {
-        if (!newInfo.description.isNullOrBlank()) {
+
+        if (newInfo.description != null) {
             restaurant.description = newInfo.description!!
         }
         if (!newInfo.legalInfo.isNullOrBlank()) {
@@ -59,11 +60,7 @@ class RestaurantServiceImpl (
     }
 
     override fun getById(id: Long) : Restaurant {
-        try {
-            return restaurantRepository.getOne(id)
-        } catch (e: JpaObjectRetrievalFailureException) {
-            throw  UserException("No restaurant wit $id")
-        }
+        return restaurantRepository.findByIdOrNull(id) ?: throw UserException("Ресторана с id $id не существует")
     }
 
     override fun search(keyword: String, pageable: Pageable) : Page<Restaurant> {

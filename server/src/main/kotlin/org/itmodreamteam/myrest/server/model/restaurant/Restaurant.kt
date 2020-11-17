@@ -3,10 +3,7 @@ package org.itmodreamteam.myrest.server.model.restaurant
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.Table
+import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -22,6 +19,7 @@ class Restaurant() : JpaEntity() {
     @NotNull
     @NotBlank
     @Size(max = 50)
+    @Column(unique = true)
     lateinit var name: String
 
     @NotNull

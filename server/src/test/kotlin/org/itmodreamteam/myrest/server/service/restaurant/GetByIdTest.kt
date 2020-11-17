@@ -25,7 +25,7 @@ class GetByIdTest {
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
 
-    private var identifier: Long? = null
+    private var identifier: Long = 0
 
     @Before
     fun setup() {
@@ -34,7 +34,7 @@ class GetByIdTest {
 
     @Test
     fun `Given existing identifier, when getById restaurant, then return existing restaurant`() {
-        var restaurant = restaurantService.getById(identifier!!)
+        val restaurant = restaurantService.getById(identifier)
 
         assertThat(restaurant.id).isEqualTo(identifier)
         assertThat(restaurant.name).isEqualTo("Pizza")
@@ -44,7 +44,7 @@ class GetByIdTest {
 
     @Test(expected = UserException::class)
     fun `When getById with not existing identifier, then failure`() {
-        var restaurant = restaurantService.getById(191912)
+        restaurantService.getById(191912)
     }
 
     @TestConfiguration

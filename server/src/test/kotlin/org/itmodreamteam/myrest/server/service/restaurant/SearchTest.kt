@@ -80,14 +80,14 @@ class SearchTest {
 
     @Test
     fun `Given saved restaurants, when search by not existing description like, then get empty page`() {
-        var foundRestaurants = restaurantService.search("Grill", Pageable.unpaged())
+        val foundRestaurants = restaurantService.search("Grill", Pageable.unpaged())
 
         assertThat(foundRestaurants.totalElements).isEqualTo(0)
     }
 
     @Test
     fun `Given saved restaurants, when search by empty string, then get all restaurants`() {
-        var foundRestaurant = restaurantService.search("", Pageable.unpaged())
+        val foundRestaurant = restaurantService.search("", Pageable.unpaged())
 
         assertThat(foundRestaurant.totalElements).isEqualTo(5)
     }

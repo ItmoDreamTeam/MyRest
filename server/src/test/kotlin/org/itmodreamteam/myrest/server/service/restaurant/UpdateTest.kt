@@ -26,7 +26,7 @@ class UpdateTest {
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
 
-    lateinit var restaurant: Restaurant
+    private lateinit var restaurant: Restaurant
 
     @Before
     fun setup() {
@@ -45,10 +45,10 @@ class UpdateTest {
         )
         restaurantService.update(updatedRestaurant)
 
-        var restaurants = restaurantRepository.findAll()
+        val restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(1)
 
-        var existingRestaurant = restaurants[0]
+        val existingRestaurant = restaurants[0]
         assertThat(existingRestaurant.name).isEqualTo("Pizza")
         assertThat(existingRestaurant.description).isEqualTo("Italian and european food")
         assertThat(existingRestaurant.legalInfo).isEqualTo("license")
