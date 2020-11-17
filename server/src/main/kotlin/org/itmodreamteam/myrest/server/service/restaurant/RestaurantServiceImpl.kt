@@ -5,6 +5,7 @@ import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
+import org.itmodreamteam.myrest.shared.restaurant.UpdateRestaurant
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,5 +23,9 @@ class RestaurantServiceImpl (
             notificationService.notify("Ресторан с таким именем существует")
             throw UserException("Ресторан с таким именем существует")
         }
+    }
+
+    override fun updateRestaurant(info: UpdateRestaurant) {
+        TODO("Not yet implemented")
     }
 }
