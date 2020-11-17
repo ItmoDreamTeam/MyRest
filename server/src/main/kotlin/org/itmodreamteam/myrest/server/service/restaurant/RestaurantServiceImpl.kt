@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.stereotype.Service
 
@@ -65,7 +66,7 @@ class RestaurantServiceImpl (
         }
     }
 
-    override fun search(keyword: String): Page<Restaurant> {
-        TODO("Not yet implemented")
+    override fun search(keyword: String, pageable: Pageable) : Page<Restaurant> {
+        return restaurantRepository.findByNameContainsIgnoreCaseOrDescriptionContainsIgnoreCase(keyword, keyword,Pageable.unpaged())
     }
 }
