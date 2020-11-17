@@ -2,6 +2,7 @@ package org.itmodreamteam.myrest.server.model.restaurant
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import javax.persistence.Entity
+import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -26,10 +27,18 @@ class RestaurantTable() : JpaEntity() {
     @PositiveOrZero
     var numberOfSeats: Int = 0
 
+    @ManyToMany
+    private lateinit var _waiters: MutableSet<Waiter>
+
+    var waiters: List<Waiter>
+        get() = _waiters.sortedBy { it.user }
+        private set(value) {}
+
     constructor(restaurant: Restaurant, name: String, description: String?, numberOfSeats: Int) : this() {
         this.restaurant = restaurant
         this.name = name
         this.description = description
         this.numberOfSeats = numberOfSeats
+        this._waiters = mutableSetOf()
     }
 }
