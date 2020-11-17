@@ -6,5 +6,6 @@ data class UpdateRestaurant (
     val legalInfo: String? = null,
     val websiteUrl: String? = null,
     val phone: String? = null,
-    val email: String? = null,
-)
+    val email: String? = null, ) {
+    fun getProperties() : List<String?> = listOf(description, legalInfo, websiteUrl, phone, email)
+}

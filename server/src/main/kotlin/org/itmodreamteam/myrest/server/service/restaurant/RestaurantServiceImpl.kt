@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class RestaurantServiceImpl (
     private val restaurantRepository: RestaurantRepository,
-    private val notificationService: NotificationService
+    private val notificationService: NotificationService,
 ) : RestaurantService {
 
     override fun registerRestaurant(newRestaurant: RegisterRestaurant) {
@@ -20,12 +20,43 @@ class RestaurantServiceImpl (
             restaurantRepository.save(Restaurant(newRestaurant))
             notificationService.notify("Ресторан передан на обработку")
         } else {
-            notificationService.notify("Ресторан с таким именем существует")
-            throw UserException("Ресторан с таким именем существует")
+            notificationService.notify("Ресторана с таким именем не существует")
+            throw UserException("Ресторана с таким именем не существует")
         }
     }
 
-    override fun updateRestaurant(info: UpdateRestaurant) {
-        TODO("Not yet implemented")
+    override fun updateRestaurant(updatedRestaurant: UpdateRestaurant) {
+        if (updatedRestaurant.name.isEmpty()) {
+            throw UserException("Неправильное имя ресторана")
+        }
+        if (updatedRestaurant.getProperties().none { !it.isNullOrBlank() }) {
+            throw  UserException("Нечего обновлять")
+        }
+        val existingRestaurant = restaurantRepository.findByName(updatedRestaurant.name)
+        if (existingRestaurant == null) {
+            notificationService.notify("Невозможно обновить ресторан")
+            throw UserException("Ресторана с именем ${updatedRestaurant.name} не существует")
+        } else {
+            updateRestaurant(existingRestaurant, updatedRestaurant)
+        }
+    }
+
+    private fun updateRestaurant(restaurant: Restaurant, newInfo: UpdateRestaurant) {
+        if (!newInfo.description.isNullOrBlank()) {
+            restaurant.description = newInfo.description!!
+        }
+        if (!newInfo.legalInfo.isNullOrBlank()) {
+            restaurant.legalInfo = newInfo.legalInfo!!
+        }
+        if (!newInfo.email.isNullOrBlank()) {
+            restaurant.email = newInfo.email!!
+        }
+        if (!newInfo.phone.isNullOrBlank()) {
+            restaurant.phone = newInfo.phone!!
+        }
+        if (!newInfo.websiteUrl.isNullOrBlank()) {
+            restaurant.websiteUrl = newInfo.websiteUrl!!
+        }
+        restaurantRepository.save(restaurant)
     }
 }
