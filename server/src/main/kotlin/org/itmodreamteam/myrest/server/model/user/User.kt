@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "users")
-class User() : JpaEntity() {
+class User() : JpaEntity(), Comparable<User> {
 
     var enabled: Boolean = false
 
@@ -27,6 +27,12 @@ class User() : JpaEntity() {
     constructor(firstName: String, lastName: String) : this() {
         this.firstName = firstName
         this.lastName = lastName
+    }
+
+    override fun compareTo(other: User): Int {
+        return Comparator.comparing(User::firstName)
+            .thenComparing(User::lastName)
+            .compare(this, other)
     }
 
     enum class Role {
