@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.server.model.restaurant
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
+import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -49,6 +50,16 @@ class Restaurant() : JpaEntity() {
         this.name = name
         this.description = description
         this.legalInfo = legalInfo
+        this.status = RestaurantStatus.PENDING
+    }
+
+    constructor(registerRestaurant: RegisterRestaurant) : this() {
+        this.name = registerRestaurant.name
+        this.description = registerRestaurant.description
+        this.legalInfo = registerRestaurant.legalInfo
+        this.websiteUrl = registerRestaurant.websiteUrl
+        this.phone = registerRestaurant.phone
+        this.email = registerRestaurant.email
         this.status = RestaurantStatus.PENDING
     }
 }

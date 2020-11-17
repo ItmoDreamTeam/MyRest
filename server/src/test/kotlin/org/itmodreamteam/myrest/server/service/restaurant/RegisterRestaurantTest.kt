@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import javax.validation.ConstraintViolationException
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
@@ -76,19 +77,14 @@ class RegisterRestaurantTest {
         assertThat(newRestaurant.status).isEqualTo(RestaurantStatus.PENDING)
     }
 
-    @Test
+    @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty name, then failure`() {
         restaurantService.registerRestaurant(RegisterRestaurant("", "Some food", "docs"))
-
-        var restaurants = restaurantRepository.findAll()
-        assertThat(restaurants).hasSize(1)
     }
 
+    @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty description, then failure`() {
         restaurantService.registerRestaurant(RegisterRestaurant("Pasta", "", "docs"))
-
-        var restaurants = restaurantRepository.findAll()
-        assertThat(restaurants).hasSize(1)
     }
 
     @TestConfiguration
