@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
-@ContextConfiguration(classes = [UpdateRestaurantTest.Config::class])
-class UpdateRestaurantTest {
+@ContextConfiguration(classes = [UpdateTest.Config::class])
+class UpdateTest {
 
     @Autowired
     lateinit var restaurantService: RestaurantService
@@ -48,7 +48,7 @@ class UpdateRestaurantTest {
             "8928335050",
             "pizzana@mail.ru"
         )
-        restaurantService.updateRestaurant(updatedRestaurant)
+        restaurantService.update(updatedRestaurant)
 
         var restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(1)
@@ -63,12 +63,12 @@ class UpdateRestaurantTest {
 
     @Test(expected = UserException::class)
     fun `When updating restaurant with empty name, then failure`() {
-        restaurantService.updateRestaurant(UpdateRestaurant(""))
+        restaurantService.update(UpdateRestaurant(""))
     }
 
     @Test(expected = UserException::class)
     fun `When updating not existing restaurant, then failure`() {
-        restaurantService.updateRestaurant(UpdateRestaurant("Shaverma"))
+        restaurantService.update(UpdateRestaurant("Shaverma"))
     }
 
     @Test(expected = UserException::class)
@@ -78,12 +78,12 @@ class UpdateRestaurantTest {
             "",
             "",
         )
-        restaurantService.updateRestaurant(updatedRestaurant)
+        restaurantService.update(updatedRestaurant)
     }
 
     @Test(expected = UserException::class)
     fun `When updating with null arguments, then failure`() {
-        restaurantService.updateRestaurant(UpdateRestaurant("Pizza"))
+        restaurantService.update(UpdateRestaurant("Pizza"))
     }
 
     @TestConfiguration

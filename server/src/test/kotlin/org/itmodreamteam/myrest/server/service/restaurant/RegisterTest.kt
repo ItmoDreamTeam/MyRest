@@ -5,7 +5,6 @@ import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.server.service.user.SignInTest
 import org.itmodreamteam.myrest.shared.restaurant.RegisterRestaurant
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.junit.Before
@@ -22,8 +21,8 @@ import javax.validation.ConstraintViolationException
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
-@ContextConfiguration(classes = [RegisterRestaurantTest.Config::class])
-class RegisterRestaurantTest {
+@ContextConfiguration(classes = [RegisterTest.Config::class])
+class RegisterTest {
 
     @Autowired
     lateinit var restaurantService: RestaurantService
@@ -43,12 +42,12 @@ class RegisterRestaurantTest {
 
     @Test(expected = UserException::class)
     fun `Given existing restaurant, when created restaurant with existing name, then failure`() {
-        restaurantService.registerRestaurant(RegisterRestaurant("Pizza", "", ""))
+        restaurantService.register(RegisterRestaurant("Pizza", "", ""))
     }
 
     @Test
     fun `When created new restaurant with valid required arguments, then new restaurant created`() {
-        restaurantService.registerRestaurant(RegisterRestaurant("Pasta", "Italian food", "INN"))
+        restaurantService.register(RegisterRestaurant("Pasta", "Italian food", "INN"))
 
         var restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(2)
@@ -70,7 +69,7 @@ class RegisterRestaurantTest {
             "8928335050",
             "pizza@mail.ru"
         )
-        restaurantService.registerRestaurant(createdRestaurant)
+        restaurantService.register(createdRestaurant)
 
         var restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(2)
@@ -84,12 +83,12 @@ class RegisterRestaurantTest {
 
     @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty name, then failure`() {
-        restaurantService.registerRestaurant(RegisterRestaurant("", "Some food", "docs"))
+        restaurantService.register(RegisterRestaurant("", "Some food", "docs"))
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `When created new restaurant with empty description, then failure`() {
-        restaurantService.registerRestaurant(RegisterRestaurant("Pasta", "", "docs"))
+        restaurantService.register(RegisterRestaurant("Pasta", "", "docs"))
     }
 
     @TestConfiguration

@@ -5,6 +5,7 @@ import org.itmodreamteam.myrest.shared.restaurant.UpdateRestaurant
 
 interface RestaurantService {
 
-    fun registerRestaurant(newRestaurant: RegisterRestaurant)
-    fun updateRestaurant(updatedRestaurant: UpdateRestaurant)
+    fun register(newRestaurant: RegisterRestaurant)
+    fun update(updatedRestaurant: UpdateRestaurant)
+    fun getById(id: Long)
 }

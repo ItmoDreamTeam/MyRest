@@ -14,7 +14,7 @@ class RestaurantServiceImpl (
     private val notificationService: NotificationService,
 ) : RestaurantService {
 
-    override fun registerRestaurant(newRestaurant: RegisterRestaurant) {
+    override fun register(newRestaurant: RegisterRestaurant) {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         if (existingRestaurant == null) {
             restaurantRepository.save(Restaurant(newRestaurant))
@@ -25,7 +25,7 @@ class RestaurantServiceImpl (
         }
     }
 
-    override fun updateRestaurant(updatedRestaurant: UpdateRestaurant) {
+    override fun update(updatedRestaurant: UpdateRestaurant) {
         if (updatedRestaurant.name.isEmpty()) {
             throw UserException("Неправильное имя ресторана")
         }
@@ -58,5 +58,9 @@ class RestaurantServiceImpl (
             restaurant.websiteUrl = newInfo.websiteUrl!!
         }
         restaurantRepository.save(restaurant)
+    }
+
+    override fun getById(id: Long) {
+        TODO("Not yet implemented")
     }
 }
