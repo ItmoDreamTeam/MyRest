@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.server.model.restaurant.Waiter
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
@@ -17,6 +18,7 @@ class EmployeeServiceImpl(
     private val employeeRepository: EmployeeRepository,
     private val restaurantRepository: RestaurantRepository,
     private val identifierRepository: IdentifierRepository,
+    private val notificationService: NotificationService,
 ) : EmployeeService {
 
     override fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
@@ -34,6 +36,7 @@ class EmployeeServiceImpl(
                 EmployeePosition.WAITER -> Waiter(restaurant, user)
             }
         )
+        notificationService.notify(user, "${restaurant.name} хочет добавить вас в качестве сотрудника")
         return getById(employee.id)
     }
 

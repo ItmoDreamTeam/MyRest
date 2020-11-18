@@ -8,15 +8,19 @@ import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeStatus
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -37,6 +41,9 @@ class EmployeeInvitationTest {
 
     @Autowired
     lateinit var identifierRepository: IdentifierRepository
+
+    @MockBean
+    lateinit var notificationService: NotificationService
 
     lateinit var restaurant: Restaurant
     lateinit var user: User
@@ -66,6 +73,15 @@ class EmployeeInvitationTest {
         val employeeInfo = employeeService.inviteEmployee(restaurant.id, invitation)
 
         assertThat(employeeInfo.position).isEqualTo(EmployeePosition.MANAGER)
+    }
+
+    @Test
+    fun `Given restaurant and user, when invite user to restaurant, then user is notified`() {
+        val invitation = EmployeeInvitation("+79889875634", EmployeePosition.MANAGER)
+        employeeService.inviteEmployee(restaurant.id, invitation)
+
+        val text = "${restaurant.name} хочет добавить вас в качестве сотрудника"
+        verify(notificationService, times(1)).notify(user, text)
     }
 
     @Test(expected = UserException::class)
