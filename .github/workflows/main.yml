@@ -12,6 +12,10 @@ jobs:
         with:
           name: server
           path: server/build/libs/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: server-test
+          path: server/build/reports/
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
