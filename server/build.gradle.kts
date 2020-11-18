@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("org.springframework.boot") version "2.3.5.RELEASE"
+    jacoco
 }
 apply(plugin = "io.spring.dependency-management")
 
@@ -11,6 +12,9 @@ version = "1.0-SNAPSHOT"
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
+}
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 repositories {
