@@ -7,9 +7,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
-import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
+import org.itmodreamteam.myrest.shared.restaurant.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -38,6 +36,22 @@ class EmployeeServiceImpl(
         )
         notificationService.notify(user, "${restaurant.name} хочет добавить вас в качестве сотрудника")
         return getById(employee.id)
+    }
+
+    override fun updateEmployee(id: Long, userStatus: EmployeeUserStatus): EmployeeInfo {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateEmployee(id: Long, restaurantStatus: EmployeeRestaurantStatus): EmployeeInfo {
+        TODO("Not yet implemented")
+    }
+
+    override fun getRestaurantsOfUser(userId: Long): List<EmployeeInfo> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo> {
+        TODO("Not yet implemented")
     }
 
     override fun getById(id: Long): EmployeeInfo {
