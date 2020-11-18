@@ -2,7 +2,8 @@ package org.itmodreamteam.myrest.server.model.restaurant
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import org.itmodreamteam.myrest.server.model.user.User
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeStatus
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeUserStatus
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -25,11 +26,16 @@ abstract class Employee() : JpaEntity() {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    lateinit var status: EmployeeStatus
+    lateinit var userStatus: EmployeeUserStatus
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    lateinit var restaurantStatus: EmployeeRestaurantStatus
 
     constructor(restaurant: Restaurant, user: User) : this() {
         this.restaurant = restaurant
         this.user = user
-        this.status = EmployeeStatus.PENDING
+        this.userStatus = EmployeeUserStatus.PENDING
+        this.restaurantStatus = EmployeeRestaurantStatus.ACTIVE
     }
 }

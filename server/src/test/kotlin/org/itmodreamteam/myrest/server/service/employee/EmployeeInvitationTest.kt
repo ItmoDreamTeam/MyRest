@@ -11,7 +11,8 @@ import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeStatus
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeUserStatus
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -64,7 +65,8 @@ class EmployeeInvitationTest {
         assertThat(employeeInfo.restaurantId).isEqualTo(restaurant.id)
         assertThat(employeeInfo.userId).isEqualTo(user.id)
         assertThat(employeeInfo.position).isEqualTo(EmployeePosition.WAITER)
-        assertThat(employeeInfo.status).isEqualTo(EmployeeStatus.PENDING)
+        assertThat(employeeInfo.userStatus).isEqualTo(EmployeeUserStatus.PENDING)
+        assertThat(employeeInfo.restaurantStatus).isEqualTo(EmployeeRestaurantStatus.ACTIVE)
     }
 
     @Test
