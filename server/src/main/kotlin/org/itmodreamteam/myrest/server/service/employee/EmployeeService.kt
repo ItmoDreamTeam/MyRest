@@ -6,4 +6,6 @@ import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 interface EmployeeService {
 
     fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo
+
+    fun getById(id: Long): EmployeeInfo
 }

@@ -50,7 +50,7 @@ class EmployeeInvitationTest {
     }
 
     @Test
-    fun `Given restaurant and user, when invite user to restaurant, then employee status is pending`() {
+    fun `Given restaurant and user, when invite user to restaurant as waiter, then return correct employee info`() {
         val invitation = EmployeeInvitation("+79889875634", EmployeePosition.WAITER)
         val employeeInfo = employeeService.inviteEmployee(restaurant.id, invitation)
 
@@ -58,6 +58,14 @@ class EmployeeInvitationTest {
         assertThat(employeeInfo.userId).isEqualTo(user.id)
         assertThat(employeeInfo.position).isEqualTo(EmployeePosition.WAITER)
         assertThat(employeeInfo.status).isEqualTo(EmployeeStatus.PENDING)
+    }
+
+    @Test
+    fun `Given restaurant and user, when invite user to restaurant as manager, then return correct employee info`() {
+        val invitation = EmployeeInvitation("+79889875634", EmployeePosition.MANAGER)
+        val employeeInfo = employeeService.inviteEmployee(restaurant.id, invitation)
+
+        assertThat(employeeInfo.position).isEqualTo(EmployeePosition.MANAGER)
     }
 
     @Test(expected = UserException::class)
@@ -70,6 +78,28 @@ class EmployeeInvitationTest {
     fun `When invite user to non-existent restaurant, then failure`() {
         val invitation = EmployeeInvitation("+79889875634", EmployeePosition.WAITER)
         employeeService.inviteEmployee(89710, invitation)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given invited user, when invite this user again, then failure`() {
+        val invitation = EmployeeInvitation("+79889875634", EmployeePosition.WAITER)
+        employeeService.inviteEmployee(restaurant.id, invitation)
+
+        employeeService.inviteEmployee(restaurant.id, invitation)
+    }
+
+    @Test
+    fun `Given invited employee, when get employee by ID, then return correct employee info`() {
+        val invitation = EmployeeInvitation("+79889875634", EmployeePosition.MANAGER)
+        val employeeInfo = employeeService.inviteEmployee(restaurant.id, invitation)
+
+        val employeeInfoById = employeeService.getById(employeeInfo.id)
+        assertThat(employeeInfoById).isEqualTo(employeeInfo)
+    }
+
+    @Test(expected = UserException::class)
+    fun `When get employee by non-existent ID, then failure`() {
+        employeeService.getById(5840);
     }
 
     @TestConfiguration

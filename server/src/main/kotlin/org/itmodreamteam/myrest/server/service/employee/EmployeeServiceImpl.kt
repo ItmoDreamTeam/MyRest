@@ -1,0 +1,50 @@
+package org.itmodreamteam.myrest.server.service.employee
+
+import org.itmodreamteam.myrest.server.error.UserException
+import org.itmodreamteam.myrest.server.model.restaurant.Manager
+import org.itmodreamteam.myrest.server.model.restaurant.Waiter
+import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
+import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
+import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
+import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
+
+@Service
+class EmployeeServiceImpl(
+    private val employeeRepository: EmployeeRepository,
+    private val restaurantRepository: RestaurantRepository,
+    private val identifierRepository: IdentifierRepository,
+) : EmployeeService {
+
+    override fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
+        val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
+            ?: throw UserException("Ресторан не найден")
+        val user = identifierRepository.findByValue(invitation.phone)?.user
+            ?: throw UserException("Пользователь не найден")
+        val exists = employeeRepository.findByRestaurantAndUser(restaurant, user) != null
+        if (exists) {
+            throw UserException("Сотрудник уже существует")
+        }
+        val employee = employeeRepository.save(
+            when (invitation.position) {
+                EmployeePosition.MANAGER -> Manager(restaurant, user)
+                EmployeePosition.WAITER -> Waiter(restaurant, user)
+            }
+        )
+        return getById(employee.id)
+    }
+
+    override fun getById(id: Long): EmployeeInfo {
+        val employee = employeeRepository.findByIdOrNull(id)
+            ?: throw UserException("Сотрудник не найден")
+        val position = when (employee) {
+            is Manager -> EmployeePosition.MANAGER
+            is Waiter -> EmployeePosition.WAITER
+            else -> throw IllegalStateException()
+        }
+        return EmployeeInfo(employee.id, employee.restaurant.id, employee.user.id, position, employee.status)
+    }
+}
