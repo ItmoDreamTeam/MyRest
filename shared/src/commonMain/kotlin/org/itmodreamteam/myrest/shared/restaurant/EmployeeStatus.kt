@@ -1,8 +1,12 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
-enum class EmployeeStatus {
+enum class EmployeeUserStatus {
     PENDING,
     ACTIVE,
     BLOCKED,
-    RESIGNED,
+}
+
+enum class EmployeeRestaurantStatus {
+    ACTIVE,
+    BLOCKED,
 }

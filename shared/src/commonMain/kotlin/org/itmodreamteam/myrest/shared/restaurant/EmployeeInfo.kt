@@ -5,5 +5,6 @@ data class EmployeeInfo(
     val restaurantId: Long, // TODO: replace with restaurant DTO
     val userId: Long, // TODO: replace with user DTO
     val position: EmployeePosition,
-    val status: EmployeeStatus,
+    val userStatus: EmployeeUserStatus,
+    val restaurantStatus: EmployeeRestaurantStatus,
 )

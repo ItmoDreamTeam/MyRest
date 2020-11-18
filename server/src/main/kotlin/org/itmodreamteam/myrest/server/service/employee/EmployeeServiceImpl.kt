@@ -48,6 +48,13 @@ class EmployeeServiceImpl(
             is Waiter -> EmployeePosition.WAITER
             else -> throw IllegalStateException()
         }
-        return EmployeeInfo(employee.id, employee.restaurant.id, employee.user.id, position, employee.status)
+        return EmployeeInfo(
+            employee.id,
+            employee.restaurant.id,
+            employee.user.id,
+            position,
+            employee.userStatus,
+            employee.restaurantStatus
+        )
     }
 }
