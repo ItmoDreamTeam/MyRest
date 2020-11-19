@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
+import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
@@ -15,4 +16,6 @@ interface RestaurantService {
     fun getById(id: Long): RestaurantInfo
 
     fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo>
+
+    fun toRestaurantInfo(from: Restaurant): RestaurantInfo
 }

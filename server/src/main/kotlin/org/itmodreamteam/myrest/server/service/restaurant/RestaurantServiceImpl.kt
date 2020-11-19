@@ -23,7 +23,7 @@ class RestaurantServiceImpl (
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         if (existingRestaurant == null) {
             val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
-            return getRestaurantInfo(restaurant)
+            return toRestaurantInfo(restaurant)
         } else {
             throw UserException("Ресторан с таким именем уже существует")
         }
@@ -58,19 +58,19 @@ class RestaurantServiceImpl (
             restaurant.websiteUrl = newInfo.websiteUrl!!
         }
         val restaurant = restaurantRepository.save(restaurant)
-        return getRestaurantInfo(restaurant)
+        return toRestaurantInfo(restaurant)
     }
 
     override fun getById(id: Long): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id) ?: throw UserException("Ресторана с id $id не существует")
-        return getRestaurantInfo(restaurant)
+        return toRestaurantInfo(restaurant)
     }
 
     override fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo> {
-        return PageImpl(restaurantRepository.find(keyword, statuses, pageable).content.map { getRestaurantInfo(it) })
+        return PageImpl(restaurantRepository.find(keyword, statuses, pageable).content.map {toRestaurantInfo(it) })
     }
 
-    private fun getRestaurantInfo(from: Restaurant): RestaurantInfo {
+    override fun toRestaurantInfo(from: Restaurant): RestaurantInfo {
         return RestaurantInfo(
             from.id,
             from.status,
