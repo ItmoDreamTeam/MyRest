@@ -82,6 +82,10 @@ class UserServiceImpl(
         if (!session.active) {
             throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
         }
+        return toProfile(user)
+    }
+
+    override fun toProfile(user: User): Profile {
         return Profile(user.firstName, user.lastName)
     }
 }
