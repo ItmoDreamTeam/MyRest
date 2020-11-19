@@ -7,4 +7,4 @@ class StubNotificationService: NotificationService {
     override fun notify(message: String) {
         print("")
     }
-}
+} 

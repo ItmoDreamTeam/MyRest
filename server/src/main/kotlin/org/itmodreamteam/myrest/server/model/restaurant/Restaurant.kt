@@ -13,20 +13,23 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Entity
-@Table(name = "restaurants")
+@Table(
+    name = "restaurants",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["name"])]
+)
 class Restaurant() : JpaEntity() {
 
     @NotNull
     @Enumerated(EnumType.STRING)
     lateinit var status: RestaurantStatus
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Название ресторана не задано")
+    @NotBlank(message = "Название ресторана не задано")
     @Size(max = 50)
-    @Column(unique = true)
     lateinit var name: String
 
-    @NotNull
+    @NotNull(message = "У ресторана должно быть описание")
+    @NotBlank(message = "У ресторана должно быть описание")
     @Size(max = 10000)
     lateinit var description: String
 

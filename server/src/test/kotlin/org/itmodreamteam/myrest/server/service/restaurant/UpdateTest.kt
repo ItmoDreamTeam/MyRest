@@ -27,15 +27,18 @@ class UpdateTest {
     lateinit var restaurantRepository: RestaurantRepository
 
     private lateinit var restaurant: Restaurant
+    private var identifier: Long = 0
 
     @Before
     fun setup() {
         restaurant = restaurantRepository.save(Restaurant("Pizza", "Italian food", "ИНН"))
+        identifier = restaurant.id
     }
 
     @Test
     fun `Given existing restaurant, when updating it with valid arguments, then success updating`() {
         val updatedRestaurant = RestaurantUpdateInfo(
+            identifier,
             "Pizza",
             "Italian and european food",
             "license",
@@ -57,28 +60,27 @@ class UpdateTest {
     }
 
     @Test(expected = UserException::class)
-    fun `When updating restaurant with empty name, then failure`() {
-        restaurantService.update(RestaurantUpdateInfo(""))
-    }
-
-    @Test(expected = UserException::class)
     fun `When updating not existing restaurant, then failure`() {
-        restaurantService.update(RestaurantUpdateInfo("Shaverma"))
+        restaurantService.update(RestaurantUpdateInfo(1001110))
     }
 
     @Test(expected = UserException::class)
     fun `Given existing restaurant, when updating with empty arguments, then failure`() {
         val updatedRestaurant = RestaurantUpdateInfo(
-            "Pizza",
+            identifier,
             "",
             "",
+            "",
+            "",
+            "",
+            ""
         )
         restaurantService.update(updatedRestaurant)
     }
 
     @Test(expected = UserException::class)
     fun `When updating with null arguments, then failure`() {
-        restaurantService.update(RestaurantUpdateInfo("Pizza"))
+        restaurantService.update(RestaurantUpdateInfo(identifier))
     }
 
     @TestConfiguration
