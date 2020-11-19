@@ -43,7 +43,7 @@ class SearchTest {
     fun `Given saved restaurants, when search by name contains, then get matched restaurants`() {
         val foundRestaurants = restaurantService.search(
             "Pizza",
-            mutableListOf(RestaurantStatus.PENDING),
+            listOf(RestaurantStatus.PENDING),
             Pageable.unpaged()
         )
 
@@ -55,7 +55,7 @@ class SearchTest {
     fun `Given saved restaurants, when search by description contains, then get concrete restaurant`() {
         val foundRestaurant = restaurantService.search(
             "Georgia",
-            mutableListOf(RestaurantStatus.PENDING),
+            listOf(RestaurantStatus.PENDING),
             Pageable.unpaged())
 
         assertThat(foundRestaurant.totalElements).isEqualTo(1)
@@ -66,7 +66,7 @@ class SearchTest {
     fun `Given saved restaurants, when search by description contains ignore case, then get concrete restaurant`() {
         val foundRestaurant = restaurantService.search(
             "ITALIAN",
-            mutableListOf(RestaurantStatus.PENDING),
+            listOf(RestaurantStatus.PENDING),
             Pageable.unpaged())
 
         assertThat(foundRestaurant.totalElements).isEqualTo(3)
@@ -77,7 +77,7 @@ class SearchTest {
     fun `Given saved restaurants, when search by not contained word, then get empty page`() {
         val foundRestaurants = restaurantService.search(
             "Grill",
-            mutableListOf(RestaurantStatus.PENDING),
+            listOf(RestaurantStatus.PENDING),
             Pageable.unpaged())
 
         assertThat(foundRestaurants.isEmpty)
@@ -87,7 +87,7 @@ class SearchTest {
     fun `Given saved restaurants, when search by empty string, then get all restaurants`() {
         val foundRestaurant = restaurantService.search(
             "",
-            mutableListOf(RestaurantStatus.PENDING),
+            listOf(RestaurantStatus.PENDING),
             Pageable.unpaged())
 
         assertThat(foundRestaurant.totalElements).isEqualTo(5)
@@ -97,7 +97,7 @@ class SearchTest {
     fun `Given saved restaurants, when search all restaurants by status, then get restaurants with matched status`() {
         val foundRestaurant = restaurantService.search(
             "",
-            mutableListOf(RestaurantStatus.PENDING, RestaurantStatus.ACTIVE),
+            listOf(RestaurantStatus.PENDING, RestaurantStatus.ACTIVE),
             Pageable.unpaged())
 
         assertThat(foundRestaurant.totalElements).isEqualTo(6)

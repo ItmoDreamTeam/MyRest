@@ -10,11 +10,14 @@ import org.springframework.data.jpa.repository.Query
 interface RestaurantRepository : JpaEntityRepository<Restaurant> {
 
     @Query(
-        "SELECT restaurant from Restaurant restaurant " +
-                "where ((0 < LOCATE(UPPER(:keyword), UPPER(restaurant.name))) " +
-                "or (0 < LOCATE(UPPER(:keyword), UPPER(restaurant.description)))) " +
-                "and restaurant.status in :statuses"
+        """
+            SELECT restaurant from Restaurant restaurant
+            where ((0 < LOCATE(UPPER(:keyword), UPPER(restaurant.name))) 
+            or (0 < LOCATE(UPPER(:keyword), UPPER(restaurant.description)))) 
+            and restaurant.status in :statuses
+        """
     )
     fun find(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<Restaurant>
+
     fun findByName(name: String): Restaurant?
 }

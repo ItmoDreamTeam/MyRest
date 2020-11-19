@@ -9,7 +9,10 @@ import org.springframework.data.domain.Pageable
 
 interface RestaurantService {
     fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo
-    fun update(restaurantUpdateInfo: RestaurantUpdateInfo): RestaurantInfo
+
+    fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo
+
     fun getById(id: Long): RestaurantInfo
+
     fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo>
 }

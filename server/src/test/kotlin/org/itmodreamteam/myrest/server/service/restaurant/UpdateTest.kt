@@ -38,7 +38,6 @@ class UpdateTest {
     @Test
     fun `Given existing restaurant, when updating it with valid arguments, then success updating`() {
         val updatedRestaurant = RestaurantUpdateInfo(
-            identifier,
             "Pizza",
             "Italian and european food",
             "license",
@@ -46,7 +45,7 @@ class UpdateTest {
             "8928335050",
             "pizzana@mail.ru"
         )
-        restaurantService.update(updatedRestaurant)
+        restaurantService.update(identifier, updatedRestaurant)
 
         val restaurants = restaurantRepository.findAll()
         assertThat(restaurants).hasSize(1)
@@ -61,13 +60,12 @@ class UpdateTest {
 
     @Test(expected = UserException::class)
     fun `When updating not existing restaurant, then failure`() {
-        restaurantService.update(RestaurantUpdateInfo(1001110))
+        restaurantService.update(1010111, RestaurantUpdateInfo("Pizza"))
     }
 
     @Test(expected = UserException::class)
     fun `Given existing restaurant, when updating with empty arguments, then failure`() {
         val updatedRestaurant = RestaurantUpdateInfo(
-            identifier,
             "",
             "",
             "",
@@ -75,12 +73,12 @@ class UpdateTest {
             "",
             ""
         )
-        restaurantService.update(updatedRestaurant)
+        restaurantService.update(identifier, updatedRestaurant)
     }
 
     @Test(expected = UserException::class)
     fun `When updating with null arguments, then failure`() {
-        restaurantService.update(RestaurantUpdateInfo(identifier))
+        restaurantService.update(identifier, RestaurantUpdateInfo())
     }
 
     @TestConfiguration

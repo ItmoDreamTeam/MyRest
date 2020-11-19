@@ -22,37 +22,22 @@ class RestaurantServiceImpl (
     override fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         if (existingRestaurant == null) {
-            try {
-                val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
-                return RestaurantInfo(
-                    restaurant.id,
-                    restaurant.status,
-                    restaurant.name,
-                    restaurant.description,
-                    restaurant.legalInfo,
-                    restaurant.websiteUrl,
-                    restaurant.phone,
-                    restaurant.email,
-                    restaurant.internalRating,
-                    restaurant.externalRating
-                )
-            } catch (e: ConstraintViolationException) {
-                throw UserException("Неверное значение поля")
-            }
+            val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
+            return getRestaurantInfo(restaurant)
         } else {
             throw UserException("Ресторан с таким именем уже существует")
         }
     }
 
-    override fun update(restaurantUpdateInfo: RestaurantUpdateInfo): RestaurantInfo {
-        val existingRestaurant = restaurantRepository.findByIdOrNull(restaurantUpdateInfo.id)
+    override fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
+        val existingRestaurant = restaurantRepository.findByIdOrNull(id)
         if (existingRestaurant == null) {
-            throw UserException("Ресторана с именем ${restaurantUpdateInfo.id} не существует")
+            throw UserException("Ресторана с именем $id не существует")
         } else {
-            if (restaurantUpdateInfo.containsUpdate) {
+            if (!updateInfo.containsUpdate) {
                 throw  UserException("Нечего обновлять")
             }
-            return updateRestaurant(existingRestaurant, restaurantUpdateInfo)
+            return updateRestaurant(existingRestaurant, updateInfo)
         }
     }
 
@@ -73,50 +58,30 @@ class RestaurantServiceImpl (
             restaurant.websiteUrl = newInfo.websiteUrl!!
         }
         val restaurant = restaurantRepository.save(restaurant)
-        return RestaurantInfo(
-            restaurant.id,
-            restaurant.status,
-            restaurant.name,
-            restaurant.description,
-            restaurant.legalInfo,
-            restaurant.websiteUrl,
-            restaurant.phone,
-            restaurant.email,
-            restaurant.internalRating,
-            restaurant.externalRating
-        )
+        return getRestaurantInfo(restaurant)
     }
 
     override fun getById(id: Long): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id) ?: throw UserException("Ресторана с id $id не существует")
-        return RestaurantInfo(
-            restaurant.id,
-            restaurant.status,
-            restaurant.name,
-            restaurant.description,
-            restaurant.legalInfo,
-            restaurant.websiteUrl,
-            restaurant.phone,
-            restaurant.email,
-            restaurant.internalRating,
-            restaurant.externalRating
-        )
+        return getRestaurantInfo(restaurant)
     }
 
     override fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo> {
-        return PageImpl(restaurantRepository.find(keyword, statuses, pageable).content.map {
-            RestaurantInfo(
-                it.id,
-                it.status,
-                it.name,
-                it.description,
-                it.legalInfo,
-                it.websiteUrl,
-                it.phone,
-                it.email,
-                it.internalRating,
-                it.externalRating
-            )
-        })
+        return PageImpl(restaurantRepository.find(keyword, statuses, pageable).content.map { getRestaurantInfo(it) })
+    }
+
+    private fun getRestaurantInfo(from: Restaurant): RestaurantInfo {
+        return RestaurantInfo(
+            from.id,
+            from.status,
+            from.name,
+            from.description,
+            from.legalInfo,
+            from.websiteUrl,
+            from.phone,
+            from.email,
+            from.internalRating,
+            from.externalRating
+        )
     }
 }
