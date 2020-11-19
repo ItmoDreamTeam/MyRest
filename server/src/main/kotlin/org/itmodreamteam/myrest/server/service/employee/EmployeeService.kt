@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.service.employee
 
+import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
@@ -18,4 +19,6 @@ interface EmployeeService {
     fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo>
 
     fun getById(id: Long): EmployeeInfo
+
+    fun toEmployeeInfo(employee: Employee): EmployeeInfo
 }

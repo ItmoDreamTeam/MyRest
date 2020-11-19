@@ -1,11 +1,13 @@
 package org.itmodreamteam.myrest.server.service.employee
 
 import org.itmodreamteam.myrest.server.error.UserException
+import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Manager
 import org.itmodreamteam.myrest.server.model.restaurant.Waiter
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.springframework.data.repository.findByIdOrNull
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service
 class EmployeeServiceImpl(
     private val employeeRepository: EmployeeRepository,
     private val restaurantRepository: RestaurantRepository,
+    private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,
     private val notificationService: NotificationService,
 ) : EmployeeService {
@@ -47,16 +50,24 @@ class EmployeeServiceImpl(
     }
 
     override fun getRestaurantsOfUser(userId: Long): List<EmployeeInfo> {
-        TODO("Not yet implemented")
+        val user = userRepository.findByIdOrNull(userId)
+            ?: throw UserException("Пользователь не найден")
+        return employeeRepository.findByUser(user).map { toEmployeeInfo(it) }
     }
 
     override fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo> {
-        TODO("Not yet implemented")
+        val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
+            ?: throw UserException("Ресторан не найден")
+        return employeeRepository.findByRestaurant(restaurant).map { toEmployeeInfo(it) }
     }
 
     override fun getById(id: Long): EmployeeInfo {
         val employee = employeeRepository.findByIdOrNull(id)
             ?: throw UserException("Сотрудник не найден")
+        return toEmployeeInfo(employee)
+    }
+
+    override fun toEmployeeInfo(employee: Employee): EmployeeInfo {
         val position = when (employee) {
             is Manager -> EmployeePosition.MANAGER
             is Waiter -> EmployeePosition.WAITER

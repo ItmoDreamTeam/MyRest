@@ -8,4 +8,8 @@ import org.itmodreamteam.myrest.server.repository.JpaEntityRepository
 interface EmployeeRepository : JpaEntityRepository<Employee> {
 
     fun findByRestaurantAndUser(restaurant: Restaurant, user: User): Employee?
+
+    fun findByRestaurant(restaurant: Restaurant): List<Employee>
+
+    fun findByUser(user: User): List<Employee>
 }
