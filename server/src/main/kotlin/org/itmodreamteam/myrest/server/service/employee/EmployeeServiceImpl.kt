@@ -42,11 +42,17 @@ class EmployeeServiceImpl(
     }
 
     override fun updateEmployee(id: Long, userStatus: EmployeeUserStatus): EmployeeInfo {
-        TODO("Not yet implemented")
+        val employee = employeeRepository.findByIdOrNull(id)
+            ?: throw UserException("Сотрудник не найден")
+        employee.userStatus = userStatus
+        return toEmployeeInfo(employee)
     }
 
     override fun updateEmployee(id: Long, restaurantStatus: EmployeeRestaurantStatus): EmployeeInfo {
-        TODO("Not yet implemented")
+        val employee = employeeRepository.findByIdOrNull(id)
+            ?: throw UserException("Сотрудник не найден")
+        employee.restaurantStatus = restaurantStatus
+        return toEmployeeInfo(employee)
     }
 
     override fun getRestaurantsOfUser(userId: Long): List<EmployeeInfo> {
