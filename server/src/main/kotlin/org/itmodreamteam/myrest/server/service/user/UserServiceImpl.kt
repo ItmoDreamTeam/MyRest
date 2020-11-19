@@ -86,6 +86,6 @@ class UserServiceImpl(
     }
 
     override fun toProfile(user: User): Profile {
-        return Profile(user.firstName, user.lastName)
+        return Profile(user.id, user.firstName, user.lastName, user.enabled, user.locked, user.role)
     }
 }
