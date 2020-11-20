@@ -3,7 +3,7 @@ package org.itmodreamteam.myrest.server.model.user
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
-import java.util.*
+import java.util.UUID.randomUUID
 import javax.persistence.Entity
 import javax.persistence.ManyToOne
 import javax.persistence.Table
@@ -39,7 +39,7 @@ class Session() : JpaEntity() {
 
     constructor(user: User) : this() {
         this.user = user
-        this.token = UUID.randomUUID().toString()
+        this.token = randomUUID().toString()
         this._active = true
         this.expiry = now().plusYears(1)
     }
