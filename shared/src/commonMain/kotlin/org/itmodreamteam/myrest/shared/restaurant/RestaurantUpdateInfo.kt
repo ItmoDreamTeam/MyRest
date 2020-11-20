@@ -6,7 +6,8 @@ data class RestaurantUpdateInfo (
     val legalInfo: String? = null,
     val websiteUrl: String? = null,
     val phone: String? = null,
-    val email: String? = null, ) {
+    val email: String? = null,
+) {
     val containsUpdate: Boolean
-        get() = listOf(name, description, legalInfo, websiteUrl, phone, email).none { it.isNullOrBlank() }
+        get() = listOf(name, description, legalInfo, websiteUrl, phone, email).any { !it.isNullOrBlank() }
 }

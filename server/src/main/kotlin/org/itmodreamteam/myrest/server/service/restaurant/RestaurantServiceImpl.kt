@@ -67,7 +67,7 @@ class RestaurantServiceImpl (
     }
 
     override fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo> {
-        return PageImpl(restaurantRepository.find(keyword, statuses, pageable).content.map {toRestaurantInfo(it) })
+        return restaurantRepository.find(keyword, statuses, pageable).map {toRestaurantInfo(it) }
     }
 
     override fun toRestaurantInfo(from: Restaurant): RestaurantInfo {
