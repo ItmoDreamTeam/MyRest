@@ -67,16 +67,16 @@ class EmployeesRetrievalTest {
         val restaurants = employeeService.getRestaurantsOfUser(italianRestaurantEmployeeId)
 
         assertThat(restaurants).hasSize(1)
-        assertThat(restaurants.first().userId).isEqualTo(italianRestaurantEmployeeId)
-        assertThat(restaurants.first().restaurantId).isEqualTo(italianRestaurant.id)
+        assertThat(restaurants.first().user.id).isEqualTo(italianRestaurantEmployeeId)
+        assertThat(restaurants.first().restaurant.id).isEqualTo(italianRestaurant.id)
     }
 
     @Test
     fun `When get employees of French restaurant, then return all French restaurant employees`() {
         val employees = employeeService.getEmployeesOfRestaurant(frenchRestaurant.id)
 
-        assertThat(employees).allMatch { it.restaurantId == frenchRestaurant.id }
-        assertThat(employees.map { it.userId }.toSet()).isEqualTo(frenchRestaurantEmployees.map { it.id }.toSet())
+        assertThat(employees).allMatch { it.restaurant.id == frenchRestaurant.id }
+        assertThat(employees.map { it.user.id }.toSet()).isEqualTo(frenchRestaurantEmployees.map { it.id }.toSet())
     }
 
     @Test(expected = UserException::class)
@@ -90,7 +90,11 @@ class EmployeesRetrievalTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(
+        "org.itmodreamteam.myrest.server.service.employee",
+        "org.itmodreamteam.myrest.server.service.restaurant",
+        "org.itmodreamteam.myrest.server.service.user",
+    )
     @MockBean(NotificationService::class)
     open class Config
 }

@@ -62,8 +62,8 @@ class EmployeeInvitationTest {
         val invitation = EmployeeInvitation("+79889875634", EmployeePosition.WAITER)
         val employeeInfo = employeeService.inviteEmployee(restaurant.id, invitation)
 
-        assertThat(employeeInfo.restaurantId).isEqualTo(restaurant.id)
-        assertThat(employeeInfo.userId).isEqualTo(user.id)
+        assertThat(employeeInfo.restaurant.id).isEqualTo(restaurant.id)
+        assertThat(employeeInfo.user.id).isEqualTo(user.id)
         assertThat(employeeInfo.position).isEqualTo(EmployeePosition.WAITER)
         assertThat(employeeInfo.userStatus).isEqualTo(EmployeeUserStatus.PENDING)
         assertThat(employeeInfo.restaurantStatus).isEqualTo(EmployeeRestaurantStatus.ACTIVE)

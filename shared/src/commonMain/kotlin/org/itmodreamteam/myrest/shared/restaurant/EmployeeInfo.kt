@@ -1,9 +1,11 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
+import org.itmodreamteam.myrest.shared.user.Profile
+
 data class EmployeeInfo(
     val id: Long,
-    val restaurantId: Long, // TODO: replace with restaurant DTO
-    val userId: Long, // TODO: replace with user DTO
+    val restaurant: RestaurantInfo,
+    val user: Profile,
     val position: EmployeePosition,
     val userStatus: EmployeeUserStatus,
     val restaurantStatus: EmployeeRestaurantStatus,
