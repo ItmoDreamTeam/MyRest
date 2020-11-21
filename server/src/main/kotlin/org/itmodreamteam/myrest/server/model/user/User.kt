@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.server.model.user
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
+import org.itmodreamteam.myrest.shared.user.Role
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
@@ -33,9 +34,5 @@ class User() : JpaEntity(), Comparable<User> {
         return Comparator.comparing(User::firstName)
             .thenComparing(User::lastName)
             .compare(this, other)
-    }
-
-    enum class Role {
-        ADMIN,
     }
 }
