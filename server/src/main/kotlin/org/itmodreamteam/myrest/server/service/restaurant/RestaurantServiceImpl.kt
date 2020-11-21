@@ -8,14 +8,12 @@ import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import javax.validation.ConstraintViolationException
 
 @Service
-class RestaurantServiceImpl (
+class RestaurantServiceImpl(
     private val restaurantRepository: RestaurantRepository,
 ) : RestaurantService {
 
@@ -62,12 +60,13 @@ class RestaurantServiceImpl (
     }
 
     override fun getById(id: Long): RestaurantInfo {
-        val restaurant = restaurantRepository.findByIdOrNull(id) ?: throw UserException("Ресторана с id $id не существует")
+        val restaurant = restaurantRepository.findByIdOrNull(id)
+            ?: throw UserException("Ресторана с id $id не существует")
         return toRestaurantInfo(restaurant)
     }
 
     override fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo> {
-        return restaurantRepository.find(keyword, statuses, pageable).map {toRestaurantInfo(it) }
+        return restaurantRepository.find(keyword, statuses, pageable).map { toRestaurantInfo(it) }
     }
 
     override fun toRestaurantInfo(from: Restaurant): RestaurantInfo {

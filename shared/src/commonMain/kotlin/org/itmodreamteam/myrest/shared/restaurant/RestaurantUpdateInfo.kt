@@ -1,6 +1,6 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
-data class RestaurantUpdateInfo (
+data class RestaurantUpdateInfo(
     val name: String? = null,
     val description: String? = null,
     val legalInfo: String? = null,

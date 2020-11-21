@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
+import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
@@ -13,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.domain.Pageable
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
-import org.assertj.core.api.Assertions.assertThat
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
@@ -35,7 +35,7 @@ class SearchTest {
         restaurants.add(Restaurant("Pasta&Pizza", "italian food and more", "OOO"))
         restaurants.add(Restaurant("BBQ", "Russian cuisine", "INN"))
         restaurants.add(Restaurant("BBQ Fast Food", "Georgia and Russian cuisine", "docs"))
-        restaurants.forEach{ restaurantRepository.save(it) }
+        restaurants.forEach { restaurantRepository.save(it) }
         restaurantRepository.save(Restaurant("Picas", "Italian food", "ИНН")).status = RestaurantStatus.ACTIVE
     }
 
@@ -56,7 +56,8 @@ class SearchTest {
         val foundRestaurant = restaurantService.search(
             "Georgia",
             listOf(RestaurantStatus.PENDING),
-            Pageable.unpaged())
+            Pageable.unpaged()
+        )
 
         assertThat(foundRestaurant.totalElements).isEqualTo(1)
         assertThat(foundRestaurant.content[0].description).contains("Georgia")
@@ -67,7 +68,8 @@ class SearchTest {
         val foundRestaurant = restaurantService.search(
             "ITALIAN",
             listOf(RestaurantStatus.PENDING),
-            Pageable.unpaged())
+            Pageable.unpaged()
+        )
 
         assertThat(foundRestaurant.totalElements).isEqualTo(3)
         assertThat(foundRestaurant.content[0].description).contains("Italian")
@@ -78,7 +80,8 @@ class SearchTest {
         val foundRestaurants = restaurantService.search(
             "Grill",
             listOf(RestaurantStatus.PENDING),
-            Pageable.unpaged())
+            Pageable.unpaged()
+        )
 
         assertThat(foundRestaurants.isEmpty)
     }
@@ -88,7 +91,8 @@ class SearchTest {
         val foundRestaurant = restaurantService.search(
             "",
             listOf(RestaurantStatus.PENDING),
-            Pageable.unpaged())
+            Pageable.unpaged()
+        )
 
         assertThat(foundRestaurant.totalElements).isEqualTo(5)
     }
@@ -98,7 +102,8 @@ class SearchTest {
         val foundRestaurant = restaurantService.search(
             "",
             listOf(RestaurantStatus.PENDING, RestaurantStatus.ACTIVE),
-            Pageable.unpaged())
+            Pageable.unpaged()
+        )
 
         assertThat(foundRestaurant.totalElements).isEqualTo(6)
     }

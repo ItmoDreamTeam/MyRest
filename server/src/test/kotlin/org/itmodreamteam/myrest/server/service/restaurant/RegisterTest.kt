@@ -43,10 +43,11 @@ class RegisterTest {
 
     @Test
     fun `When create new restaurant with valid required arguments, then new restaurant created`() {
-        val registeredRestaurant = restaurantService.register(RestaurantRegistrationInfo(
-            "Pasta",
-            "Italian food",
-            "INN"
+        val registeredRestaurant = restaurantService.register(
+            RestaurantRegistrationInfo(
+                "Pasta",
+                "Italian food",
+                "INN"
             )
         )
 
@@ -61,13 +62,14 @@ class RegisterTest {
 
     @Test
     fun `When create new restaurant with all arguments, then new restaurant created`() {
-        val registeredRestaurant = restaurantService.register(RestaurantRegistrationInfo(
-            "Pasta",
-            "Italian food",
-            "docs",
-            "pizzapasta.com",
-            "8928335050",
-            "pizza@mail.ru"
+        val registeredRestaurant = restaurantService.register(
+            RestaurantRegistrationInfo(
+                "Pasta",
+                "Italian food",
+                "docs",
+                "pizzapasta.com",
+                "8928335050",
+                "pizza@mail.ru"
             )
         )
 

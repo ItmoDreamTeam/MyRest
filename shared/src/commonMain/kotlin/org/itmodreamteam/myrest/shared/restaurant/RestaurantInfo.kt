@@ -1,6 +1,6 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
-data class RestaurantInfo (
+data class RestaurantInfo(
     val id: Long,
     val status: RestaurantStatus,
     val name: String,
