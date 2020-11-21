@@ -1,19 +1,22 @@
 package org.itmodreamteam.myrest.server.service.user
 
+import kotlinx.datetime.LocalDateTime
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.user.Identifier
+import org.itmodreamteam.myrest.server.model.user.Session
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
+import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
-import org.itmodreamteam.myrest.shared.user.SignIn
-import org.itmodreamteam.myrest.shared.user.SignUp
+import org.itmodreamteam.myrest.shared.user.*
 import org.springframework.stereotype.Service
 
 @Service
 class UserServiceImpl(
     private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,
+    private val sessionRepository: SessionRepository,
     private val smsService: SmsService,
 ) : UserService {
 
@@ -53,5 +56,36 @@ class UserServiceImpl(
         val verificationCode = identifier.updateVerificationCode()
         val text = "Вход в MyRest. Код подтверждения: $verificationCode"
         smsService.send(identifier.value, text)
+    }
+
+    override fun startSession(signInVerification: SignInVerification): ActiveSession {
+        val identifier = identifierRepository.findByValue(signInVerification.phone)
+            ?: throw UserException("Ошибка авторизации. Пожалуйста, попробуйте снова")
+        identifier.verify(signInVerification.code)
+        val user = identifier.user
+        user.enabled = true
+        userRepository.save(user)
+        val session = sessionRepository.save(Session(user))
+        return ActiveSession(session.id, LocalDateTime.parse(session.created.toString()), session.token)
+    }
+
+    override fun verifySession(token: String): Profile {
+        val session = sessionRepository.findByToken(token)
+            ?: throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        val user = session.user
+        if (user.locked) {
+            throw UserException("Аккаунт заблокирован. Обратитесь к администратору")
+        }
+        if (!user.enabled) {
+            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        }
+        if (!session.active) {
+            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+        }
+        return toProfile(user)
+    }
+
+    override fun toProfile(user: User): Profile {
+        return Profile(user.id, user.firstName, user.lastName, user.enabled, user.locked, user.role)
     }
 }
