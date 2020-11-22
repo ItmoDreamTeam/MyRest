@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
+import javax.persistence.EntityManager
 import javax.validation.ConstraintViolationException
 
 @RunWith(SpringRunner::class)
@@ -31,6 +32,9 @@ class TableServiceTest {
 
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
+
+    @Autowired
+    lateinit var entityManager: EntityManager
 
     @MockBean
     lateinit var restaurantService: RestaurantService
@@ -137,18 +141,27 @@ class TableServiceTest {
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When set table name to empty value, then failure`() {
-        tableService.updateTable(restaurant.id, TableInfo("", null, 2))
+    fun `Given restaurant table, when set table name to empty value, then failure`() {
+        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+
+        tableService.updateTable(table.id, TableInfo("", null, 2))
+        entityManager.flush()
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When set number of table seats to zero, then failure`() {
-        tableService.updateTable(restaurant.id, TableInfo("Name", null, 0))
+    fun `Given restaurant table, when set number of table seats to zero, then failure`() {
+        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+
+        tableService.updateTable(table.id, TableInfo("Name", null, 0))
+        entityManager.flush()
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When set negative number of table seats, then failure`() {
-        tableService.updateTable(restaurant.id, TableInfo("Name", null, -3))
+    fun `Given restaurant table, when set negative number of table seats, then failure`() {
+        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+
+        tableService.updateTable(table.id, TableInfo("Name", null, -3))
+        entityManager.flush()
     }
 
     @Test(expected = UserException::class)
