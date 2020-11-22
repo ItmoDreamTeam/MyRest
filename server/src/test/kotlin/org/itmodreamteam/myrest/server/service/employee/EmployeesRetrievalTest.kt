@@ -90,11 +90,7 @@ class EmployeesRetrievalTest {
     }
 
     @TestConfiguration
-    @ComponentScan(
-        "org.itmodreamteam.myrest.server.service.employee",
-        "org.itmodreamteam.myrest.server.service.restaurant",
-        "org.itmodreamteam.myrest.server.service.user",
-    )
+    @ComponentScan
     @MockBean(NotificationService::class)
     open class Config
 }
