@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
-class StubNotificationService : NotificationService {
+class FakeNotificationService : NotificationService {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
