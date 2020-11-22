@@ -4,18 +4,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.server.service.restaurant.RestaurantService
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.itmodreamteam.myrest.shared.table.TableInfo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.any
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
@@ -36,30 +31,11 @@ class TableServiceTest {
     @Autowired
     lateinit var entityManager: EntityManager
 
-    @MockBean
-    lateinit var restaurantService: RestaurantService
-
     lateinit var restaurant: Restaurant
 
     @Before
     fun setUp() {
         restaurant = restaurantRepository.save(Restaurant("Vilka", "Stolovaya", "☕"))
-
-        `when`(restaurantService.toRestaurantInfo(any() ?: Restaurant())).thenAnswer {
-            val restaurant = it.arguments[0] as Restaurant
-            RestaurantInfo(
-                restaurant.id,
-                restaurant.status,
-                restaurant.name,
-                restaurant.description,
-                restaurant.legalInfo,
-                restaurant.websiteUrl,
-                restaurant.phone,
-                restaurant.email,
-                restaurant.internalRating,
-                restaurant.externalRating
-            )
-        }
     }
 
     @Test
