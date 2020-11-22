@@ -60,10 +60,10 @@ class TableServiceTest {
 
     @Test
     fun `Given restaurant, when add tables, then tables are added`() {
-        val table1Info = TableInfo("Table #1", "By the window", 4)
-        val table2Info = TableInfo("Table #2", null, 8)
-        val table1 = tableService.addTable(restaurant.id, table1Info)
-        val table2 = tableService.addTable(restaurant.id, table2Info)
+        val table1 = TableInfo("Table #1", "By the window", 4)
+        val table2 = TableInfo("Table #2", null, 8)
+        tableService.addTable(restaurant.id, table1)
+        tableService.addTable(restaurant.id, table2)
 
         val tables = tableService.getRestaurantTables(restaurant.id)
         assertThat(tables).hasSize(2)
