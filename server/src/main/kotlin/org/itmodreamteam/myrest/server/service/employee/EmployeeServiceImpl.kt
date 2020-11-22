@@ -3,6 +3,7 @@ package org.itmodreamteam.myrest.server.service.employee
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Manager
+import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.restaurant.Waiter
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
@@ -27,8 +28,7 @@ class EmployeeServiceImpl(
 ) : EmployeeService {
 
     override fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
-        val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
-            ?: throw UserException("Ресторан не найден")
+        val restaurant = getRestaurantEntity(restaurantId)
         val user = identifierRepository.findByValue(invitation.phone)?.user
             ?: throw UserException("Пользователь не найден")
         val exists = employeeRepository.findByRestaurantAndUser(restaurant, user) != null
@@ -42,19 +42,17 @@ class EmployeeServiceImpl(
             }
         )
         notificationService.notify(user, "${restaurant.name} хочет добавить вас в качестве сотрудника")
-        return getById(employee.id)
+        return toEmployeeInfo(employee)
     }
 
     override fun updateEmployee(id: Long, userStatus: EmployeeUserStatus): EmployeeInfo {
-        val employee = employeeRepository.findByIdOrNull(id)
-            ?: throw UserException("Сотрудник не найден")
+        val employee = getEmployeeEntity(id)
         employee.userStatus = userStatus
         return toEmployeeInfo(employee)
     }
 
     override fun updateEmployee(id: Long, restaurantStatus: EmployeeRestaurantStatus): EmployeeInfo {
-        val employee = employeeRepository.findByIdOrNull(id)
-            ?: throw UserException("Сотрудник не найден")
+        val employee = getEmployeeEntity(id)
         employee.restaurantStatus = restaurantStatus
         return toEmployeeInfo(employee)
     }
@@ -66,14 +64,12 @@ class EmployeeServiceImpl(
     }
 
     override fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo> {
-        val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
-            ?: throw UserException("Ресторан не найден")
+        val restaurant = getRestaurantEntity(restaurantId)
         return employeeRepository.findByRestaurant(restaurant).map { toEmployeeInfo(it) }
     }
 
     override fun getById(id: Long): EmployeeInfo {
-        val employee = employeeRepository.findByIdOrNull(id)
-            ?: throw UserException("Сотрудник не найден")
+        val employee = getEmployeeEntity(id)
         return toEmployeeInfo(employee)
     }
 
@@ -93,5 +89,15 @@ class EmployeeServiceImpl(
             employee.userStatus,
             employee.restaurantStatus
         )
+    }
+
+    private fun getRestaurantEntity(id: Long): Restaurant {
+        return restaurantRepository.findByIdOrNull(id)
+            ?: throw UserException("Ресторан не найден")
+    }
+
+    private fun getEmployeeEntity(id: Long): Employee {
+        return employeeRepository.findByIdOrNull(id)
+            ?: throw UserException("Сотрудник не найден")
     }
 }
