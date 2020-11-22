@@ -5,8 +5,9 @@ import javax.persistence.Entity
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
-import javax.validation.constraints.PositiveOrZero
+import javax.validation.constraints.Positive
 import javax.validation.constraints.Size
 
 @Entity
@@ -17,14 +18,15 @@ class RestaurantTable() : JpaEntity() {
     lateinit var restaurant: Restaurant
         private set
 
-    @NotNull
+    @NotNull(message = "Введите название столика")
+    @NotBlank(message = "Введите название столика")
     @Size(max = 50)
     lateinit var name: String
 
     @Size(max = 1000)
     var description: String? = null
 
-    @PositiveOrZero
+    @Positive(message = "Некорректное число мест")
     var numberOfSeats: Int = 0
 
     @ManyToMany
