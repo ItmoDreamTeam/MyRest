@@ -3,6 +3,7 @@ package org.itmodreamteam.myrest.server.service.restaurant
 import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
+import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.junit.Before
 import org.junit.Test
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.domain.Pageable
 import org.springframework.test.context.ContextConfiguration
@@ -25,6 +27,9 @@ class SearchTest {
 
     @Autowired
     lateinit var restaurantRepository: RestaurantRepository
+
+    @MockBean
+    lateinit var notificationService: NotificationService
 
     private var restaurants = ArrayList<Restaurant>()
 

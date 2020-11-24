@@ -14,7 +14,7 @@ interface RestaurantService {
 
     fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo
 
-    fun updateStatus(id: Long, restaurantStatus: RestaurantStatus)
+    fun updateStatus(id: Long, restaurantStatus: RestaurantStatus): RestaurantInfo
 
     fun getById(id: Long): RestaurantInfo
 

@@ -35,7 +35,7 @@ class RestaurantServiceImpl(
     override fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByIdOrNull(id)
         if (existingRestaurant == null) {
-            throw UserException("Ресторана с именем $id не существует")
+            throw UserException("Ресторана с id = $id не существует")
         } else {
             if (!updateInfo.containsUpdate) {
                 throw  UserException("Нечего обновлять")
@@ -44,13 +44,20 @@ class RestaurantServiceImpl(
         }
     }
 
-    override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus) {
-        TODO("Not yet implemented")
+    override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus): RestaurantInfo {
+        val restaurant = restaurantRepository.findByIdOrNull(id)
+            ?: throw UserException("Ресторана с id = $id не существует")
+        if (restaurantStatus == restaurant.status) {
+            throw  UserException("Статус ресторана не изменился")
+        }
+        restaurant.status = restaurantStatus
+        var savedRestaurant = restaurantRepository.save(restaurant)
+        return toRestaurantInfo(savedRestaurant)
     }
 
     override fun getById(id: Long): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Ресторана с id $id не существует")
+            ?: throw UserException("Ресторана с id = $id не существует")
         return toRestaurantInfo(restaurant)
     }
 
