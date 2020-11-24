@@ -14,6 +14,8 @@ interface RestaurantService {
 
     fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo
 
+    fun updateStatus(id: Long, restaurantStatus: RestaurantStatus)
+
     fun getById(id: Long): RestaurantInfo
 
     fun search(keyword: String, statuses: List<RestaurantStatus>, pageable: Pageable): Page<RestaurantInfo>

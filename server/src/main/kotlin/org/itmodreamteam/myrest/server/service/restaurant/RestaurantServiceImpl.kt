@@ -1,13 +1,11 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
 import org.itmodreamteam.myrest.server.error.UserException
-import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Manager
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.server.service.employee.EmployeeService
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.springframework.data.domain.Page
@@ -46,24 +44,8 @@ class RestaurantServiceImpl(
         }
     }
 
-    private fun updateRestaurant(restaurant: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
-        if (newInfo.description != null) {
-            restaurant.description = newInfo.description!!
-        }
-        if (!newInfo.legalInfo.isNullOrBlank()) {
-            restaurant.legalInfo = newInfo.legalInfo!!
-        }
-        if (!newInfo.email.isNullOrBlank()) {
-            restaurant.email = newInfo.email!!
-        }
-        if (!newInfo.phone.isNullOrBlank()) {
-            restaurant.phone = newInfo.phone!!
-        }
-        if (!newInfo.websiteUrl.isNullOrBlank()) {
-            restaurant.websiteUrl = newInfo.websiteUrl!!
-        }
-        val restaurant = restaurantRepository.save(restaurant)
-        return toRestaurantInfo(restaurant)
+    override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus) {
+        TODO("Not yet implemented")
     }
 
     override fun getById(id: Long): RestaurantInfo {
@@ -89,5 +71,25 @@ class RestaurantServiceImpl(
             from.internalRating,
             from.externalRating
         )
+    }
+
+    private fun updateRestaurant(restaurant: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
+        if (newInfo.description != null) {
+            restaurant.description = newInfo.description!!
+        }
+        if (!newInfo.legalInfo.isNullOrBlank()) {
+            restaurant.legalInfo = newInfo.legalInfo!!
+        }
+        if (!newInfo.email.isNullOrBlank()) {
+            restaurant.email = newInfo.email!!
+        }
+        if (!newInfo.phone.isNullOrBlank()) {
+            restaurant.phone = newInfo.phone!!
+        }
+        if (!newInfo.websiteUrl.isNullOrBlank()) {
+            restaurant.websiteUrl = newInfo.websiteUrl!!
+        }
+        val restaurant = restaurantRepository.save(restaurant)
+        return toRestaurantInfo(restaurant)
     }
 }
