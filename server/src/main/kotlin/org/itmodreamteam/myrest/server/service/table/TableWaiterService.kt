@@ -7,7 +7,7 @@ interface TableWaiterService {
 
     fun addWaiter(tableId: Long, waiterId: Long): EmployeeInfo
 
-    fun removeWaiter(tableId: Long, waiterId: Long)
+    fun removeWaiter(tableId: Long, waiterId: Long): EmployeeInfo
 
     fun getTableWaiters(tableId: Long): List<EmployeeInfo>
 

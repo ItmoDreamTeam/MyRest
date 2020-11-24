@@ -27,11 +27,12 @@ class TableWaiterServiceImpl(
         return employeeService.toEmployeeInfo(waiter)
     }
 
-    override fun removeWaiter(tableId: Long, waiterId: Long) {
+    override fun removeWaiter(tableId: Long, waiterId: Long): EmployeeInfo {
         val table = getRestaurantTableEntity(tableId)
         val waiter = getWaiterEntity(waiterId)
         table.removeWaiter(waiter)
         tableRepository.save(table)
+        return employeeService.toEmployeeInfo(waiter)
     }
 
     override fun getTableWaiters(tableId: Long): List<EmployeeInfo> {

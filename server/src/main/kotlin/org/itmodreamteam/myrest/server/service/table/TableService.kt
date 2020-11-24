@@ -12,7 +12,7 @@ interface TableService {
 
     fun getTable(tableId: Long): TableView
 
-    fun removeTable(tableId: Long)
+    fun removeTable(tableId: Long): TableView
 
     fun getRestaurantTables(restaurantId: Long): List<TableView>
 

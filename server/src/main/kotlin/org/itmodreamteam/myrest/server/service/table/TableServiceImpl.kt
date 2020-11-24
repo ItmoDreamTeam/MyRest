@@ -38,9 +38,10 @@ class TableServiceImpl(
         return toTableView(table)
     }
 
-    override fun removeTable(tableId: Long) {
+    override fun removeTable(tableId: Long): TableView {
         val table = getRestaurantTableEntity(tableId)
         tableRepository.delete(table)
+        return toTableView(table)
     }
 
     override fun getRestaurantTables(restaurantId: Long): List<TableView> {
