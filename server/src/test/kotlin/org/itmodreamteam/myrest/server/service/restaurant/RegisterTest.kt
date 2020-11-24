@@ -11,6 +11,7 @@ import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
+import org.itmodreamteam.myrest.shared.user.Role
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,51 +49,62 @@ class RegisterTest {
 
     private lateinit var restaurant: Restaurant
     private lateinit var user: User
+    private lateinit var admin: User
 
     @Before
     fun setup() {
         user = userRepository.save(User("Pizza", "Lover"))
+        val adminUser = User("Pavel", "Pavlov")
+        adminUser.role = Role.ADMIN
+        admin = userRepository.save(adminUser)
         restaurant = restaurantRepository.save(Restaurant("Pizza", "Italian food", "ИНН"))
     }
 
     @Test
-    fun `When user register restaurant, user becomes its manager`() {
+    fun `When user registers restaurant, user becomes its manager`() {
         val registeredRestaurant = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
             user
         )
 
-        val savedRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
-        assertThat(savedRestaurant).isNotNull
+        val savedRestaurant = restaurantRepository.getOne(registeredRestaurant.id)
 
-        val employee = employeeRepository.findByRestaurant(savedRestaurant!!)
-        assertThat(employee).isNotEmpty
-        assertThat(employee[0].user).isEqualTo(user)
-        assertThat(employee[0] is Manager).isTrue
+        val employees = employeeRepository.findByRestaurant(savedRestaurant)
+        assertThat(employees).isNotEmpty
+        assertThat(employees[0].user).isEqualTo(user)
+        assertThat(employees[0] is Manager).isTrue
     }
 
     @Test
-    fun `When user register restaurant, restaurants status is PENDING`() {
-        val registeredRestaurant = restaurantService.register(
+    fun `When user registers restaurant, restaurant's status is PENDING`() {
+        restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
             user
         )
 
-        val savedRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
-        assertThat(savedRestaurant).isNotNull
+        val savedRestaurant = restaurantRepository.getOne(restaurant.id)
 
-        assertThat(savedRestaurant?.status).isEqualTo(RestaurantStatus.PENDING)
+        assertThat(savedRestaurant.status).isEqualTo(RestaurantStatus.PENDING)
     }
 
     @Test
-    fun `When user register restaurant, System admin is notified`() {
+    fun `When user registers restaurant, System admin is notified`() {
         val registeredRestaurant = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
             user
         )
 
         val text = "Ресторан с именем ${registeredRestaurant.name} был зарегистрирован и ожидает проверки"
-        verify(notificationService, Mockito.times(1)).notify(user, text)
+        verify(notificationService, Mockito.times(1)).notify(admin, text)
+    }
+
+    @Test(expected = UserException::class)
+    fun `When user registers restaurant with no admin register in system, then failure`() {
+        userRepository.delete(admin)
+        restaurantService.register(
+            RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
+            user
+        )
     }
 
     @Test(expected = UserException::class)
@@ -114,13 +126,11 @@ class RegisterTest {
             user
         )
 
-        val newRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
-
-        assertThat(newRestaurant).isNotNull
-        assertThat(newRestaurant?.name).isEqualTo("Pasta")
-        assertThat(newRestaurant?.description).isEqualTo("Italian food")
-        assertThat(newRestaurant?.legalInfo).isEqualTo("INN")
-        assertThat(newRestaurant?.status).isEqualTo(RestaurantStatus.PENDING)
+        val newRestaurant = restaurantRepository.getOne(registeredRestaurant.id)
+        assertThat(newRestaurant.name).isEqualTo("Pasta")
+        assertThat(newRestaurant.description).isEqualTo("Italian food")
+        assertThat(newRestaurant.legalInfo).isEqualTo("INN")
+        assertThat(newRestaurant.status).isEqualTo(RestaurantStatus.PENDING)
     }
 
     @Test
@@ -137,12 +147,11 @@ class RegisterTest {
             user
         )
 
-        val newRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
-        assertThat(newRestaurant).isNotNull
-        assertThat(newRestaurant?.name).isEqualTo("Pasta")
-        assertThat(newRestaurant?.description).isEqualTo("Italian food")
-        assertThat(newRestaurant?.legalInfo).isEqualTo("docs")
-        assertThat(newRestaurant?.status).isEqualTo(RestaurantStatus.PENDING)
+        val newRestaurant = restaurantRepository.getOne(registeredRestaurant.id)
+        assertThat(newRestaurant.name).isEqualTo("Pasta")
+        assertThat(newRestaurant.description).isEqualTo("Italian food")
+        assertThat(newRestaurant.legalInfo).isEqualTo("docs")
+        assertThat(newRestaurant.status).isEqualTo(RestaurantStatus.PENDING)
     }
 
     @Test(expected = ConstraintViolationException::class)
