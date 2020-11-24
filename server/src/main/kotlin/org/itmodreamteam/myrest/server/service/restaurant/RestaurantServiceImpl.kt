@@ -6,8 +6,10 @@ import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
+import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.shared.restaurant.*
+import org.itmodreamteam.myrest.shared.user.Role
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -18,14 +20,24 @@ class RestaurantServiceImpl(
     private val restaurantRepository: RestaurantRepository,
     private val notificationService: NotificationService,
     private val employeeRepository: EmployeeRepository,
+    private val userRepository: UserRepository,
 ) : RestaurantService {
 
     override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
+        val admins = userRepository.findByRole(Role.ADMIN)
+        if (admins.isEmpty()) {
+            throw UserException("Ни одного администратора не зарегистрировано")
+        }
         if (existingRestaurant == null) {
             val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
+            admins.forEach {
+                notificationService.notify(
+                    it,
+                    "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
+                )
+            }
             employeeRepository.save(Manager(restaurant, user))
-            notificationService.notify(user, "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки")
             return toRestaurantInfo(restaurant)
         } else {
             throw UserException("Ресторан с таким именем уже существует")
