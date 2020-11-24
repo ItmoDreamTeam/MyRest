@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.server.service.employee
 
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
+import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.service.restaurant.RestaurantService
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
@@ -28,7 +29,7 @@ class RestaurantServiceMock : RestaurantService {
         )
     }
 
-    override fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
+    override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
         TODO("Not yet implemented")
     }
 
