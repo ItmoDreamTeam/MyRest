@@ -37,6 +37,10 @@ class RestaurantServiceMock : RestaurantService {
         TODO("Not yet implemented")
     }
 
+    override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus): RestaurantInfo {
+        TODO("Not yet implemented")
+    }
+
     override fun getById(id: Long): RestaurantInfo {
         TODO("Not yet implemented")
     }
