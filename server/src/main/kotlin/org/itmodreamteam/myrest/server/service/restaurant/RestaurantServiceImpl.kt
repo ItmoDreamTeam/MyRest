@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
 import org.itmodreamteam.myrest.server.error.UserException
+import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
@@ -17,7 +18,7 @@ class RestaurantServiceImpl(
     private val restaurantRepository: RestaurantRepository,
 ) : RestaurantService {
 
-    override fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
+    override fun register(newRestaurant: RestaurantRegistrationInfo, userId: Long): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         if (existingRestaurant == null) {
             val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
