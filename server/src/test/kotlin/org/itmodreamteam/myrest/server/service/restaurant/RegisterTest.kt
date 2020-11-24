@@ -2,14 +2,13 @@ package org.itmodreamteam.myrest.server.service.restaurant
 
 import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.error.UserException
-import org.itmodreamteam.myrest.server.model.restaurant.Employee
+import org.itmodreamteam.myrest.server.model.restaurant.Manager
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.junit.Before
@@ -48,7 +47,6 @@ class RegisterTest {
     lateinit var notificationService: NotificationService
 
     private lateinit var restaurant: Restaurant
-    private lateinit var employee: Employee
     private lateinit var user: User
 
     @Before
@@ -61,7 +59,7 @@ class RegisterTest {
     fun `When user register restaurant, user becomes its manager`() {
         val registeredRestaurant = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
-            user.id
+            user
         )
 
         val savedRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
@@ -70,14 +68,14 @@ class RegisterTest {
         val employee = employeeRepository.findByRestaurant(savedRestaurant!!)
         assertThat(employee).isNotEmpty
         assertThat(employee[0].user).isEqualTo(user)
-        assertThat(employee[0].userStatus).isEqualTo(EmployeePosition.MANAGER)
+        assertThat(employee[0] is Manager).isTrue
     }
 
     @Test
     fun `When user register restaurant, restaurants status is PENDING`() {
         val registeredRestaurant = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
-            user.id
+            user
         )
 
         val savedRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
@@ -90,7 +88,7 @@ class RegisterTest {
     fun `When user register restaurant, System admin is notified`() {
         val registeredRestaurant = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
-            user.id
+            user
         )
 
         val text = "Ресторан с именем ${registeredRestaurant.name} был зарегистрирован и ожидает проверки"
@@ -101,7 +99,7 @@ class RegisterTest {
     fun `Given existing restaurant, when create restaurant with existing name, then failure`() {
         restaurantService.register(
             RestaurantRegistrationInfo("Pizza", "", ""),
-            user.id
+            user
         )
     }
 
@@ -113,7 +111,7 @@ class RegisterTest {
                 "Italian food",
                 "INN"
             ),
-            user.id
+            user
         )
 
         val newRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
@@ -136,7 +134,7 @@ class RegisterTest {
                 "8928335050",
                 "pizza@mail.ru"
             ),
-            user.id
+            user
         )
 
         val newRestaurant = restaurantRepository.findByIdOrNull(registeredRestaurant.id)
@@ -149,12 +147,12 @@ class RegisterTest {
 
     @Test(expected = ConstraintViolationException::class)
     fun `When create new restaurant with empty name, then failure`() {
-        restaurantService.register(RestaurantRegistrationInfo("", "Some food", "docs"), user.id)
+        restaurantService.register(RestaurantRegistrationInfo("", "Some food", "docs"), user)
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `When create new restaurant with empty description, then failure`() {
-        restaurantService.register(RestaurantRegistrationInfo("Pasta", "", "docs"), user.id)
+        restaurantService.register(RestaurantRegistrationInfo("Pasta", "", "docs"), user)
     }
 
     @TestConfiguration
