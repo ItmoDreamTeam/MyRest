@@ -26,16 +26,15 @@ class RestaurantServiceImpl(
     override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
         val admins = userRepository.findByRole(Role.ADMIN)
-        if (admins.isEmpty()) {
-            throw UserException("Ни одного администратора не зарегистрировано")
-        }
         if (existingRestaurant == null) {
             val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
-            admins.forEach {
-                notificationService.notify(
-                    it,
-                    "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
-                )
+            if (admins.isNotEmpty()) {
+                admins.forEach {
+                    notificationService.notify(
+                        it,
+                        "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
+                    )
+                }
             }
             employeeRepository.save(Manager(restaurant, user))
             return toRestaurantInfo(restaurant)
@@ -47,7 +46,7 @@ class RestaurantServiceImpl(
     override fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByIdOrNull(id)
         if (existingRestaurant == null) {
-            throw UserException("Ресторана с id = $id не существует")
+            throw UserException("Такого ресторана не существует")
         } else {
             if (!updateInfo.containsUpdate) {
                 throw  UserException("Нечего обновлять")
@@ -58,7 +57,7 @@ class RestaurantServiceImpl(
 
     override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Ресторана с id = $id не существует")
+            ?: throw UserException("Такого ресторана не существует")
         if (restaurantStatus == restaurant.status) {
             throw  UserException("Статус ресторана не изменился")
         }
@@ -69,7 +68,7 @@ class RestaurantServiceImpl(
 
     override fun getById(id: Long): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Ресторана с id = $id не существует")
+            ?: throw UserException("Такого ресторана не существует")
         return toRestaurantInfo(restaurant)
     }
 
@@ -92,23 +91,23 @@ class RestaurantServiceImpl(
         )
     }
 
-    private fun updateRestaurant(restaurant: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
+    private fun updateRestaurant(updatedRestaurant: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
         if (newInfo.description != null) {
-            restaurant.description = newInfo.description!!
+            updatedRestaurant.description = newInfo.description!!
         }
         if (!newInfo.legalInfo.isNullOrBlank()) {
-            restaurant.legalInfo = newInfo.legalInfo!!
+            updatedRestaurant.legalInfo = newInfo.legalInfo!!
         }
         if (!newInfo.email.isNullOrBlank()) {
-            restaurant.email = newInfo.email!!
+            updatedRestaurant.email = newInfo.email!!
         }
         if (!newInfo.phone.isNullOrBlank()) {
-            restaurant.phone = newInfo.phone!!
+            updatedRestaurant.phone = newInfo.phone!!
         }
         if (!newInfo.websiteUrl.isNullOrBlank()) {
-            restaurant.websiteUrl = newInfo.websiteUrl!!
+            updatedRestaurant.websiteUrl = newInfo.websiteUrl!!
         }
-        val restaurant = restaurantRepository.save(restaurant)
+        val restaurant = restaurantRepository.save(updatedRestaurant)
         return toRestaurantInfo(restaurant)
     }
 }

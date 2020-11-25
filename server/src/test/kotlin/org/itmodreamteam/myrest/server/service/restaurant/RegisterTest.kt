@@ -70,7 +70,7 @@ class RegisterTest {
         val savedRestaurant = restaurantRepository.getOne(registeredRestaurant.id)
 
         val employees = employeeRepository.findByRestaurant(savedRestaurant)
-        assertThat(employees).isNotEmpty
+        assertThat(employees.count()).isEqualTo(1)
         assertThat(employees[0].user).isEqualTo(user)
         assertThat(employees[0] is Manager).isTrue
     }
