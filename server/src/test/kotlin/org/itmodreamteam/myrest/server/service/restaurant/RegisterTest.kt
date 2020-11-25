@@ -99,15 +99,6 @@ class RegisterTest {
     }
 
     @Test(expected = UserException::class)
-    fun `When user registers restaurant with no admin register in system, then failure`() {
-        userRepository.delete(admin)
-        restaurantService.register(
-            RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
-            user
-        )
-    }
-
-    @Test(expected = UserException::class)
     fun `Given existing restaurant, when create restaurant with existing name, then failure`() {
         restaurantService.register(
             RestaurantRegistrationInfo("Pizza", "", ""),

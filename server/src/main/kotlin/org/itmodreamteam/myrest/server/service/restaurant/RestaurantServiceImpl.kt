@@ -28,13 +28,11 @@ class RestaurantServiceImpl(
         val admins = userRepository.findByRole(Role.ADMIN)
         if (existingRestaurant == null) {
             val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
-            if (admins.isNotEmpty()) {
-                admins.forEach {
-                    notificationService.notify(
-                        it,
-                        "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
-                    )
-                }
+            admins.forEach {
+                notificationService.notify(
+                    it,
+                    "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
+                )
             }
             employeeRepository.save(Manager(restaurant, user))
             return toRestaurantInfo(restaurant)
@@ -91,23 +89,23 @@ class RestaurantServiceImpl(
         )
     }
 
-    private fun updateRestaurant(updatedRestaurant: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
+    private fun updateRestaurant(restaurantToUpdate: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {
         if (newInfo.description != null) {
-            updatedRestaurant.description = newInfo.description!!
+            restaurantToUpdate.description = newInfo.description!!
         }
         if (!newInfo.legalInfo.isNullOrBlank()) {
-            updatedRestaurant.legalInfo = newInfo.legalInfo!!
+            restaurantToUpdate.legalInfo = newInfo.legalInfo!!
         }
         if (!newInfo.email.isNullOrBlank()) {
-            updatedRestaurant.email = newInfo.email!!
+            restaurantToUpdate.email = newInfo.email!!
         }
         if (!newInfo.phone.isNullOrBlank()) {
-            updatedRestaurant.phone = newInfo.phone!!
+            restaurantToUpdate.phone = newInfo.phone!!
         }
         if (!newInfo.websiteUrl.isNullOrBlank()) {
-            updatedRestaurant.websiteUrl = newInfo.websiteUrl!!
+            restaurantToUpdate.websiteUrl = newInfo.websiteUrl!!
         }
-        val restaurant = restaurantRepository.save(updatedRestaurant)
+        val restaurant = restaurantRepository.save(restaurantToUpdate)
         return toRestaurantInfo(restaurant)
     }
 }
