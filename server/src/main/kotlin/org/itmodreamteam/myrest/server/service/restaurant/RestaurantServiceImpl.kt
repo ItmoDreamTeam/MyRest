@@ -60,7 +60,7 @@ class RestaurantServiceImpl(
             throw  UserException("Статус ресторана не изменился")
         }
         restaurant.status = restaurantStatus
-        var savedRestaurant = restaurantRepository.save(restaurant)
+        val savedRestaurant = restaurantRepository.save(restaurant)
         return toRestaurantInfo(savedRestaurant)
     }
 
