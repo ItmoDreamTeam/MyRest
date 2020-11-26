@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-android-extensions")
+    id("kotlin-android")
 }
 group = "org.itmodreamteam.myrest"
 version = "1.0-SNAPSHOT"
@@ -21,6 +22,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.activity:activity-ktx:1.1.0")
+    implementation("com.google.android.material:material:1.2.1")
 }
 android {
     compileSdkVersion(29)
