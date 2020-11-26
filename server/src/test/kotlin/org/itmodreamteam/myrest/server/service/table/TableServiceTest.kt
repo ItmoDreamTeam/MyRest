@@ -96,6 +96,13 @@ class TableServiceTest {
         tableService.addTable(-1, TableInfo(100, null, 2))
     }
 
+    @Test(expected = UserException::class)
+    fun `Given restaurant table, when add table with existing number, then failure`() {
+        tableService.addTable(restaurant.id, TableInfo(100, null, 2))
+
+        tableService.addTable(restaurant.id, TableInfo(100, null, 2))
+    }
+
     @Test(expected = ConstraintViolationException::class)
     fun `When add table with negative number, then failure`() {
         tableService.addTable(restaurant.id, TableInfo(-3, null, 2))
@@ -114,6 +121,14 @@ class TableServiceTest {
     @Test(expected = UserException::class)
     fun `When update non-existent table, then failure`() {
         tableService.updateTable(-4, TableInfo(100, null, 2))
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given two restaurant tables, when set one table number same as another table number, then failure`() {
+        val table1 = tableService.addTable(restaurant.id, TableInfo(101, null, 5))
+        val table2 = tableService.addTable(restaurant.id, TableInfo(102, null, 5))
+
+        tableService.updateTable(table1.id, TableInfo(table2.info.number, null, 2))
     }
 
     @Test(expected = ConstraintViolationException::class)
