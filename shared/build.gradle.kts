@@ -50,6 +50,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+                api("io.ktor:ktor-client-core:1.4.2")
             }
         }
         val commonTest by getting {
