@@ -22,6 +22,9 @@ class TableWaiterServiceImpl(
     override fun addWaiter(tableId: Long, waiterId: Long): EmployeeInfo {
         val table = getRestaurantTableEntity(tableId)
         val waiter = getWaiterEntity(waiterId)
+        if (waiter.restaurant != table.restaurant) {
+            throw UserException("Официант не является сотрудником ресторана")
+        }
         table.addWaiter(waiter)
         tableRepository.save(table)
         return employeeService.toEmployeeInfo(waiter)

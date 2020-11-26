@@ -1,6 +1,5 @@
 package org.itmodreamteam.myrest.server.model.restaurant
 
-import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import javax.persistence.Entity
 import javax.persistence.ManyToMany
@@ -45,12 +44,7 @@ class RestaurantTable() : JpaEntity() {
         this._waiters = mutableSetOf()
     }
 
-    fun addWaiter(waiter: Waiter) {
-        if (waiter.restaurant != this.restaurant) {
-            throw UserException("Официант не является сотрудником ресторана")
-        }
-        _waiters.add(waiter)
-    }
+    fun addWaiter(waiter: Waiter) = _waiters.add(waiter)
 
     fun removeWaiter(waiter: Waiter) = _waiters.remove(waiter)
 }
