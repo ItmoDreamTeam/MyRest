@@ -20,17 +20,27 @@ class TableServiceImpl(
 
     override fun addTable(restaurantId: Long, info: TableInfo): TableView {
         val restaurant = getRestaurantEntity(restaurantId)
-        val table = tableRepository.save(RestaurantTable(restaurant, info.name, info.description, info.numberOfSeats))
+        requireUniqueTableNumber(restaurant, info.number)
+        val table = tableRepository.save(RestaurantTable(restaurant, info.number, info.description, info.numberOfSeats))
         return toTableView(table)
     }
 
     override fun updateTable(tableId: Long, info: TableInfo): TableView {
         val table = getRestaurantTableEntity(tableId)
-        table.name = info.name
+        if (info.number != table.number) {
+            requireUniqueTableNumber(table.restaurant, info.number)
+        }
+        table.number = info.number
         table.description = info.description
         table.numberOfSeats = info.numberOfSeats
         val updatedTable = tableRepository.save(table)
         return toTableView(updatedTable)
+    }
+
+    private fun requireUniqueTableNumber(restaurant: Restaurant, number: Int) {
+        if (tableRepository.findByRestaurantAndNumber(restaurant, number) != null) {
+            throw UserException("Столик с данным номером уже существует")
+        }
     }
 
     override fun getTable(tableId: Long): TableView {
@@ -51,7 +61,7 @@ class TableServiceImpl(
 
     override fun toTableView(table: RestaurantTable): TableView {
         val restaurant = restaurantService.toRestaurantInfo(table.restaurant)
-        val info = TableInfo(table.name, table.description, table.numberOfSeats)
+        val info = TableInfo(table.number, table.description, table.numberOfSeats)
         return TableView(table.id, restaurant, info)
     }
 

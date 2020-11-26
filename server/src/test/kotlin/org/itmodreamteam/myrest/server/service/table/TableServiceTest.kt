@@ -40,8 +40,8 @@ class TableServiceTest {
 
     @Test
     fun `Given restaurant, when add tables, then tables are added`() {
-        val table1 = TableInfo("Table #1", "By the window", 4)
-        val table2 = TableInfo("Table #2", null, 8)
+        val table1 = TableInfo(1, "By the window", 4)
+        val table2 = TableInfo(2, null, 8)
         tableService.addTable(restaurant.id, table1)
         tableService.addTable(restaurant.id, table2)
 
@@ -53,36 +53,36 @@ class TableServiceTest {
 
     @Test
     fun `Given restaurant table, when update table info, then info is updated`() {
-        val initialInfo = TableInfo("Table F", null, 3)
+        val initialInfo = TableInfo(101, null, 3)
         val initialTable = tableService.addTable(restaurant.id, initialInfo)
 
-        val newInfo = TableInfo("Table X", "Some description", 4)
+        val newInfo = TableInfo(102, "Some description", 4)
         val updatedTable = tableService.updateTable(initialTable.id, newInfo)
 
         assertThat(updatedTable.id).isEqualTo(initialTable.id)
         assertThat(updatedTable.restaurant).isEqualTo(initialTable.restaurant)
-        assertThat(updatedTable.info.name).isEqualTo("Table X")
+        assertThat(updatedTable.info.number).isEqualTo(102)
         assertThat(updatedTable.info.description).isEqualTo("Some description")
         assertThat(updatedTable.info.numberOfSeats).isEqualTo(4)
     }
 
     @Test
     fun `Given restaurant table, when get table info, then info is correct`() {
-        val info = TableInfo("Table G", "The largest table", 18)
+        val info = TableInfo(101, "The largest table", 18)
         val table = tableService.addTable(restaurant.id, info)
 
         val retrievedTable = tableService.getTable(table.id)
 
         assertThat(retrievedTable.id).isEqualTo(table.id)
         assertThat(retrievedTable.restaurant.id).isEqualTo(restaurant.id)
-        assertThat(retrievedTable.info.name).isEqualTo("Table G")
+        assertThat(retrievedTable.info.number).isEqualTo(101)
         assertThat(retrievedTable.info.description).isEqualTo("The largest table")
         assertThat(retrievedTable.info.numberOfSeats).isEqualTo(18)
     }
 
     @Test
     fun `Given restaurant table, when remove table, then restaurant has no tables`() {
-        val info = TableInfo("Table G", "The largest table", 18)
+        val info = TableInfo(101, "The largest table", 18)
         val table = tableService.addTable(restaurant.id, info)
 
         tableService.removeTable(table.id)
@@ -93,50 +93,50 @@ class TableServiceTest {
 
     @Test(expected = UserException::class)
     fun `When add table for non-existent restaurant, then failure`() {
-        tableService.addTable(-1, TableInfo("Name", null, 2))
+        tableService.addTable(-1, TableInfo(100, null, 2))
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `When add table with empty name, then failure`() {
-        tableService.addTable(restaurant.id, TableInfo("", null, 2))
+    fun `When add table with negative number, then failure`() {
+        tableService.addTable(restaurant.id, TableInfo(-3, null, 2))
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `When add table with zero seats, then failure`() {
-        tableService.addTable(restaurant.id, TableInfo("Name", null, 0))
+        tableService.addTable(restaurant.id, TableInfo(100, null, 0))
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `When add table with negative number of seats, then failure`() {
-        tableService.addTable(restaurant.id, TableInfo("Name", null, -3))
+        tableService.addTable(restaurant.id, TableInfo(100, null, -3))
     }
 
     @Test(expected = UserException::class)
     fun `When update non-existent table, then failure`() {
-        tableService.updateTable(-4, TableInfo("Name", null, 2))
+        tableService.updateTable(-4, TableInfo(100, null, 2))
     }
 
     @Test(expected = ConstraintViolationException::class)
-    fun `Given restaurant table, when set table name to empty value, then failure`() {
-        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+    fun `Given restaurant table, when set table number to negative value, then failure`() {
+        val table = tableService.addTable(restaurant.id, TableInfo(100, null, 5))
 
-        tableService.updateTable(table.id, TableInfo("", null, 2))
+        tableService.updateTable(table.id, TableInfo(-3, null, 2))
         entityManager.flush()
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `Given restaurant table, when set number of table seats to zero, then failure`() {
-        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+        val table = tableService.addTable(restaurant.id, TableInfo(100, null, 5))
 
-        tableService.updateTable(table.id, TableInfo("Name", null, 0))
+        tableService.updateTable(table.id, TableInfo(100, null, 0))
         entityManager.flush()
     }
 
     @Test(expected = ConstraintViolationException::class)
     fun `Given restaurant table, when set negative number of table seats, then failure`() {
-        val table = tableService.addTable(restaurant.id, TableInfo("Table for 5", null, 5))
+        val table = tableService.addTable(restaurant.id, TableInfo(100, null, 5))
 
-        tableService.updateTable(table.id, TableInfo("Name", null, -3))
+        tableService.updateTable(table.id, TableInfo(100, null, -3))
         entityManager.flush()
     }
 

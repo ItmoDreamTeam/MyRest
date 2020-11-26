@@ -47,7 +47,7 @@ class TableWaiterServiceTest {
     @Before
     fun setUp() {
         val restaurant = restaurantRepository.save(Restaurant("Mr Chu", "de Finibus Bonorum", "Inc"))
-        table = tableRepository.save(RestaurantTable(restaurant, "Round Table", null, 10))
+        table = tableRepository.save(RestaurantTable(restaurant, 100, null, 10))
 
         val alice = userRepository.save(User("Alice", "Wonderland"))
         val bob = userRepository.save(User("Bob", "Bobov"))
@@ -132,10 +132,10 @@ class TableWaiterServiceTest {
     @Test
     fun `Given tables and their waiters, when get waiter's tables, then return correct tables`() {
         val restaurant = restaurantRepository.save(Restaurant("AAA", "/", "Inc"))
-        val tableFor3 = tableRepository.save(RestaurantTable(restaurant, "A1", null, 3))
-        val tableFor4 = tableRepository.save(RestaurantTable(restaurant, "A2", null, 4))
-        val tableFor5 = tableRepository.save(RestaurantTable(restaurant, "A3", null, 5))
-        val tableFor8 = tableRepository.save(RestaurantTable(restaurant, "A4", null, 8))
+        val tableFor3 = tableRepository.save(RestaurantTable(restaurant, 1, null, 3))
+        val tableFor4 = tableRepository.save(RestaurantTable(restaurant, 2, null, 4))
+        val tableFor5 = tableRepository.save(RestaurantTable(restaurant, 3, null, 5))
+        val tableFor8 = tableRepository.save(RestaurantTable(restaurant, 4, null, 8))
 
         val john = userRepository.save(User("John", "Rain"))
         val jack = userRepository.save(User("Jack", "Nightingale"))

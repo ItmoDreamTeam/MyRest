@@ -1,7 +1,7 @@
 package org.itmodreamteam.myrest.shared.table
 
 data class TableInfo(
-    val name: String,
+    val number: Int,
     val description: String?,
     val numberOfSeats: Int,
 )

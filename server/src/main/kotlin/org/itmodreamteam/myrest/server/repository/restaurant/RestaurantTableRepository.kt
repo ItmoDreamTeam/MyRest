@@ -7,4 +7,6 @@ import org.itmodreamteam.myrest.server.repository.JpaEntityRepository
 interface RestaurantTableRepository : JpaEntityRepository<RestaurantTable> {
 
     fun findByRestaurant(restaurant: Restaurant): List<RestaurantTable>
+
+    fun findByRestaurantAndNumber(restaurant: Restaurant, number: Int): RestaurantTable?
 }
