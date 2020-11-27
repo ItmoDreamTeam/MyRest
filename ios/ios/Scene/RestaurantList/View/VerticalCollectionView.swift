@@ -122,4 +122,3 @@ extension VerticalCollectionView: UICollectionViewDelegateFlowLayout {
     return CGSize(width: collectionView.bounds.width, height: 100)
   }
 }
-
