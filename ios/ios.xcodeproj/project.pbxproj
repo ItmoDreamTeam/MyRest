@@ -21,6 +21,7 @@
 		A7D2DA11257060CD00ED74BC /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA10257060CD00ED74BC /* ConfigurableView.swift */; };
 		A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA12257062C000ED74BC /* RestaurantViewModel.swift */; };
 		A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D32C3D25712A3900124AFE /* AppDependencies.swift */; };
+		A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D32C3F257136CA00124AFE /* VerticalCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		A7D2DA10257060CD00ED74BC /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
 		A7D2DA12257062C000ED74BC /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
 		A7D32C3D25712A3900124AFE /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		A7D32C3F257136CA00124AFE /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		E813D231D8CD19DF3290ACC7 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +210,7 @@
 				A7D2DA082570510800ED74BC /* LoadingFotter.swift */,
 				A7D2DA0A25705BBD00ED74BC /* RestaurantCell.swift */,
 				A7D2DA0B25705BBD00ED74BC /* RestaurantCell.xib */,
+				A7D32C3F257136CA00124AFE /* VerticalCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */,
 				A7D2DA11257060CD00ED74BC /* ConfigurableView.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
