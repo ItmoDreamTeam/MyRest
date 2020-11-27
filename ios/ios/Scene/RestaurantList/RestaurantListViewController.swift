@@ -11,8 +11,12 @@ import UIKit
 final class RestaurantListViewController: UIViewController {
 
   private lazy var collectionView: UICollectionView = {
-    let collectionView = UICollectionView()
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .vertical
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    collectionView.translatesAutoresizingMaskIntoConstraints = false
     collectionView.register(RestaurantCell.self, forCellWithReuseIdentifier: RestaurantCell.reuseId)
+    collectionView.backgroundColor = .white
     collectionView.register(
       LoadingFotter.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
@@ -30,6 +34,7 @@ final class RestaurantListViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureCollectionView()
   }
 
   private func configureCollectionView() {
