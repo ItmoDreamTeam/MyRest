@@ -4,13 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.ktor.client.*
+import io.ktor.client.features.*
+import io.ktor.client.request.*
 import kotlinx.coroutines.launch
+import org.itmodreamteam.myrest.shared.ClientProperties
 import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantController
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantControllerImpl
 
 class RestaurantSearchViewModel(
-    private val restaurantController: RestaurantController = RestaurantControllerImpl(HttpClient()),
+    private val restaurantController: RestaurantController = RestaurantControllerImpl(
+        HttpClient {
+            defaultRequest {
+                host = ClientProperties.Server.host
+                port = ClientProperties.Server.port
+            }
+        }
+    ),
 ) : ViewModel() {
 
     fun search(keyword: String, pageable: Pageable) = viewModelScope.launch {
