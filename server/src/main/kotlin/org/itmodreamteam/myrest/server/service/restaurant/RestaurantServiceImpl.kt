@@ -8,7 +8,10 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.*
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.itmodreamteam.myrest.shared.user.Role
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
