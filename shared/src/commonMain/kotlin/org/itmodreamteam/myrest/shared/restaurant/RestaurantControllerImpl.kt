@@ -10,11 +10,15 @@ class RestaurantControllerImpl(
 ) : RestaurantController {
 
     override suspend fun search(keyword: String, pageable: Pageable): ContentPage<RestaurantInfo> {
-        return client.get {
-            url("/restaurants")
-            parameter("keyword", keyword)
-            parameter("pageNumber", pageable.pageNumber)
-            parameter("pageSize", pageable.pageSize)
+        return try {
+            client.get {
+                url("/restaurants")
+                parameter("keyword", keyword)
+                parameter("pageNumber", pageable.pageNumber)
+                parameter("pageSize", pageable.pageSize)
+            }
+        } catch (e: Exception) {
+            ContentPage.empty(pageable)
         }
     }
 }
