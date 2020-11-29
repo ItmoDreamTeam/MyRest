@@ -18,6 +18,7 @@ class RestaurantControllerImpl(
                 parameter("pageSize", pageable.pageSize)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             ContentPage.empty(pageable)
         }
     }
