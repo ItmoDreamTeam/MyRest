@@ -3,7 +3,7 @@ package org.itmodreamteam.myrest.android
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.itmodreamteam.myrest.android.restaurant.RestaurantSearchActivity
+import org.itmodreamteam.myrest.android.restaurant.search.RestaurantSearchActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
