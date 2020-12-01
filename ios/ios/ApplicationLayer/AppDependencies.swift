@@ -19,7 +19,8 @@ final class AppDependencies {
 
   private func configureDependencies() {
     // MARK: - RestaurantListScene
-    container.register { RestaurantListViewController() }
+    container.register { RestaurantListRouterImpl() as RestaurantListRouter }
+    container.register { RestaurantListViewController(router: try self.container.resolve()) }
   }
 
   func getRootViewController() -> RestaurantListViewController {

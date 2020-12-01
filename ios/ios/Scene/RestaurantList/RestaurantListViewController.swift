@@ -8,12 +8,17 @@
 
 import UIKit
 
-final class RestaurantListViewController: UIViewController {
+protocol RestaurantListView: UIViewController {}
+
+final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   private var searchView: SearchView
   private var collectionView: VerticalCollectionView
 
-  init() {
+  private let router: RestaurantListRouter
+
+  init(router: RestaurantListRouter) {
+    self.router = router
     searchView = SearchView()
     collectionView = VerticalCollectionView()
     super.init(nibName: nil, bundle: nil)
@@ -26,8 +31,6 @@ final class RestaurantListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-
-    
     configureNavBar()
     configureSearchTextField()
     configureCollectionView()
@@ -44,6 +47,7 @@ final class RestaurantListViewController: UIViewController {
       target: self,
       action: #selector(goToAboutScene)
     )
+    navigationItem.rightBarButtonItem?.tintColor = .black
   }
 
   private func configureSearchTextField() {
@@ -62,11 +66,10 @@ final class RestaurantListViewController: UIViewController {
   }
 
   @objc private func goToAboutScene() {
-// MARK: - not implemented yet
+    router.restaurantListShouldOpenScene(self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
   }
 }
