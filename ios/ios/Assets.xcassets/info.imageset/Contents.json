@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "graySearch1x.png",
+      "filename" : "Vector.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "graySearch2x.png",
+      "filename" : "Vector2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "graySearch3x.png",
+      "filename" : "Vector3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -10,13 +10,63 @@ import UIKit
 
 final class RestaurantListViewController: UIViewController {
 
+  private var searchView: SearchView
+  private var collectionView: VerticalCollectionView
+
+  init() {
+    searchView = SearchView()
+    collectionView = VerticalCollectionView()
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .white
 
+    
+    configureNavBar()
+    configureSearchTextField()
+    configureCollectionView()
+  }
+
+  private func configureNavBar() {
+    navigationItem.title = "MyRest"
+    navigationItem.largeTitleDisplayMode = .always
+    navigationController?.navigationBar.prefersLargeTitles = true
+
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      image: UIImage(named: "info"),
+      style: .plain,
+      target: self,
+      action: #selector(goToAboutScene)
+    )
+  }
+
+  private func configureSearchTextField() {
+    view.addSubview(searchView)
+    searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
   }
 
   private func configureCollectionView() {
+    view.addSubview(collectionView)
+    collectionView.topAnchor.constraint(equalTo: searchView.bottomAnchor).isActive = true
+    collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+  }
+
+  @objc private func goToAboutScene() {
+// MARK: - not implemented yet
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
   }
 }
-
