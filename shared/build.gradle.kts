@@ -70,6 +70,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation("io.ktor:ktor-client-android:1.4.2")
+                implementation("io.ktor:ktor-client-gson:1.4.2")
+
                 implementation("androidx.core:core-ktx:1.2.0")
             }
         }
