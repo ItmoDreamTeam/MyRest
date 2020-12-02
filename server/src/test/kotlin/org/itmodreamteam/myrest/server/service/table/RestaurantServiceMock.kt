@@ -1,4 +1,4 @@
-package org.itmodreamteam.myrest.server.service.employee
+package org.itmodreamteam.myrest.server.service.table
 
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.user.User
