@@ -79,6 +79,7 @@ kotlin {
         val androidTest by getting
         val iosArm64Main by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.3.5-native-mt")
                 implementation("io.ktor:ktor-client-ios:1.4.2")
             }
         }
