@@ -77,7 +77,11 @@ kotlin {
             }
         }
         val androidTest by getting
-        val iosArm64Main by getting
+        val iosArm64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.4.2")
+            }
+        }
         val iosArm64Test by getting
         val jvmMain by getting
         val jvmTest by getting {
