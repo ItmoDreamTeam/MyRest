@@ -41,6 +41,13 @@ kotlin {
             }
         }
     }
+    iosX64 {
+        binaries {
+            framework {
+                baseName = "shared"
+            }
+        }
+    }
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -84,6 +91,13 @@ kotlin {
             }
         }
         val iosArm64Test by getting
+        val iosX64Main by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.3.5-native-mt")
+                implementation("io.ktor:ktor-client-ios:1.4.2")
+            }
+        }
+        val iosX64Test by getting
         val jvmMain by getting
         val jvmTest by getting {
             dependencies {
@@ -109,7 +123,7 @@ android {
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework(mode)
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")
