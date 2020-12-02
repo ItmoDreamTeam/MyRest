@@ -5,6 +5,7 @@ import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @DataJpaTest
-@ContextConfiguration(classes = [GetByIdTest.Config::class])
-class GetByIdTest {
+@ContextConfiguration(classes = [UpdateStatusTest.Config::class])
+class UpdateStatusTest {
 
     @Autowired
     lateinit var restaurantService: RestaurantService
@@ -38,18 +39,22 @@ class GetByIdTest {
     }
 
     @Test
-    fun `Given existing identifier, when getById restaurant, then return existing restaurant`() {
-        val restaurant = restaurantService.getById(identifier)
+    fun `Given existing restaurant, when admin update status, then success update`() {
+        restaurantService.updateStatus(identifier, RestaurantStatus.ACTIVE)
 
-        assertThat(restaurant.id).isEqualTo(identifier)
-        assertThat(restaurant.name).isEqualTo("Pizza")
-        assertThat(restaurant.description).isEqualTo("Italian food")
-        assertThat(restaurant.legalInfo).isEqualTo("ИНН")
+        val updatedRestaurant = restaurantService.getById(identifier)
+
+        assertThat(updatedRestaurant.status).isEqualTo(RestaurantStatus.ACTIVE)
     }
 
     @Test(expected = UserException::class)
-    fun `When getById with not existing identifier, then failure`() {
-        restaurantService.getById(191912)
+    fun `Given existing restaurant, when admin update status with the same value, then failure`() {
+        restaurantService.updateStatus(identifier, RestaurantStatus.PENDING)
+    }
+
+    @Test(expected = UserException::class)
+    fun `When updating non existing restaurant, then failure`() {
+        restaurantService.updateStatus(101110, RestaurantStatus.PENDING)
     }
 
     @TestConfiguration
