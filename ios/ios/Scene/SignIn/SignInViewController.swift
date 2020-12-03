@@ -12,8 +12,7 @@ protocol SignInView: UIViewController {}
 
 final class SignInViewController: UIViewController, SignInView {
 
-  init(router: RestaurantListRouter) {
-    
+  init() {
     super.init(nibName: nil, bundle: nil)
   }
 

@@ -46,8 +46,4 @@ final class PhoneTextField: UITextField {
       return
     }
   }
-
-  deinit {
-    NotificationCenter.default.removeObserver(self)
-  }
 }
