@@ -1,15 +1,20 @@
 package org.itmodreamteam.myrest.server.controller
 
+import org.itmodreamteam.myrest.server.security.UserAuthentication
 import org.itmodreamteam.myrest.server.service.user.UserService
-import org.itmodreamteam.myrest.shared.user.ActiveSession
-import org.itmodreamteam.myrest.shared.user.SignIn
-import org.itmodreamteam.myrest.shared.user.SignInVerification
-import org.itmodreamteam.myrest.shared.user.SignUp
+import org.itmodreamteam.myrest.shared.user.*
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/users")
 class UserController(private val userService: UserService) {
+
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    fun getMe(userAuthentication: UserAuthentication): Profile {
+        return userAuthentication.profile
+    }
 
     @PostMapping("/sign-up")
     fun signUp(@RequestBody signUp: SignUp) {

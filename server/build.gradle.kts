@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("org.springframework.boot") version "2.3.5.RELEASE"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.4.20"
     jacoco
 }
 apply(plugin = "io.spring.dependency-management")
