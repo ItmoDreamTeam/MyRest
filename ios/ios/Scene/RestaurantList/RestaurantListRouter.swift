@@ -13,7 +13,14 @@ protocol RestaurantListRouter {
 }
 
 final class RestaurantListRouterImpl: RestaurantListRouter {
+
+  private let signInScene: SignInView
+
+  init(signInScene: SignInView) {
+    self.signInScene = signInScene
+  }
+
   func restaurantListShouldOpenScene(_ restaurantListScene: RestaurantListView) {
-    fatalError("Not implemented yet")
+    restaurantListScene.navigationController?.pushViewController(signInScene, animated: true)
   }
 }

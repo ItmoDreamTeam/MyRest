@@ -18,8 +18,13 @@ final class AppDependencies {
   }
 
   private func configureDependencies() {
+    // MARK: - SignInScene
+    container.register { SignInViewController() as SignInView }
+
     // MARK: - RestaurantListScene
-    container.register { RestaurantListRouterImpl() as RestaurantListRouter }
+    container.register {
+      RestaurantListRouterImpl(signInScene: try self.container.resolve()) as RestaurantListRouter
+    }
     container.register { RestaurantListViewController(router: try self.container.resolve()) }
   }
 
