@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.shared.user
 
 import io.ktor.client.request.*
+import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
 class UserClientImpl : UserClient {
@@ -10,6 +11,7 @@ class UserClientImpl : UserClient {
     override suspend fun getMe(): Profile {
         return client.get {
             url("/users/me")
+            provideAccessToken()
         }
     }
 
