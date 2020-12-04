@@ -10,18 +10,29 @@ import UIKit
 
 final class PhoneTextField: UITextField {
 
-  private let formattingPattern = " *** ***-**-**"
+  private let formattingPattern = "*** ***-**-** "
   private let replacementChar: Character = "*"
-  private let prefix = "+7"
+  private let prefix = " +7 "
+  private var prevIdx: Int
 
   init() {
+    prevIdx = prefix.count
     super.init(frame: .zero)
+    translatesAutoresizingMaskIntoConstraints = false
     self.keyboardType = .numberPad
     text = prefix
+    registerForNotifications()
   }
 
   required init?(coder: NSCoder) {
     return nil
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.borderWidth = 1
+    layer.borderColor = UIColor.black.cgColor
+    layer.cornerRadius = 5
   }
 
   private func registerForNotifications() {
@@ -34,8 +45,22 @@ final class PhoneTextField: UITextField {
   }
 
   @objc private func textDidChange() {
-    guard let text = text, text.count > 2 && text.count < formattingPattern.count + 2 else { return }
-    let currentCharacter = Array(formattingPattern)[text.count - 2]
+    guard let text = text else { return }
+    let textLength = text.count
+    let prefixLength = prefix.count
+    guard prefixLength < textLength else {
+      self.text = prefix
+      prevIdx = prefixLength
+      return
+    }
+    guard prevIdx < textLength else { return }
+    prevIdx = textLength
+    if !(textLength < formattingPattern.count + prefixLength + 1) {
+      let range = text.startIndex..<text.index(before: text.endIndex)
+      self.text = String(text[range])
+      return
+    }
+    let currentCharacter = Array(formattingPattern)[textLength - prefixLength]
     if currentCharacter == " " {
       self.text?.append(" ")
       return
