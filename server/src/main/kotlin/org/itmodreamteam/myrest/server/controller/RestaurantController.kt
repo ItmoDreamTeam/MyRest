@@ -7,6 +7,7 @@ import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
+import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
 import org.springframework.data.domain.PageRequest
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
@@ -30,6 +31,12 @@ class RestaurantController(
     fun register(@RequestBody newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
         val user = currentUserService.currentUserEntity
         return restaurantService.register(newRestaurant, user)
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasPermission(#id, 'Restaurant', 'write')")
+    fun update(@PathVariable id: Long, @RequestBody updateInfo: RestaurantUpdateInfo): RestaurantInfo {
+        return restaurantService.update(id, updateInfo)
     }
 
     @GetMapping("/all")
