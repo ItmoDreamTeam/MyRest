@@ -25,7 +25,7 @@ class RestaurantController(
         return PageUtil.toContentPage(restaurantService.search(keyword, statuses, pageRequest))
     }
 
-    @PostMapping
+    @PutMapping
     @PreAuthorize("isAuthenticated()")
     fun register(@RequestBody newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
         val user = currentUserService.currentUserEntity
