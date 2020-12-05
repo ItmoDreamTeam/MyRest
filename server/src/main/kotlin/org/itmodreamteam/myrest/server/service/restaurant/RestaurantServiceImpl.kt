@@ -8,10 +8,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
-import org.itmodreamteam.myrest.shared.restaurant.RestaurantUpdateInfo
+import org.itmodreamteam.myrest.shared.restaurant.*
 import org.itmodreamteam.myrest.shared.user.Role
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -27,20 +24,21 @@ class RestaurantServiceImpl(
 ) : RestaurantService {
 
     override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
-        val existingRestaurant = restaurantRepository.findByName(newRestaurant.name)
-        val admins = userRepository.findByRole(Role.ADMIN)
-        if (existingRestaurant == null) {
-            val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
-            admins.forEach {
-                notificationService.notify(
-                    it,
-                    "Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки"
-                )
-            }
-            employeeRepository.save(Manager(restaurant, user))
-            return toRestaurantInfo(restaurant)
-        } else {
+        val exists = restaurantRepository.findByName(newRestaurant.name) != null
+        if (exists) {
             throw UserException("Ресторан с таким именем уже существует")
+        }
+        val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
+        employeeRepository.save(
+            Manager(restaurant, user).also { it.userStatus = EmployeeUserStatus.ACTIVE }
+        )
+        notifyAdmins("Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки")
+        return toRestaurantInfo(restaurant)
+    }
+
+    private fun notifyAdmins(message: String) {
+        userRepository.findByRole(Role.ADMIN).forEach { admin ->
+            notificationService.notify(admin, message)
         }
     }
 
