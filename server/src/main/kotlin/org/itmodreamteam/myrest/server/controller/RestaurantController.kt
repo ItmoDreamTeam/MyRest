@@ -31,4 +31,10 @@ class RestaurantController(
         val user = currentUserService.currentUserEntity
         return restaurantService.register(newRestaurant, user)
     }
+
+    @PutMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    fun updateStatus(@PathVariable id: Long, @RequestParam status: RestaurantStatus): RestaurantInfo {
+        return restaurantService.updateStatus(id, status)
+    }
 }
