@@ -32,6 +32,13 @@ class RestaurantController(
         return restaurantService.register(newRestaurant, user)
     }
 
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    fun search(keyword: String, statuses: Array<RestaurantStatus>, pageable: Pageable): ContentPage<RestaurantInfo> {
+        val pageRequest = PageRequest.of(pageable.pageNumber, pageable.pageSize)
+        return PageUtil.toContentPage(restaurantService.search(keyword, statuses.toList(), pageRequest))
+    }
+
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('ADMIN')")
     fun updateStatus(@PathVariable id: Long, @RequestParam status: RestaurantStatus): RestaurantInfo {
