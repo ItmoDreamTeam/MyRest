@@ -8,6 +8,7 @@
 
 import Foundation
 import Dip
+import shared
 
 final class AppDependencies {
   private let container: DependencyContainer
@@ -18,13 +19,31 @@ final class AppDependencies {
   }
 
   private func configureDependencies() {
+    // MARK: - Clients
+    container.register { RestaurantClientImpl() as RestaurantClient }
+
     // MARK: - RestaurantListScene
     container.register { RestaurantListRouterImpl() as RestaurantListRouter }
-    container.register { RestaurantListViewController(router: try self.container.resolve()) }
+    container.register(.shared) {
+      try RestaurantListInteractorImpl(
+        restaurantClient: self.container.resolve(),
+        restaurantPresenter: self.container.resolve()) as RestaurantListInteractor
+    }
+    container.register(.shared) {
+      RestaurantListPresenterImpl(view: try self.container.resolve()) as RestaurantListPresenter
+    }
+    container.register(.shared) {
+      RestaurantListViewController()
+    }
+    .resolvingProperties { container, view in
+      view.router = try container.resolve()
+      view.interactor = try container.resolve()
+    }
+    .implements(RestaurantListView.self)
   }
 
-  func getRootViewController() -> RestaurantListViewController {
-    guard let root = try? container.resolve() as RestaurantListViewController else {
+  func getRootViewController() -> RestaurantListView {
+    guard let root = try? container.resolve() as RestaurantListView else {
       fatalError("Root ViewController has not be registered")
     }
     return root
