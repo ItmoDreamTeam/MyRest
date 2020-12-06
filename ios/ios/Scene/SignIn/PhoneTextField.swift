@@ -48,12 +48,15 @@ final class PhoneTextField: UITextField {
     guard let text = text else { return }
     let textLength = text.count
     let prefixLength = prefix.count
-    guard prefixLength < textLength else {
+    if prefixLength > textLength {
       self.text = prefix
       prevIdx = prefixLength
       return
     }
-    guard prevIdx < textLength else { return }
+    if prevIdx >= textLength {
+      prevIdx = textLength
+      return
+    }
     prevIdx = textLength
     if !(textLength < formattingPattern.count + prefixLength + 1) {
       let range = text.startIndex..<text.index(before: text.endIndex)
