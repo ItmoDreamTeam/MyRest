@@ -79,8 +79,9 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   // MARK: - RestaurantListView methods
 
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
+    collectionView.configure(with: restaurants)
     DispatchQueue.main.async {
-      
+      self.collectionView.reloadData()
     }
   }
 
