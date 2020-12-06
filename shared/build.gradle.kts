@@ -41,6 +41,13 @@ kotlin {
             }
         }
     }
+    iosX64 {
+        binaries {
+            framework {
+                baseName = "shared"
+            }
+        }
+    }
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -49,7 +56,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+                api(kotlin("reflect"))
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2-native-mt")
+                api("io.ktor:ktor-client-core:1.4.2")
+                api("io.ktor:ktor-client-json:1.4.2")
+                api("io.ktor:ktor-client-serialization:1.4.2")
             }
         }
         val commonTest by getting {
@@ -66,12 +78,25 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation("io.ktor:ktor-client-android:1.4.2")
+                implementation("io.ktor:ktor-client-gson:1.4.2")
+
                 implementation("androidx.core:core-ktx:1.2.0")
             }
         }
         val androidTest by getting
-        val iosArm64Main by getting
+        val iosArm64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.4.2")
+            }
+        }
         val iosArm64Test by getting
+        val iosX64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.4.2")
+            }
+        }
+        val iosX64Test by getting
         val jvmMain by getting
         val jvmTest by getting {
             dependencies {
@@ -97,7 +122,7 @@ android {
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework(mode)
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")
