@@ -31,7 +31,7 @@ class UserClientImpl : UserClient {
 
     override suspend fun startSession(signInVerification: SignInVerification): ActiveSession {
         return client.put {
-            url("/users/sessions/verification")
+            url("/users/sessions")
             body = signInVerification
         }
     }

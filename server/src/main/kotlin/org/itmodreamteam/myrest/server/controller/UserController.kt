@@ -26,7 +26,7 @@ class UserController(private val userService: UserService) {
         userService.signIn(signIn)
     }
 
-    @PutMapping("/sessions/verification")
+    @PutMapping("/sessions")
     fun startSession(@RequestBody signInVerification: SignInVerification): ActiveSession {
         return userService.startSession(signInVerification)
     }
