@@ -6,10 +6,10 @@
 //  Copyright © 2020 orgName. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct RestaurantViewModel {
-  init() {
-    fatalError("Not implemented yet")
-  }
+  let name: String
+  let rating: Double
+  let avatar: UIImage
 }

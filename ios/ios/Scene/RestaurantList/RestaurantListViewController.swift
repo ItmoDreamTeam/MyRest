@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol RestaurantListView: UIViewController {}
+protocol RestaurantListView: UIViewController {
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
+  func onRestaurantsFetchError(_ error: Error)
+}
 
 final class RestaurantListViewController: UIViewController, RestaurantListView {
 
@@ -71,5 +74,17 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+  }
+
+  // MARK: - RestaurantListView methods
+
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
+    DispatchQueue.main.async {
+      
+    }
+  }
+
+  func onRestaurantsFetchError(_ error: Error) {
+    fatalError("Not implemented yet")
   }
 }

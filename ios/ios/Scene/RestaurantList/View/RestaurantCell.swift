@@ -24,6 +24,8 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   }
 
   func configure(with model: RestaurantViewModel) {
-    fatalError("Not implemented yet")
+    restaurantNameLabel.text = model.name
+    ratingLabel.text = "\(model.rating)"
+    restaurantImageView.image = model.avatar
   }
 }
