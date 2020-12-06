@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("org.springframework.boot") version "2.3.5.RELEASE"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.4.20"
     jacoco
 }
 apply(plugin = "io.spring.dependency-management")
@@ -38,6 +39,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation("org.apache.commons:commons-lang3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:3.6.0")
