@@ -9,11 +9,14 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
+import org.itmodreamteam.myrest.shared.restaurant.EmployeeUserStatus
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
 import org.itmodreamteam.myrest.shared.user.Role
 import org.junit.Before
 import org.junit.Test
+import org.junit.jupiter.api.fail
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
@@ -60,18 +63,20 @@ class RegisterTest {
     }
 
     @Test
-    fun `When user registers restaurant, user becomes its manager`() {
-        val registeredRestaurant = restaurantService.register(
+    fun `When user registers restaurant, user becomes its active manager`() {
+        val restaurantId = restaurantService.register(
             RestaurantRegistrationInfo("Cozy place", "Domestic cuisine", "docs"),
             user
-        )
+        ).id
 
-        val savedRestaurant = restaurantRepository.getOne(registeredRestaurant.id)
+        val restaurant = restaurantRepository.getOne(restaurantId)
+        val employee = employeeRepository.findByRestaurantAndUser(restaurant, user) ?: fail("no employee")
 
-        val employees = employeeRepository.findByRestaurant(savedRestaurant)
-        assertThat(employees.count()).isEqualTo(1)
-        assertThat(employees[0].user).isEqualTo(user)
-        assertThat(employees[0] is Manager).isTrue
+        assertThat(employee).isOfAnyClassIn(Manager::class.java)
+        assertThat(employee.user).isEqualTo(user)
+        assertThat(employee.restaurant.id).isEqualTo(restaurantId)
+        assertThat(employee.userStatus).isEqualTo(EmployeeUserStatus.ACTIVE)
+        assertThat(employee.restaurantStatus).isEqualTo(EmployeeRestaurantStatus.ACTIVE)
     }
 
     @Test
