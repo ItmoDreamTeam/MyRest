@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import shared
 
 protocol RestaurantListView: UIViewController {}
 
@@ -37,6 +38,9 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   private func configureNavBar() {
+    let rc = RestaurantClientImpl()
+    rc.search(keyword: "", pageable: Pageable(pageNumber: 0, pageSize: 5), completionHandler: {(page:ContentPage<RestaurantInfo>?, error:Error?) -> Void in })
+    
     navigationItem.title = "MyRest"
     navigationItem.largeTitleDisplayMode = .always
     navigationController?.navigationBar.prefersLargeTitles = true
