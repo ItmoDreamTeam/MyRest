@@ -11,8 +11,10 @@ import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.shared.user.*
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class UserServiceImpl(
     private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,

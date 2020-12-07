@@ -1,5 +1,8 @@
 package org.itmodreamteam.myrest.shared
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ContentPage<E>(
     val content: List<E>,
     val pageNumber: Int,
