@@ -9,4 +9,6 @@ data class EmployeeInfo(
     val position: EmployeePosition,
     val userStatus: EmployeeUserStatus,
     val restaurantStatus: EmployeeRestaurantStatus,
-)
+) {
+    val active: Boolean = userStatus == EmployeeUserStatus.ACTIVE && restaurantStatus == EmployeeRestaurantStatus.ACTIVE
+}
