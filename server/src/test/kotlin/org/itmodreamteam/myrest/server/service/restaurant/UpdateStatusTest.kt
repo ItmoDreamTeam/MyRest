@@ -31,6 +31,9 @@ class UpdateStatusTest {
     @MockBean
     lateinit var notificationService: NotificationService
 
+    @MockBean
+    lateinit var reservationService: ReservationService
+
     private var identifier: Long = 0
 
     @Before

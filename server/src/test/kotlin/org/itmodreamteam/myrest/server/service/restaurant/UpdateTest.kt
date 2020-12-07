@@ -31,6 +31,9 @@ class UpdateTest {
     @MockBean
     lateinit var notificationService: NotificationService
 
+    @MockBean
+    lateinit var reservationService: ReservationService
+
     private lateinit var restaurant: Restaurant
     private var identifier: Long = 0
 
