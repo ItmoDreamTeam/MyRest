@@ -53,25 +53,31 @@ final class PhoneTextField: UITextField {
       prevIdx = prefixLength
       return
     }
-    if prevIdx >= textLength {
-      prevIdx = textLength
-      return
-    }
-    prevIdx = textLength
-    if !(textLength < formattingPattern.count + prefixLength + 1) {
+    if textLength > formattingPattern.count + prefixLength - 1 {
       let range = text.startIndex..<text.index(before: text.endIndex)
       self.text = String(text[range])
       return
     }
-    let currentCharacter = Array(formattingPattern)[textLength - prefixLength]
-    if currentCharacter == " " {
-      self.text?.append(" ")
-      return
+    var formattedText = Array(prefix)
+    for idx in 0..<textLength - prefixLength {
+      let currentPattern = formattingPattern[formattingPattern.index(formattingPattern.startIndex, offsetBy: idx)]
+      let currentChar = text[text.index(text.startIndex, offsetBy: idx + prefixLength)]
+      if currentPattern == " " {
+        formattedText.append(" ")
+        if currentChar != " " {
+          formattedText.append(currentChar)
+        }
+      }
+      if currentPattern == "-" {
+        formattedText.append("-")
+        if currentChar != "-" {
+          formattedText.append(currentChar)
+        }
+      }
+      if currentPattern == "*" {
+        formattedText.append(currentChar)
+      }
     }
-    if currentCharacter == "*" { return }
-    if currentCharacter == "-" {
-      self.text?.append("-")
-      return
-    }
+    self.text = String(formattedText)
   }
 }
