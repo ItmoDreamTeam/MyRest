@@ -70,7 +70,9 @@ class ReservationServiceImpl(
         val approved = reservationRepository.save(reservation)
         notificationService.notify(
             approved.user,
-            "Ваша бронь была подтверждена. Ваш менеджер: ${reservation.manager}. Место: ${reservation.table.restaurant}, столик ${reservation.table.number}, время: ${reservation.activeFrom} - ${reservation.activeUntil}"
+            "Ваша бронь была подтверждена. Ваш менеджер: ${reservation.manager}. " +
+                    "Место: ${reservation.table.restaurant}, столик ${reservation.table.number}, " +
+                    "время: ${reservation.activeFrom} - ${reservation.activeUntil}"
         )
         return reservation
     }
