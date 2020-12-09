@@ -92,7 +92,7 @@ class ReservationTest {
     }
 
     @Test
-    fun `When create new reservation right after existing one, then new a reservation created`() {
+    fun `When create new reservation right after existing one, then new reservation created`() {
         authorize(user2)
         val reservation = reservationService.submitReservationForApproval(
             table,
