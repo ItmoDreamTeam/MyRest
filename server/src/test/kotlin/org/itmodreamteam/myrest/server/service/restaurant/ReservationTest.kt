@@ -62,17 +62,24 @@ class ReservationTest {
     private lateinit var table: RestaurantTable
     private lateinit var user1: User
     private lateinit var user2: User
-    private lateinit var user3: User
+    private lateinit var userReservationManager: User
+    private lateinit var userAnotherManagerOfRestaurant: User
+    private lateinit var userManagerOfAnotherRestaurant: User
     private lateinit var manager: Manager
 
     @Before
     fun setup() {
         val restaurant = restaurantRepository.save(Restaurant("name", "desc", "legal"))
+        val anotherRestaurant = restaurantRepository.save(Restaurant("another name", "desc", "legal"))
         table = restaurantTableRepository.save(RestaurantTable(restaurant, 1, null, 1))
         user1 = userRepository.save(User("Alex", "Bowie"))
         user2 = userRepository.save(User("Sam", "Ivanov"))
-        user3 = userRepository.save(User("Karl", "Marks"))
-        manager = employeeRepository.save(Manager(restaurant, user3))
+        userReservationManager = userRepository.save(User("Karl", "Marks"))
+        userAnotherManagerOfRestaurant = userRepository.save(User("Alexander", "Dostoevsky"))
+        userManagerOfAnotherRestaurant = userRepository.save(User("Petr", "Freid"))
+        manager = employeeRepository.save(Manager(restaurant, userReservationManager))
+        employeeRepository.save(Manager(restaurant, userAnotherManagerOfRestaurant))
+        employeeRepository.save(Manager(anotherRestaurant, userManagerOfAnotherRestaurant))
         val now = LocalDateTime.now()
         authorize(user1)
         reservation = reservationRepository.save(Reservation(user1, table, now.plusHours(1), now.plusHours(5)))
@@ -106,7 +113,7 @@ class ReservationTest {
     }
 
     @Test(expected = UserException::class)
-    fun `Given existing reservation, when create reservation to same table and overlapping time, then failure`() {
+    fun `Given existing reservation, when reserve the same table for overlapping interval, then failure`() {
         authorize(user2)
         reservationService.submitReservationForApproval(
             table,
@@ -116,7 +123,7 @@ class ReservationTest {
     }
 
     @Test
-    fun `Given rejected existing reservation, when create reservation to same table and time, then a reservation created`() {
+    fun `Given rejected existing reservation, when reserve the same table for overlapping interval, then a reservation created`() {
         authorize(user1)
         reservationService.reject(reservation)
         reservationService.submitReservationForApproval(table, reservation.activeFrom, reservation.activeUntil)
@@ -130,16 +137,49 @@ class ReservationTest {
 
     @Test
     fun `Given existing reservation in state PENDING, when manager approves it, then reservation is APPROVED`() {
-        authorize(user3)
+        authorize(userReservationManager)
         val approved = reservationService.approve(reservation)
         Assertions.assertThat(approved.status).isEqualTo(ReservationStatus.APPROVED)
     }
 
     @Test(expected = UserException::class)
-    fun `Given existing PENDING reservation and manager who is not responsible to the reservation, when try to approve it, then failure`() {
+    fun `Given existing PENDING reservation and manager who is not manager of the related restaurant, when try to approve it, then failure`() {
+        authorize(userManagerOfAnotherRestaurant)
+        reservationService.approve(reservation)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given existing PENDING reservation and user who is not manager of any restaurant, when try to approve it, then failure`() {
         authorize(user1)
+        reservationService.approve(reservation)
+    }
+
+    // TODO overwrite with nested tests after migration to junit5
+    @Test(expected = UserException::class)
+    fun `Given existing APPROVED reservation and user who is not manager of any restaurant, when try to start it, then failure`() {
+        authorize(userReservationManager)
         val approved = reservationService.approve(reservation)
-        Assertions.assertThat(approved.status).isEqualTo(ReservationStatus.APPROVED)
+
+        authorize(user1)
+        reservationService.start(approved)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given existing APPROVED reservation and user who is manager of related restaurant but is not responsible for reservation, when try to start it, then failure`() {
+        authorize(userReservationManager)
+        val approved = reservationService.approve(reservation)
+
+        authorize(userAnotherManagerOfRestaurant)
+        reservationService.start(approved)
+    }
+
+    @Test(expected = UserException::class)
+    fun `Given existing APPROVED reservation and user who is not a manager of related restaurant but is not responsible for reservation, when try to start it, then failure`() {
+        authorize(userReservationManager)
+        val approved = reservationService.approve(reservation)
+
+        authorize(userManagerOfAnotherRestaurant)
+        reservationService.start(approved)
     }
 
     @TestConfiguration
