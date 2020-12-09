@@ -49,7 +49,7 @@ class ReservationServiceImpl(
         activeFrom: LocalDateTime,
         activeUntil: LocalDateTime
     ): List<Reservation> {
-        return reservationRepository.findTableReservationsByStatusesAndTimeRangeOverlapping(
+        return reservationRepository.findReservationsForTableByStatusesAndTimeRangeOverlapping(
             table,
             listOf(ReservationStatus.PENDING, ReservationStatus.APPROVED, ReservationStatus.IN_PROGRESS),
             activeFrom, activeUntil
