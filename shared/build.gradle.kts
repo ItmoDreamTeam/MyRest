@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.4.10"
     id("com.android.library")
     id("kotlin-android-extensions")
 }
@@ -59,6 +60,7 @@ kotlin {
                 api(kotlin("reflect"))
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2-native-mt")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
                 api("io.ktor:ktor-client-core:1.4.2")
                 api("io.ktor:ktor-client-json:1.4.2")
                 api("io.ktor:ktor-client-serialization:1.4.2")
@@ -87,12 +89,14 @@ kotlin {
         val androidTest by getting
         val iosArm64Main by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
                 implementation("io.ktor:ktor-client-ios:1.4.2")
             }
         }
         val iosArm64Test by getting
         val iosX64Main by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
                 implementation("io.ktor:ktor-client-ios:1.4.2")
             }
         }
