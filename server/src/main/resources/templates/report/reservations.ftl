@@ -20,6 +20,18 @@
         border: 1px;
         padding: 2px;
     }
+
+    .PENDING {
+        color: #ff0000;
+    }
+
+    .APPROVED, .IN_PROGRESS, .COMPLETED {
+        color: #42f554;
+    }
+
+    .REJECTED {
+        color: #b3b3b3;
+    }
 </style>
 
 <#if reservations?size = 0>
@@ -38,19 +50,17 @@
         </tr>
         <#list reservations as reservation>
             <#assign customerProfile=reservation.user/>
-            <#if reservation.manager??>
-                <#assign managerProfile=reservation.manager.user/>
-            </#if>
             <tr>
-                <td>${reservation.id}</td>
+                <td style="text-align: center">${reservation.id}</td>
                 <td>${reservation.activeFrom}</td>
                 <td>${reservation.activeUntil}</td>
-                <td>${reservation.table.info.number}</td>
-                <td>${reservation.statusDescription}</td>
-                <#if managerProfile??>
+                <td style="text-align: center">${reservation.tableNumber}</td>
+                <td class="${reservation.status}">${reservation.statusDescription}</td>
+                <#if reservation.manager??>
+                    <#assign managerProfile=reservation.manager.user/>
                     <td>${managerProfile.firstName} ${managerProfile.lastName}</td>
                 <#else>
-                    <td>Не назначен</td>
+                    <td><i>Не назначен</i></td>
                 </#if>
                 <td>${customerProfile.firstName} ${customerProfile.lastName}</td>
             </tr>
