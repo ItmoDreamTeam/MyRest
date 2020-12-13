@@ -63,7 +63,7 @@ class ReservationReportServiceImpl(
             reservationRepository.findReservationsForTableByStatusesAndTimeRangeOverlapping(
                 table, statuses, activeFrom, activeUntil
             ).map { toReservationEntry(it) }
-        }
+        }.sortedWith(compareBy(ReservationEntry::activeFrom, ReservationEntry::tableNumber))
     }
 
     private fun toReservationEntry(reservation: Reservation): ReservationEntry {
@@ -97,6 +97,8 @@ class ReservationReportServiceImpl(
         val activeFrom: LocalTime,
         val activeUntil: LocalTime,
     ) {
+        val tableNumber = table.info.number
+
         val statusDescription = when (status) {
             ReservationStatus.PENDING -> "Ожидание"
             ReservationStatus.APPROVED -> "Одобрено"
