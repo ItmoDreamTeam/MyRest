@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.controller
 
+import org.itmodreamteam.myrest.server.security.UserAuthentication
 import org.itmodreamteam.myrest.server.service.reservation.ReservationReportService
 import org.itmodreamteam.myrest.server.service.restaurant.ReservationViewService
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
@@ -30,6 +31,25 @@ class ReservationController(
             .header("Content-Disposition", "inline")
             .contentType(MediaType.APPLICATION_PDF)
             .body(content)
+    }
+
+    @GetMapping("/restaurants/{restaurantId}/reservations")
+    @PreAuthorize("hasPermission(#restaurantId, 'Restaurant', 'read')")
+    fun getReservationsOfRestaurant(
+        @PathVariable restaurantId: Long,
+        @RequestParam @DateTimeFormat(iso = ISO.DATE) date: LocalDate
+    ): List<ReservationInfo> {
+        return reservationViewService.getReservationsOfRestaurant(restaurantId, date)
+    }
+
+    @GetMapping("/reservations")
+    @PreAuthorize("isAuthenticated()")
+    fun getReservationsOfUser(
+        authentication: UserAuthentication,
+        @RequestParam @DateTimeFormat(iso = ISO.DATE) date: LocalDate
+    ): List<ReservationInfo> {
+        val userId = authentication.principal.id
+        return reservationViewService.getReservationsOfUser(userId, date)
     }
 
     @PutMapping("/reservations")
