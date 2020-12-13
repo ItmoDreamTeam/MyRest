@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 interface ReservationViewService {
@@ -17,4 +18,8 @@ interface ReservationViewService {
     fun start(reservationId: Long): ReservationInfo
 
     fun complete(reservationId: Long): ReservationInfo
+
+    fun getReservationsOfRestaurant(restaurantId: Long, date: LocalDate): List<ReservationInfo>
+
+    fun getReservationsOfUser(userId: Long, date: LocalDate): List<ReservationInfo>
 }

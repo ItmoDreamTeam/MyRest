@@ -18,6 +18,14 @@ interface ReservationRepository : JpaEntityRepository<Reservation> {
         activeUntil: LocalDateTime
     ): List<Reservation>
 
+    @Query("select r from Reservation r where r.user = :user and r.status in :statuses and r.activeUntil > :activeFrom and :activeUntil > r.activeFrom")
+    fun findReservationsForUserByStatusesAndTimeRangeOverlapping(
+        user: User,
+        statuses: List<ReservationStatus>,
+        activeFrom: LocalDateTime,
+        activeUntil: LocalDateTime
+    ): List<Reservation>
+
     fun findReservationsByUserAndStatus(user: User, status: ReservationStatus): List<Reservation>
 
     @Query("select r from Reservation r where r.table.restaurant = :restaurant and r.status = :status")
