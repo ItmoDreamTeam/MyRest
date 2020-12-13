@@ -14,13 +14,12 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @RestController
-@RequestMapping("/restaurants/{restaurantId}/reservations")
 class ReservationController(
     private val reservationReportService: ReservationReportService,
     private val reservationViewService: ReservationViewService,
 ) {
 
-    @GetMapping("/reports")
+    @GetMapping("/restaurants/{restaurantId}/reservations/reports")
     @PreAuthorize("hasPermission(#restaurantId, 'Restaurant', 'read')")
     fun generateReportForDate(
         @PathVariable restaurantId: Long,
@@ -33,7 +32,7 @@ class ReservationController(
             .body(content)
     }
 
-    @PutMapping
+    @PutMapping("/reservations")
     fun submitReservationForApproval(
         @RequestParam tableId: Long,
         @RequestParam activeFrom: LocalDateTime,
@@ -42,22 +41,22 @@ class ReservationController(
         return reservationViewService.submitReservationForApproval(tableId, activeFrom, activeUntil)
     }
 
-    @PutMapping("/{reservationId}/reject")
+    @PutMapping("/reservations/{reservationId}/reject")
     fun reject(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.reject(reservationId)
     }
 
-    @PutMapping("/{reservationId}/approve")
+    @PutMapping("/reservations/{reservationId}/approve")
     fun approve(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.approve(reservationId)
     }
 
-    @PutMapping("/{reservationId}/start")
+    @PutMapping("/reservations/{reservationId}/start")
     fun start(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.start(reservationId)
     }
 
-    @PutMapping("/{reservationId}/complete")
+    @PutMapping("/reservations/{reservationId}/complete")
     fun complete(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.complete(reservationId)
     }
