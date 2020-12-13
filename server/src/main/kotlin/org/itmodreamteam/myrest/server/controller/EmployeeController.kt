@@ -24,11 +24,13 @@ class EmployeeController(private val employeeService: EmployeeService) {
     }
 
     @PutMapping("/employees/{id}")
+    @PreAuthorize("hasPermission(#id, 'Employee', 'write-user')")
     fun updateEmployee(@PathVariable id: Long, @RequestParam status: EmployeeUserStatus): EmployeeInfo {
         return employeeService.updateEmployee(id, status)
     }
 
     @PutMapping("/employees/{id}/manager")
+    @PreAuthorize("hasPermission(#id, 'Employee', 'write-manager')")
     fun updateEmployee(@PathVariable id: Long, @RequestParam status: EmployeeRestaurantStatus): EmployeeInfo {
         return employeeService.updateEmployee(id, status)
     }
