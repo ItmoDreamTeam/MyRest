@@ -53,30 +53,35 @@ class ReservationController(
     }
 
     @PutMapping("/reservations")
+    @PreAuthorize("isAuthenticated()")
     fun submitReservationForApproval(
         @RequestParam tableId: Long,
-        @RequestParam activeFrom: LocalDateTime,
-        @RequestParam activeUntil: LocalDateTime,
+        @RequestParam @DateTimeFormat(iso = ISO.DATE_TIME) activeFrom: LocalDateTime,
+        @RequestParam @DateTimeFormat(iso = ISO.DATE_TIME) activeUntil: LocalDateTime,
     ): ReservationInfo {
         return reservationViewService.submitReservationForApproval(tableId, activeFrom, activeUntil)
     }
 
     @PutMapping("/reservations/{reservationId}/reject")
+    @PreAuthorize("hasPermission(#reservationId, 'Reservation', 'write-manager')")
     fun reject(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.reject(reservationId)
     }
 
     @PutMapping("/reservations/{reservationId}/approve")
+    @PreAuthorize("hasPermission(#reservationId, 'Reservation', 'write-manager')")
     fun approve(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.approve(reservationId)
     }
 
     @PutMapping("/reservations/{reservationId}/start")
+    @PreAuthorize("hasPermission(#reservationId, 'Reservation', 'write-manager')")
     fun start(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.start(reservationId)
     }
 
     @PutMapping("/reservations/{reservationId}/complete")
+    @PreAuthorize("hasPermission(#reservationId, 'Reservation', 'write-manager')")
     fun complete(@PathVariable reservationId: Long): ReservationInfo {
         return reservationViewService.complete(reservationId)
     }
