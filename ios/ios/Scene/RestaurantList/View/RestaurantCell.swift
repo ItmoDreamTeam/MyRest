@@ -17,10 +17,9 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   @IBOutlet weak var cusineLabel: UILabel!
   @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var restaurantImageView: UIImageView!
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
+
+  override func layoutSubviews() {
+    restaurantImageView.contentMode = .scaleAspectFit
   }
 
   func configure(with model: RestaurantViewModel) {

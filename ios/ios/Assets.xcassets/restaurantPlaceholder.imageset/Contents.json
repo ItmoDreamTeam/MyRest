@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Light-M1x.png",
+      "filename" : "photoGray1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Light-M2x.png",
+      "filename" : "photoGray2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Light-M3x.png",
+      "filename" : "photoGray3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
