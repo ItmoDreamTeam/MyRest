@@ -9,6 +9,7 @@
 import UIKit
 
 final class UserCell: UITableViewCell, ConfigurableView {
+  static let reuseId = "UserCell"
   typealias Model = UserReviewViewModel
 
   @IBOutlet weak var userImageView: UIImageView!
