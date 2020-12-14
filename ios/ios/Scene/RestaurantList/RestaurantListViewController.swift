@@ -8,17 +8,20 @@
 
 import UIKit
 
-protocol RestaurantListView: UIViewController {}
+protocol RestaurantListView: UIViewController {
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
+  func onRestaurantsFetchError(_ error: Error)
+}
 
 final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   private var searchView: SearchView
   private var collectionView: VerticalCollectionView
 
-  private let router: RestaurantListRouter
+  var router: RestaurantListRouter?
+  var interactor: RestaurantListInteractor?
 
-  init(router: RestaurantListRouter) {
-    self.router = router
+  init() {
     searchView = SearchView()
     collectionView = VerticalCollectionView()
     super.init(nibName: nil, bundle: nil)
@@ -31,6 +34,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+    interactor?.restaurantListDidRequestRestaurants(self, byKeyword: "")
     configureNavBar()
     configureSearchTextField()
     configureCollectionView()
@@ -66,10 +70,24 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   @objc private func goToAboutScene() {
-    router.restaurantListShouldOpenScene(self)
+    router?.restaurantListShouldOpenScene(self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+  }
+
+  // MARK: - RestaurantListView methods
+
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
+    collectionView.configure(with: restaurants)
+    collectionView.fotterView?.activityIndicatorView.stopAnimating()
+    DispatchQueue.main.async {
+      self.collectionView.reloadData()
+    }
+  }
+
+  func onRestaurantsFetchError(_ error: Error) {
+    fatalError("Not implemented yet")
   }
 }

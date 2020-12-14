@@ -13,9 +13,10 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
 
   private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   private let minimumItemSpacing: CGFloat = 3
-  private let itemsInRow: CGFloat = 3
+  private let itemsInRow: CGFloat = 2
 
   private var viewModel: [RestaurantViewModel] = []
+  var fotterView: LoadingFotter?
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -26,7 +27,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
     dataSource = self
 
     translatesAutoresizingMaskIntoConstraints = false
-    register(RestaurantCell.self, forCellWithReuseIdentifier: RestaurantCell.reuseId)
+    register(UINib(nibName: RestaurantCell.reuseId, bundle: nil), forCellWithReuseIdentifier: RestaurantCell.reuseId)
     backgroundColor = .white
     register(
       LoadingFotter.self,
@@ -53,7 +54,14 @@ extension VerticalCollectionView: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return UICollectionViewCell()
+    guard let cell = dequeueReusableCell(
+      withReuseIdentifier: RestaurantCell.reuseId,
+      for: indexPath) as? RestaurantCell else {
+      return UICollectionViewCell()
+    }
+    let restaurant = viewModel[indexPath.row]
+    cell.configure(with: restaurant)
+    return cell
   }
 
   func collectionView(
@@ -66,6 +74,7 @@ extension VerticalCollectionView: UICollectionViewDataSource {
       withReuseIdentifier: LoadingFotter.reuseId,
       for: indexPath) as? LoadingFotter
       else { fatalError("Wrong fotter reuse id") }
+    fotterView = fotter
     return fotter
   }
 }
