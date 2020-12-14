@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeUserStatus
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
@@ -160,6 +161,6 @@ class RegisterTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     open class Config
 }

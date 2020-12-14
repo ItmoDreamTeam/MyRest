@@ -8,6 +8,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.itmodreamteam.myrest.shared.user.Role
 import org.springframework.data.domain.Page
@@ -21,6 +22,7 @@ class RestaurantServiceImpl(
     private val notificationService: NotificationService,
     private val employeeRepository: EmployeeRepository,
     private val userRepository: UserRepository,
+    private val restaurantToRestaurantInfoAssembler: ModelViewAssembler<Restaurant, RestaurantInfo>
 ) : RestaurantService {
 
     override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
@@ -75,19 +77,8 @@ class RestaurantServiceImpl(
         return restaurantRepository.find(keyword, statuses, pageable).map { toRestaurantInfo(it) }
     }
 
-    override fun toRestaurantInfo(from: Restaurant): RestaurantInfo {
-        return RestaurantInfo(
-            from.id,
-            from.status,
-            from.name,
-            from.description,
-            from.legalInfo,
-            from.websiteUrl,
-            from.phone,
-            from.email,
-            from.internalRating,
-            from.externalRating
-        )
+    private fun toRestaurantInfo(from: Restaurant): RestaurantInfo {
+        return restaurantToRestaurantInfoAssembler.toView(from)
     }
 
     private fun updateRestaurant(restaurantToUpdate: Restaurant, newInfo: RestaurantUpdateInfo): RestaurantInfo {

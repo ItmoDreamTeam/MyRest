@@ -2,10 +2,10 @@ package org.itmodreamteam.myrest.server.service.table
 
 import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Manager
+import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.model.restaurant.Waiter
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.service.employee.EmployeeService
-import org.itmodreamteam.myrest.server.service.restaurant.RestaurantService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.itmodreamteam.myrest.shared.user.Profile
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class EmployeeServiceMock(
-    private val restaurantService: RestaurantService,
+    private val restaurantToRestaurantInfoAssembler: ModelViewAssembler<Restaurant, RestaurantInfo>,
     private val userProfileAssembler: ModelViewAssembler<User, Profile>
 ) : EmployeeService {
 
     override fun toEmployeeInfo(employee: Employee): EmployeeInfo {
-        val restaurant = restaurantService.toRestaurantInfo(employee.restaurant)
+        val restaurant = restaurantToRestaurantInfoAssembler.toView(employee.restaurant)
         val profile = userProfileAssembler.toView(employee.user)
         val position = when (employee) {
             is Manager -> EmployeePosition.MANAGER
