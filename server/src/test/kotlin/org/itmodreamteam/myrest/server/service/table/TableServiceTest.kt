@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.table.TableInfo
 import org.junit.Before
 import org.junit.Test
@@ -171,6 +172,6 @@ class TableServiceTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     open class Config
 }
