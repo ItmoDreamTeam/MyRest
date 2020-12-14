@@ -16,6 +16,9 @@
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* PhoneTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* PhoneTextField.swift */; };
+		A76FC5A625879E8A001DE05E /* PhotosCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FC5A525879E8A001DE05E /* PhotosCollectionView.swift */; };
+		A76FC5A825879EAE001DE05E /* RestaurantInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FC5A725879EAE001DE05E /* RestaurantInfoViewModel.swift */; };
+		A76FC5AA25879EDA001DE05E /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76FC5A925879EDA001DE05E /* PhotoCell.swift */; };
 		A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */; };
 		A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */; };
 		A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */; };
@@ -79,6 +82,9 @@
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* PhoneTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextField.swift; sourceTree = "<group>"; };
+		A76FC5A525879E8A001DE05E /* PhotosCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionView.swift; sourceTree = "<group>"; };
+		A76FC5A725879EAE001DE05E /* RestaurantInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoViewModel.swift; sourceTree = "<group>"; };
+		A76FC5A925879EDA001DE05E /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
 		A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -207,8 +213,19 @@
 		A76FC5A325879DCD001DE05E /* RestaurantInfo */ = {
 			isa = PBXGroup;
 			children = (
+				A76FC5A425879E78001DE05E /* View */,
+				A76FC5A725879EAE001DE05E /* RestaurantInfoViewModel.swift */,
 			);
 			path = RestaurantInfo;
+			sourceTree = "<group>";
+		};
+		A76FC5A425879E78001DE05E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A76FC5A525879E8A001DE05E /* PhotosCollectionView.swift */,
+				A76FC5A925879EDA001DE05E /* PhotoCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A7D2DA0225704D8B00ED74BC /* ApplicationLayer */ = {
@@ -471,10 +488,13 @@
 				A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */,
 				A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */,
 				A7D2DA11257060CD00ED74BC /* ConfigurableView.swift in Sources */,
+				A76FC5A825879EAE001DE05E /* RestaurantInfoViewModel.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantListViewModel.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
 				A7494BD125784EA00074CE32 /* PhoneTextField.swift in Sources */,
+				A76FC5A625879E8A001DE05E /* PhotosCollectionView.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
+				A76FC5AA25879EDA001DE05E /* PhotoCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
 				A7D32C452571455600124AFE /* UIColor+Utils.swift in Sources */,
 				7555FF7F242A565900829871 /* AppDelegate.swift in Sources */,
