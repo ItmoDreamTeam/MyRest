@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RestaurantListView: UIViewController {
-  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantListViewModel])
   func onRestaurantsFetchError(_ error: Error)
 }
 
@@ -79,7 +79,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   // MARK: - RestaurantListView methods
 
-  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantListViewModel]) {
     collectionView.configure(with: restaurants)
     collectionView.fotterView?.activityIndicatorView.stopAnimating()
     DispatchQueue.main.async {

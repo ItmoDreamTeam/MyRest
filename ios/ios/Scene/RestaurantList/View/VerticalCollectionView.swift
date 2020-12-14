@@ -9,13 +9,13 @@
 import UIKit
 
 final class VerticalCollectionView: UICollectionView, ConfigurableView {
-  typealias Model = [RestaurantViewModel]
+  typealias Model = [RestaurantListViewModel]
 
   private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   private let minimumItemSpacing: CGFloat = 3
   private let itemsInRow: CGFloat = 2
 
-  private var viewModel: [RestaurantViewModel] = []
+  private var viewModel: [RestaurantListViewModel] = []
   var fotterView: LoadingFotter?
 
   init() {
@@ -41,7 +41,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
     return nil
   }
 
-  func configure(with model: [RestaurantViewModel]) {
+  func configure(with model: [RestaurantListViewModel]) {
     self.viewModel = model
   }
 }

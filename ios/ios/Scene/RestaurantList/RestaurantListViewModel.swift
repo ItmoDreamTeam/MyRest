@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct RestaurantViewModel {
+struct RestaurantListViewModel {
   let name: String
   let rating: Double
   let avatar: UIImage
