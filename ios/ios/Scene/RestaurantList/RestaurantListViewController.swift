@@ -81,6 +81,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
     collectionView.configure(with: restaurants)
+    collectionView.fotterView?.activityIndicatorView.stopAnimating()
     DispatchQueue.main.async {
       self.collectionView.reloadData()
     }

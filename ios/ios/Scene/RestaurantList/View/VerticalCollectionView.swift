@@ -16,6 +16,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
   private let itemsInRow: CGFloat = 2
 
   private var viewModel: [RestaurantViewModel] = []
+  var fotterView: LoadingFotter?
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -73,6 +74,7 @@ extension VerticalCollectionView: UICollectionViewDataSource {
       withReuseIdentifier: LoadingFotter.reuseId,
       for: indexPath) as? LoadingFotter
       else { fatalError("Wrong fotter reuse id") }
+    fotterView = fotter
     return fotter
   }
 }
