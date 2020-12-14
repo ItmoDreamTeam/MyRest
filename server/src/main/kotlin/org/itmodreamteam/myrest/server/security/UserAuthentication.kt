@@ -12,8 +12,8 @@ class UserAuthentication(val profile: Profile) : Authentication {
     override fun getPrincipal() = profile
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        val role = profile.role ?: return emptyList()
-        return listOf(SimpleGrantedAuthority("ROLE_$role"))
+        val role = profile.role ?: return listOf(SimpleGrantedAuthority("ROLE_ACTIVITI_USER"))
+        return listOf(SimpleGrantedAuthority("ROLE_$role"), SimpleGrantedAuthority("ROLE_ACTIVITI_USER"))
     }
 
     override fun getCredentials() = null

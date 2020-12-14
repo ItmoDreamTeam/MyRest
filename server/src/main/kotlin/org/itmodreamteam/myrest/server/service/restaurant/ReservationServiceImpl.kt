@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.ReservationRepository
 import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.service.reservation.ReservationProcessManager
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -18,6 +19,7 @@ class ReservationServiceImpl(
     private val reservationRepository: ReservationRepository,
     private val notificationService: NotificationService,
     private val currentUserService: CurrentUserService,
+    private val reservationProcessManager: ReservationProcessManager,
     private val employeeRepository: EmployeeRepository
 ) : ReservationService {
 
@@ -32,6 +34,7 @@ class ReservationServiceImpl(
         }
         var reservation = Reservation(currentUserService.currentUserEntity, table, activeFrom, activeUntil)
         reservation = reservationRepository.save(reservation)
+        reservationProcessManager.onReservationRequested(reservation.id)
         /*
         TODO
         It's possible to have concurrent save operation which can lead to overlapping reservations (due to absence of something like time range overlapping constraint).
@@ -57,10 +60,7 @@ class ReservationServiceImpl(
     }
 
     override fun reject(reservation: Reservation): Reservation {
-        // TODO should it be checked on security level?
-        if (currentUserService.currentUserEntity != reservation.user) {
-            throw UserException("Запрашиваемая бронь оформлена не на Вас")
-        }
+        reservationProcessManager.onReservationRejected(reservation.id)
         return updateStatusAndPersist(reservation, ReservationStatus.REJECTED)
     }
 
@@ -68,12 +68,7 @@ class ReservationServiceImpl(
         reservation.manager = getCurrentUserBeingManagerOf(reservation.table.restaurant)
         reservation.status = ReservationStatus.APPROVED
         val approved = reservationRepository.save(reservation)
-        notificationService.notify(
-            approved.user,
-            "Ваша бронь была подтверждена. Ваш менеджер: ${reservation.manager}. " +
-                    "Место: ${reservation.table.restaurant}, столик ${reservation.table.number}, " +
-                    "время: ${reservation.activeFrom} - ${reservation.activeUntil}"
-        )
+        reservationProcessManager.onReservationApproved(reservation.id)
         return reservation
     }
 

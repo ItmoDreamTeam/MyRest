@@ -39,6 +39,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
 
+    implementation("org.activiti:activiti-spring-boot-starter:7.1.0.M6")
+    implementation("com.h2database:h2")
+
     implementation("org.apache.commons:commons-lang3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.itextpdf:itextpdf:5.5.13.2")

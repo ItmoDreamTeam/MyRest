@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                   xmlns:activiti="http://activiti.org/bpmn" id="sample-diagram"
+                   targetNamespace="http://bpmn.io/schema/bpmn"
+                   xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="process-12c3bca3-5409-4373-a41e-b33c9921489a" name="reservation" isExecutable="true">
+        <bpmn2:documentation/>
+        <bpmn2:serviceTask id="ServiceTask_1cmsq8a" name="Notify Managers"
+                           implementation="managersNotificationConnector">
+            <bpmn2:incoming>SequenceFlow_1fan8a0</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_1h69o3j</bpmn2:outgoing>
+        </bpmn2:serviceTask>
+        <bpmn2:sequenceFlow id="SequenceFlow_1fan8a0" sourceRef="StartEvent_1" targetRef="ServiceTask_1cmsq8a"/>
+        <bpmn2:startEvent id="StartEvent_1" name="Reservation Requested">
+            <bpmn2:outgoing>SequenceFlow_1fan8a0</bpmn2:outgoing>
+            <bpmn2:messageEventDefinition messageRef="Message_1cz2z98"/>
+        </bpmn2:startEvent>
+        <bpmn2:userTask id="UserTask_0xgycl0" name="Process Reservation" activiti:candidateUsers="${managers}">
+            <bpmn2:incoming>SequenceFlow_1h69o3j</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_1otq2mb</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:exclusiveGateway id="ExclusiveGateway_04sksx1" default="SequenceFlow_002j9qd">
+            <bpmn2:incoming>SequenceFlow_1otq2mb</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_0gt2p5u</bpmn2:outgoing>
+            <bpmn2:outgoing>SequenceFlow_002j9qd</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:sequenceFlow id="SequenceFlow_0gt2p5u" sourceRef="ExclusiveGateway_04sksx1"
+                            targetRef="ServiceTask_11uuuck">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${approved}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:exclusiveGateway id="ExclusiveGateway_1fev09d">
+            <bpmn2:incoming>SequenceFlow_1tir71t</bpmn2:incoming>
+            <bpmn2:incoming>SequenceFlow_002j9qd</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_01w369h</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:serviceTask id="ServiceTask_0sbhpfh" name="Notify Customer"
+                           implementation="customerNotificationConnector">
+            <bpmn2:incoming>SequenceFlow_01w369h</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_15qyt4u</bpmn2:outgoing>
+        </bpmn2:serviceTask>
+        <bpmn2:serviceTask id="ServiceTask_11uuuck" name="Notify Waiter" implementation="waiterNotificationConnector">
+            <bpmn2:incoming>SequenceFlow_0gt2p5u</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_1tir71t</bpmn2:outgoing>
+        </bpmn2:serviceTask>
+        <bpmn2:sequenceFlow id="SequenceFlow_1tir71t" sourceRef="ServiceTask_11uuuck"
+                            targetRef="ExclusiveGateway_1fev09d"/>
+        <bpmn2:sequenceFlow id="SequenceFlow_002j9qd" sourceRef="ExclusiveGateway_04sksx1"
+                            targetRef="ExclusiveGateway_1fev09d"/>
+        <bpmn2:sequenceFlow id="SequenceFlow_01w369h" sourceRef="ExclusiveGateway_1fev09d"
+                            targetRef="ServiceTask_0sbhpfh"/>
+        <bpmn2:endEvent id="EndEvent_0m2hjrb">
+            <bpmn2:incoming>SequenceFlow_15qyt4u</bpmn2:incoming>
+        </bpmn2:endEvent>
+        <bpmn2:sequenceFlow id="SequenceFlow_15qyt4u" sourceRef="ServiceTask_0sbhpfh" targetRef="EndEvent_0m2hjrb"/>
+        <bpmn2:sequenceFlow id="SequenceFlow_1h69o3j" sourceRef="ServiceTask_1cmsq8a" targetRef="UserTask_0xgycl0"/>
+        <bpmn2:sequenceFlow id="SequenceFlow_1otq2mb" sourceRef="UserTask_0xgycl0"
+                            targetRef="ExclusiveGateway_04sksx1"/>
+    </bpmn2:process>
+    <bpmn2:message id="Message_1cz2z98" name="reservation-request"/>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process-12c3bca3-5409-4373-a41e-b33c9921489a">
+            <bpmndi:BPMNShape id="ServiceTask_1cmsq8a_di" bpmnElement="ServiceTask_1cmsq8a">
+                <dc:Bounds x="77" y="189" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1fan8a0_di" bpmnElement="SequenceFlow_1fan8a0">
+                <di:waypoint x="127" y="93"/>
+                <di:waypoint x="127" y="189"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="StartEvent_0c1ekqi_di" bpmnElement="StartEvent_1">
+                <dc:Bounds x="109" y="57" width="36" height="36"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="97" y="19.5" width="59" height="27"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="UserTask_0xgycl0_di" bpmnElement="UserTask_0xgycl0">
+                <dc:Bounds x="237" y="189" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ExclusiveGateway_1vpdkq4_di" bpmnElement="ExclusiveGateway_04sksx1"
+                              isMarkerVisible="true">
+                <dc:Bounds x="393" y="204" width="50" height="50"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_0gt2p5u_di" bpmnElement="SequenceFlow_0gt2p5u">
+                <di:waypoint x="418" y="204"/>
+                <di:waypoint x="418" y="150"/>
+                <di:waypoint x="479" y="150"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="ExclusiveGateway_0y0kxdc_di" bpmnElement="ExclusiveGateway_1fev09d"
+                              isMarkerVisible="true">
+                <dc:Bounds x="611" y="204" width="50" height="50"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ServiceTask_0sbhpfh_di" bpmnElement="ServiceTask_0sbhpfh">
+                <dc:Bounds x="731" y="189" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="ServiceTask_11uuuck_di" bpmnElement="ServiceTask_11uuuck">
+                <dc:Bounds x="479" y="110" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_1tir71t_di" bpmnElement="SequenceFlow_1tir71t">
+                <di:waypoint x="579" y="150"/>
+                <di:waypoint x="636" y="150"/>
+                <di:waypoint x="636" y="204"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_002j9qd_di" bpmnElement="SequenceFlow_002j9qd">
+                <di:waypoint x="443" y="229"/>
+                <di:waypoint x="611" y="229"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_01w369h_di" bpmnElement="SequenceFlow_01w369h">
+                <di:waypoint x="661" y="229"/>
+                <di:waypoint x="731" y="229"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="EndEvent_0m2hjrb_di" bpmnElement="EndEvent_0m2hjrb">
+                <dc:Bounds x="763" y="342" width="36" height="36"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="SequenceFlow_15qyt4u_di" bpmnElement="SequenceFlow_15qyt4u">
+                <di:waypoint x="781" y="269"/>
+                <di:waypoint x="781" y="342"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1h69o3j_di" bpmnElement="SequenceFlow_1h69o3j">
+                <di:waypoint x="177" y="229"/>
+                <di:waypoint x="237" y="229"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="SequenceFlow_1otq2mb_di" bpmnElement="SequenceFlow_1otq2mb">
+                <di:waypoint x="337" y="229"/>
+                <di:waypoint x="393" y="229"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
