@@ -12,6 +12,6 @@ struct RestaurantInfoViewModel {
   let name: String
   let websiteUrl: String?
   let phone: String?
-  let email: String
+  let email: String?
   let rating: Double
 }
