@@ -7,6 +7,7 @@ import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.user.SignIn
 import org.junit.Before
 import org.junit.Test
@@ -88,6 +89,6 @@ class SignInTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     open class Config
 }

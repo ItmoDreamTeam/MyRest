@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.sms.SmsService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.user.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -20,6 +21,7 @@ class UserServiceImpl(
     private val identifierRepository: IdentifierRepository,
     private val sessionRepository: SessionRepository,
     private val smsService: SmsService,
+    private val userToProfileAssembler: ModelViewAssembler<User, Profile>
 ) : UserService {
 
     override fun signUp(signUp: SignUp) {
@@ -84,10 +86,6 @@ class UserServiceImpl(
         if (!session.active) {
             throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
         }
-        return toProfile(user)
-    }
-
-    override fun toProfile(user: User): Profile {
-        return Profile(user.id, user.firstName, user.lastName, user.enabled, user.locked, user.role)
+        return userToProfileAssembler.toView(user)
     }
 }
