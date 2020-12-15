@@ -2,7 +2,7 @@ package org.itmodreamteam.myrest.shared.user
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import org.itmodreamteam.myrest.shared.utils.LocalDateTimeSerializer
+import org.itmodreamteam.myrest.shared.config.LocalDateTimeSerializer
 
 @Serializable
 data class ActiveSession(

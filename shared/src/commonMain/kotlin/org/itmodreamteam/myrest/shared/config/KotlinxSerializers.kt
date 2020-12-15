@@ -1,4 +1,4 @@
-package org.itmodreamteam.myrest.shared.utils
+package org.itmodreamteam.myrest.shared.config
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.KSerializer
