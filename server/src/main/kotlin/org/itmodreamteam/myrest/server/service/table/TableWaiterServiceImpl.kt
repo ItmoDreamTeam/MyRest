@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.server.model.restaurant.Waiter
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantTableRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.WaiterRepository
 import org.itmodreamteam.myrest.server.service.employee.EmployeeService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
 import org.itmodreamteam.myrest.shared.table.TableView
 import org.springframework.data.repository.findByIdOrNull
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service
 class TableWaiterServiceImpl(
     private val tableRepository: RestaurantTableRepository,
     private val waiterRepository: WaiterRepository,
-    private val tableService: TableService,
+    private val tableViewAssembler: ModelViewAssembler<RestaurantTable, TableView>,
     private val employeeService: EmployeeService,
 ) : TableWaiterService {
 
@@ -47,7 +48,7 @@ class TableWaiterServiceImpl(
         val waiter = getWaiterEntity(waiterId)
         val tables = tableRepository.findByRestaurant(waiter.restaurant)
         val waiterTables = tables.filter { waiter in it.waiters }
-        return waiterTables.map { tableService.toTableView(it) }
+        return tableViewAssembler.toListView(waiterTables)
     }
 
     private fun getRestaurantTableEntity(id: Long): RestaurantTable {
