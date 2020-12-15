@@ -41,14 +41,14 @@ class TableWaiterServiceImpl(
 
     override fun getTableWaiters(tableId: Long): List<EmployeeInfo> {
         val table = getRestaurantTableEntity(tableId)
-        return employeeToEmployeeInfoAssembler.toListView(table.waiters)
+        return employeeToEmployeeInfoAssembler.toViewList(table.waiters)
     }
 
     override fun getWaiterTables(waiterId: Long): List<TableView> {
         val waiter = getWaiterEntity(waiterId)
         val tables = tableRepository.findByRestaurant(waiter.restaurant)
         val waiterTables = tables.filter { waiter in it.waiters }
-        return tableViewAssembler.toListView(waiterTables)
+        return tableViewAssembler.toViewList(waiterTables)
     }
 
     private fun getRestaurantTableEntity(id: Long): RestaurantTable {
