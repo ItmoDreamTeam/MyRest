@@ -10,6 +10,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantTableRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -161,6 +162,6 @@ class TableWaiterServiceTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     open class Config
 }
