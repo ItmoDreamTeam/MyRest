@@ -21,7 +21,7 @@ class UserServiceImpl(
     private val identifierRepository: IdentifierRepository,
     private val sessionRepository: SessionRepository,
     private val smsService: SmsService,
-    private val userProfileAssembler: ModelViewAssembler<User, Profile>
+    private val userToProfileAssembler: ModelViewAssembler<User, Profile>
 ) : UserService {
 
     override fun signUp(signUp: SignUp) {
@@ -86,6 +86,6 @@ class UserServiceImpl(
         if (!session.active) {
             throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
         }
-        return userProfileAssembler.toView(user)
+        return userToProfileAssembler.toView(user)
     }
 }

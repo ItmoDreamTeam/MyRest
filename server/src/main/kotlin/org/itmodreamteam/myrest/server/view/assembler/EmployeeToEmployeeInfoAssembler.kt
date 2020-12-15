@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class EmployeeToEmployeeInfoAssembler(
-    private val userProfileAssembler: ModelViewAssembler<User, Profile>,
+    private val userToProfileAssembler: ModelViewAssembler<User, Profile>,
     private val restaurantToRestaurantInfoAssembler: ModelViewAssembler<Restaurant, RestaurantInfo>,
 ) : ModelViewAssembler<Employee, EmployeeInfo> {
     override fun toView(model: Employee): EmployeeInfo {
         val restaurant = restaurantToRestaurantInfoAssembler.toView(model.restaurant)
-        val profile = userProfileAssembler.toView(model.user)
+        val profile = userToProfileAssembler.toView(model.user)
         val position = when (model) {
             is Manager -> EmployeePosition.MANAGER
             is Waiter -> EmployeePosition.WAITER
