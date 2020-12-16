@@ -1,6 +1,5 @@
 package org.itmodreamteam.myrest.server.service.table
 
-import org.itmodreamteam.myrest.server.model.restaurant.RestaurantTable
 import org.itmodreamteam.myrest.shared.table.TableInfo
 import org.itmodreamteam.myrest.shared.table.TableView
 
@@ -15,6 +14,4 @@ interface TableService {
     fun removeTable(tableId: Long): TableView
 
     fun getRestaurantTables(restaurantId: Long): List<TableView>
-
-    fun toTableView(table: RestaurantTable): TableView
 }

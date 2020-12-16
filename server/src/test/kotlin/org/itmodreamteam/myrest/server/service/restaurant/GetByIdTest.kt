@@ -5,6 +5,7 @@ import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,6 +54,6 @@ class GetByIdTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     open class Config
 }

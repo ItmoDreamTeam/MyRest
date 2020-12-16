@@ -10,8 +10,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.server.service.restaurant.RestaurantService
-import org.itmodreamteam.myrest.server.service.user.UserService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -22,9 +21,8 @@ class EmployeeServiceImpl(
     private val restaurantRepository: RestaurantRepository,
     private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,
-    private val userService: UserService,
-    private val restaurantService: RestaurantService,
     private val notificationService: NotificationService,
+    private val employeeToEmployeeInfoAssembler: ModelViewAssembler<Employee, EmployeeInfo>
 ) : EmployeeService {
 
     override fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
@@ -73,22 +71,8 @@ class EmployeeServiceImpl(
         return toEmployeeInfo(employee)
     }
 
-    override fun toEmployeeInfo(employee: Employee): EmployeeInfo {
-        val restaurant = restaurantService.toRestaurantInfo(employee.restaurant)
-        val profile = userService.toProfile(employee.user)
-        val position = when (employee) {
-            is Manager -> EmployeePosition.MANAGER
-            is Waiter -> EmployeePosition.WAITER
-            else -> throw IllegalStateException()
-        }
-        return EmployeeInfo(
-            employee.id,
-            restaurant,
-            profile,
-            position,
-            employee.userStatus,
-            employee.restaurantStatus
-        )
+    private fun toEmployeeInfo(employee: Employee): EmployeeInfo {
+        return employeeToEmployeeInfoAssembler.toView(employee)
     }
 
     private fun getRestaurantEntity(id: Long): Restaurant {
