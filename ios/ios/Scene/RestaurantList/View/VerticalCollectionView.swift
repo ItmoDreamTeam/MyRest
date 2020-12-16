@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol VerticalCollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+}
+
 final class VerticalCollectionView: UICollectionView, ConfigurableView {
   typealias Model = [RestaurantListViewModel]
 
@@ -17,6 +21,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
 
   private var viewModel: [RestaurantListViewModel] = []
   var fotterView: LoadingFotter?
+  var verticalCollectionViewDelegate: VerticalCollectionViewDelegate?
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -81,7 +86,7 @@ extension VerticalCollectionView: UICollectionViewDataSource {
 
 extension VerticalCollectionView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    fatalError("Not implemented yet")
+    verticalCollectionViewDelegate?.collectionView(collectionView, didSelectItemAt: indexPath)
   }
 }
 

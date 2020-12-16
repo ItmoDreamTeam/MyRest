@@ -25,9 +25,15 @@ final class AppDependencies {
     // MARK: - SignInScene
     container.register { SignInViewController() as SignInView }
 
+    // MARK: - RestaurantInfoScene
+    container.register { RestaurantInfoViewController() as RestaurantInfoView }
+
     // MARK: - RestaurantListScene
     container.register {
-      RestaurantListRouterImpl(signInScene: try self.container.resolve()) as RestaurantListRouter
+      try RestaurantListRouterImpl(
+        signInScene: self.container.resolve(),
+        restaurantInfoScene: self.container.resolve()
+      ) as RestaurantListRouter
     }
     container.register(.shared) {
       try RestaurantListInteractorImpl(

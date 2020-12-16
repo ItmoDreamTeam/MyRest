@@ -67,10 +67,11 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    collectionView.verticalCollectionViewDelegate = self
   }
 
   @objc private func goToAboutScene() {
-    router?.restaurantListShouldOpenScene(self)
+    router?.restaurantListShouldOpenSignInScene(self)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +79,6 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   // MARK: - RestaurantListView methods
-
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantListViewModel]) {
     collectionView.configure(with: restaurants)
     collectionView.fotterView?.activityIndicatorView.stopAnimating()
@@ -89,5 +89,11 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   func onRestaurantsFetchError(_ error: Error) {
     fatalError("Not implemented yet")
+  }
+}
+
+extension RestaurantListViewController: VerticalCollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    router?.restaurantListShouldOpenRestaurantInfoScene(self)
   }
 }
