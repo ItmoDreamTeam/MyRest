@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol VerticalCollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+protocol VerticalCollectionViewDelegate: class {
+  func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantViewModel)
 }
 
 final class VerticalCollectionView: UICollectionView, ConfigurableView {
@@ -21,7 +21,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
 
   private var viewModel: Model = []
   var fotterView: LoadingFotter?
-  var verticalCollectionViewDelegate: VerticalCollectionViewDelegate?
+  weak var verticalCollectionViewDelegate: VerticalCollectionViewDelegate?
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -86,7 +86,7 @@ extension VerticalCollectionView: UICollectionViewDataSource {
 
 extension VerticalCollectionView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    verticalCollectionViewDelegate?.collectionView(collectionView, didSelectItemAt: indexPath)
+    verticalCollectionViewDelegate?.collectionView(self, didSelectItem: viewModel[indexPath.row])
   }
 }
 

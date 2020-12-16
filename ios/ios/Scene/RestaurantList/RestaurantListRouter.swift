@@ -10,15 +10,15 @@ import Foundation
 
 protocol RestaurantListRouter {
   func restaurantListShouldOpenSignInScene(_ restaurantListScene: RestaurantListView)
-  func restaurantListShouldOpenRestaurantInfoScene(_ restaurantListScene: RestaurantListView)
+  func restaurantListShouldOpenRestaurantInfoScene(_ restaurantListScene: RestaurantListView, pass restaurant: RestaurantViewModel)
 }
 
 final class RestaurantListRouterImpl: RestaurantListRouter {
 
   private let signInScene: SignInView
-  private let restaurantInfoScene: RestaurantInfoView
+  private let restaurantInfoScene: RestaurantInfoView & RestaurantListDataConsumer
 
-  init(signInScene: SignInView, restaurantInfoScene: RestaurantInfoView) {
+  init(signInScene: SignInView, restaurantInfoScene: RestaurantInfoView & RestaurantListDataConsumer) {
     self.signInScene = signInScene
     self.restaurantInfoScene = restaurantInfoScene
   }
@@ -27,7 +27,8 @@ final class RestaurantListRouterImpl: RestaurantListRouter {
     restaurantListScene.navigationController?.pushViewController(signInScene, animated: true)
   }
 
-  func restaurantListShouldOpenRestaurantInfoScene(_ restaurantListScene: RestaurantListView) {
+  func restaurantListShouldOpenRestaurantInfoScene(_ restaurantListScene: RestaurantListView, pass restaurant: RestaurantViewModel) {
+    restaurantInfoScene.onRestaurantGotten(restaurantListScene, restaurant: restaurant)
     restaurantListScene.navigationController?.pushViewController(restaurantInfoScene, animated: true)
   }
 }

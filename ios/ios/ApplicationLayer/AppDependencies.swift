@@ -26,7 +26,9 @@ final class AppDependencies {
     container.register { SignInViewController() as SignInView }
 
     // MARK: - RestaurantInfoScene
-    container.register { RestaurantInfoViewController() as RestaurantInfoView }
+    typealias RestaurantInfoScene = RestaurantInfoView & RestaurantListDataConsumer
+    container.register { RestaurantInfoViewController() }
+      .implements(RestaurantInfoView.self, RestaurantListDataConsumer.self, RestaurantInfoScene.self)
 
     // MARK: - RestaurantListScene
     container.register {

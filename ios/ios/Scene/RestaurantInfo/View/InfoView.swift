@@ -41,6 +41,7 @@ final class InfoView: UIView {
 
   init(viewModel: RestaurantViewModel) {
     super.init(frame: .zero)
+    translatesAutoresizingMaskIntoConstraints = false
     addSubview(stackView)
     stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
     stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

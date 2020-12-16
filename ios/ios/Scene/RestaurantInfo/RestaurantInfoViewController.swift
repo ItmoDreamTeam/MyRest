@@ -13,11 +13,14 @@ protocol RestaurantInfoView: UIViewController {}
 final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
 
   private let photosCollectionViewHeight: CGFloat = 70
+  private let infoViewHeight: CGFloat = 150
 
   private var reviews: [UserReviewViewModel] = []
+  private var restaurant: RestaurantViewModel?
 
   private var photosCollectionView: PhotosCollectionView
   private var tableView: UITableView
+  private var infoView: InfoView!
 
   init() {
     photosCollectionView = PhotosCollectionView()
@@ -39,26 +42,31 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   }
 
   private func configureNavBar() {
-    navigationItem.title = "MyRest"
+    navigationItem.title = restaurant?.name
     navigationItem.largeTitleDisplayMode = .always
     navigationController?.navigationBar.prefersLargeTitles = true
   }
 
   private func configureCollectionView() {
     view.addSubview(photosCollectionView)
-    photosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    photosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     photosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     photosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     photosCollectionView.heightAnchor.constraint(equalToConstant: photosCollectionViewHeight).isActive = true
   }
 
   private func configureInfoView() {
-    fatalError("Not implemented yet")
+    view.addSubview(infoView)
+    infoView.topAnchor.constraint(equalTo: photosCollectionView.bottomAnchor).isActive = true
+    infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    infoView.heightAnchor.constraint(equalToConstant: infoViewHeight).isActive = true
   }
 
   private func configureTableView() {
+    tableView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(tableView)
-    tableView.topAnchor.constraint(equalTo: photosCollectionView.bottomAnchor).isActive = true
+    tableView.topAnchor.constraint(equalTo: infoView.bottomAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -89,5 +97,12 @@ extension RestaurantInfoViewController: UITableViewDataSource {
 extension RestaurantInfoViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     fatalError("Not implemented yet")
+  }
+}
+
+extension RestaurantInfoViewController: RestaurantListDataConsumer {
+  func onRestaurantGotten(_ restaurantListScene: RestaurantListView, restaurant: RestaurantViewModel) {
+    self.restaurant = restaurant
+    infoView = InfoView(viewModel: restaurant)
   }
 }

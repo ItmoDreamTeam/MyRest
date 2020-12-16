@@ -13,6 +13,10 @@ protocol RestaurantListView: UIViewController {
   func onRestaurantsFetchError(_ error: Error)
 }
 
+protocol RestaurantListDataConsumer {
+  func onRestaurantGotten(_ restaurantListScene: RestaurantListView, restaurant: RestaurantViewModel)
+}
+
 final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   private var searchView: SearchView
@@ -93,7 +97,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 }
 
 extension RestaurantListViewController: VerticalCollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    router?.restaurantListShouldOpenRestaurantInfoScene(self)
+  func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantViewModel) {
+    router?.restaurantListShouldOpenRestaurantInfoScene(self, pass: item)
   }
 }
