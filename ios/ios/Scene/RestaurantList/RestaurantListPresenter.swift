@@ -25,9 +25,12 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
     switch restaurants {
     case .success(let restaurantsInfos):
       let viewModel = restaurantsInfos.map {
-        return RestaurantListViewModel(
+        RestaurantViewModel(
           name: $0.name,
-          rating: $0.internalRating,
+          rating: $0.externalRating,
+          websiteUrl: $0.websiteUrl,
+          phone: $0.phone,
+          email: $0.email,
           avatar: UIImage(named: "restaurantPlaceholder") ?? UIImage()
         )
       }

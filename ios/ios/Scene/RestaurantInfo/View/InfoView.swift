@@ -39,7 +39,7 @@ final class InfoView: UIView {
     return getLabel()
   }()
 
-  init(viewModel: RestaurantInfoViewModel) {
+  init(viewModel: RestaurantViewModel) {
     super.init(frame: .zero)
     addSubview(stackView)
     stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true

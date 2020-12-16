@@ -9,13 +9,13 @@
 import UIKit
 
 final class PhotosCollectionView: UICollectionView, ConfigurableView {
-  typealias Model = [RestaurantInfoViewModel]
+  typealias Model = [RestaurantViewModel]
 
   private let minimumLineSpacing: CGFloat = 3
   private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   private let cellWidth: CGFloat = 50
 
-  private var viewModel: [RestaurantInfoViewModel] = []
+  private var viewModel: [RestaurantViewModel] = []
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -36,7 +36,7 @@ final class PhotosCollectionView: UICollectionView, ConfigurableView {
     return nil
   }
 
-  func configure(with model: [RestaurantInfoViewModel]) {
+  func configure(with model: [RestaurantViewModel]) {
     self.viewModel = model
   }
 }

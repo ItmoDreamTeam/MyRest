@@ -11,7 +11,7 @@ import UIKit
 final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "RestaurantCell"
 
-  typealias Model = RestaurantListViewModel
+  typealias Model = RestaurantViewModel
   
   @IBOutlet weak var restaurantNameLabel: UILabel!
   @IBOutlet weak var cusineLabel: UILabel!
@@ -22,7 +22,7 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
     restaurantImageView.contentMode = .scaleAspectFit
   }
 
-  func configure(with model: RestaurantListViewModel) {
+  func configure(with model: RestaurantViewModel) {
     restaurantNameLabel.text = model.name
     ratingLabel.text = "\(model.rating)"
     restaurantImageView.image = model.avatar

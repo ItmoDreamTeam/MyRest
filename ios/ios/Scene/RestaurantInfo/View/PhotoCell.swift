@@ -10,7 +10,7 @@ import UIKit
 
 final class PhotoCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "PhotoCell"
-  typealias Model = RestaurantInfoViewModel
+  typealias Model = RestaurantViewModel
 
   private lazy var imageView: UIImageView = {
     let image = UIImageView()
@@ -31,7 +31,7 @@ final class PhotoCell: UICollectionViewCell, ConfigurableView {
     return nil
   }
 
-  func configure(with model: RestaurantInfoViewModel) {
+  func configure(with model: RestaurantViewModel) {
     fatalError("Not implemented yet")
   }
 }
