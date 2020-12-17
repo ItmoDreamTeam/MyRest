@@ -1,3 +1,3 @@
 package org.itmodreamteam.myrest.server.error
 
-class UserException(message: String) : RuntimeException(message)
+class UserException(vararg val errorsKeys: String) : RuntimeException()
