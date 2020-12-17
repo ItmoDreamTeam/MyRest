@@ -73,6 +73,20 @@ class ThrowableToErrorsConverterTest {
         assertThat(error.developerMessage).isNull()
     }
 
+    @Test
+    fun `When convert interpolatable user exception with multiple parameters, then key and messages are correct`() {
+        val key = "user.username.size"
+        val minSize = 3
+        val maxSize = 16
+        val message = "Длина имени пользователя должна быть от 3 до 16 символов"
+        val errors = converter.convert(UserException(key, mapOf("min" to minSize, "max" to maxSize)))
+        assertThat(errors).hasSize(1)
+        val error = errors.first()
+        assertThat(error.key).isEqualTo(key)
+        assertThat(error.userMessage).isEqualTo(message)
+        assertThat(error.developerMessage).isNull()
+    }
+
     @ComponentScan
     open class Config
 }
