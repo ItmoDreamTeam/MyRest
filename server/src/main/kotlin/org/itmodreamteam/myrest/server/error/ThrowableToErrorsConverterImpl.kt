@@ -19,7 +19,7 @@ class ThrowableToErrorsConverterImpl(
             }
         }
         log.error("Unhandled error has occurred: ${throwable.message}", throwable)
-        return listOf(Error.unknown(throwable.message ?: ""))
+        return listOf(Error.unknown(throwable.message))
     }
 
     @Suppress("UNCHECKED_CAST")
