@@ -60,6 +60,19 @@ class ThrowableToErrorsConverterTest {
         assertThat(error.developerMessage).isNull()
     }
 
+    @Test
+    fun `When convert interpolatable user exception with single parameter, then key and messages are correct`() {
+        val key = "user.exists"
+        val phone = "+79218881243"
+        val message = "Пользователь с номером телефона +79218881243 уже зарегистрирован"
+        val errors = converter.convert(UserException(key, "phone" to phone))
+        assertThat(errors).hasSize(1)
+        val error = errors.first()
+        assertThat(error.key).isEqualTo(key)
+        assertThat(error.userMessage).isEqualTo(message)
+        assertThat(error.developerMessage).isNull()
+    }
+
     @ComponentScan
     open class Config
 }

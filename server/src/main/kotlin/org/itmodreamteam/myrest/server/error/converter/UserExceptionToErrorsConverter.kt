@@ -17,13 +17,14 @@ class UserExceptionToErrorsConverter : ConcreteThrowableToErrorsConverter<UserEx
     override val throwableType: Class<UserException> = UserException::class.java
 
     override fun convert(throwable: UserException): List<Error> {
-        return throwable.errorsKeys.map { key ->
-            val message = errors[key]
-            if (message == null) {
+        return throwable.interpolatableErrors.map { error ->
+            val key = error.key
+            val template = errors[key]
+            if (template == null) {
                 log.warn("No message found for error key '$key'")
                 return@map Error(key)
             }
-            Error(key, message)
+            Error(key, error.interpolate(template))
         }.ifEmpty { listOf(Error.unknown()) }
     }
 
