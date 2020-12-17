@@ -22,8 +22,13 @@ final class AppDependencies {
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
 
+    // MARK: - SignInScene
+    container.register { SignInViewController() as SignInView }
+
     // MARK: - RestaurantListScene
-    container.register { RestaurantListRouterImpl() as RestaurantListRouter }
+    container.register {
+      RestaurantListRouterImpl(signInScene: try self.container.resolve()) as RestaurantListRouter
+    }
     container.register(.shared) {
       try RestaurantListInteractorImpl(
         restaurantClient: self.container.resolve(),
@@ -40,15 +45,6 @@ final class AppDependencies {
       view.interactor = try container.resolve()
     }
     .implements(RestaurantListView.self)
-
-    // MARK: - SignInScene
-    container.register { SignInViewController() as SignInView }
-
-    // MARK: - RestaurantListScene
-    container.register {
-      RestaurantListRouterImpl(signInScene: try self.container.resolve()) as RestaurantListRouter
-    }
-    container.register { RestaurantListViewController(router: try self.container.resolve()) }
   }
 
   func getRootViewController() -> RestaurantListView {
