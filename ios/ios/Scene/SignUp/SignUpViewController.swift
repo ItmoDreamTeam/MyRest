@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol SignUpView: UIViewController {}
+protocol SignUpView: UIViewController {
+  func onRequestedComplete()
+  func onRequestedError(_ error: Error)
+}
 
 final class SignUpViewController: UIViewController, SignUpView {
 
@@ -162,5 +165,13 @@ final class SignUpViewController: UIViewController, SignUpView {
   private func enableButton(isEnabled: Bool) {
     registerButton.isEnabled = isEnabled
     registerButton.backgroundColor = isEnabled ? .gray : .lightGray
+  }
+
+  func onRequestedComplete() {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  func onRequestedError(_ error: Error) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
