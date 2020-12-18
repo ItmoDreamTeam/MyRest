@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftMaskTextfield
 
 protocol SignUpView: UIViewController {}
 

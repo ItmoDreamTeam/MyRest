@@ -2,27 +2,23 @@ PODS:
   - Dip (7.1.1)
   - IQKeyboardManagerSwift (6.5.6)
   - SwiftKeychainWrapper (4.0.1)
-  - SwiftMaskTextfield (1.1.0)
 
 DEPENDENCIES:
   - Dip
   - IQKeyboardManagerSwift
   - SwiftKeychainWrapper
-  - SwiftMaskTextfield
 
 SPEC REPOS:
   trunk:
     - Dip
     - IQKeyboardManagerSwift
     - SwiftKeychainWrapper
-    - SwiftMaskTextfield
 
 SPEC CHECKSUMS:
   Dip: 6bebb09d50f88633039ce2c9fe5bc56d387b492f
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
-  SwiftMaskTextfield: 8c792e56f25779939d1fd5cf6153ba439b1be761
 
-PODFILE CHECKSUM: d54ae6bd2c7169a4f8e1743515e386cb56cc355f
+PODFILE CHECKSUM: bbefc2d75b719795a8f5739ee9ac4e22c2a37a60
 
 COCOAPODS: 1.10.0
