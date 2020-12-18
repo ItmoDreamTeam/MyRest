@@ -15,3 +15,10 @@ restaurant:
     size: Длина номера телефона не должна превышать {max} символов
   email:
     size: Длина email не должна превышать {max} символов
+table:
+  number:
+    incorrect: Некорректный номер столика
+  description:
+    size: Длина описания не должна превышать {max} символов
+  number-of-seats:
+    incorrect: Некорректное количество мест
