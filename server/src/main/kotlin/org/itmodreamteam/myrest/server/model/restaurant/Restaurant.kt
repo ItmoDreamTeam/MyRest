@@ -34,13 +34,13 @@ class Restaurant() : JpaEntity() {
     @Size(max = 1000, message = "restaurant.legal-info.size")
     lateinit var legalInfo: String
 
-    @Size(max = 200)
+    @Size(max = 200, message = "restaurant.website-url.size")
     var websiteUrl: String? = null
 
-    @Size(max = 50)
+    @Size(max = 20, message = "restaurant.phone.size")
     var phone: String? = null
 
-    @Size(max = 50)
+    @Size(max = 50, message = "restaurant.email.size")
     var email: String? = null
 
     var internalRating: Double = 0.0
