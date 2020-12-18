@@ -9,9 +9,9 @@
 import UIKit
 
 enum Constant {
-  static let phoneLength = 18
+  static let phoneLength = 17
 
   // MARK: - UI constants
   static let textFieldCornerRadius: CGFloat = 5
-  static let textFieldBorderWidth: CGFloat = 5
+  static let textFieldBorderWidth: CGFloat = 1
 }

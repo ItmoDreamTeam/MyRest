@@ -13,15 +13,25 @@ protocol SignUpView: UIViewController {}
 
 final class SignUpViewController: UIViewController, SignUpView {
 
-  private var nameTextField: SwiftMaskTextfield
-  private var surnameTextField: SwiftMaskTextfield
-  private var phoneTextField: SwiftMaskTextfield
+  private var nameIsNotEmty = false
+  private var surnamtIsNotEmpty = false
+  private var phoneIsFill = false
+
+  private var nameLabel: UILabel
+  private var nameTextField: UITextField
+  private var surnameLabel: UILabel
+  private var surnameTextField: UITextField
+  private var phoneLabel: UILabel
+  private var phoneTextField: PhoneTextField
   private var registerButton: UIButton
 
   init() {
-    nameTextField = SwiftMaskTextfield()
-    surnameTextField = SwiftMaskTextfield()
-    phoneTextField = SwiftMaskTextfield()
+    nameLabel = UILabel()
+    surnameLabel = UILabel()
+    phoneLabel = UILabel()
+    nameTextField = UITextField()
+    surnameTextField = UITextField()
+    phoneTextField = PhoneTextField()
     registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
@@ -33,42 +43,63 @@ final class SignUpViewController: UIViewController, SignUpView {
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    configureTextFields()
+    configureNavBar()
+    configureViews()
+    configureButton()
   }
 
-  private func configureTextFields() {
+  private func configureNavBar() {
+    navigationController?.navigationBar.prefersLargeTitles = false
+    navigationItem.title = "Регистрация"
+  }
+
+  private func configureViews() {
     nameTextField.translatesAutoresizingMaskIntoConstraints = false
     surnameTextField.translatesAutoresizingMaskIntoConstraints = false
+    nameLabel.translatesAutoresizingMaskIntoConstraints = false
+    surnameLabel.translatesAutoresizingMaskIntoConstraints = false
+    phoneLabel.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(nameLabel)
+    nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+    nameLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
+    nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    nameLabel.text = "Имя"
     view.addSubview(nameTextField)
-    nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
-    nameTextField.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+    nameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
     nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+    nameTextField.addTarget(self, action: #selector(nameTextFieldFilled(_:)), for: .editingChanged)
     nameTextField.layer.cornerRadius = Constant.textFieldCornerRadius
     nameTextField.layer.borderWidth = Constant.textFieldBorderWidth
     nameTextField.layer.borderColor = UIColor.black.cgColor
-    nameTextField.prefix = " "
+    nameTextField.text = "  "
+    view.addSubview(surnameLabel)
+    surnameLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
+    surnameLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
+    surnameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    surnameLabel.text = "Фамилия"
     view.addSubview(surnameTextField)
-    surnameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 40).isActive = true
-    surnameTextField.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    surnameTextField.topAnchor.constraint(equalTo: surnameLabel.bottomAnchor, constant: 5).isActive = true
+    surnameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     surnameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
     surnameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-    surnameTextField.layer.cornerRadius = Constant.textFieldCornerRadius
+    surnameTextField.addTarget(self, action: #selector(surnameTextFieldFilled(_:)), for: .editingChanged)
     surnameTextField.layer.cornerRadius = Constant.textFieldCornerRadius
     surnameTextField.layer.borderWidth = Constant.textFieldBorderWidth
     surnameTextField.layer.borderColor = UIColor.black.cgColor
-    surnameTextField.prefix = " "
+    surnameTextField.text = "  "
+    view.addSubview(phoneLabel)
+    phoneLabel.topAnchor.constraint(equalTo: surnameTextField.bottomAnchor, constant: 10).isActive = true
+    phoneLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
+    phoneLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    phoneLabel.text = "Телефон"
     view.addSubview(phoneTextField)
-    phoneTextField.topAnchor.constraint(equalTo: surnameTextField.bottomAnchor, constant: 40).isActive = true
+    phoneTextField.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 5).isActive = true
     phoneTextField.heightAnchor.constraint(equalToConstant: 60).isActive = true
     phoneTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
     phoneTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-    phoneTextField.addTarget(self, action: #selector(textFieldFilled(_:)), for: .editingChanged)
-    phoneTextField.layer.cornerRadius = Constant.textFieldCornerRadius
-    phoneTextField.layer.borderWidth = Constant.textFieldBorderWidth
-    phoneTextField.layer.borderColor = UIColor.black.cgColor
-    phoneTextField.prefix = " +7 "
-    phoneTextField.formatPattern = "### ###-##-##"
+    phoneTextField.addTarget(self, action: #selector(phoneTextFieldFilled(_:)), for: .editingChanged)
   }
 
   private func configureButton() {
@@ -91,16 +122,46 @@ final class SignUpViewController: UIViewController, SignUpView {
     fatalError("Not implemented yet")
   }
 
-  @objc private func textFieldFilled(_ sender: UITextField) {
+  @objc private func nameTextFieldFilled(_ sender: UITextField) {
+    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
     guard
       let count = sender.text?.count,
-      count >= 17
+      count >= 3
     else {
-      registerButton.isEnabled = false
-      registerButton.backgroundColor = .lightGray
+      sender.text = "  "
+      nameIsNotEmty = false
       return
     }
-    registerButton.isEnabled = true
-    registerButton.backgroundColor = .gray
+    nameIsNotEmty = true
+  }
+
+  @objc private func surnameTextFieldFilled(_ sender: UITextField) {
+    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
+    guard
+      let count = sender.text?.count,
+      count >= 3
+    else {
+      sender.text = "  "
+      surnamtIsNotEmpty = false
+      return
+    }
+    surnamtIsNotEmpty = true
+  }
+
+  @objc private func phoneTextFieldFilled(_ sender: UITextField) {
+    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
+    guard
+      let count = sender.text?.count,
+      count >= Constant.phoneLength
+    else {
+      phoneIsFill = false
+      return
+    }
+    phoneIsFill = true
+  }
+
+  private func enableButton(isEnabled: Bool) {
+    registerButton.isEnabled = isEnabled
+    registerButton.backgroundColor = isEnabled ? .gray : .lightGray
   }
 }
