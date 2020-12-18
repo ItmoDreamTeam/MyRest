@@ -88,7 +88,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-   fatalError("Not implemented yet")
+    fatalError("Not implemented yet")
   }
 
   @objc private func textFieldFilled(_ sender: UITextField) {
