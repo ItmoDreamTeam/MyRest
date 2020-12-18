@@ -19,18 +19,19 @@ class Restaurant() : JpaEntity() {
     @Enumerated(EnumType.STRING)
     lateinit var status: RestaurantStatus
 
-    @NotNull(message = "Название ресторана не задано")
-    @NotBlank(message = "Название ресторана не задано")
-    @Size(max = 50)
+    @NotNull
+    @NotBlank(message = "restaurant.name.blank")
+    @Size(min = 2, max = 50, message = "restaurant.name.size")
     lateinit var name: String
 
-    @NotNull(message = "У ресторана должно быть описание")
-    @NotBlank(message = "У ресторана должно быть описание")
-    @Size(max = 10000)
+    @NotNull
+    @NotBlank(message = "restaurant.description.blank")
+    @Size(max = 10000, message = "restaurant.description.size")
     lateinit var description: String
 
     @NotNull
-    @Size(max = 1000)
+    @NotBlank(message = "restaurant.legal-info.blank")
+    @Size(max = 1000, message = "restaurant.legal-info.size")
     lateinit var legalInfo: String
 
     @Size(max = 200)
