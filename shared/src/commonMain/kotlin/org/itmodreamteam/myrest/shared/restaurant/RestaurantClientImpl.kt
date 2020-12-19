@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 import org.itmodreamteam.myrest.shared.Pageable
 
+@ExperimentalStdlibApi
 class RestaurantClientImpl : RestaurantClient {
 
     private val client = HttpClientProvider.provide()

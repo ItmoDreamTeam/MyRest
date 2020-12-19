@@ -8,6 +8,7 @@ import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClient
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClientImpl
 
+@ExperimentalStdlibApi
 class RestaurantSearchViewModel(
     private val restaurantClient: RestaurantClient = RestaurantClientImpl(),
 ) : ViewModel() {

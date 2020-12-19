@@ -4,6 +4,7 @@ import io.ktor.client.request.*
 import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
+@ExperimentalStdlibApi
 class UserClientImpl : UserClient {
 
     private val client = HttpClientProvider.provide()
