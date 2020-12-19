@@ -24,7 +24,7 @@ class TableWaiterServiceImpl(
         val table = getRestaurantTableEntity(tableId)
         val waiter = getWaiterEntity(waiterId)
         if (waiter.restaurant != table.restaurant) {
-            throw UserException("Официант не является сотрудником ресторана")
+            throw UserException("employee.waiter.not-found")
         }
         table.addWaiter(waiter)
         tableRepository.save(table)
@@ -53,11 +53,11 @@ class TableWaiterServiceImpl(
 
     private fun getRestaurantTableEntity(id: Long): RestaurantTable {
         return tableRepository.findByIdOrNull(id)
-            ?: throw UserException("Столик не найден")
+            ?: throw UserException("table.not-found")
     }
 
     private fun getWaiterEntity(id: Long): Waiter {
         return waiterRepository.findByIdOrNull(id)
-            ?: throw UserException("Официант не найден")
+            ?: throw UserException("employee.waiter.not-found")
     }
 }
