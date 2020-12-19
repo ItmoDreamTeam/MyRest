@@ -1,8 +1,8 @@
 package org.itmodreamteam.myrest.server.error
 
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 
 interface ThrowableToErrorsConverter {
 
-    fun convert(throwable: Throwable): List<Error>
+    fun convert(throwable: Throwable): List<ServerError>
 }

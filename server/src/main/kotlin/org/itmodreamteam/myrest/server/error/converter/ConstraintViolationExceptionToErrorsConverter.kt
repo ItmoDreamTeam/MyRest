@@ -2,7 +2,7 @@ package org.itmodreamteam.myrest.server.error.converter
 
 import org.itmodreamteam.myrest.server.error.InterpolatableError
 import org.itmodreamteam.myrest.server.error.UserException
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 import org.springframework.stereotype.Component
 import javax.validation.ConstraintViolationException
 
@@ -13,7 +13,7 @@ class ConstraintViolationExceptionToErrorsConverter(
 
     override val throwableType: Class<ConstraintViolationException> = ConstraintViolationException::class.java
 
-    override fun convert(throwable: ConstraintViolationException): List<Error> {
+    override fun convert(throwable: ConstraintViolationException): List<ServerError> {
         val errors = throwable.constraintViolations.map { violation ->
             InterpolatableError(violation.message, violation.constraintDescriptor.attributes)
         }

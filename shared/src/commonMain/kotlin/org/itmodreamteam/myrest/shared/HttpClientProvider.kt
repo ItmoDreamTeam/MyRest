@@ -9,7 +9,7 @@ import io.ktor.utils.io.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.itmodreamteam.myrest.shared.error.ClientException
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 import org.itmodreamteam.myrest.shared.error.UnauthenticatedErrorHandler
 
 object HttpClientProvider {
@@ -32,7 +32,7 @@ object HttpClientProvider {
                 if (!response.status.isSuccess()) {
                     val errors = try {
                         val body = response.content.readUTF8Line()!!
-                        Json.decodeFromString<List<Error>>(body)
+                        Json.decodeFromString<List<ServerError>>(body)
                     } catch (e: Exception) {
                         throw ClientException.unknown(e.message)
                     }

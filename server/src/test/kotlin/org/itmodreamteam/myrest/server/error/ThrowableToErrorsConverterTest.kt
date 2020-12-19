@@ -1,7 +1,7 @@
 package org.itmodreamteam.myrest.server.error
 
 import org.assertj.core.api.Assertions.assertThat
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,8 +21,8 @@ class ThrowableToErrorsConverterTest {
         val errors = converter.convert(RuntimeException(message))
         assertThat(errors).hasSize(1)
         val error = errors.first()
-        assertThat(error.key).isEqualTo(Error.UNKNOWN_ERROR_KEY)
-        assertThat(error.userMessage).isEqualTo(Error.UNKNOWN_ERROR_USER_MESSAGE)
+        assertThat(error.key).isEqualTo(ServerError.UNKNOWN_ERROR_KEY)
+        assertThat(error.userMessage).isEqualTo(ServerError.UNKNOWN_ERROR_USER_MESSAGE)
         assertThat(error.developerMessage).isEqualTo(message)
     }
 
@@ -31,8 +31,8 @@ class ThrowableToErrorsConverterTest {
         val errors = converter.convert(UserException())
         assertThat(errors).hasSize(1)
         val error = errors.first()
-        assertThat(error.key).isEqualTo(Error.UNKNOWN_ERROR_KEY)
-        assertThat(error.userMessage).isEqualTo(Error.UNKNOWN_ERROR_USER_MESSAGE)
+        assertThat(error.key).isEqualTo(ServerError.UNKNOWN_ERROR_KEY)
+        assertThat(error.userMessage).isEqualTo(ServerError.UNKNOWN_ERROR_USER_MESSAGE)
         assertThat(error.developerMessage).isNull()
     }
 
@@ -43,7 +43,7 @@ class ThrowableToErrorsConverterTest {
         assertThat(errors).hasSize(1)
         val error = errors.first()
         assertThat(error.key).isEqualTo(key)
-        assertThat(error.userMessage).isEqualTo(Error.UNKNOWN_ERROR_USER_MESSAGE)
+        assertThat(error.userMessage).isEqualTo(ServerError.UNKNOWN_ERROR_USER_MESSAGE)
         assertThat(error.developerMessage).isNull()
     }
 

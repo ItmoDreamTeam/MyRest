@@ -1,7 +1,7 @@
 package org.itmodreamteam.myrest.shared.error
 
 data class ClientException(
-    val errors: List<Error> = emptyList(),
+    val errors: List<ServerError> = emptyList(),
 ) : RuntimeException() {
 
     fun handleWithDefaultErrorHandler() {
@@ -12,7 +12,7 @@ data class ClientException(
 
     companion object {
         fun unknown(developerMessage: String? = null): ClientException {
-            return ClientException(listOf(Error.unknown(developerMessage)))
+            return ClientException(listOf(ServerError.unknown(developerMessage)))
         }
     }
 }

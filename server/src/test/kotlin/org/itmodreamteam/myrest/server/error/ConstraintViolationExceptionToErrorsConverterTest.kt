@@ -3,7 +3,7 @@ package org.itmodreamteam.myrest.server.error
 import org.assertj.core.api.Assertions.assertThat
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,9 +32,9 @@ class ConstraintViolationExceptionToErrorsConverterTest {
             converter.convert(cve)
         }
         assertThat(errors).containsExactlyInAnyOrder(
-            Error("restaurant.name.size", "Длина названия ресторана должна быть от 2 до 50 символов"),
-            Error("restaurant.description.blank", "Введите описание ресторана"),
-            Error("restaurant.legal-info.blank", "Введите информацию о юрлице или ИП – владельце ресторана"),
+            ServerError("restaurant.name.size", "Длина названия ресторана должна быть от 2 до 50 символов"),
+            ServerError("restaurant.description.blank", "Введите описание ресторана"),
+            ServerError("restaurant.legal-info.blank", "Введите информацию о юрлице или ИП – владельце ресторана"),
         )
     }
 }

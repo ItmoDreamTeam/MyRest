@@ -3,7 +3,7 @@ package org.itmodreamteam.myrest.shared.error
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Error(
+data class ServerError(
     val key: String,
     val userMessage: String = UNKNOWN_ERROR_USER_MESSAGE,
     val developerMessage: String? = null,
@@ -13,6 +13,6 @@ data class Error(
         const val UNKNOWN_ERROR_USER_MESSAGE = "Ошибка сервера. Повторите попытку позже"
 
         fun unknown(developerMessage: String? = null) =
-            Error(UNKNOWN_ERROR_KEY, UNKNOWN_ERROR_USER_MESSAGE, developerMessage)
+            ServerError(UNKNOWN_ERROR_KEY, UNKNOWN_ERROR_USER_MESSAGE, developerMessage)
     }
 }

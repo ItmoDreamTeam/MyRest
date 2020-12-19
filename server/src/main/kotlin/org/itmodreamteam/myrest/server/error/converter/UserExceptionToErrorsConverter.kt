@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import org.itmodreamteam.myrest.server.error.UserException
-import org.itmodreamteam.myrest.shared.error.Error
+import org.itmodreamteam.myrest.shared.error.ServerError
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
@@ -16,16 +16,16 @@ class UserExceptionToErrorsConverter : ConcreteThrowableToErrorsConverter<UserEx
 
     override val throwableType: Class<UserException> = UserException::class.java
 
-    override fun convert(throwable: UserException): List<Error> {
+    override fun convert(throwable: UserException): List<ServerError> {
         return throwable.interpolatableErrors.map { error ->
             val key = error.key
             val template = errors[key]
             if (template == null) {
                 log.warn("No message found for error key '$key'")
-                return@map Error(key)
+                return@map ServerError(key)
             }
-            Error(key, error.interpolate(template))
-        }.ifEmpty { listOf(Error.unknown()) }
+            ServerError(key, error.interpolate(template))
+        }.ifEmpty { listOf(ServerError.unknown()) }
     }
 
     private class ErrorsReader {
