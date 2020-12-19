@@ -11,9 +11,7 @@ interface AccessTokenProvider {
 
         fun HttpRequestBuilder.provideAccessToken() {
             val token = INSTANCE?.accessToken
-            if (token != null) {
-                header("Authorization", "Bearer $token")
-            }
+            header("Authorization", "Bearer $token")
         }
     }
 }
