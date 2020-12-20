@@ -24,6 +24,7 @@ class RealSmsService(private var smsMessageRepository: SmsMessageRepository) : S
 
     private val restTemplate = RestTemplateBuilder()
         .rootUri("https://rest-api.d7networks.com/secure")
+        .basicAuthentication(System.getenv("SMS_SERVICE_USERNAME"), System.getenv("SMS_SERVICE_PASSWORD"))
         .build()
 
     override fun send(phone: String, text: String) {

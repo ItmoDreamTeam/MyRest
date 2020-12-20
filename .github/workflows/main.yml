@@ -23,6 +23,8 @@ jobs:
     env:
       PROFILE: prod
       DB_PASSWORD: uC5c98Ez3i
+      SMS_SERVICE_USERNAME: ${{ secrets.SMS_SERVICE_USERNAME }}
+      SMS_SERVICE_PASSWORD: ${{ secrets.SMS_SERVICE_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
