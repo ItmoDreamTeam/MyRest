@@ -82,7 +82,7 @@ class SignUpTest {
         assertThat(identifiers).hasSize(1)
         val code = identifiers[0].verificationCode
 
-        val expectedText = "Для продолжения регистрации на сервисе MyRest введите код подтверждения: $code"
+        val expectedText = "Для продолжения регистрации на сервисе MyRest введите код: $code"
         verify(smsService, times(1)).send("+79210017007", expectedText)
     }
 
