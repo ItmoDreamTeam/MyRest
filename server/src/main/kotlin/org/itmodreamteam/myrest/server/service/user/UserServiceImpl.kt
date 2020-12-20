@@ -47,7 +47,7 @@ class UserServiceImpl(
 
     private fun sendVerificationMessage(identifier: Identifier) {
         val verificationCode = identifier.updateVerificationCode()
-        val text = "Для продолжения регистрации на сервисе MyRest введите код подтверждения: $verificationCode"
+        val text = "Для продолжения регистрации на сервисе MyRest введите код: $verificationCode"
         smsService.send(identifier.value, text)
     }
 
