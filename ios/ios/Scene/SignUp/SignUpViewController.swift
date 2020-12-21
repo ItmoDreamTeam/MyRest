@@ -27,9 +27,9 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var surnameLabel: UILabel
   private var surnameTextField: UITextField
   private var phoneLabel: UILabel
-  private var phoneTextField: PhoneTextField
+  private var phoneTextField: MaskTextField
   private var registerButton: UIButton
-  private var codeTextField: PhoneTextField
+  private var codeTextField: MaskTextField
   private var timerLabel: UILabel
 
   init() {
@@ -38,9 +38,9 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneLabel = UILabel()
     nameTextField = UITextField()
     surnameTextField = UITextField()
-    phoneTextField = PhoneTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
+    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
     registerButton = UIButton(type: .system)
-    codeTextField = PhoneTextField(formattingPattern: "***-*** ", prefix: "  ")
+    codeTextField = MaskTextField(formattingPattern: "***-*** ", prefix: "  ")
     timerLabel = UILabel()
     super.init(nibName: nil, bundle: nil)
   }
