@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import shared
 
 protocol SignUpView: UIViewController {
   func onRequestedComplete()
@@ -14,6 +15,8 @@ protocol SignUpView: UIViewController {
 }
 
 final class SignUpViewController: UIViewController, SignUpView {
+
+  var interactor: SignUpInteractor?
 
   private var nameIsNotEmty = false
   private var surnamtIsNotEmpty = false
@@ -26,6 +29,8 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var phoneLabel: UILabel
   private var phoneTextField: PhoneTextField
   private var registerButton: UIButton
+  private var codeTextField: UITextField
+  private var timerLabel: UILabel
 
   init() {
     nameLabel = UILabel()
@@ -35,6 +40,8 @@ final class SignUpViewController: UIViewController, SignUpView {
     surnameTextField = UITextField()
     phoneTextField = PhoneTextField()
     registerButton = UIButton(type: .system)
+    codeTextField = UITextField()
+    timerLabel = UILabel()
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -98,7 +105,7 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneLabel.text = "Телефон"
     view.addSubview(phoneTextField)
     phoneTextField.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 5).isActive = true
-    phoneTextField.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    phoneTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     phoneTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
     phoneTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
     phoneTextField.addTarget(self, action: #selector(phoneTextFieldFilled(_:)), for: .editingChanged)
@@ -121,7 +128,20 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    onRequestedComplete()
+//    guard
+//      let name = nameTextField.text,
+//      let lastName = surnameTextField.text,
+//      let phone = phoneTextField.text
+//    else {
+//      return
+//    }
+//    interactor?.signUpDidRequestVerificationCode(
+//      self,
+//      forSignUp: SignUp(
+//      firstName: name, lastName: lastName, phone: phone)
+//    )
+//    enableButton(isEnabled: false)
   }
 
   @objc private func nameTextFieldFilled(_ sender: UITextField) {
@@ -167,8 +187,53 @@ final class SignUpViewController: UIViewController, SignUpView {
     registerButton.backgroundColor = isEnabled ? .gray : .lightGray
   }
 
+  private func removeInfoLabels() {
+    nameTextField.removeFromSuperview()
+    nameLabel.removeFromSuperview()
+    surnameLabel.removeFromSuperview()
+    surnameTextField.removeFromSuperview()
+    phoneLabel.removeFromSuperview()
+    phoneTextField.removeFromSuperview()
+  }
+
+  private func showCodeLabel() {
+    view.addSubview(codeTextField)
+    codeTextField.translatesAutoresizingMaskIntoConstraints = false
+    codeTextField.bottomAnchor.constraint(equalTo: timerLabel.topAnchor, constant: -10).isActive = true
+    codeTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    codeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    codeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+    codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
+    codeTextField.layer.borderWidth = Constant.textFieldBorderWidth
+    codeTextField.layer.borderColor = UIColor.black.cgColor
+  }
+
+  private func showTimerLabel() {
+    timerLabel.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(timerLabel)
+    timerLabel.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -10).isActive = true
+    timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+    timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    timerLabel.textAlignment = .center
+    timerLabel.numberOfLines = 0
+    timerLabel.textColor = .darkGray
+    var secondCount = 20
+    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+      secondCount -= 1
+      self.timerLabel.text = "Можете запросить код повторно через: \(secondCount) секунд"
+      if secondCount == 0 {
+        timer.invalidate()
+        self.enableButton(isEnabled: true)
+      }
+    }
+  }
+
   func onRequestedComplete() {
-    fatalError("init(coder:) has not been implemented")
+    enableButton(isEnabled: false)
+    removeInfoLabels()
+    showTimerLabel()
+    showCodeLabel()
   }
 
   func onRequestedError(_ error: Error) {
