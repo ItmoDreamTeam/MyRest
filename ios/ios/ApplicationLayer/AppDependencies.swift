@@ -21,6 +21,7 @@ final class AppDependencies {
   private func configureDependencies() {
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
+    container.register { UserClientImpl() as UserClient }
 
     // MARK: - SignInScene
     container.register { SignInViewController() as SignInView }
