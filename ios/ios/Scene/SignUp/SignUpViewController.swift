@@ -16,6 +16,7 @@ protocol SignUpView: UIViewController {
 
 final class SignUpViewController: UIViewController, SignUpView {
 
+  // MARK: - properties
   var interactor: SignUpInteractor?
 
   private var nameIsNotEmty = false
@@ -28,10 +29,12 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var surnameTextField: UITextField
   private var phoneLabel: UILabel
   private var phoneTextField: MaskTextField
-  private var registerButton: UIButton
+  private var getCodeButton: UIButton
   private var codeTextField: MaskTextField
   private var timerLabel: UILabel
+  private var registerButton: UIButton
 
+  // MARK: - lifecycle
   init() {
     nameLabel = UILabel()
     surnameLabel = UILabel()
@@ -39,9 +42,10 @@ final class SignUpViewController: UIViewController, SignUpView {
     nameTextField = UITextField()
     surnameTextField = UITextField()
     phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
-    registerButton = UIButton(type: .system)
+    getCodeButton = UIButton(type: .system)
     codeTextField = MaskTextField(formattingPattern: "***-*** ", prefix: "  ")
     timerLabel = UILabel()
+    registerButton = UIButton()
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -54,9 +58,10 @@ final class SignUpViewController: UIViewController, SignUpView {
     view.backgroundColor = .white
     configureNavBar()
     configureViews()
-    configureButton()
+    configureGetCodeButton()
   }
 
+  // MARK: - peivate layout views
   private func configureNavBar() {
     navigationController?.navigationBar.prefersLargeTitles = false
     navigationItem.title = "Регистрация"
@@ -111,39 +116,84 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneTextField.addTarget(self, action: #selector(phoneTextFieldFilled(_:)), for: .editingChanged)
   }
 
-  private func configureButton() {
+  private func configureGetCodeButton() {
+    view.addSubview(getCodeButton)
+    getCodeButton.translatesAutoresizingMaskIntoConstraints = false
+    getCodeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    getCodeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    getCodeButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    getCodeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    getCodeButton.backgroundColor = .lightGray
+    getCodeButton.setTitle("Получить код", for: .normal)
+    getCodeButton.setTitleColor(.white, for: .normal)
+    getCodeButton.addTarget(self, action: #selector(getCodeTapped(_:)), for: .touchUpInside)
+    getCodeButton.isEnabled = false
+    getCodeButton.layer.cornerRadius = 10
+  }
+
+  private func enableButton(isEnabled: Bool) {
+    getCodeButton.isEnabled = isEnabled
+    getCodeButton.backgroundColor = isEnabled ? .gray : .lightGray
+  }
+
+  private func removeInfoLabels() {
+    nameTextField.removeFromSuperview()
+    nameLabel.removeFromSuperview()
+    surnameLabel.removeFromSuperview()
+    surnameTextField.removeFromSuperview()
+    phoneLabel.removeFromSuperview()
+    phoneTextField.removeFromSuperview()
+  }
+
+  private func showRegisterButton() {
     view.addSubview(registerButton)
-    registerButton.center = view.center
     registerButton.translatesAutoresizingMaskIntoConstraints = false
-    registerButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    registerButton.bottomAnchor.constraint(equalTo: getCodeButton.topAnchor, constant: -10).isActive = true
     registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
     registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    registerButton.backgroundColor = .lightGray
-    registerButton.setTitle("Войти", for: .normal)
+    registerButton.backgroundColor = .gray
+    registerButton.setTitle("Зарегистрироваться", for: .normal)
     registerButton.setTitleColor(.white, for: .normal)
     registerButton.addTarget(self, action: #selector(registerTapped(_:)), for: .touchUpInside)
-    registerButton.isEnabled = false
     registerButton.layer.cornerRadius = 10
   }
 
-  @objc private func registerTapped(_ sender: UIButton) {
-    onRequestedComplete()
-//    guard
-//      let name = nameTextField.text,
-//      let lastName = surnameTextField.text,
-//      let phone = phoneTextField.text
-//    else {
-//      return
-//    }
-//    interactor?.signUpDidRequestVerificationCode(
-//      self,
-//      forSignUp: SignUp(
-//      firstName: name, lastName: lastName, phone: phone)
-//    )
-//    enableButton(isEnabled: false)
+  private func showCodeTextField() {
+    view.addSubview(codeTextField)
+    codeTextField.translatesAutoresizingMaskIntoConstraints = false
+    codeTextField.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -10).isActive = true
+    codeTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    codeTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    codeTextField.widthAnchor.constraint(equalToConstant: 70).isActive = true
+    codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
+    codeTextField.layer.borderWidth = Constant.textFieldBorderWidth
+    codeTextField.layer.borderColor = UIColor.black.cgColor
   }
 
+  private func showTimerLabel() {
+    timerLabel.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(timerLabel)
+    timerLabel.topAnchor.constraint(equalTo: getCodeButton.bottomAnchor, constant: 10).isActive = true
+    timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+    timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    timerLabel.textAlignment = .center
+    timerLabel.numberOfLines = 0
+    timerLabel.textColor = .darkGray
+    var secondCount = 20
+    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+      secondCount -= 1
+      self.timerLabel.text = "Можете запросить код повторно через: \(secondCount) секунд"
+      if secondCount == 0 {
+        self.timerLabel.text = ""
+        timer.invalidate()
+        self.enableButton(isEnabled: true)
+      }
+    }
+  }
+
+  // MARK: - private textField methods
   @objc private func nameTextFieldFilled(_ sender: UITextField) {
     defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
     guard
@@ -182,58 +232,35 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneIsFill = true
   }
 
-  private func enableButton(isEnabled: Bool) {
-    registerButton.isEnabled = isEnabled
-    registerButton.backgroundColor = isEnabled ? .gray : .lightGray
+  // MARK: - private buttons methods
+  @objc private func getCodeTapped(_ sender: UIButton) {
+    onRequestedComplete()
+        guard
+          let name = nameTextField.text,
+          let lastName = surnameTextField.text,
+          let phone = phoneTextField.text
+        else {
+          return
+        }
+        interactor?.signUpDidRequestVerificationCode(
+          self,
+          forSignUp: SignUp(
+          firstName: name, lastName: lastName, phone: phone)
+        )
+        enableButton(isEnabled: false)
   }
 
-  private func removeInfoLabels() {
-    nameTextField.removeFromSuperview()
-    nameLabel.removeFromSuperview()
-    surnameLabel.removeFromSuperview()
-    surnameTextField.removeFromSuperview()
-    phoneLabel.removeFromSuperview()
-    phoneTextField.removeFromSuperview()
+  @objc private func registerTapped(_ sender: UIButton) {
+    fatalError("Not implemented yet")
   }
 
-  private func showCodeLabel() {
-    view.addSubview(codeTextField)
-    codeTextField.translatesAutoresizingMaskIntoConstraints = false
-    codeTextField.bottomAnchor.constraint(equalTo: timerLabel.topAnchor, constant: -10).isActive = true
-    codeTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    codeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
-    codeTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-    codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
-    codeTextField.layer.borderWidth = Constant.textFieldBorderWidth
-    codeTextField.layer.borderColor = UIColor.black.cgColor
-  }
-
-  private func showTimerLabel() {
-    timerLabel.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(timerLabel)
-    timerLabel.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -10).isActive = true
-    timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
-    timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-    timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    timerLabel.textAlignment = .center
-    timerLabel.numberOfLines = 0
-    timerLabel.textColor = .darkGray
-    var secondCount = 20
-    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-      secondCount -= 1
-      self.timerLabel.text = "Можете запросить код повторно через: \(secondCount) секунд"
-      if secondCount == 0 {
-        timer.invalidate()
-        self.enableButton(isEnabled: true)
-      }
-    }
-  }
-
+  // MARK: - SignUpView methods
   func onRequestedComplete() {
     enableButton(isEnabled: false)
     removeInfoLabels()
     showTimerLabel()
-    showCodeLabel()
+    showRegisterButton()
+    showCodeTextField()
   }
 
   func onRequestedError(_ error: Error) {
