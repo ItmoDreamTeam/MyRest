@@ -5,7 +5,6 @@ import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.error.ClientException
 import kotlin.coroutines.cancellation.CancellationException
 
-@ExperimentalStdlibApi
 interface RestaurantClient {
 
     @Throws(CancellationException::class, ClientException::class)

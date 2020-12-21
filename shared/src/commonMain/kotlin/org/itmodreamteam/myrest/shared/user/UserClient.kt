@@ -3,7 +3,6 @@ package org.itmodreamteam.myrest.shared.user
 import org.itmodreamteam.myrest.shared.error.ClientException
 import kotlin.coroutines.cancellation.CancellationException
 
-@ExperimentalStdlibApi
 interface UserClient {
 
     @Throws(CancellationException::class, ClientException::class)

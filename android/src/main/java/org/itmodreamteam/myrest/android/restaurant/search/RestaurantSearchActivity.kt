@@ -8,7 +8,6 @@ import com.google.android.material.textfield.TextInputEditText
 import org.itmodreamteam.myrest.android.R
 import org.itmodreamteam.myrest.shared.Pageable
 
-@ExperimentalStdlibApi
 class RestaurantSearchActivity : AppCompatActivity() {
 
     private val viewModel: RestaurantSearchViewModel by viewModels()
