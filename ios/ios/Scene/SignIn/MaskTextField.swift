@@ -8,15 +8,17 @@
 
 import UIKit
 
-final class PhoneTextField: UITextField {
+final class MaskTextField: UITextField {
 
-  private let formattingPattern = "*** ***-**-** "
+  private let formattingPattern: String
   private let replacementChar: Character = "*"
-  private let prefix = " +7 "
+  private let prefix: String
   private var prevIdx: Int
 
-  init() {
+  init(formattingPattern: String, prefix: String) {
     prevIdx = prefix.count
+    self.formattingPattern = formattingPattern
+    self.prefix = prefix
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
     self.keyboardType = .numberPad
