@@ -21,7 +21,7 @@ final class SignUpPresenterImpl: SignUpPresenter {
   }
 
   func interactorDidRequestVereficationCode(_ error: Error?) {
-    guard let error = error else  {
+    guard let error = error else {
       view.onRequestedComplete()
       return
     }

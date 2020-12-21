@@ -26,7 +26,20 @@ final class AppDependencies {
     container.register { SignInViewController() as SignInView }
 
     // MARK: - SignUpScene
-    container.register { SignUpViewController() as SignUpView }
+    container.register(.shared) {
+      try SignUpInteractorImpl(
+        userClient: self.container.resolve(),
+        presenter: self.container.resolve()
+        ) as SignUpInteractor
+    }
+    container.register(.shared) {
+      SignUpPresenterImpl(view: try self.container.resolve()) as SignUpPresenter
+    }
+    container.register(.shared) { SignUpViewController() }
+    .resolvingProperties { container, view in
+      view.interactor = try container.resolve()
+    }
+    .implements(SignUpView.self)
 
     // MARK: - RestaurantListScene
     container.register {
@@ -35,7 +48,8 @@ final class AppDependencies {
     container.register(.shared) {
       try RestaurantListInteractorImpl(
         restaurantClient: self.container.resolve(),
-        restaurantPresenter: self.container.resolve()) as RestaurantListInteractor
+        restaurantPresenter: self.container.resolve()
+        ) as RestaurantListInteractor
     }
     container.register(.shared) {
       RestaurantListPresenterImpl(view: try self.container.resolve()) as RestaurantListPresenter

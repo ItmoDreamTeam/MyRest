@@ -199,10 +199,10 @@ final class SignUpViewController: UIViewController, SignUpView {
     guard
       let count = sender.text?.count,
       count >= 3
-    else {
-      sender.text = "  "
-      nameIsNotEmty = false
-      return
+      else {
+        sender.text = "  "
+        nameIsNotEmty = false
+        return
     }
     nameIsNotEmty = true
   }
@@ -212,10 +212,10 @@ final class SignUpViewController: UIViewController, SignUpView {
     guard
       let count = sender.text?.count,
       count >= 3
-    else {
-      sender.text = "  "
-      surnamtIsNotEmpty = false
-      return
+      else {
+        sender.text = "  "
+        surnamtIsNotEmpty = false
+        return
     }
     surnamtIsNotEmpty = true
   }
@@ -225,29 +225,28 @@ final class SignUpViewController: UIViewController, SignUpView {
     guard
       let count = sender.text?.count,
       count >= Constant.phoneLength
-    else {
-      phoneIsFill = false
-      return
+      else {
+        phoneIsFill = false
+        return
     }
     phoneIsFill = true
   }
 
   // MARK: - private buttons methods
   @objc private func getCodeTapped(_ sender: UIButton) {
-    onRequestedComplete()
-        guard
-          let name = nameTextField.text,
-          let lastName = surnameTextField.text,
-          let phone = phoneTextField.text
-        else {
-          return
-        }
-        interactor?.signUpDidRequestVerificationCode(
-          self,
-          forSignUp: SignUp(
-          firstName: name, lastName: lastName, phone: phone)
-        )
-        enableButton(isEnabled: false)
+    guard
+      let name = nameTextField.text,
+      let lastName = surnameTextField.text,
+      let phone = phoneTextField.text
+      else {
+        return
+    }
+    interactor?.signUpDidRequestVerificationCode(
+      self,
+      forSignUp: SignUp(
+        firstName: name, lastName: lastName, phone: phone)
+    )
+    enableButton(isEnabled: false)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
