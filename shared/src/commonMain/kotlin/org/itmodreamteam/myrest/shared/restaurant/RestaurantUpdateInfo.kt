@@ -1,5 +1,8 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RestaurantUpdateInfo(
     val name: String? = null,
     val description: String? = null,
