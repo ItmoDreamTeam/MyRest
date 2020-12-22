@@ -10,8 +10,8 @@ import UIKit
 import shared
 
 protocol SignUpView: UIViewController {
-  func onRequestedComplete()
-  func onRequestedError(_ error: Error)
+  func onRequestCompleted()
+  func onRequestError(_ error: Error)
 }
 
 final class SignUpViewController: UIViewController, SignUpView {
@@ -19,8 +19,8 @@ final class SignUpViewController: UIViewController, SignUpView {
   // MARK: - properties
   var interactor: SignUpInteractor?
 
-  private var nameIsNotEmty = false
-  private var surnamtIsNotEmpty = false
+  private var nameIsNotEmpty = false
+  private var surnameIsNotEmpty = false
   private var phoneIsFill = false
 
   private var nameLabel: UILabel
@@ -61,7 +61,7 @@ final class SignUpViewController: UIViewController, SignUpView {
     configureGetCodeButton()
   }
 
-  // MARK: - peivate layout views
+  // MARK: - private layout views
   private func configureNavBar() {
     navigationController?.navigationBar.prefersLargeTitles = false
     navigationItem.title = "Регистрация"
@@ -131,7 +131,7 @@ final class SignUpViewController: UIViewController, SignUpView {
     getCodeButton.layer.cornerRadius = 10
   }
 
-  private func enableButton(isEnabled: Bool) {
+  private func enableGetCodeButton(isEnabled: Bool) {
     getCodeButton.isEnabled = isEnabled
     getCodeButton.backgroundColor = isEnabled ? .gray : .lightGray
   }
@@ -188,40 +188,40 @@ final class SignUpViewController: UIViewController, SignUpView {
       if secondCount == 0 {
         self.timerLabel.text = ""
         timer.invalidate()
-        self.enableButton(isEnabled: true)
+        self.enableGetCodeButton(isEnabled: true)
       }
     }
   }
 
   // MARK: - private textField methods
   @objc private func nameTextFieldFilled(_ sender: UITextField) {
-    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
     guard
       let count = sender.text?.count,
       count >= 3
       else {
         sender.text = "  "
-        nameIsNotEmty = false
+        nameIsNotEmpty = false
         return
     }
-    nameIsNotEmty = true
+    nameIsNotEmpty = true
   }
 
   @objc private func surnameTextFieldFilled(_ sender: UITextField) {
-    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
     guard
       let count = sender.text?.count,
       count >= 3
       else {
         sender.text = "  "
-        surnamtIsNotEmpty = false
+        surnameIsNotEmpty = false
         return
     }
-    surnamtIsNotEmpty = true
+    surnameIsNotEmpty = true
   }
 
   @objc private func phoneTextFieldFilled(_ sender: UITextField) {
-    defer { enableButton(isEnabled: nameIsNotEmty && surnamtIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
     guard
       let count = sender.text?.count,
       count >= Constant.phoneLength
@@ -246,7 +246,7 @@ final class SignUpViewController: UIViewController, SignUpView {
       forSignUp: SignUp(
         firstName: name, lastName: lastName, phone: phone)
     )
-    enableButton(isEnabled: false)
+    enableGetCodeButton(isEnabled: false)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
@@ -254,15 +254,15 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - SignUpView methods
-  func onRequestedComplete() {
-    enableButton(isEnabled: false)
+  func onRequestCompleted() {
+    enableGetCodeButton(isEnabled: false)
     removeInfoLabels()
     showTimerLabel()
     showRegisterButton()
     showCodeTextField()
   }
 
-  func onRequestedError(_ error: Error) {
+  func onRequestError(_ error: Error) {
     fatalError("init(coder:) has not been implemented")
   }
 }

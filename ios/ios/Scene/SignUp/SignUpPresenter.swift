@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SignUpPresenter {
-  func interactorDidRequestVereficationCode(_ error: Error?)
+  func interactorDidRequestVerificationCode(_ error: Error?)
 }
 
 final class SignUpPresenterImpl: SignUpPresenter {
@@ -20,11 +20,11 @@ final class SignUpPresenterImpl: SignUpPresenter {
     self.view = view
   }
 
-  func interactorDidRequestVereficationCode(_ error: Error?) {
+  func interactorDidRequestVerificationCode(_ error: Error?) {
     guard let error = error else {
-      view.onRequestedComplete()
+      view.onRequestCompleted()
       return
     }
-    view.onRequestedError(error)
+    view.onRequestError(error)
   }
 }

@@ -26,10 +26,10 @@ final class SignUpInteractorImpl: SignUpInteractor {
   func signUpDidRequestVerificationCode(_ signUpView: SignUpView, forSignUp: SignUp) {
     userClient.signUp(signUp: forSignUp) { [weak self] _, error in
       guard let error = error else {
-        self?.presenter.interactorDidRequestVereficationCode(nil)
+        self?.presenter.interactorDidRequestVerificationCode(nil)
         return
       }
-      self?.presenter.interactorDidRequestVereficationCode(error)
+      self?.presenter.interactorDidRequestVerificationCode(error)
     }
   }
 }
