@@ -10,8 +10,10 @@ import UIKit
 import shared
 
 protocol SignUpView: UIViewController {
-  func onRequestCompleted()
-  func onRequestError(_ error: Error)
+  func onVerificationCodeRequestCompleted()
+  func onVerificationCodeRequestError(_ error: Error)
+  func onSessionRequestCompleted()
+  func onSessionRequestError(_ error: Error)
 }
 
 final class SignUpViewController: UIViewController, SignUpView {
@@ -22,6 +24,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var nameIsNotEmpty = false
   private var surnameIsNotEmpty = false
   private var phoneIsFill = false
+  private var phone = ""
 
   private var nameLabel: UILabel
   private var nameTextField: UITextField
@@ -241,6 +244,7 @@ final class SignUpViewController: UIViewController, SignUpView {
       else {
         return
     }
+    self.phone = phone
     interactor?.signUpDidRequestVerificationCode(
       self,
       forSignUp: SignUp(
@@ -254,7 +258,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - SignUpView methods
-  func onRequestCompleted() {
+  func onVerificationCodeRequestCompleted() {
     enableGetCodeButton(isEnabled: false)
     removeInfoLabels()
     showTimerLabel()
@@ -262,7 +266,15 @@ final class SignUpViewController: UIViewController, SignUpView {
     showCodeTextField()
   }
 
-  func onRequestError(_ error: Error) {
-    fatalError("init(coder:) has not been implemented")
+  func onVerificationCodeRequestError(_ error: Error) {
+    fatalError("Not implemented yet")
+  }
+
+  func onSessionRequestCompleted() {
+    fatalError("Not implemented yet")
+  }
+
+  func onSessionRequestError(_ error: Error) {
+    fatalError("Not implemented yet")
   }
 }

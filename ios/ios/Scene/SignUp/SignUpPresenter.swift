@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import shared
 
 protocol SignUpPresenter {
   func interactorDidRequestVerificationCode(_ error: Error?)
+  func interactorDidRequestSession(_ error: Error?)
 }
 
 final class SignUpPresenterImpl: SignUpPresenter {
@@ -22,9 +24,17 @@ final class SignUpPresenterImpl: SignUpPresenter {
 
   func interactorDidRequestVerificationCode(_ error: Error?) {
     guard let error = error else {
-      view.onRequestCompleted()
+      view.onVerificationCodeRequestCompleted()
       return
     }
-    view.onRequestError(error)
+    view.onVerificationCodeRequestError(error)
+  }
+
+  func interactorDidRequestSession(_ error: Error?) {
+    guard let error = error else {
+      view.onSessionRequestCompleted()
+      return
+    }
+    view.onSessionRequestError(error)
   }
 }
