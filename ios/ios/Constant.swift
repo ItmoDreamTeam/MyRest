@@ -9,7 +9,7 @@
 import UIKit
 
 enum Constant {
-  static let phoneLength = 17
+  static let phoneLength = 11
   static let codeLength = 6
 
   // MARK: - UI constants

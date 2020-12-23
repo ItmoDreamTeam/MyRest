@@ -231,10 +231,10 @@ final class SignUpViewController: UIViewController, SignUpView {
     surnameIsNotEmpty = true
   }
 
-  @objc private func phoneTextFieldFilled(_ sender: UITextField) {
+  @objc private func phoneTextFieldFilled(_ sender: MaskTextField) {
     defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
     guard
-      let count = sender.text?.count,
+      let count = sender.getText()?.count,
       count >= Constant.phoneLength
       else {
         phoneIsFill = false
@@ -243,9 +243,9 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneIsFill = true
   }
 
-  @objc private func codeTextFieldFilled(_ sender: UITextField) {
+  @objc private func codeTextFieldFilled(_ sender: MaskTextField) {
     guard
-      let count = sender.text?.count,
+      let count = sender.getText()?.count,
       count >= Constant.codeLength
       else {
         enableRegisterButton(isEnabled: false)
@@ -256,28 +256,26 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - private buttons methods
   @objc private func getCodeTapped(_ sender: UIButton) {
-    onVerificationCodeRequestCompleted()
-    phone = phoneTextField.text
-//    guard
-//      let name = nameTextField.text,
-//      let lastName = surnameTextField.text,
-//      let phone = phoneTextField.text
-//      else {
-//        return
-//    }
-//    self.phone = phone
-//    interactor?.signUpDidRequestVerificationCode(
-//      self,
-//      forSignUp: SignUp(
-//        firstName: name, lastName: lastName, phone: phone)
-//    )
-//    enableGetCodeButton(isEnabled: false)
+    guard
+      let name = nameTextField.text,
+      let lastName = surnameTextField.text,
+      let phone = phoneTextField.getText()
+      else {
+        return
+    }
+    self.phone = phone
+    interactor?.signUpDidRequestVerificationCode(
+      self,
+      forSignUp: SignUp(
+        firstName: name, lastName: lastName, phone: phone)
+    )
+    enableGetCodeButton(isEnabled: false)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
     guard
       let phone = phone,
-      let code = codeTextField.text
+      let code = codeTextField.getText()
       else { return }
     let signInVerification = SignInVerification(phone: phone, code: code)
     interactor?.signUpDidSendVerificationCode(self, signInVerification: signInVerification)
