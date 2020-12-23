@@ -9,7 +9,6 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
-import org.itmodreamteam.myrest.server.service.restaurant.ReservationService
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
@@ -46,9 +45,6 @@ class EmployeeInvitationTest {
 
     @MockBean
     lateinit var notificationService: NotificationService
-
-    @MockBean
-    lateinit var reservationService: ReservationService
 
     lateinit var restaurant: Restaurant
     lateinit var user: User

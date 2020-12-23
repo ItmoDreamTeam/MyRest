@@ -2,7 +2,7 @@ package org.itmodreamteam.myrest.server.controller
 
 import org.itmodreamteam.myrest.server.security.UserAuthentication
 import org.itmodreamteam.myrest.server.service.reservation.ReservationReportService
-import org.itmodreamteam.myrest.server.service.restaurant.ReservationViewService
+import org.itmodreamteam.myrest.server.service.reservation.ReservationViewService
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
 import org.springframework.core.io.Resource
 import org.springframework.format.annotation.DateTimeFormat

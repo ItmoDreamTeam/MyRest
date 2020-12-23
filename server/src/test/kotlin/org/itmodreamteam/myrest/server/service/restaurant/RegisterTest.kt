@@ -50,9 +50,6 @@ class RegisterTest {
     @MockBean
     lateinit var notificationService: NotificationService
 
-    @MockBean
-    lateinit var reservationService: ReservationService
-
     private lateinit var restaurant: Restaurant
     private lateinit var user: User
     private lateinit var admin: User

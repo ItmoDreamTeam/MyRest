@@ -1,4 +1,4 @@
-package org.itmodreamteam.myrest.server.service.restaurant
+package org.itmodreamteam.myrest.server.service.reservation
 
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
 import java.time.LocalDate

@@ -1,4 +1,4 @@
-package org.itmodreamteam.myrest.server.service.restaurant
+package org.itmodreamteam.myrest.server.service.reservation
 
 import org.assertj.core.api.Assertions
 import org.itmodreamteam.myrest.server.error.UserException
@@ -14,6 +14,8 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantTableRepo
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.service.template.TemplateProcessor
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.junit.Before
 import org.junit.Test
@@ -56,6 +58,9 @@ class ReservationTest {
 
     @MockBean
     lateinit var currentUserService: CurrentUserService
+
+    @MockBean
+    lateinit var templateProcessor: TemplateProcessor
 
     private lateinit var reservation: Reservation
     private lateinit var table: RestaurantTable
@@ -148,6 +153,6 @@ class ReservationTest {
     }
 
     @TestConfiguration
-    @ComponentScan
+    @ComponentScan(basePackageClasses = [Config::class, ModelViewAssembler::class])
     class Config
 }

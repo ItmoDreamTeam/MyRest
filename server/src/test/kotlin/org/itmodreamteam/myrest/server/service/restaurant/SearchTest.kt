@@ -32,9 +32,6 @@ class SearchTest {
     @MockBean
     lateinit var notificationService: NotificationService
 
-    @MockBean
-    lateinit var reservationService: ReservationService
-
     private var restaurants = ArrayList<Restaurant>()
 
     @Before
