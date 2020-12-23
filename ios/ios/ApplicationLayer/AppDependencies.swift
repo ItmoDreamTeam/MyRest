@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 import Dip
 import shared
 
@@ -19,6 +20,10 @@ final class AppDependencies {
   }
 
   private func configureDependencies() {
+    // MARK: - KeychainWrapper
+    let serviceName = "privateService"
+    container.register { KeychainWrapper(serviceName: serviceName) }
+
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
@@ -30,6 +35,7 @@ final class AppDependencies {
     container.register(.shared) {
       try SignUpInteractorImpl(
         userClient: self.container.resolve(),
+        keychainWrapper: self.container.resolve(),
         presenter: self.container.resolve()
         ) as SignUpInteractor
     }

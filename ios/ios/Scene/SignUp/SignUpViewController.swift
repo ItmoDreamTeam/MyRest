@@ -24,7 +24,8 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var nameIsNotEmpty = false
   private var surnameIsNotEmpty = false
   private var phoneIsFill = false
-  private var phone = ""
+  private var phone: String?
+  private var isRegistered = false
 
   private var nameLabel: UILabel
   private var nameTextField: UITextField
@@ -46,9 +47,9 @@ final class SignUpViewController: UIViewController, SignUpView {
     surnameTextField = UITextField()
     phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
     getCodeButton = UIButton(type: .system)
-    codeTextField = MaskTextField(formattingPattern: "***-*** ", prefix: "  ")
+    codeTextField = MaskTextField(formattingPattern: "***-***", prefix: "  ")
     timerLabel = UILabel()
-    registerButton = UIButton()
+    registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -139,6 +140,11 @@ final class SignUpViewController: UIViewController, SignUpView {
     getCodeButton.backgroundColor = isEnabled ? .gray : .lightGray
   }
 
+  private func enableRegisterButton(isEnabled: Bool) {
+    registerButton.isEnabled = isEnabled
+    registerButton.backgroundColor = isEnabled ? .gray : .lightGray
+  }
+
   private func removeInfoLabels() {
     nameTextField.removeFromSuperview()
     nameLabel.removeFromSuperview()
@@ -160,6 +166,7 @@ final class SignUpViewController: UIViewController, SignUpView {
     registerButton.setTitleColor(.white, for: .normal)
     registerButton.addTarget(self, action: #selector(registerTapped(_:)), for: .touchUpInside)
     registerButton.layer.cornerRadius = 10
+    enableRegisterButton(isEnabled: false)
   }
 
   private func showCodeTextField() {
@@ -172,6 +179,7 @@ final class SignUpViewController: UIViewController, SignUpView {
     codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
     codeTextField.layer.borderWidth = Constant.textFieldBorderWidth
     codeTextField.layer.borderColor = UIColor.black.cgColor
+    codeTextField.addTarget(self, action: #selector(codeTextFieldFilled(_:)), for: .editingChanged)
   }
 
   private func showTimerLabel() {
@@ -235,6 +243,17 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneIsFill = true
   }
 
+  @objc private func codeTextFieldFilled(_ sender: UITextField) {
+    guard
+      let count = sender.text?.count,
+      count >= Constant.codeLength
+      else {
+        enableRegisterButton(isEnabled: false)
+        return
+    }
+    enableRegisterButton(isEnabled: true)
+  }
+
   // MARK: - private buttons methods
   @objc private func getCodeTapped(_ sender: UIButton) {
     guard
@@ -254,7 +273,12 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    guard
+      let phone = phone,
+      let code = codeTextField.text
+      else { return }
+    let signInVerification = SignInVerification(phone: phone, code: code)
+    interactor?.signUpDidSendVerificationCode(self, signInVerification: signInVerification)
   }
 
   // MARK: - SignUpView methods
