@@ -5,15 +5,16 @@ import com.itextpdf.text.PageSize
 import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.tool.xml.XMLWorkerHelper
 import org.itmodreamteam.myrest.server.error.UserException
+import org.itmodreamteam.myrest.server.model.restaurant.Employee
 import org.itmodreamteam.myrest.server.model.restaurant.Reservation
 import org.itmodreamteam.myrest.server.model.restaurant.Restaurant
+import org.itmodreamteam.myrest.server.model.restaurant.RestaurantTable
+import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.restaurant.ReservationRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantTableRepository
-import org.itmodreamteam.myrest.server.service.employee.EmployeeService
-import org.itmodreamteam.myrest.server.service.table.TableService
 import org.itmodreamteam.myrest.server.service.template.TemplateProcessor
-import org.itmodreamteam.myrest.server.service.user.UserService
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.itmodreamteam.myrest.shared.table.TableView
@@ -36,9 +37,9 @@ class ReservationReportServiceImpl(
     private val restaurantTableRepository: RestaurantTableRepository,
     private val reservationRepository: ReservationRepository,
     private val templateProcessor: TemplateProcessor,
-    private val userService: UserService,
-    private val tableService: TableService,
-    private val employeeService: EmployeeService,
+    private val userToProfileAssembler: ModelViewAssembler<User, Profile>,
+    private val tableViewAssembler: ModelViewAssembler<RestaurantTable, TableView>,
+    private val employeeToEmployeeInfoAssembler: ModelViewAssembler<Employee, EmployeeInfo>,
 ) : ReservationReportService {
 
     override fun generateReportForDate(restaurantId: Long, date: LocalDate): Resource {
@@ -69,9 +70,9 @@ class ReservationReportServiceImpl(
     private fun toReservationEntry(reservation: Reservation): ReservationEntry {
         return ReservationEntry(
             reservation.id,
-            userService.toProfile(reservation.user),
-            tableService.toTableView(reservation.table),
-            if (reservation.manager != null) employeeService.toEmployeeInfo(reservation.manager!!) else null,
+            userToProfileAssembler.toView(reservation.user),
+            tableViewAssembler.toView(reservation.table),
+            if (reservation.manager != null) employeeToEmployeeInfoAssembler.toView(reservation.manager!!) else null,
             reservation.status,
             reservation.activeFrom.toLocalTime(),
             reservation.activeUntil.toLocalTime(),
