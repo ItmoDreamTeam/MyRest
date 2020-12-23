@@ -57,10 +57,6 @@ class ReservationServiceImpl(
     }
 
     override fun reject(reservation: Reservation): Reservation {
-        // TODO should it be checked on security level?
-        if (currentUserService.currentUserEntity != reservation.user) {
-            throw UserException("Запрашиваемая бронь оформлена не на Вас")
-        }
         return updateStatusAndPersist(reservation, ReservationStatus.REJECTED)
     }
 
@@ -78,12 +74,10 @@ class ReservationServiceImpl(
     }
 
     override fun start(reservation: Reservation): Reservation {
-        currentUserMustBeManagerOf(reservation)
         return updateStatusAndPersist(reservation, ReservationStatus.IN_PROGRESS)
     }
 
     override fun complete(reservation: Reservation): Reservation {
-        currentUserMustBeManagerOf(reservation)
         return updateStatusAndPersist(reservation, ReservationStatus.COMPLETED)
     }
 
@@ -92,20 +86,14 @@ class ReservationServiceImpl(
         return reservationRepository.save(reservation)
     }
 
-    private fun currentUserMustBeManagerOf(reservation: Reservation) {
-        if (getCurrentUserBeingManagerOf(reservation.table.restaurant) != reservation.manager) {
-            throw UserException("Вы не являетесь ответственным сотрудником за бронь $reservation")
-        }
-    }
-
-    // TODO should it be checked on security level?
     private fun getCurrentUserBeingManagerOf(restaurant: Restaurant): Manager {
+        val user = currentUserService.currentUserEntity
         val employee = employeeRepository.findByRestaurantAndUser(
             restaurant,
-            currentUserService.currentUserEntity
-        ) ?: throw UserException("Вы не являетесь сотрудником ресторана \"${restaurant.name}\".")
+            user
+        ) ?: throw RuntimeException("User ${user.id} is not an employee of \"${restaurant.name}\".")
         if (employee !is Manager) {
-            throw UserException("Вы не являетесь менеджером ресторана \"${restaurant.name}\".")
+            throw RuntimeException("User ${user.id} is not a manager of \"${restaurant.name}\".")
         }
         return employee
     }

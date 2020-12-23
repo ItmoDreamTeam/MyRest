@@ -129,12 +129,6 @@ class ReservationTest {
         reservationService.submitReservationForApproval(table, reservation.activeFrom, reservation.activeUntil)
     }
 
-    @Test(expected = UserException::class)
-    fun `When try to reject other user's reservation, then failure`() {
-        authorize(user2)
-        reservationService.reject(reservation)
-    }
-
     @Test
     fun `Given existing reservation in state PENDING, when manager approves it, then reservation is APPROVED`() {
         authorize(userReservationManager)
@@ -142,44 +136,16 @@ class ReservationTest {
         Assertions.assertThat(approved.status).isEqualTo(ReservationStatus.APPROVED)
     }
 
-    @Test(expected = UserException::class)
+    @Test(expected = RuntimeException::class)
     fun `Given existing PENDING reservation and manager who is not manager of the related restaurant, when try to approve it, then failure`() {
         authorize(userManagerOfAnotherRestaurant)
         reservationService.approve(reservation)
     }
 
-    @Test(expected = UserException::class)
+    @Test(expected = RuntimeException::class)
     fun `Given existing PENDING reservation and user who is not manager of any restaurant, when try to approve it, then failure`() {
         authorize(user1)
         reservationService.approve(reservation)
-    }
-
-    // TODO overwrite with nested tests after migration to junit5
-    @Test(expected = UserException::class)
-    fun `Given existing APPROVED reservation and user who is not manager of any restaurant, when try to start it, then failure`() {
-        authorize(userReservationManager)
-        val approved = reservationService.approve(reservation)
-
-        authorize(user1)
-        reservationService.start(approved)
-    }
-
-    @Test(expected = UserException::class)
-    fun `Given existing APPROVED reservation and user who is manager of related restaurant but is not responsible for reservation, when try to start it, then failure`() {
-        authorize(userReservationManager)
-        val approved = reservationService.approve(reservation)
-
-        authorize(userAnotherManagerOfRestaurant)
-        reservationService.start(approved)
-    }
-
-    @Test(expected = UserException::class)
-    fun `Given existing APPROVED reservation and user who is not a manager of related restaurant but is not responsible for reservation, when try to start it, then failure`() {
-        authorize(userReservationManager)
-        val approved = reservationService.approve(reservation)
-
-        authorize(userManagerOfAnotherRestaurant)
-        reservationService.start(approved)
     }
 
     @TestConfiguration
