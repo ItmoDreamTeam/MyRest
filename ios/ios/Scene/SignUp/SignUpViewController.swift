@@ -45,9 +45,9 @@ final class SignUpViewController: UIViewController, SignUpView {
     phoneLabel = UILabel()
     nameTextField = UITextField()
     surnameTextField = UITextField()
-    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
+    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-**", prefix: " +7 ")
     getCodeButton = UIButton(type: .system)
-    codeTextField = MaskTextField(formattingPattern: "***-***", prefix: "  ")
+    codeTextField = MaskTextField(formattingPattern: "***-***", prefix: "   ")
     timerLabel = UILabel()
     registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
@@ -256,20 +256,22 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - private buttons methods
   @objc private func getCodeTapped(_ sender: UIButton) {
-    guard
-      let name = nameTextField.text,
-      let lastName = surnameTextField.text,
-      let phone = phoneTextField.text
-      else {
-        return
-    }
-    self.phone = phone
-    interactor?.signUpDidRequestVerificationCode(
-      self,
-      forSignUp: SignUp(
-        firstName: name, lastName: lastName, phone: phone)
-    )
-    enableGetCodeButton(isEnabled: false)
+    onVerificationCodeRequestCompleted()
+    phone = phoneTextField.text
+//    guard
+//      let name = nameTextField.text,
+//      let lastName = surnameTextField.text,
+//      let phone = phoneTextField.text
+//      else {
+//        return
+//    }
+//    self.phone = phone
+//    interactor?.signUpDidRequestVerificationCode(
+//      self,
+//      forSignUp: SignUp(
+//        firstName: name, lastName: lastName, phone: phone)
+//    )
+//    enableGetCodeButton(isEnabled: false)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {

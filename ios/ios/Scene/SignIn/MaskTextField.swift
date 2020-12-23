@@ -37,6 +37,14 @@ final class MaskTextField: UITextField {
     layer.cornerRadius = 5
   }
 
+  func getText() -> String? {
+    guard let text = self.text else { return nil }
+    let filteredText = text.filter {
+      return $0.isNumber ? true : false
+    }
+    return filteredText
+  }
+
   private func registerForNotifications() {
     NotificationCenter.default.addObserver(
       self,
@@ -55,7 +63,7 @@ final class MaskTextField: UITextField {
       prevIdx = prefixLength
       return
     }
-    if textLength > formattingPattern.count + prefixLength - 1 {
+    if textLength > formattingPattern.count + prefixLength {
       let range = text.startIndex..<text.index(before: text.endIndex)
       self.text = String(text[range])
       return
