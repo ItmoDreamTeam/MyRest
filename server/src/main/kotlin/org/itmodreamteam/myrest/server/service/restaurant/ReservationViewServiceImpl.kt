@@ -1,12 +1,12 @@
 package org.itmodreamteam.myrest.server.service.restaurant
 
-import kotlinx.datetime.toKotlinLocalDateTime
 import org.itmodreamteam.myrest.server.error.UserException
 import org.itmodreamteam.myrest.server.model.restaurant.Reservation
 import org.itmodreamteam.myrest.server.repository.restaurant.ReservationRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantTableRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.springframework.data.repository.findByIdOrNull
@@ -21,6 +21,7 @@ class ReservationViewServiceImpl(
     private val restaurantTableRepository: RestaurantTableRepository,
     private val restaurantRepository: RestaurantRepository,
     private val userRepository: UserRepository,
+    private val reservationToReservationInfoAssembler: ModelViewAssembler<Reservation, ReservationInfo>
 ) : ReservationViewService {
 
     override fun submitReservationForApproval(
@@ -28,7 +29,6 @@ class ReservationViewServiceImpl(
         activeFrom: LocalDateTime,
         activeUntil: LocalDateTime
     ): ReservationInfo {
-        // TODO create DAO layer with domain-specific error handling
         val table = restaurantTableRepository.findByIdOrNull(tableId) ?: throw UserException("Стол $tableId не найден")
         return toReservationInfo(reservationService.submitReservationForApproval(table, activeFrom, activeUntil))
     }
@@ -69,17 +69,8 @@ class ReservationViewServiceImpl(
         ).map { toReservationInfo(it) }
     }
 
-    private fun toReservationInfo(reservation: Reservation): ReservationInfo {
-        return ReservationInfo(
-            reservation.id,
-            reservation.user.id,
-            reservation.table.id,
-            reservation.manager?.id,
-            reservation.status,
-            reservation.activeFrom.toKotlinLocalDateTime(),
-            reservation.activeUntil.toKotlinLocalDateTime()
-        )
-    }
+    private fun toReservationInfo(reservation: Reservation): ReservationInfo =
+        reservationToReservationInfoAssembler.toView(reservation)
 
     private fun getById(id: Long): Reservation =
         reservationRepository.findByIdOrNull(id) ?: throw UserException("Бронь $id не найдена")
