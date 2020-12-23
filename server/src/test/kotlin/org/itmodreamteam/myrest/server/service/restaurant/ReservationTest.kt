@@ -24,7 +24,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import java.time.LocalDateTime
@@ -91,11 +90,11 @@ class ReservationTest {
 
     @Test
     fun `When create new reservation, then new reservation created`() {
-        val reservation = reservationRepository.findByIdOrNull(reservation.id)
+        val reservation = reservationRepository.getOne(reservation.id)
         Assertions.assertThat(reservation).isNotNull
-        Assertions.assertThat(reservation?.status).isEqualTo(ReservationStatus.PENDING)
-        Assertions.assertThat(reservation?.user).isEqualTo(user1)
-        Assertions.assertThat(reservation?.table).isEqualTo(table)
+        Assertions.assertThat(reservation.status).isEqualTo(ReservationStatus.PENDING)
+        Assertions.assertThat(reservation.user).isEqualTo(user1)
+        Assertions.assertThat(reservation.table).isEqualTo(table)
     }
 
     @Test
