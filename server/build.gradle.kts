@@ -37,10 +37,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker")
 
     implementation("org.apache.commons:commons-lang3")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.itextpdf:itextpdf:5.5.13.2")
+    implementation("com.itextpdf.tool:xmlworker:5.5.13.2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:3.6.0")
