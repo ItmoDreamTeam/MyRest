@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class AccessDeniedExceptionToErrorsConverter(
-    private val userExceptionToErrorsConverter: ConcreteThrowableToErrorsConverter<UserException>
+    userExceptionToErrorsConverter: ConcreteThrowableToErrorsConverter<UserException>
 ) : ConcreteThrowableToErrorsConverter<AccessDeniedException> {
+
+    private val errors = userExceptionToErrorsConverter.convert(UserException("access-denied"))
 
     override val throwableType: Class<AccessDeniedException> = AccessDeniedException::class.java
 
-    override fun convert(throwable: AccessDeniedException): List<ServerError> {
-        return userExceptionToErrorsConverter.convert(UserException("access-denied"))
-    }
+    override fun convert(throwable: AccessDeniedException): List<ServerError> = errors
 }
