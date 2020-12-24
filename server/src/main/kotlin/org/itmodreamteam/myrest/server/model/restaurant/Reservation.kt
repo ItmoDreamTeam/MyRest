@@ -4,16 +4,11 @@ import org.itmodreamteam.myrest.server.model.JpaEntity
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import java.time.LocalDateTime
-import java.util.UUID.randomUUID
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(
-    name = "reservations", uniqueConstraints = [
-        UniqueConstraint(columnNames = ["table_id", "dateTime"])
-    ]
-)
+@Table(name = "reservations")
 class Reservation() : JpaEntity() {
 
     @ManyToOne(optional = false)
@@ -25,11 +20,11 @@ class Reservation() : JpaEntity() {
         private set
 
     @NotNull
-    lateinit var dateTime: LocalDateTime
+    lateinit var activeFrom: LocalDateTime
         private set
 
     @NotNull
-    lateinit var verificationCode: String
+    lateinit var activeUntil: LocalDateTime
         private set
 
     @NotNull
@@ -39,11 +34,11 @@ class Reservation() : JpaEntity() {
     @ManyToOne
     var manager: Manager? = null
 
-    constructor(user: User, table: RestaurantTable, dateTime: LocalDateTime) : this() {
+    constructor(user: User, table: RestaurantTable, activeFrom: LocalDateTime, activeUntil: LocalDateTime) : this() {
         this.user = user
         this.table = table
-        this.dateTime = dateTime
-        this.verificationCode = randomUUID().toString()
+        this.activeFrom = activeFrom
+        this.activeUntil = activeUntil
         this.status = ReservationStatus.PENDING
     }
 }
