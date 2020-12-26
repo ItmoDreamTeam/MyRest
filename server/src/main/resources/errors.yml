@@ -43,3 +43,7 @@ employee:
   exists: Сотрудник уже добавлен
   waiter:
     not-found: Официант не найден
+reservation:
+  not-found: Бронь не найдена
+  time:
+    overlap: Временной интервал занят. Попробуйте другое время

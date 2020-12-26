@@ -29,7 +29,7 @@ class ReservationViewServiceImpl(
         activeFrom: LocalDateTime,
         activeUntil: LocalDateTime
     ): ReservationInfo {
-        val table = restaurantTableRepository.findByIdOrNull(tableId) ?: throw UserException("Стол $tableId не найден")
+        val table = restaurantTableRepository.findByIdOrNull(tableId) ?: throw UserException("table.not-found")
         return toReservationInfo(reservationService.submitReservationForApproval(table, activeFrom, activeUntil))
     }
 
@@ -47,7 +47,7 @@ class ReservationViewServiceImpl(
 
     override fun getReservationsOfRestaurant(restaurantId: Long, date: LocalDate): List<ReservationInfo> {
         val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
-            ?: throw UserException("Ресторан не найден")
+            ?: throw UserException("restaurant.not-found")
         val statuses = ReservationStatus.values().toList()
         val activeFrom = date.atStartOfDay()
         val activeUntil = date.plusDays(1).atStartOfDay()
@@ -60,7 +60,7 @@ class ReservationViewServiceImpl(
 
     override fun getReservationsOfUser(userId: Long, date: LocalDate): List<ReservationInfo> {
         val user = userRepository.findByIdOrNull(userId)
-            ?: throw UserException("Пользователь не найден")
+            ?: throw UserException("user.not-found")
         val statuses = ReservationStatus.values().toList()
         val activeFrom = date.atStartOfDay()
         val activeUntil = date.plusDays(1).atStartOfDay()
@@ -73,5 +73,5 @@ class ReservationViewServiceImpl(
         reservationToReservationInfoAssembler.toView(reservation)
 
     private fun getById(id: Long): Reservation =
-        reservationRepository.findByIdOrNull(id) ?: throw UserException("Бронь $id не найдена")
+        reservationRepository.findByIdOrNull(id) ?: throw UserException("reservation.not-found")
 }
