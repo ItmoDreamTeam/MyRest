@@ -16,6 +16,14 @@ jobs:
         with:
           name: server-test
           path: server/build/reports/
+  build-on-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: ./gradlew build -i
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
