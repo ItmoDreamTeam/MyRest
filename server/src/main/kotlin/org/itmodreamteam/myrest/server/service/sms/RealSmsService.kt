@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.service.sms
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.itmodreamteam.myrest.server.error.UserException
 import org.slf4j.LoggerFactory
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.web.client.postForEntity
+import java.nio.charset.Charset
 import java.time.*
 
 @Service
@@ -36,7 +38,7 @@ class RealSmsService(private var smsMessageRepository: SmsMessageRepository) : S
     }
 
     private fun checkDailyLimit() {
-        val periodPassed = Period.between(LocalDate.of(2020, Month.DECEMBER, 20), LocalDate.now())
+        val periodPassed = Period.between(LocalDate.of(2020, Month.DECEMBER, 22), LocalDate.now())
         val currentLimit = 10 * periodPassed.days
         val sent = smsMessageRepository.count()
         log.info("SMS sent: $sent, current limit: $currentLimit")
@@ -62,7 +64,7 @@ class RealSmsService(private var smsMessageRepository: SmsMessageRepository) : S
 
     private fun executeSending(message: SmsMessage) {
         try {
-            restTemplate.postForEntity<Any>("/send", SmsRequest(to = message.phone, content = message.text))
+            restTemplate.postForEntity<Any>("/send", SmsRequest.cyrillic(message.phone, message.text))
         } catch (e: Exception) {
             log.error("Unable to send SMS: ${e.message}", e)
             throw UserException("sms.failure")
@@ -71,7 +73,21 @@ class RealSmsService(private var smsMessageRepository: SmsMessageRepository) : S
 
     private data class SmsRequest(
         val to: String,
-        val content: String,
+        @field:JsonProperty("hex-content")
+        val hexContent: String,
+        val coding: Int,
         val from: String = "MyRest",
-    )
+    ) {
+        private data class Coding(val name: String, val code: Int)
+
+        companion object {
+            private val CODING_CYRILLIC = Coding("ISO-8859-5", 6)
+
+            fun cyrillic(phone: String, text: String): SmsRequest {
+                val bytes = text.toByteArray(Charset.forName(CODING_CYRILLIC.name))
+                val hex = bytes.joinToString(separator = "") { it.toUByte().toString(16) }
+                return SmsRequest(phone, hex, CODING_CYRILLIC.code)
+            }
+        }
+    }
 }
