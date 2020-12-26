@@ -10,7 +10,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.itmodreamteam.myrest.shared.error.ClientException
 import org.itmodreamteam.myrest.shared.error.ServerError
-import org.itmodreamteam.myrest.shared.error.UnauthenticatedErrorHandler
 
 object HttpClientProvider {
 
@@ -25,8 +24,7 @@ object HttpClientProvider {
             validateResponse { response ->
                 when (response.status) {
                     HttpStatusCode.Unauthorized -> {
-                        UnauthenticatedErrorHandler.INSTANCE?.handle()
-                        throw ClientException()
+                        throw ClientException.unauthenticated()
                     }
                 }
                 if (!response.status.isSuccess()) {
