@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
+import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.itmodreamteam.myrest.shared.user.Role
 import org.springframework.data.domain.Page
@@ -34,13 +35,18 @@ class RestaurantServiceImpl(
         employeeRepository.save(
             Manager(restaurant, user).also { it.userStatus = EmployeeUserStatus.ACTIVE }
         )
-        notifyAdmins("Ресторан с именем ${restaurant.name} был зарегистрирован и ожидает проверки")
+        notifyAdmins(
+            NotificationContent(
+                "Проверка ресторана",
+                "Ресторан ${restaurant.name} был зарегистрирован и ожидает проверки"
+            )
+        )
         return toRestaurantInfo(restaurant)
     }
 
-    private fun notifyAdmins(message: String) {
+    private fun notifyAdmins(content: NotificationContent) {
         userRepository.findByRole(Role.ADMIN).forEach { admin ->
-            notificationService.notify(admin, message)
+            notificationService.notify(admin, content)
         }
     }
 
