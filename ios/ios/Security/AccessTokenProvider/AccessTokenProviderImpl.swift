@@ -7,3 +7,23 @@
 //
 
 import Foundation
+import shared
+import SwiftKeychainWrapper
+
+final class AccessTokenProviderImpl: AccessTokenProvider {
+
+  private let keychainWrapper: KeychainWrapper
+
+  init(keychainWrapper: KeychainWrapper) {
+    self.keychainWrapper = keychainWrapper
+  }
+
+  var accessToken: String? {
+    get { keychainWrapper.string(forKey: "token") }
+    set {
+      if let value = newValue {
+        keychainWrapper.set(value, forKey: "token")
+      }
+    }
+  }
+}

@@ -13,11 +13,12 @@
 		7555FF8B242A565B00829871 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7555FF89242A565B00829871 /* LaunchScreen.storyboard */; };
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */; };
-		A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* PhoneTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* PhoneTextField.swift */; };
+		A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */; };
+		A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */; };
+		A7AAE09025936C5E00B2A49D /* AccessTokenProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AAE08F25936C5E00B2A49D /* AccessTokenProviderImpl.swift */; };
 		A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */; };
 		A7D2DA0625704F0300ED74BC /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */; };
 		A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA082570510800ED74BC /* LoadingFotter.swift */; };
@@ -76,11 +77,12 @@
 		7555FF9C242A565B00829871 /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FFA2242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
-		A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
-		A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* PhoneTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextField.swift; sourceTree = "<group>"; };
+		A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
+		A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
+		A7AAE08F25936C5E00B2A49D /* AccessTokenProviderImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenProviderImpl.swift; sourceTree = "<group>"; };
 		A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
 		A7D2DA082570510800ED74BC /* LoadingFotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFotter.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		7555FF7D242A565900829871 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				A7AAE08B25936BD500B2A49D /* Security */,
 				A7D32C432571454400124AFE /* Utils */,
 				A7D2DA0225704D8B00ED74BC /* ApplicationLayer */,
 				A7D2DA0E257060AB00ED74BC /* Protocol */,
@@ -202,6 +205,22 @@
 				A7494BD025784EA00074CE32 /* PhoneTextField.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		A7AAE08B25936BD500B2A49D /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				A7AAE08C25936BEB00B2A49D /* AccessTokenProvider */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		A7AAE08C25936BEB00B2A49D /* AccessTokenProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A7AAE08F25936C5E00B2A49D /* AccessTokenProviderImpl.swift */,
+			);
+			path = AccessTokenProvider;
 			sourceTree = "<group>";
 		};
 		A7D2DA0225704D8B00ED74BC /* ApplicationLayer */ = {
@@ -465,6 +484,7 @@
 				A7D2DA11257060CD00ED74BC /* ConfigurableView.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
+				A7AAE09025936C5E00B2A49D /* AccessTokenProviderImpl.swift in Sources */,
 				A7494BD125784EA00074CE32 /* PhoneTextField.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
