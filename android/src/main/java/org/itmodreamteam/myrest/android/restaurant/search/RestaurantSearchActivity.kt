@@ -16,6 +16,8 @@ class RestaurantSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurant_search)
 
+        viewModel.context = this
+
         val searchInput = findViewById<TextInputEditText>(R.id.rs_search_input)
         searchInput.addTextChangedListener {
             val keyword = it?.toString() ?: ""

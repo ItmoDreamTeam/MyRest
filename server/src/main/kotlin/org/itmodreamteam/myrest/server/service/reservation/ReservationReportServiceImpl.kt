@@ -44,7 +44,7 @@ class ReservationReportServiceImpl(
 
     override fun generateReportForDate(restaurantId: Long, date: LocalDate): Resource {
         val restaurant = restaurantRepository.findByIdOrNull(restaurantId)
-            ?: throw UserException("Ресторан с ID=$restaurantId не найден")
+            ?: throw UserException("restaurant.not-found")
         val html = generateHtmlReportForDate(restaurant, date)
         return InputStreamResource(htmlToPdf(html))
     }

@@ -2,7 +2,8 @@ package org.itmodreamteam.myrest.server.model.restaurant
 
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import javax.persistence.*
-import javax.validation.constraints.Positive
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
 import javax.validation.constraints.Size
 
 @Entity
@@ -17,13 +18,15 @@ class RestaurantTable() : JpaEntity() {
     lateinit var restaurant: Restaurant
         private set
 
-    @Positive(message = "Некорректный номер столика")
+    @Min(1, message = "table.number.incorrect")
+    @Max(100, message = "table.number.incorrect")
     var number: Int = 0
 
-    @Size(max = 1000)
+    @Size(max = 1000, message = "table.description.size")
     var description: String? = null
 
-    @Positive(message = "Некорректное число мест")
+    @Min(1, message = "table.number-of-seats.incorrect")
+    @Max(100, message = "table.number-of-seats.incorrect")
     var numberOfSeats: Int = 0
 
     @ManyToMany

@@ -42,7 +42,7 @@ class UserServiceImpl(
             userRepository.save(existingUser)
             return identifier
         }
-        throw UserException("Пользователь с данным номером телефона уже зарегистрирован")
+        throw UserException("user.phone.exists")
     }
 
     private fun sendVerificationMessage(identifier: Identifier) {
@@ -53,9 +53,9 @@ class UserServiceImpl(
 
     override fun signIn(signIn: SignIn) {
         val identifier = identifierRepository.findByValue(signIn.phone)
-            ?: throw UserException("Номер телефона не найдён")
+            ?: throw UserException("user.phone.not-found")
         if (identifier.user.locked) {
-            throw UserException("Аккаунт заблокирован. Обратитесь к администратору")
+            throw UserException("user.locked")
         }
         val verificationCode = identifier.updateVerificationCode()
         val text = "Вход в MyRest. Код подтверждения: $verificationCode"
@@ -64,7 +64,7 @@ class UserServiceImpl(
 
     override fun startSession(signInVerification: SignInVerification): ActiveSession {
         val identifier = identifierRepository.findByValue(signInVerification.phone)
-            ?: throw UserException("Ошибка авторизации. Пожалуйста, попробуйте снова")
+            ?: throw UserException("auth.failed")
         identifier.verify(signInVerification.code)
         val user = identifier.user
         user.enabled = true
@@ -75,16 +75,16 @@ class UserServiceImpl(
 
     override fun verifySession(token: String): Profile {
         val session = sessionRepository.findByToken(token)
-            ?: throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+            ?: throw UserException("session.expired")
         val user = session.user
         if (user.locked) {
-            throw UserException("Аккаунт заблокирован. Обратитесь к администратору")
+            throw UserException("user.locked")
         }
         if (!user.enabled) {
-            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+            throw UserException("session.expired")
         }
         if (!session.active) {
-            throw UserException("Время сессии истекло. Пожалуйста, авторизуйтесь снова")
+            throw UserException("session.expired")
         }
         return userToProfileAssembler.toView(user)
     }

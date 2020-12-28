@@ -40,6 +40,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
 
     implementation("org.apache.commons:commons-lang3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.itextpdf:itextpdf:5.5.13.2")
     implementation("com.itextpdf.tool:xmlworker:5.5.13.2")
