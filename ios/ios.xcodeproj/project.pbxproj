@@ -32,6 +32,7 @@
 		A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D32C3D25712A3900124AFE /* AppDependencies.swift */; };
 		A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D32C3F257136CA00124AFE /* VerticalCollectionView.swift */; };
 		A7D32C452571455600124AFE /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D32C442571455600124AFE /* UIColor+Utils.swift */; };
+		A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */; };
 		A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9752576FA6C00BE53B1 /* SearchView.swift */; };
 		A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		A7D32C3D25712A3900124AFE /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		A7D32C3F257136CA00124AFE /* VerticalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCollectionView.swift; sourceTree = "<group>"; };
 		A7D32C442571455600124AFE /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenProviderImpl.swift; sourceTree = "<group>"; };
 		A7FFA9752576FA6C00BE53B1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRouter.swift; sourceTree = "<group>"; };
 		E813D231D8CD19DF3290ACC7 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,7 +236,7 @@
 		A7AAE08C25936BEB00B2A49D /* AccessTokenProvider */ = {
 			isa = PBXGroup;
 			children = (
-				A7AAE08F25936C5E00B2A49D /* AccessTokenProviderImpl.swift */,
+				A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */,
 			);
 			path = AccessTokenProvider;
 			sourceTree = "<group>";
@@ -506,6 +508,7 @@
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
+				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
 				A7D32C452571455600124AFE /* UIColor+Utils.swift in Sources */,
