@@ -42,7 +42,7 @@ class NotificationServiceImpl(
                 firebaseMessaging.send(message)
             } catch (e: FirebaseMessagingException) {
                 if (e.messagingErrorCode == MessagingErrorCode.UNREGISTERED) {
-                    log.info("Unregistering messaging token $token")
+                    log.info("Unregistering messaging token ${token.id}")
                     messagingTokenRepository.delete(token)
                 } else {
                     log.warn("Error while notifying user ${user.id}: ${e.messagingErrorCode} ${e.message}")
