@@ -12,11 +12,11 @@ protocol SignInView: UIViewController {}
 
 final class SignInViewController: UIViewController, SignInView {
 
-  private var phoneTextField: PhoneTextField
+  private var phoneTextField: MaskTextField
   private var registerButton: UIButton
 
   init() {
-    phoneTextField = PhoneTextField()
+    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
     registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 import Dip
 import shared
 
@@ -19,15 +20,43 @@ final class AppDependencies {
   }
 
   private func configureDependencies() {
+    // MARK: - KeychainWrapper
+    let serviceName = "privateService"
+    container.register { KeychainWrapper(serviceName: serviceName) }
+
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
+    container.register { UserClientImpl() as UserClient }
+
+    // MARK: - SignInScene
+    container.register { SignInViewController() as SignInView }
+
+    // MARK: - SignUpScene
+    container.register(.shared) {
+      try SignUpInteractorImpl(
+        userClient: self.container.resolve(),
+        keychainWrapper: self.container.resolve(),
+        presenter: self.container.resolve()
+        ) as SignUpInteractor
+    }
+    container.register(.shared) {
+      SignUpPresenterImpl(view: try self.container.resolve()) as SignUpPresenter
+    }
+    container.register(.shared) { SignUpViewController() }
+    .resolvingProperties { container, view in
+      view.interactor = try container.resolve()
+    }
+    .implements(SignUpView.self)
 
     // MARK: - RestaurantListScene
-    container.register { RestaurantListRouterImpl() as RestaurantListRouter }
+    container.register {
+      RestaurantListRouterImpl(signUpScene: try self.container.resolve()) as RestaurantListRouter
+    }
     container.register(.shared) {
       try RestaurantListInteractorImpl(
         restaurantClient: self.container.resolve(),
-        restaurantPresenter: self.container.resolve()) as RestaurantListInteractor
+        restaurantPresenter: self.container.resolve()
+        ) as RestaurantListInteractor
     }
     container.register(.shared) {
       RestaurantListPresenterImpl(view: try self.container.resolve()) as RestaurantListPresenter
@@ -40,15 +69,6 @@ final class AppDependencies {
       view.interactor = try container.resolve()
     }
     .implements(RestaurantListView.self)
-
-    // MARK: - SignInScene
-    container.register { SignInViewController() as SignInView }
-
-    // MARK: - RestaurantListScene
-    container.register {
-      RestaurantListRouterImpl(signInScene: try self.container.resolve()) as RestaurantListRouter
-    }
-    container.register { RestaurantListViewController(router: try self.container.resolve()) }
   }
 
   func getRootViewController() -> RestaurantListView {
