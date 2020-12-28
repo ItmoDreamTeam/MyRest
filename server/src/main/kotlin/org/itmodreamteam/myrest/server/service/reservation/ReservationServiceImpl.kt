@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.ReservationRepository
 import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.util.DateTimeFormatter.format
 import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.springframework.stereotype.Service
@@ -72,7 +73,7 @@ class ReservationServiceImpl(
                 """
                     Место: ${table.restaurant.name}
                     Столик: ${table.number}
-                    Время: ${reservation.activeFrom} - ${reservation.activeUntil}
+                    Время: ${format(reservation.activeFrom)} - ${format(reservation.activeUntil)}
                 """.trimIndent()
             )
         )
