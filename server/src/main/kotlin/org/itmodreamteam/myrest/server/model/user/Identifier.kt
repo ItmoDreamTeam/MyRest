@@ -51,7 +51,7 @@ class Identifier() : JpaEntity() {
 
     fun verify(code: String) {
         if (isVerificationCodeExpired() || code != verificationCode) {
-            throw UserException("Неверный код")
+            throw UserException("auth.failed")
         }
         verified = true
         verificationCode = null

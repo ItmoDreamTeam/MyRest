@@ -28,7 +28,7 @@ class RestaurantServiceImpl(
     override fun register(newRestaurant: RestaurantRegistrationInfo, user: User): RestaurantInfo {
         val exists = restaurantRepository.findByName(newRestaurant.name) != null
         if (exists) {
-            throw UserException("Ресторан с таким именем уже существует")
+            throw UserException("restaurant.name.exists")
         }
         val restaurant = restaurantRepository.save(Restaurant(newRestaurant))
         employeeRepository.save(
@@ -47,10 +47,10 @@ class RestaurantServiceImpl(
     override fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
         val existingRestaurant = restaurantRepository.findByIdOrNull(id)
         if (existingRestaurant == null) {
-            throw UserException("Такого ресторана не существует")
+            throw UserException("restaurant.not-found")
         } else {
             if (!updateInfo.containsUpdate) {
-                throw  UserException("Нечего обновлять")
+                throw UserException("no-changes")
             }
             return updateRestaurant(existingRestaurant, updateInfo)
         }
@@ -58,9 +58,9 @@ class RestaurantServiceImpl(
 
     override fun updateStatus(id: Long, restaurantStatus: RestaurantStatus): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Такого ресторана не существует")
+            ?: throw UserException("restaurant.not-found")
         if (restaurantStatus == restaurant.status) {
-            throw  UserException("Статус ресторана не изменился")
+            throw UserException("no-changes")
         }
         restaurant.status = restaurantStatus
         val savedRestaurant = restaurantRepository.save(restaurant)
@@ -69,7 +69,7 @@ class RestaurantServiceImpl(
 
     override fun getById(id: Long): RestaurantInfo {
         val restaurant = restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Такого ресторана не существует")
+            ?: throw UserException("restaurant.not-found")
         return toRestaurantInfo(restaurant)
     }
 
