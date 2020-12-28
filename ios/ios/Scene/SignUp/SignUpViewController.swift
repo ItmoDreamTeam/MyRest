@@ -23,7 +23,7 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   private var nameIsNotEmpty = false
   private var surnameIsNotEmpty = false
-  private var phoneIsFill = false
+  private var phoneIsFilled = false
   private var phone: String?
   private var isRegistered = false
 
@@ -206,7 +206,7 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - private textField methods
   @objc private func nameTextFieldFilled(_ sender: UITextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
     guard
       let count = sender.text?.count,
       count >= 3
@@ -219,7 +219,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   @objc private func surnameTextFieldFilled(_ sender: UITextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
     guard
       let count = sender.text?.count,
       count >= 3
@@ -232,15 +232,15 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   @objc private func phoneTextFieldFilled(_ sender: MaskTextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFill) }
+    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
     guard
       let count = sender.getText()?.count,
       count >= Constant.phoneLength
       else {
-        phoneIsFill = false
+        phoneIsFilled = false
         return
     }
-    phoneIsFill = true
+    phoneIsFilled = true
   }
 
   @objc private func codeTextFieldFilled(_ sender: MaskTextField) {
