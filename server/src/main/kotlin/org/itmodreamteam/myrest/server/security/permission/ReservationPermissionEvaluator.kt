@@ -18,7 +18,7 @@ class ReservationPermissionEvaluator(
 
     override fun hasPermission(authentication: UserAuthentication, targetId: Long, permission: String): Boolean {
         val reservation = reservationRepository.findByIdOrNull(targetId)
-            ?: throw UserException("Бронь не найдена")
+            ?: throw UserException("reservation.not-found")
         return when (permission) {
             "write-user" -> reservation.user.id == authentication.principal.id
             "write-manager" -> {

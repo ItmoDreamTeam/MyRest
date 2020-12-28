@@ -29,10 +29,10 @@ class EmployeeServiceImpl(
     override fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
         val restaurant = getRestaurantEntity(restaurantId)
         val user = identifierRepository.findByValue(invitation.phone)?.user
-            ?: throw UserException("Пользователь не найден")
+            ?: throw UserException("user.phone.not-found")
         val exists = employeeRepository.findByRestaurantAndUser(restaurant, user) != null
         if (exists) {
-            throw UserException("Сотрудник уже существует")
+            throw UserException("employee.exists")
         }
         val employee = employeeRepository.save(
             when (invitation.position) {
@@ -63,7 +63,7 @@ class EmployeeServiceImpl(
 
     override fun getRestaurantsOfUser(userId: Long): List<EmployeeInfo> {
         val user = userRepository.findByIdOrNull(userId)
-            ?: throw UserException("Пользователь не найден")
+            ?: throw UserException("user.not-found")
         return employeeRepository.findByUser(user).map { toEmployeeInfo(it) }
     }
 
@@ -83,11 +83,11 @@ class EmployeeServiceImpl(
 
     private fun getRestaurantEntity(id: Long): Restaurant {
         return restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Ресторан не найден")
+            ?: throw UserException("restaurant.not-found")
     }
 
     private fun getEmployeeEntity(id: Long): Employee {
         return employeeRepository.findByIdOrNull(id)
-            ?: throw UserException("Сотрудник не найден")
+            ?: throw UserException("employee.not-found")
     }
 }

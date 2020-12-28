@@ -16,9 +16,9 @@ class CurrentUserServiceImpl(private val userRepository: UserRepository) : Curre
             if (authentication is UserAuthentication) {
                 return authentication.profile
             }
-            throw UserException("Требуется аутентификация")
+            throw UserException("auth.required")
         }
 
     override val currentUserEntity: User
-        get() = userRepository.findById(currentUser.id).orElseThrow { UserException("Требуется аутентификация") }
+        get() = userRepository.findById(currentUser.id).orElseThrow { UserException("auth.required") }
 }

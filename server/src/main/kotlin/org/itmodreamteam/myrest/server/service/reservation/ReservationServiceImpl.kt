@@ -30,7 +30,7 @@ class ReservationServiceImpl(
     ): Reservation {
         val overlapping = findOverlappingReservations(table, activeFrom, activeUntil)
         if (overlapping.isNotEmpty()) {
-            throw UserException("Временной интервал $activeFrom - $activeUntil занят. Попробуйте другое время")
+            throw UserException("reservation.time.overlap")
         }
         var reservation = Reservation(currentUserService.currentUserEntity, table, activeFrom, activeUntil)
         reservation = reservationRepository.save(reservation)
