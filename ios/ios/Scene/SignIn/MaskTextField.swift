@@ -8,15 +8,17 @@
 
 import UIKit
 
-final class PhoneTextField: UITextField {
+final class MaskTextField: UITextField {
 
-  private let formattingPattern = "*** ***-**-** "
+  private let formattingPattern: String
   private let replacementChar: Character = "*"
-  private let prefix = " +7 "
+  private let prefix: String
   private var prevIdx: Int
 
-  init() {
+  init(formattingPattern: String, prefix: String) {
     prevIdx = prefix.count
+    self.formattingPattern = formattingPattern
+    self.prefix = prefix
     super.init(frame: .zero)
     translatesAutoresizingMaskIntoConstraints = false
     self.keyboardType = .numberPad
@@ -33,6 +35,14 @@ final class PhoneTextField: UITextField {
     layer.borderWidth = 1
     layer.borderColor = UIColor.black.cgColor
     layer.cornerRadius = 5
+  }
+
+  func getText() -> String? {
+    guard let text = self.text else { return nil }
+    let filteredText = text.filter {
+      return $0.isNumber ? true : false
+    }
+    return filteredText
   }
 
   private func registerForNotifications() {
@@ -53,7 +63,7 @@ final class PhoneTextField: UITextField {
       prevIdx = prefixLength
       return
     }
-    if textLength > formattingPattern.count + prefixLength - 1 {
+    if textLength > formattingPattern.count + prefixLength {
       let range = text.startIndex..<text.index(before: text.endIndex)
       self.text = String(text[range])
       return

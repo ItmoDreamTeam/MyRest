@@ -70,7 +70,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   @objc private func goToAboutScene() {
-    router?.restaurantListShouldOpenScene(self)
+    router?.restaurantListShouldOpenAboutScene(self)
   }
 
   override func viewWillAppear(_ animated: Bool) {

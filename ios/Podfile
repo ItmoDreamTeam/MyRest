@@ -5,6 +5,7 @@ target 'ios' do
   # Pods for ios
   pod 'Dip'
   pod 'IQKeyboardManagerSwift'
+  pod 'SwiftKeychainWrapper'	
 end
 post_install do |pi|
     pi.pods_project.targets.each do |t|

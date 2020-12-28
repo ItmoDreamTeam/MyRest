@@ -6,8 +6,13 @@
 //  Copyright © 2020 orgName. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Constant {
-  static let phoneLength = 18
+  static let phoneLength = 11
+  static let codeLength = 6
+
+  // MARK: - UI constants
+  static let textFieldCornerRadius: CGFloat = 5
+  static let textFieldBorderWidth: CGFloat = 1
 }
