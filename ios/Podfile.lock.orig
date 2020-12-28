@@ -19,6 +19,10 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
+<<<<<<< HEAD
+PODFILE CHECKSUM: 1b34aea590fdabb2d3b7fa77c86f27bebc870a46
+=======
 PODFILE CHECKSUM: bbefc2d75b719795a8f5739ee9ac4e22c2a37a60
+>>>>>>> 3d12fbdc03d339c8aafea76b0940d3848b821730
 
 COCOAPODS: 1.10.0
