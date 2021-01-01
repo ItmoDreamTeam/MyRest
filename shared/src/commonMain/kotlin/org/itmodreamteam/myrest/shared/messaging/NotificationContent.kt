@@ -1,5 +1,8 @@
 package org.itmodreamteam.myrest.shared.messaging
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NotificationContent(
     val title: String,
     val text: String,
