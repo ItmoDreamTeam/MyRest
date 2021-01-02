@@ -14,6 +14,9 @@ interface RestaurantClient {
     suspend fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo
 
     @Throws(CancellationException::class, ClientException::class)
+    suspend fun getRestaurantsOfUser(): List<EmployeeInfo>
+
+    @Throws(CancellationException::class, ClientException::class)
     suspend fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo
 
     @Throws(CancellationException::class, ClientException::class)
