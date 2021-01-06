@@ -39,7 +39,7 @@ class TableServiceImpl(
 
     private fun requireUniqueTableNumber(restaurant: Restaurant, number: Int) {
         if (tableRepository.findByRestaurantAndNumber(restaurant, number) != null) {
-            throw UserException("Столик с данным номером уже существует")
+            throw UserException("table.number.exists")
         }
     }
 
@@ -65,11 +65,11 @@ class TableServiceImpl(
 
     private fun getRestaurantEntity(id: Long): Restaurant {
         return restaurantRepository.findByIdOrNull(id)
-            ?: throw UserException("Ресторан не найден")
+            ?: throw UserException("restaurant.not-found")
     }
 
     private fun getRestaurantTableEntity(id: Long): RestaurantTable {
         return tableRepository.findByIdOrNull(id)
-            ?: throw UserException("Столик не найден")
+            ?: throw UserException("table.not-found")
     }
 }

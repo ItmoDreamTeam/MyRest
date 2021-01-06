@@ -54,36 +54,36 @@ class TableServiceTest {
 
     @Test
     fun `Given restaurant table, when update table info, then info is updated`() {
-        val initialInfo = TableInfo(101, null, 3)
+        val initialInfo = TableInfo(71, null, 3)
         val initialTable = tableService.addTable(restaurant.id, initialInfo)
 
-        val newInfo = TableInfo(102, "Some description", 4)
+        val newInfo = TableInfo(72, "Some description", 4)
         val updatedTable = tableService.updateTable(initialTable.id, newInfo)
 
         assertThat(updatedTable.id).isEqualTo(initialTable.id)
         assertThat(updatedTable.restaurant).isEqualTo(initialTable.restaurant)
-        assertThat(updatedTable.info.number).isEqualTo(102)
+        assertThat(updatedTable.info.number).isEqualTo(72)
         assertThat(updatedTable.info.description).isEqualTo("Some description")
         assertThat(updatedTable.info.numberOfSeats).isEqualTo(4)
     }
 
     @Test
     fun `Given restaurant table, when get table info, then info is correct`() {
-        val info = TableInfo(101, "The largest table", 18)
+        val info = TableInfo(71, "The largest table", 18)
         val table = tableService.addTable(restaurant.id, info)
 
         val retrievedTable = tableService.getTable(table.id)
 
         assertThat(retrievedTable.id).isEqualTo(table.id)
         assertThat(retrievedTable.restaurant.id).isEqualTo(restaurant.id)
-        assertThat(retrievedTable.info.number).isEqualTo(101)
+        assertThat(retrievedTable.info.number).isEqualTo(71)
         assertThat(retrievedTable.info.description).isEqualTo("The largest table")
         assertThat(retrievedTable.info.numberOfSeats).isEqualTo(18)
     }
 
     @Test
     fun `Given restaurant table, when remove table, then restaurant has no tables`() {
-        val info = TableInfo(101, "The largest table", 18)
+        val info = TableInfo(71, "The largest table", 18)
         val table = tableService.addTable(restaurant.id, info)
 
         tableService.removeTable(table.id)
@@ -126,8 +126,8 @@ class TableServiceTest {
 
     @Test(expected = UserException::class)
     fun `Given two restaurant tables, when set one table number same as another table number, then failure`() {
-        val table1 = tableService.addTable(restaurant.id, TableInfo(101, null, 5))
-        val table2 = tableService.addTable(restaurant.id, TableInfo(102, null, 5))
+        val table1 = tableService.addTable(restaurant.id, TableInfo(71, null, 5))
+        val table2 = tableService.addTable(restaurant.id, TableInfo(72, null, 5))
 
         tableService.updateTable(table1.id, TableInfo(table2.info.number, null, 2))
     }
