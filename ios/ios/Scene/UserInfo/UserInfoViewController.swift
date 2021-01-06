@@ -16,4 +16,21 @@ final class UserInfoViewController: UIViewController, UserInfoView {
     let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
+  @IBOutlet weak var nameLabel: UILabel!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+
+  @IBAction func bookingTapped(_ sender: UIButton) {
+    fatalError("Not implemented yet")
+  }
+
+  @IBAction func settingsTapped(_ sender: UIButton) {
+    fatalError("Not implemented yet")
+  }
+  
+  @IBAction func exitTapped(_ sender: UIButton) {
+    fatalError("Not implemented yet")
+  }
 }
