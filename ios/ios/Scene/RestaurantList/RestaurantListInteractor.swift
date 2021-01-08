@@ -11,6 +11,7 @@ import shared
 
 protocol RestaurantListInteractor {
   func restaurantListDidRequestRestaurants(_ restaurantListView: RestaurantListView, byKeyword: String)
+  func restaurantListDidRequestUserInfo(_ restaurantListView: RestaurantListView)
 }
 
 final class RestaurantListInteractorImpl: RestaurantListInteractor {

@@ -80,7 +80,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   // MARK: - Actions
 
   @objc private func goToAboutScene() {
-    fatalError("Not implemented yet")
+    interactor?.restaurantListDidRequestUserInfo(self)
   }
 
   // MARK: - RestaurantListView methods
@@ -98,12 +98,6 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   func onUserFetchCompleted(_ user: Profile) {
-    fatalError("Not implemented yet")
-  }
-}
-
-extension RestaurantListViewController: IOSErrorHandlerDelegate {
-  func handleServerError() {
-    fatalError("Not implemented yet")
+    router?.restaurantListShouldOpenUserInfoScene(self)
   }
 }

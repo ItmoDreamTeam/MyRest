@@ -9,10 +9,6 @@
 import UIKit
 import shared
 
-protocol IOSErrorHandlerDelegate: class {
-  func handleServerError()
-}
-
 final class IOSErrorHandler: ErrorHandler<UIViewController> {
 
   private let router: ToSignInRouter
@@ -36,7 +32,10 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
   }
 
   override func handleServerError(context: UIViewController?, errors: [ServerError]) {
-    guard let context = context as? IOSErrorHandlerDelegate else { return }
-    context.handleServerError()
+    guard
+      let context = context,
+      let message = errors.first?.developerMessage
+    else { return }
+    context.presentToast(message: message)
   }
 }
