@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "473163984249",
+    "project_id": "myrest-d8505",
+    "storage_bucket": "myrest-d8505.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473163984249:android:00553d78f55a6e56dbd3a8",
+        "android_client_info": {
+          "package_name": "org.itmodreamteam.myrest.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473163984249-absamqlr95rmtgpljcluvqpgsfopbf3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpTc-iS1elhicn7iYM2kh1JZ7JAaB6g0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473163984249-absamqlr95rmtgpljcluvqpgsfopbf3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
