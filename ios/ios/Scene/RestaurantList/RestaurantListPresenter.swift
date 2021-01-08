@@ -11,6 +11,7 @@ import shared
 
 protocol RestaurantListPresenter {
   func interactorDidFetched(restaurants: Result<[RestaurantInfo], Error>)
+  func interactorDidFetched(user: Profile)
 }
 
 final class RestaurantListPresenterImpl: RestaurantListPresenter {
@@ -35,5 +36,9 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
     case .failure(let error):
       view.onRestaurantsFetchError(error)
     }
+  }
+
+  func interactorDidFetched(user: Profile) {
+    fatalError("Not implemented yet")
   }
 }

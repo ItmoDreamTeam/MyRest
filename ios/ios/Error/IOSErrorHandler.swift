@@ -27,7 +27,7 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
       let clientError = nsError.userInfo["KotlinException"] as? ClientException else {
       return
     }
-    super.handle(context: context, exception: clientError)
+    handle(context: context, exception: clientError)
   }
 
   override func handleUnauthenticatedError(context: UIViewController?) {
