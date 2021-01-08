@@ -6,6 +6,8 @@ services:
     environment:
       PROFILE:
       DB_PASSWORD:
+      SMS_SERVICE_USERNAME:
+      SMS_SERVICE_PASSWORD:
     ports:
       - 9339:8080
   postgres:
