@@ -8,8 +8,11 @@ services:
       DB_PASSWORD:
       SMS_SERVICE_USERNAME:
       SMS_SERVICE_PASSWORD:
+      GOOGLE_APPLICATION_CREDENTIALS: /config/google-application-credentials.json
     ports:
       - 9339:8080
+    volumes:
+      - config:/config
   postgres:
     image: postgres:12-alpine
     restart: always
@@ -20,4 +23,5 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 volumes:
+  config:
   postgres:
