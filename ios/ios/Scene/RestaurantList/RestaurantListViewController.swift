@@ -80,7 +80,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   // MARK: - Actions
 
   @objc private func goToAboutScene() {
-    router?.restaurantListShouldOpenAboutScene(self)
+    fatalError("Not implemented yet")
   }
 
   // MARK: - RestaurantListView methods

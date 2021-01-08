@@ -65,9 +65,14 @@ final class AppDependencies {
     }
     .implements(SignUpView.self)
 
+    // MARK: - UserInfoScene
+    container.register {
+      UserInfoViewController() as UserInfoView
+    }
+
     // MARK: - RestaurantListScene
     container.register {
-      RestaurantListRouterImpl(signUpScene: try self.container.resolve()) as RestaurantListRouter
+      RestaurantListRouterImpl(userInfoScene: try self.container.resolve()) as RestaurantListRouter
     }
     container.register(.shared) {
       try RestaurantListInteractorImpl(
