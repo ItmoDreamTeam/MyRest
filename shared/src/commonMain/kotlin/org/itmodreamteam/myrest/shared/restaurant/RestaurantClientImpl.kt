@@ -5,6 +5,7 @@ import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAcce
 import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 import org.itmodreamteam.myrest.shared.Pageable
+import org.itmodreamteam.myrest.shared.Pageable.Companion.addPageableParameters
 
 class RestaurantClientImpl : RestaurantClient {
 
@@ -14,8 +15,7 @@ class RestaurantClientImpl : RestaurantClient {
         return client.get {
             url("/restaurants")
             parameter("keyword", keyword)
-            parameter("pageNumber", pageable.pageNumber)
-            parameter("pageSize", pageable.pageSize)
+            addPageableParameters(pageable)
         }
     }
 
@@ -51,8 +51,7 @@ class RestaurantClientImpl : RestaurantClient {
             url("/restaurants/all")
             parameter("keyword", keyword)
             parameter("statuses", statuses.joinToString())
-            parameter("pageNumber", pageable.pageNumber)
-            parameter("pageSize", pageable.pageSize)
+            addPageableParameters(pageable)
             provideAccessToken()
         }
     }
