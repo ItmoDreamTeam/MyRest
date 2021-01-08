@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import shared
 
 protocol RestaurantListView: UIViewController {
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
   func onRestaurantsFetchError(_ error: Error)
+  func onUserFetchCompleted(_ user: Profile)
 }
 
 final class RestaurantListViewController: UIViewController, RestaurantListView {
@@ -92,6 +94,16 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   func onRestaurantsFetchError(_ error: Error) {
+    fatalError("Not implemented yet")
+  }
+
+  func onUserFetchCompleted(_ user: Profile) {
+    fatalError("Not implemented yet")
+  }
+}
+
+extension RestaurantListViewController: IOSErrorHandlerDelegate {
+  func handleServerError() {
     fatalError("Not implemented yet")
   }
 }

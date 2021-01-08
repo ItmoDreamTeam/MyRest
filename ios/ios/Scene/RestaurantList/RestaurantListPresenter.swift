@@ -39,6 +39,6 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
   }
 
   func interactorDidFetched(user: Profile) {
-    fatalError("Not implemented yet")
+    view.onUserFetchCompleted(user)
   }
 }
