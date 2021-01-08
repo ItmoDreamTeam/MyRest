@@ -11,6 +11,7 @@ import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
+import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.*
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -39,7 +40,12 @@ class EmployeeServiceImpl(
                 EmployeePosition.WAITER -> Waiter(restaurant, user)
             }
         )
-        notificationService.notify(user, "${restaurant.name} хочет добавить вас в качестве сотрудника")
+        notificationService.notify(
+            user, NotificationContent(
+                "Добавление сотрудника",
+                "${restaurant.name} хочет добавить вас в качестве сотрудника"
+            )
+        )
         return toEmployeeInfo(employee)
     }
 
