@@ -292,9 +292,9 @@
 			children = (
 				A7D2DA072570506A00ED74BC /* View */,
 				A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */,
+				A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */,
 				A7D2DA12257062C000ED74BC /* RestaurantViewModel.swift */,
 				A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */,
-				A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */,
 				A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */,
 			);
 			path = RestaurantList;

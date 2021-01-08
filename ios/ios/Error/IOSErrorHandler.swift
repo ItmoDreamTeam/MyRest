@@ -21,6 +21,15 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
     self.router = router
   }
 
+  func handleNSError(context: UIViewController?, error: Error?) {
+    guard
+      let nsError = error as NSError?,
+      let clientError = nsError.userInfo["KotlinException"] as? ClientException else {
+      return
+    }
+    super.handle(context: context, exception: clientError)
+  }
+
   override func handleUnauthenticatedError(context: UIViewController?) {
     guard let context = context else { return }
     router.sceneShouldOpenSignInScene(context)
