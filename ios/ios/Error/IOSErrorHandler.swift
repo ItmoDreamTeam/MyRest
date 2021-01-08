@@ -9,6 +9,10 @@
 import UIKit
 import shared
 
+protocol IOSErrorHandlerDelegate: class {
+  func onServerErrorHandled()
+}
+
 final class IOSErrorHandler: ErrorHandler<UIViewController> {
 
   private let router: ToSignInRouter
@@ -17,10 +21,13 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
     self.router = router
   }
 
-  override func handle(context: UIViewController?, exception: ClientException) {
-    guard let context = context else {
-      return
-    }
+  override func handleUnauthenticatedError(context: UIViewController?) {
+    guard let context = context else { return }
     router.sceneShouldOpenSignInScene(context)
+  }
+
+  override func handleServerError(context: UIViewController?, errors: [ServerError]) {
+    guard let context = context as? IOSErrorHandlerDelegate else { return }
+    context.onServerErrorHandled()
   }
 }
