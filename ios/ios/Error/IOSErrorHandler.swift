@@ -10,7 +10,7 @@ import UIKit
 import shared
 
 protocol IOSErrorHandlerDelegate: class {
-  func onServerErrorHandled()
+  func handleServerError()
 }
 
 final class IOSErrorHandler: ErrorHandler<UIViewController> {
@@ -28,6 +28,6 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
 
   override func handleServerError(context: UIViewController?, errors: [ServerError]) {
     guard let context = context as? IOSErrorHandlerDelegate else { return }
-    context.onServerErrorHandled()
+    context.handleServerError()
   }
 }
