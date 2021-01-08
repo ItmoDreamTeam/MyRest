@@ -15,11 +15,15 @@ protocol RestaurantListView: UIViewController {
 
 final class RestaurantListViewController: UIViewController, RestaurantListView {
 
+  // MARK: - properties
+
   private var searchView: SearchView
   private var collectionView: VerticalCollectionView
 
   var router: RestaurantListRouter?
   var interactor: RestaurantListInteractor?
+
+  // MARK: - Lyfecycle
 
   init() {
     searchView = SearchView()
@@ -39,6 +43,8 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     configureSearchTextField()
     configureCollectionView()
   }
+
+  // MARK: - UI Layout
 
   private func configureNavBar() {
     navigationItem.title = "MyRest"
@@ -69,12 +75,10 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
   }
 
+  // MARK: - Actions
+
   @objc private func goToAboutScene() {
     router?.restaurantListShouldOpenAboutScene(self)
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
   }
 
   // MARK: - RestaurantListView methods
