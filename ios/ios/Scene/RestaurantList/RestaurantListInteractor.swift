@@ -54,6 +54,7 @@ final class RestaurantListInteractorImpl: RestaurantListInteractor {
         )
         return
       }
+      
       self.currentPage += 1
       self.isFetching = false
       self.restaurantPresenter.interactorDidFetched(restaurants: .success(restaurants))
