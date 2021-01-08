@@ -44,6 +44,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.itextpdf:itextpdf:5.5.13.2")
     implementation("com.itextpdf.tool:xmlworker:5.5.13.2")
+    implementation("com.google.firebase:firebase-admin:7.1.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:3.6.0")
