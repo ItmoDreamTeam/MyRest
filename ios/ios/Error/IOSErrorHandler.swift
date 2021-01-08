@@ -20,8 +20,9 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
   func handleNSError(context: UIViewController?, error: Error?) {
     guard
       let nsError = error as NSError?,
-      let clientError = nsError.userInfo["KotlinException"] as? ClientException else {
-      return
+      let clientError = nsError.userInfo["KotlinException"] as? ClientException
+      else {
+        return
     }
     handle(context: context, exception: clientError)
   }
@@ -34,8 +35,8 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
   override func handleServerError(context: UIViewController?, errors: [ServerError]) {
     guard
       let context = context,
-      let message = errors.first?.developerMessage
-    else { return }
+      let message = errors.first?.userMessage
+      else { return }
     context.presentToast(message: message)
   }
 }
