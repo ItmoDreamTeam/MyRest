@@ -47,3 +47,5 @@ reservation:
   not-found: Бронь не найдена
   time:
     overlap: Временной интервал занят. Попробуйте другое время
+notification:
+  not-found: Уведомление не найдено

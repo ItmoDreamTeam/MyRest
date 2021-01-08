@@ -10,6 +10,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
+import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeUserStatus
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
@@ -99,8 +100,11 @@ class RegisterTest {
             user
         )
 
-        val text = "Ресторан с именем ${registeredRestaurant.name} был зарегистрирован и ожидает проверки"
-        verify(notificationService, Mockito.times(1)).notify(admin, text)
+        val content = NotificationContent(
+            "Проверка ресторана",
+            "Ресторан ${registeredRestaurant.name} был зарегистрирован и ожидает проверки"
+        )
+        verify(notificationService, Mockito.times(1)).notify(admin, content)
     }
 
     @Test(expected = UserException::class)

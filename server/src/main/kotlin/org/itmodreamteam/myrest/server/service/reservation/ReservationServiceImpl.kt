@@ -9,6 +9,8 @@ import org.itmodreamteam.myrest.server.repository.restaurant.EmployeeRepository
 import org.itmodreamteam.myrest.server.repository.restaurant.ReservationRepository
 import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.server.util.DateTimeFormatter.format
+import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.ReservationStatus
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -61,14 +63,19 @@ class ReservationServiceImpl(
     }
 
     override fun approve(reservation: Reservation): Reservation {
-        reservation.manager = getCurrentUserBeingManagerOf(reservation.table.restaurant)
+        val table = reservation.table
+        reservation.manager = getCurrentUserBeingManagerOf(table.restaurant)
         reservation.status = ReservationStatus.APPROVED
         val approved = reservationRepository.save(reservation)
         notificationService.notify(
-            approved.user,
-            "Ваша бронь была подтверждена. Ваш менеджер: ${reservation.manager}. " +
-                    "Место: ${reservation.table.restaurant}, столик ${reservation.table.number}, " +
-                    "время: ${reservation.activeFrom} - ${reservation.activeUntil}"
+            approved.user, NotificationContent(
+                "Ваша бронь подтверждена",
+                """
+                    Место: ${table.restaurant.name}
+                    Столик: ${table.number}
+                    Время: ${format(reservation.activeFrom)} - ${format(reservation.activeUntil)}
+                """.trimIndent()
+            )
         )
         return reservation
     }

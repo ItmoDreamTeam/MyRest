@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.repository.restaurant.RestaurantRepositor
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
 import org.itmodreamteam.myrest.server.service.notification.NotificationService
+import org.itmodreamteam.myrest.shared.messaging.NotificationContent
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeInvitation
 import org.itmodreamteam.myrest.shared.restaurant.EmployeePosition
 import org.itmodreamteam.myrest.shared.restaurant.EmployeeRestaurantStatus
@@ -82,8 +83,11 @@ class EmployeeInvitationTest {
         val invitation = EmployeeInvitation("+79889875634", EmployeePosition.MANAGER)
         employeeService.inviteEmployee(restaurant.id, invitation)
 
-        val text = "${restaurant.name} хочет добавить вас в качестве сотрудника"
-        verify(notificationService, times(1)).notify(user, text)
+        val content = NotificationContent(
+            "Добавление сотрудника",
+            "${restaurant.name} хочет добавить вас в качестве сотрудника"
+        )
+        verify(notificationService, times(1)).notify(user, content)
     }
 
     @Test(expected = UserException::class)
