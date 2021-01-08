@@ -16,14 +16,23 @@ protocol RestaurantListInteractor {
 final class RestaurantListInteractorImpl: RestaurantListInteractor {
 
   private let restaurantClient: RestaurantClient
+  private let userClient: UserClient
+  private let errorHandler: IOSErrorHandler
   private let restaurantPresenter: RestaurantListPresenter
 
   private var pageSize = 10
   private var isFetching = false
   private var currentPage = 0
 
-  init(restaurantClient: RestaurantClient, restaurantPresenter: RestaurantListPresenter) {
+  init(
+    restaurantClient: RestaurantClient,
+    userClient: UserClient,
+    errorHandler: IOSErrorHandler,
+    restaurantPresenter: RestaurantListPresenter
+  ) {
     self.restaurantClient = restaurantClient
+    self.userClient = userClient
+    self.errorHandler = errorHandler
     self.restaurantPresenter = restaurantPresenter
   }
 

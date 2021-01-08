@@ -40,6 +40,14 @@ final class AppDependencies {
     // MARK: - SignInScene
     container.register { SignInViewController() as SignInView }
 
+    // MARK: - ToSignInRouter
+    container.register {
+      ToSignInRouterImp(signInScene: try container.resolve()) as ToSignInRouter
+    }
+
+    // MARK: - ErrorHandler
+    container.register { IOSErrorHandler(router: try container.resolve()) }
+
     // MARK: - SignUpScene
     container.register(.shared) {
       try SignUpInteractorImpl(
@@ -63,8 +71,10 @@ final class AppDependencies {
     }
     container.register(.shared) {
       try RestaurantListInteractorImpl(
-        restaurantClient: self.container.resolve(),
-        restaurantPresenter: self.container.resolve()
+        restaurantClient: container.resolve(),
+        userClient: container.resolve(),
+        errorHandler: container.resolve(),
+        restaurantPresenter: container.resolve()
         ) as RestaurantListInteractor
     }
     container.register(.shared) {
