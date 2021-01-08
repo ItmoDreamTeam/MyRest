@@ -24,6 +24,15 @@ final class AppDependencies {
     let serviceName = "privateService"
     container.register { KeychainWrapper(serviceName: serviceName) }
 
+    // MARK: - Security
+    container.register {
+      AccessTokenProviderImpl(keychainWrapper: try self.container.resolve()) as AccessTokenProvider
+    }
+    guard let accessTokenProvider = try? container.resolve() as AccessTokenProvider else {
+      fatalError("AccessTokenProvider not registered")
+    }
+    AccessTokenProviderCompanion().INSTANCE = accessTokenProvider
+
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
