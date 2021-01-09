@@ -21,7 +21,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var nameIsNotEmpty = false
   private var surnameIsNotEmpty = false
   private var phoneIsFilled = false
-  private var phone: String?
+  private var context: UIViewController?
 
   private var nameLabel: UILabel
   private var nameTextField: UITextField
@@ -172,7 +172,6 @@ final class SignUpViewController: UIViewController, SignUpView {
       let lastName = surnameTextField.text,
       let phone = phoneTextField.getText()
     else { return }
-    self.phone = phone
     interactor?.signUpDidRequestVerificationCode(
       self,
       forSignUp: SignUp(firstName: name, lastName: lastName, phone: phone)
@@ -182,4 +181,10 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - SignUpView methods
   func onVerificationCodeRequestCompleted() {}
+}
+
+extension SignUpViewController: ContextDataDelegate {
+  func passedContext(_ context: UIViewController) {
+    self.context = context
+  }
 }
