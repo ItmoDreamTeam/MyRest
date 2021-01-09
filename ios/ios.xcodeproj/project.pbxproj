@@ -17,6 +17,7 @@
 		A72B05A625A9740600DB4BF7 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* EnterCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* EnterCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* EnterCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
+		A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */; };
 		A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7436D81258B7574004D3E59 /* SignUpViewController.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
@@ -93,6 +94,7 @@
 		A72B05A525A9740600DB4BF7 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* EnterCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EnterCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
+		A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
 		A7436D81258B7574004D3E59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* MaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				A7494BCE257849C80074CE32 /* SignInViewController.swift */,
+				A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
+				A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
 				A72B05A625A9740600DB4BF7 /* EnterCodeViewController.swift in Sources */,
