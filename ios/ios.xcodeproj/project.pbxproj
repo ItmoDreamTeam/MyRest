@@ -233,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				A7494BCE257849C80074CE32 /* SignInViewController.swift */,
-				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -250,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */,
+				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
