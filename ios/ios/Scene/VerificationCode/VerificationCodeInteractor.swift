@@ -10,7 +10,11 @@ import Foundation
 import shared
 
 protocol VerificationCodeInteractor {
-  func verificationCodeStartedSession(_ verificationCodeView: VerificationCodeView)
+  func verificationCodeStartedSession(
+    _ verificationCodeView: VerificationCodeView,
+    for phone: String,
+    and verificationCode: String
+  )
 }
 
 final class VerificationCodeInteractorImpl: VerificationCodeInteractor {
@@ -23,5 +27,18 @@ final class VerificationCodeInteractorImpl: VerificationCodeInteractor {
     self.userClient = userClient
   }
 
-  func verificationCodeStartedSession(_ verificationCodeView: VerificationCodeView) {}
+  func verificationCodeStartedSession(
+    _ verificationCodeView: VerificationCodeView,
+    for phone: String,
+    and verificationCode: String
+  ) {
+    let signInVerification = SignInVerification(phone: phone, code: verificationCode)
+    userClient.startSession(signInVerification: signInVerification) { [weak self] session, error in
+      guard session != nil else {
+        self?.errorHandler.handleNSError(context: verificationCodeView, error: error)
+        return
+      }
+      
+    }
+  }
 }

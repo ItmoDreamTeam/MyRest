@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol VerificationCodeView: UIViewController {}
+protocol VerificationCodeView: UIViewController {
+  func onStartSessionCompleted()
+}
 
 final class VerificationCodeViewController: UIViewController, VerificationCodeView {
   static let storyboardName = "VerificationCodeViewController"
@@ -72,6 +74,10 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
       return
     }
     enableSendCodeButton(isEnabled: true)
+  }
+
+  func onStartSessionCompleted() {
+    fatalError("Not implemened yet")
   }
 }
 
