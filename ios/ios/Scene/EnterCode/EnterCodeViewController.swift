@@ -16,4 +16,8 @@ final class EnterCodeViewController: UIViewController, EnterCodeView {
     let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
+
+  @IBOutlet weak var CodeTextField: MaskTextField!
+  @IBOutlet weak var sendCodeButton: UIButton!
+  @IBOutlet weak var timerLabel: UILabel!
 }
