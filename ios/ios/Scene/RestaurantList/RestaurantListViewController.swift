@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import shared
 
 protocol RestaurantListView: UIViewController {
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
   func onRestaurantsFetchError(_ error: Error)
+  func onUserFetchCompleted(_ user: Profile)
 }
 
 final class RestaurantListViewController: UIViewController, RestaurantListView {
+
+  // MARK: - properties
 
   private var searchView: SearchView
   private var collectionView: VerticalCollectionView
 
   var router: RestaurantListRouter?
   var interactor: RestaurantListInteractor?
+
+  // MARK: - Lyfecycle
 
   init() {
     searchView = SearchView()
@@ -39,6 +45,8 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     configureSearchTextField()
     configureCollectionView()
   }
+
+  // MARK: - UI Layout
 
   private func configureNavBar() {
     navigationItem.title = "MyRest"
@@ -69,12 +77,10 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
   }
 
-  @objc private func goToAboutScene() {
-    router?.restaurantListShouldOpenAboutScene(self)
-  }
+  // MARK: - Actions
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+  @objc private func goToAboutScene() {
+    interactor?.restaurantListDidRequestUserInfo(self)
   }
 
   // MARK: - RestaurantListView methods
@@ -89,5 +95,9 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   func onRestaurantsFetchError(_ error: Error) {
     fatalError("Not implemented yet")
+  }
+
+  func onUserFetchCompleted(_ user: Profile) {
+    router?.restaurantListShouldOpenUserInfoScene(self)
   }
 }
