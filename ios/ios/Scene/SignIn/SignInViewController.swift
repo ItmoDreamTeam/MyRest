@@ -16,6 +16,8 @@ final class SignInViewController: UIViewController, SignInView {
 
   // MARK: - properties
 
+  var router: SignInRouter?
+
   private var phoneTextField: MaskTextField
   private var registerButton: UIButton
   private var toSignUpButton: UIButton
@@ -107,6 +109,6 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - SignInView methods
 
   func onCodeRequestCompleted() {
-    fatalError("Not implemented yet")
+    router?.signInShouldOpenVerificationCodeScene(self)
   }
 }

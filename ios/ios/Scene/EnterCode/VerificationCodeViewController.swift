@@ -11,7 +11,7 @@ import UIKit
 protocol VerificationCodeView: UIViewController {}
 
 final class VerificationCodeViewController: UIViewController, VerificationCodeView {
-  static let storyboardName = "EnterCodeViewController"
+  static let storyboardName = "VerificationCodeViewController"
   static func storyboardInstance() -> Self? {
     let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
