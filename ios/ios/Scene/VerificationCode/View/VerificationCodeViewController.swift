@@ -99,8 +99,8 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
 
 // MARK: - SignInViewDataDelegate
 
-extension VerificationCodeViewController: SignInViewDataDelegate {
-  func signInViewPassed(_ data: String) {
+extension VerificationCodeViewController: PhoneDataDelegate {
+  func passedPhone(_ data: String) {
     phone = data
   }
 }

@@ -18,6 +18,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   // MARK: - properties
 
   var interactor: SignUpInteractor?
+  var router: SignUpRouter?
 
   private var nameIsNotEmpty = false
   private var surnameIsNotEmpty = false
@@ -184,7 +185,13 @@ final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - SignUpView methods
 
-  func onVerificationCodeRequestCompleted() {}
+  func onVerificationCodeRequestCompleted() {
+    guard
+      let phone = phoneTextField.getText(),
+      let context = context
+    else { return }
+    router?.signUpShouldOpenVerificationCodeScene(self, pass: phone, and: context)
+  }
 }
 
 // MARK: - ContextDataDelegate

@@ -11,7 +11,7 @@ import SwiftKeychainWrapper
 import Dip
 import shared
 
-typealias VerificationCodeScene = VerificationCodeView & SignInViewDataDelegate & ContextDataDelegate
+typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & ContextDataDelegate
 typealias SignUpScene = SignUpView & ContextDataDelegate
 
 final class AppDependencies {

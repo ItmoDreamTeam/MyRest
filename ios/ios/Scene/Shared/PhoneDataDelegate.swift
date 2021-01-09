@@ -6,6 +6,6 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-protocol SignInViewDataDelegate {
-  func signInViewPassed(_ data: String)
+protocol PhoneDataDelegate {
+  func passedPhone(_ phone: String)
 }

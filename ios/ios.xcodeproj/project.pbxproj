@@ -21,10 +21,11 @@
 		A72B05AE25A9A39E00DB4BF7 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AD25A9A39E00DB4BF7 /* SignInPresenter.swift */; };
 		A72B05B025A9A58300DB4BF7 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AF25A9A58300DB4BF7 /* SignInRouter.swift */; };
 		A72B05B325A9B75700DB4BF7 /* VerificationCodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B225A9B75700DB4BF7 /* VerificationCodeInteractor.swift */; };
-		A72B05B525A9BB1E00DB4BF7 /* SignInViewDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B425A9BB1E00DB4BF7 /* SignInViewDataDelegate.swift */; };
+		A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */; };
 		A72B05B725A9C3C600DB4BF7 /* VerificationCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B625A9C3C600DB4BF7 /* VerificationCodePresenter.swift */; };
 		A72B05BB25A9DA0400DB4BF7 /* ContextDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */; };
 		A72B05BD25AA043400DB4BF7 /* VerificationCodeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */; };
+		A72B05BF25AA073300DB4BF7 /* SignUpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */; };
 		A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7436D81258B7574004D3E59 /* SignUpViewController.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
@@ -105,10 +106,11 @@
 		A72B05AD25A9A39E00DB4BF7 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		A72B05AF25A9A58300DB4BF7 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
 		A72B05B225A9B75700DB4BF7 /* VerificationCodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeInteractor.swift; sourceTree = "<group>"; };
-		A72B05B425A9BB1E00DB4BF7 /* SignInViewDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewDataDelegate.swift; sourceTree = "<group>"; };
+		A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDataDelegate.swift; sourceTree = "<group>"; };
 		A72B05B625A9C3C600DB4BF7 /* VerificationCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodePresenter.swift; sourceTree = "<group>"; };
 		A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDataDelegate.swift; sourceTree = "<group>"; };
 		A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeRouter.swift; sourceTree = "<group>"; };
+		A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRouter.swift; sourceTree = "<group>"; };
 		A7436D81258B7574004D3E59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* MaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				A7436D81258B7574004D3E59 /* SignUpViewController.swift */,
 				A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */,
 				A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */,
+				A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -295,7 +298,7 @@
 			children = (
 				A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */,
 				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
-				A72B05B425A9BB1E00DB4BF7 /* SignInViewDataDelegate.swift */,
+				A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */,
 				A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */,
 			);
 			path = Shared;
@@ -589,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A72B05BF25AA073300DB4BF7 /* SignUpRouter.swift in Sources */,
 				A76E6C80258CC8FD00E2FCDB /* SignUpInteractor.swift in Sources */,
 				A7D5F4B6259A0D3400756E4E /* UserInfoViewController.swift in Sources */,
 				A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */,
@@ -607,7 +611,7 @@
 				A72B05AE25A9A39E00DB4BF7 /* SignInPresenter.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
 				A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */,
-				A72B05B525A9BB1E00DB4BF7 /* SignInViewDataDelegate.swift in Sources */,
+				A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
 				A72B05B325A9B75700DB4BF7 /* VerificationCodeInteractor.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,

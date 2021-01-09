@@ -37,7 +37,7 @@ final class SignInRouterImpl: SignInRouter {
     pass phone: String,
     and context: UIViewController
   ) {
-    verificationCodeScene.signInViewPassed(phone)
+    verificationCodeScene.passedPhone(phone)
     verificationCodeScene.passedContext(context)
     signInView.navigationController?.pushViewController(verificationCodeScene, animated: true)
   }
