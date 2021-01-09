@@ -23,6 +23,8 @@ final class SignInViewController: UIViewController, SignInView {
   private var registerButton: UIButton
   private var toSignUpButton: UIButton
 
+  private var context: UIViewController?
+
   // MARK: - Lyfecycle
 
   init() {
@@ -113,5 +115,11 @@ final class SignInViewController: UIViewController, SignInView {
   func onCodeRequestCompleted() {
     guard let phone = phoneTextField.getText() else { return }
     router?.signInShouldOpenVerificationCodeScene(self, pass: phone)
+  }
+}
+
+extension SignInViewController: ContextDataDelegate {
+  func passedContext(_ context: UIViewController) {
+    self.context = context
   }
 }

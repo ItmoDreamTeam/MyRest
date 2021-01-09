@@ -24,6 +24,7 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   @IBOutlet weak var timerLabel: UILabel!
 
   private var phone = ""
+  private var context: UIViewController?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -84,5 +85,11 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
 extension VerificationCodeViewController: SignInViewDataDelegate {
   func signInViewPassed(_ data: String) {
     phone = data
+  }
+}
+
+extension VerificationCodeViewController: ContextDataDelegate {
+  func passedContext(_ context: UIViewController) {
+    self.context = context
   }
 }

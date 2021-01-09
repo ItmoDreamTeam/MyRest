@@ -6,11 +6,15 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol SignInRouter {
   func signInShouldOpenSignUpScene(_ signInView: SignInView)
-  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView, pass phone: String)
+  func signInShouldOpenVerificationCodeScene(
+    _ signInView: SignInView,
+    pass phone: String,
+    and context: UIViewController
+  )
 }
 
 final class SignInRouterImpl: SignInRouter {
@@ -27,8 +31,13 @@ final class SignInRouterImpl: SignInRouter {
     signInView.navigationController?.pushViewController(signUpScene, animated: true)
   }
 
-  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView, pass phone: String) {
+  func signInShouldOpenVerificationCodeScene(
+    _ signInView: SignInView,
+    pass phone: String,
+    and context: UIViewController
+  ) {
     verificationCodeScene.signInViewPassed(phone)
+    verificationCodeScene.passedContext(context)
     signInView.navigationController?.pushViewController(verificationCodeScene, animated: true)
   }
 }

@@ -21,10 +21,16 @@ final class VerificationCodeInteractorImpl: VerificationCodeInteractor {
 
   private let errorHandler: IOSErrorHandler
   private let userClient: UserClient
+  private let presenter: VerificationCodePresenter
 
-  init(errorHandler: IOSErrorHandler, userClient: UserClient) {
+  init(
+    errorHandler: IOSErrorHandler,
+    userClient: UserClient,
+    presenter: VerificationCodePresenter
+  ) {
     self.errorHandler = errorHandler
     self.userClient = userClient
+    self.presenter = presenter
   }
 
   func verificationCodeStartedSession(
@@ -38,7 +44,7 @@ final class VerificationCodeInteractorImpl: VerificationCodeInteractor {
         self?.errorHandler.handleNSError(context: verificationCodeView, error: error)
         return
       }
-      
+      self?.presenter.interactorDidStartSession()
     }
   }
 }

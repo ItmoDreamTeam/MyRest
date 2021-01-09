@@ -21,6 +21,6 @@ final class VerificationCodePresenterImpl: VerificationCodePresenter {
   }
 
   func interactorDidStartSession() {
-
+    view.onStartSessionCompleted()
   }
 }
