@@ -21,6 +21,8 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   @IBOutlet weak var sendCodeButton: UIButton!
   @IBOutlet weak var timerLabel: UILabel!
 
+  private var phone = ""
+
   override func viewDidLoad() {
     super.viewDidLoad()
     configureTimerLabel()
@@ -70,5 +72,11 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
       return
     }
     enableSendCodeButton(isEnabled: true)
+  }
+}
+
+extension VerificationCodeViewController: SignInViewDataDelegate {
+  func signInViewPassed(_ data: String) {
+    phone = data
   }
 }

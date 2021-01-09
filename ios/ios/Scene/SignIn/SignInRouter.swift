@@ -10,15 +10,15 @@ import Foundation
 
 protocol SignInRouter {
   func signInShouldOpenSignUpScene(_ signInView: SignInView)
-  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView)
+  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView, pass phone: String)
 }
 
 final class SignInRouterImpl: SignInRouter {
 
   private let signUpScene: SignUpView
-  private let verificationCodeScene: VerificationCodeView
+  private let verificationCodeScene: VerificationCodeScene
 
-  init(signUpScene: SignUpView, verificationCodeScene: VerificationCodeView) {
+  init(signUpScene: SignUpView, verificationCodeScene: VerificationCodeScene) {
     self.signUpScene = signUpScene
     self.verificationCodeScene = verificationCodeScene
   }
@@ -27,7 +27,8 @@ final class SignInRouterImpl: SignInRouter {
     signInView.navigationController?.pushViewController(signUpScene, animated: true)
   }
 
-  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView) {
+  func signInShouldOpenVerificationCodeScene(_ signInView: SignInView, pass phone: String) {
+    verificationCodeScene.signInViewPassed(phone)
     signInView.navigationController?.pushViewController(verificationCodeScene, animated: true)
   }
 }

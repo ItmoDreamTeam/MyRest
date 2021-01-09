@@ -111,6 +111,7 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - SignInView methods
 
   func onCodeRequestCompleted() {
-    router?.signInShouldOpenVerificationCodeScene(self)
+    guard let phone = phoneTextField.getText() else { return }
+    router?.signInShouldOpenVerificationCodeScene(self, pass: phone)
   }
 }
