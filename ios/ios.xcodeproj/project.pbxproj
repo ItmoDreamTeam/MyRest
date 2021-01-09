@@ -19,6 +19,7 @@
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
 		A74D34DA25A5AB2500BAA574 /* IOSErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D34D925A5AB2500BAA574 /* IOSErrorHandler.swift */; };
 		A74D6FFF25A80BA600BF1535 /* ToSignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */; };
+		A74D700325A8AFDF00BF1535 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */; };
 		A76E6C7E258CA11200E2FCDB /* KeychainWrapper+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */; };
 		A76E6C80258CC8FD00E2FCDB /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */; };
 		A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */; };
@@ -91,6 +92,8 @@
 		A7494BD025784EA00074CE32 /* MaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
 		A74D34D925A5AB2500BAA574 /* IOSErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSErrorHandler.swift; sourceTree = "<group>"; };
 		A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToSignInRouter.swift; sourceTree = "<group>"; };
+		A74D700125A896F900BF1535 /* shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shared.h; path = "../shared/build/xcode-frameworks/shared.framework/Headers/shared.h"; sourceTree = "<group>"; };
+		A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeychainWrapper+Keys.swift"; sourceTree = "<group>"; };
 		A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				7555FFB1242A642300829871 /* shared.framework */,
+				A74D700125A896F900BF1535 /* shared.h */,
 				23364AA6722E154E830FCD92 /* libPods-ios.a */,
 			);
 			name = Frameworks;
@@ -292,10 +296,10 @@
 			children = (
 				A7D2DA072570506A00ED74BC /* View */,
 				A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */,
-				A7D2DA12257062C000ED74BC /* RestaurantViewModel.swift */,
-				A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */,
 				A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */,
 				A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */,
+				A7D2DA12257062C000ED74BC /* RestaurantViewModel.swift */,
+				A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */,
 			);
 			path = RestaurantList;
 			sourceTree = "<group>";
@@ -325,6 +329,7 @@
 			children = (
 				A7D32C442571455600124AFE /* UIColor+Utils.swift */,
 				A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */,
+				A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
 				A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */,
 				A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */,
+				A74D700325A8AFDF00BF1535 /* UIViewController+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,30 +10,18 @@ import Foundation
 import SwiftKeychainWrapper
 
 protocol RestaurantListRouter {
-  func restaurantListShouldOpenAboutScene(_ restaurantListScene: RestaurantListView)
+  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView)
 }
 
 final class RestaurantListRouterImpl: RestaurantListRouter {
 
-  private let signUpScene: SignUpView
+  private let userInfoScene: UserInfoView
 
-  init(signUpScene: SignUpView) {
-    self.signUpScene = signUpScene
+  init(userInfoScene: UserInfoView) {
+    self.userInfoScene = userInfoScene
   }
 
-  func restaurantListShouldOpenAboutScene(_ restaurantListScene: RestaurantListView) {
-    guard KeychainWrapper.standard.string(forKey: .token) != nil else {
-      openSignUpScene(restaurantListScene)
-      return
-    }
-    openAboutScene(restaurantListScene)
-  }
-
-  private func openSignUpScene(_ restaurantListScene: RestaurantListView) {
-    restaurantListScene.navigationController?.pushViewController(signUpScene, animated: true)
-  }
-
-  private func openAboutScene(_ restaurantListScene: RestaurantListView) {
-    fatalError("Not implemented yet")
+  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView) {
+    restaurantListScene.navigationController?.pushViewController(userInfoScene, animated: true)
   }
 }
