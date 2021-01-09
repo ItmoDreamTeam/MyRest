@@ -9,15 +9,22 @@
 import Foundation
 
 protocol SignInRouter {
+  func signInShouldOpenSignUpScene(_ signInView: SignInView)
   func signInShouldOpenVerificationCodeScene(_ signInView: SignInView)
 }
 
 final class SignInRouterImpl: SignInRouter {
 
+  private let signUpScene: SignUpView
   private let verificationCodeScene: VerificationCodeView
 
-  init(verificationCodeScene: VerificationCodeView) {
+  init(signUpScene: SignUpView, verificationCodeScene: VerificationCodeView) {
+    self.signUpScene = signUpScene
     self.verificationCodeScene = verificationCodeScene
+  }
+
+  func signInShouldOpenSignUpScene(_ signInView: SignInView) {
+    signInView.navigationController?.pushViewController(signUpScene, animated: true)
   }
 
   func signInShouldOpenVerificationCodeScene(_ signInView: SignInView) {

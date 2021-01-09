@@ -17,6 +17,7 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - properties
 
   var router: SignInRouter?
+  var interactor: SignInInteractor?
 
   private var phoneTextField: MaskTextField
   private var registerButton: UIButton
@@ -88,11 +89,12 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - Actions
 
   @objc private func toSignUpTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    router?.signInShouldOpenSignUpScene(self)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    guard let phone = phoneTextField.getText() else { return }
+    interactor?.signInSceneDidRequestCode(self, for: phone)
   }
 
   @objc private func textFieldFilled(_ sender: UITextField) {
