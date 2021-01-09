@@ -25,7 +25,6 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var surnameIsNotEmpty = false
   private var phoneIsFilled = false
   private var phone: String?
-  private var isRegistered = false
 
   private var nameLabel: UILabel
   private var nameTextField: UITextField
@@ -34,22 +33,16 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var phoneLabel: UILabel
   private var phoneTextField: MaskTextField
   private var getCodeButton: UIButton
-  private var codeTextField: MaskTextField
-  private var timerLabel: UILabel
-  private var registerButton: UIButton
 
   // MARK: - lifecycle
   init() {
     nameLabel = UILabel()
-    surnameLabel = UILabel()
-    phoneLabel = UILabel()
     nameTextField = UITextField()
+    surnameLabel = UILabel()
     surnameTextField = UITextField()
+    phoneLabel = UILabel()
     phoneTextField = MaskTextField(formattingPattern: "*** ***-**-**", prefix: " +7 ")
     getCodeButton = UIButton(type: .system)
-    codeTextField = MaskTextField(formattingPattern: "***-***", prefix: "   ")
-    timerLabel = UILabel()
-    registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -127,131 +120,52 @@ final class SignUpViewController: UIViewController, SignUpView {
     getCodeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     getCodeButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
     getCodeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    getCodeButton.backgroundColor = .lightGray
     getCodeButton.setTitle("Получить код", for: .normal)
     getCodeButton.setTitleColor(.white, for: .normal)
     getCodeButton.addTarget(self, action: #selector(getCodeTapped(_:)), for: .touchUpInside)
-    getCodeButton.isEnabled = false
     getCodeButton.layer.cornerRadius = 10
-  }
-
-  private func enableGetCodeButton(isEnabled: Bool) {
-    getCodeButton.isEnabled = isEnabled
-    getCodeButton.backgroundColor = isEnabled ? .gray : .lightGray
-  }
-
-  private func enableRegisterButton(isEnabled: Bool) {
-    registerButton.isEnabled = isEnabled
-    registerButton.backgroundColor = isEnabled ? .gray : .lightGray
-  }
-
-  private func removeInfoLabels() {
-    nameTextField.removeFromSuperview()
-    nameLabel.removeFromSuperview()
-    surnameLabel.removeFromSuperview()
-    surnameTextField.removeFromSuperview()
-    phoneLabel.removeFromSuperview()
-    phoneTextField.removeFromSuperview()
-  }
-
-  private func showRegisterButton() {
-    view.addSubview(registerButton)
-    registerButton.translatesAutoresizingMaskIntoConstraints = false
-    registerButton.bottomAnchor.constraint(equalTo: getCodeButton.topAnchor, constant: -10).isActive = true
-    registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
-    registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    registerButton.backgroundColor = .gray
-    registerButton.setTitle("Зарегистрироваться", for: .normal)
-    registerButton.setTitleColor(.white, for: .normal)
-    registerButton.addTarget(self, action: #selector(registerTapped(_:)), for: .touchUpInside)
-    registerButton.layer.cornerRadius = 10
-    enableRegisterButton(isEnabled: false)
-  }
-
-  private func showCodeTextField() {
-    view.addSubview(codeTextField)
-    codeTextField.translatesAutoresizingMaskIntoConstraints = false
-    codeTextField.bottomAnchor.constraint(equalTo: registerButton.topAnchor, constant: -10).isActive = true
-    codeTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-    codeTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    codeTextField.widthAnchor.constraint(equalToConstant: 70).isActive = true
-    codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
-    codeTextField.layer.borderWidth = Constant.textFieldBorderWidth
-    codeTextField.layer.borderColor = UIColor.black.cgColor
-    codeTextField.addTarget(self, action: #selector(codeTextFieldFilled(_:)), for: .editingChanged)
-  }
-
-  private func showTimerLabel() {
-    timerLabel.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(timerLabel)
-    timerLabel.topAnchor.constraint(equalTo: getCodeButton.bottomAnchor, constant: 10).isActive = true
-    timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
-    timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-    timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    timerLabel.textAlignment = .center
-    timerLabel.numberOfLines = 0
-    timerLabel.textColor = .darkGray
-    var secondCount = 20
-    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-      secondCount -= 1
-      self.timerLabel.text = "Можете запросить код повторно через: \(secondCount) секунд"
-      if secondCount == 0 {
-        self.timerLabel.text = ""
-        timer.invalidate()
-        self.enableGetCodeButton(isEnabled: true)
-      }
-    }
+    getCodeButton.enableButton(isEnabled: false)
   }
 
   // MARK: - private textField methods
-  @objc private func nameTextFieldFilled(_ sender: UITextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
-    guard
-      let count = sender.text?.count,
-      count >= 3
-      else {
-        sender.text = "  "
-        nameIsNotEmpty = false
-        return
-    }
-    nameIsNotEmpty = true
-  }
-
-  @objc private func surnameTextFieldFilled(_ sender: UITextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
-    guard
-      let count = sender.text?.count,
-      count >= 3
-      else {
-        sender.text = "  "
-        surnameIsNotEmpty = false
-        return
-    }
-    surnameIsNotEmpty = true
-  }
 
   @objc private func phoneTextFieldFilled(_ sender: MaskTextField) {
-    defer { enableGetCodeButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled) }
-    guard
-      let count = sender.getText()?.count,
-      count >= Constant.phoneLength
-      else {
-        phoneIsFilled = false
-        return
+    defer {
+      getCodeButton.enableButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled)
+    }
+    guard sender.getText()?.count ?? 0 >= Constant.phoneLength else {
+      phoneIsFilled = false
+      return
     }
     phoneIsFilled = true
   }
 
-  @objc private func codeTextFieldFilled(_ sender: MaskTextField) {
-    guard
-      let count = sender.getText()?.count,
-      count >= Constant.codeLength
-      else {
-        enableRegisterButton(isEnabled: false)
-        return
+  @objc private func nameTextFieldFilled(_ sender: UITextField) {
+    textFieldFilled(sender)
+  }
+
+  @objc private func surnameTextFieldFilled(_ sender: UITextField) {
+    textFieldFilled(sender)
+  }
+
+  private func textFieldFilled(_ sender: UITextField) {
+    defer {
+      getCodeButton.enableButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled)
     }
-    enableRegisterButton(isEnabled: true)
+    if sender.text?.count ?? 0 >= 3 {
+      sender.text = "  "
+      updateIsNotEmpty(sender: sender, value: true)
+    } else {
+      updateIsNotEmpty(sender: sender, value: false)
+    }
+  }
+
+  private func updateIsNotEmpty(sender: UITextField, value: Bool) {
+    if sender.hashValue == nameTextField.hashValue {
+      nameIsNotEmpty = value
+    } else {
+      surnameIsNotEmpty = value
+    }
   }
 
   // MARK: - private buttons methods
@@ -260,34 +174,18 @@ final class SignUpViewController: UIViewController, SignUpView {
       let name = nameTextField.text,
       let lastName = surnameTextField.text,
       let phone = phoneTextField.getText()
-      else {
-        return
-    }
+    else { return }
     self.phone = phone
     interactor?.signUpDidRequestVerificationCode(
       self,
-      forSignUp: SignUp(
-        firstName: name, lastName: lastName, phone: phone)
+      forSignUp: SignUp(firstName: name, lastName: lastName, phone: phone)
     )
-    enableGetCodeButton(isEnabled: false)
-  }
-
-  @objc private func registerTapped(_ sender: UIButton) {
-    guard
-      let phone = phone,
-      let code = codeTextField.getText()
-      else { return }
-    let signInVerification = SignInVerification(phone: phone, code: code)
-    interactor?.signUpDidSendVerificationCode(self, signInVerification: signInVerification)
+    getCodeButton.enableButton(isEnabled: false)
   }
 
   // MARK: - SignUpView methods
   func onVerificationCodeRequestCompleted() {
-    enableGetCodeButton(isEnabled: false)
-    removeInfoLabels()
-    showTimerLabel()
-    showRegisterButton()
-    showCodeTextField()
+
   }
 
   func onVerificationCodeRequestError(_ error: Error) {

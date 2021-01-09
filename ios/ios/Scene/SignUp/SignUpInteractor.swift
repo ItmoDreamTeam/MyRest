@@ -12,7 +12,6 @@ import shared
 
 protocol SignUpInteractor {
   func signUpDidRequestVerificationCode(_ signUpView: SignUpView, forSignUp: SignUp)
-  func signUpDidSendVerificationCode(_ signUpView: SignUpView, signInVerification: SignInVerification)
 }
 
 final class SignUpInteractorImpl: SignUpInteractor {
@@ -35,21 +34,5 @@ final class SignUpInteractorImpl: SignUpInteractor {
       }
       self?.presenter.interactorDidRequestVerificationCode(error)
     }
-  }
-
-  func signUpDidSendVerificationCode(_ signUpView: SignUpView, signInVerification: SignInVerification) {
-    userClient.startSession(signInVerification: signInVerification) { [weak self] session, error in
-      guard let session = session, error == nil else {
-        // swiftlint:disable force_unwrapping
-        self?.presenter.interactorDidRequestSession(error!)
-        return
-      }
-      self?.saveToken(fromSession: session)
-      self?.presenter.interactorDidRequestSession(nil)
-    }
-  }
-
-  private func saveToken(fromSession: ActiveSession) {
-    keychainWrapper[.token] = fromSession.token
   }
 }

@@ -11,7 +11,6 @@ import shared
 
 protocol SignUpPresenter {
   func interactorDidRequestVerificationCode(_ error: Error?)
-  func interactorDidRequestSession(_ error: Error?)
 }
 
 final class SignUpPresenterImpl: SignUpPresenter {
@@ -28,13 +27,5 @@ final class SignUpPresenterImpl: SignUpPresenter {
       return
     }
     view.onVerificationCodeRequestError(error)
-  }
-
-  func interactorDidRequestSession(_ error: Error?) {
-    guard let error = error else {
-      view.onSessionRequestCompleted()
-      return
-    }
-    view.onSessionRequestError(error)
   }
 }
