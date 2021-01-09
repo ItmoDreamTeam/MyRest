@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol ContextDataDelegate {
+protocol ContextDataDelegate: class {
   func passedContext(_ context: UIViewController)
 }

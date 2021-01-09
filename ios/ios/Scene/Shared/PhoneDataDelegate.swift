@@ -6,6 +6,6 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-protocol PhoneDataDelegate {
+protocol PhoneDataDelegate: class {
   func passedPhone(_ phone: String)
 }

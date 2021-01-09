@@ -40,22 +40,35 @@ final class AppDependencies {
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
 
-    // MARK: - SignInScene
-    container.register { SignInViewController() as SignInView }
-
-    // MARK: - ToSignInRouter
-    container.register {
-      ToSignInRouterImp(signInScene: try self.container.resolve()) as ToSignInRouter
+    // MARK: - VerificationCodeScene
+    container.register { VerificationCodeRouterImpl() as VerificationCodeRouter }
+    container.register(.shared) {
+      try VerificationCodeInteractorImpl(
+        errorHandler: self.container.resolve(),
+        userClient: self.container.resolve(),
+        presenter: self.container.resolve()
+      ) as VerificationCodeInteractor
     }
-
-    // MARK: - ErrorHandler
-    container.register { IOSErrorHandler(router: try self.container.resolve()) }
+    container.register(.shared) {
+      VerificationCodePresenterImpl(view: try self.container.resolve()) as VerificationCodePresenter
+    }
+    container.register(.shared) { VerificationCodeViewController() }
+      .resolvingProperties { container, view in
+        view.interactor = try container.resolve()
+        view.router = try container.resolve()
+      }
+    .implements(
+      VerificationCodeView.self,
+      PhoneDataDelegate.self,
+      ContextDataDelegate.self,
+      VerificationCodeScene.self
+    )
 
     // MARK: - SignUpScene
     container.register(.shared) {
       try SignUpInteractorImpl(
         userClient: self.container.resolve(),
-        keychainWrapper: self.container.resolve(),
+        errorHandler: self.container.resolve(),
         presenter: self.container.resolve()
         ) as SignUpInteractor
     }
@@ -66,7 +79,38 @@ final class AppDependencies {
     .resolvingProperties { container, view in
       view.interactor = try container.resolve()
     }
-    .implements(SignUpView.self)
+    .implements(SignUpView.self, ContextDataDelegate.self, SignUpScene.self)
+
+    // MARK: - SignInScene
+    container.register(.shared) {
+      try SignInRouterImpl(
+        signUpScene: self.container.resolve(),
+        verificationCodeScene: self.container.resolve()
+      ) as SignInRouter
+    }
+    container.register(.shared) {
+      try SignInInteractorImpl(
+        userClient: self.container.resolve(),
+        errorHandler: self.container.resolve()
+      ) as SignInInteractor
+    }
+    container.register(.shared) {
+      SignInPresenterImpl(view: try self.container.resolve()) as SignInPresenter
+    }
+    container.register(.shared) { SignInViewController() }
+      .resolvingProperties { container, view in
+        view.interactor = try container.resolve()
+        view.router = try container.resolve()
+      }
+    .implements(SignInView.self)
+
+    // MARK: - ToSignInRouter
+    container.register(.shared) {
+      ToSignInRouterImp(signInScene: try self.container.resolve()) as ToSignInRouter
+    }
+
+    // MARK: - ErrorHandler
+    container.register(.shared) { IOSErrorHandler(router: try self.container.resolve()) }
 
     // MARK: - UserInfoScene
     container.register {
