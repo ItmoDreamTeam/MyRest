@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol SignInView: UIViewController {}
+protocol SignInView: UIViewController {
+  func onCodeRequestCompleted()
+}
 
 final class SignInViewController: UIViewController, SignInView {
 
@@ -100,5 +102,11 @@ final class SignInViewController: UIViewController, SignInView {
       return
     }
     registerButton.enableButton(isEnabled: true)
+  }
+
+  // MARK: - SignInView methods
+
+  func onCodeRequestCompleted() {
+    fatalError("Not implemented yet")
   }
 }
