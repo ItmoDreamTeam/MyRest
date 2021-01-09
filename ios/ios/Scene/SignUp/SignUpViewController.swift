@@ -11,9 +11,6 @@ import shared
 
 protocol SignUpView: UIViewController {
   func onVerificationCodeRequestCompleted()
-  func onVerificationCodeRequestError(_ error: Error)
-  func onSessionRequestCompleted()
-  func onSessionRequestError(_ error: Error)
 }
 
 final class SignUpViewController: UIViewController, SignUpView {
@@ -184,19 +181,5 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - SignUpView methods
-  func onVerificationCodeRequestCompleted() {
-
-  }
-
-  func onVerificationCodeRequestError(_ error: Error) {
-    fatalError("Not implemented yet")
-  }
-
-  func onSessionRequestCompleted() {
-    fatalError("Not implemented yet")
-  }
-
-  func onSessionRequestError(_ error: Error) {
-    fatalError("Not implemented yet")
-  }
+  func onVerificationCodeRequestCompleted() {}
 }
