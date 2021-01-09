@@ -122,6 +122,8 @@ final class SignInViewController: UIViewController, SignInView {
   }
 }
 
+// MARK: - ContextDataDelegate
+
 extension SignInViewController: ContextDataDelegate {
   func passedContext(_ context: UIViewController) {
     self.context = context

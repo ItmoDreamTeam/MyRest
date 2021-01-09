@@ -13,11 +13,16 @@ protocol VerificationCodeView: UIViewController {
 }
 
 final class VerificationCodeViewController: UIViewController, VerificationCodeView {
+
+  // MARK: - Class members
+
   static let storyboardName = "VerificationCodeViewController"
   static func storyboardInstance() -> Self? {
     let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
+
+  // MARK: - properties
 
   var interactor: VerificationCodeInteractor?
   var router: VerificationCodeRouter?
@@ -29,11 +34,15 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   private var phone = ""
   private var context: UIViewController?
 
+  // MARK: - Lyfecycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
     configureTimerLabel()
     configureSendCodeButton()
   }
+
+  // MARK: - Configure UI
 
   private func configureCodeTextField() {
     codeTextField.layer.cornerRadius = Constant.textFieldCornerRadius
@@ -65,6 +74,8 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
     sendCodeButton.backgroundColor = isEnabled ? .gray : .lightGray
   }
 
+  // MARK: - Actions
+
   @IBAction func sendCodeTapped(_ sender: UIButton) {
     guard let verificationCode = codeTextField.getText() else { return }
     interactor?.verificationCodeStartedSession(self, for: phone, and: verificationCode)
@@ -78,17 +89,23 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
     enableSendCodeButton(isEnabled: true)
   }
 
+  // MARK: - VerificationCodeView
+
   func onStartSessionCompleted() {
     guard let context = context else { return }
     router?.verificationCodeShouldBackTo(self, contex: context)
   }
 }
 
+// MARK: - SignInViewDataDelegate
+
 extension VerificationCodeViewController: SignInViewDataDelegate {
   func signInViewPassed(_ data: String) {
     phone = data
   }
 }
+
+// MARK: - ContextDataDelegate
 
 extension VerificationCodeViewController: ContextDataDelegate {
   func passedContext(_ context: UIViewController) {

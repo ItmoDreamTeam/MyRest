@@ -16,6 +16,7 @@ protocol SignUpView: UIViewController {
 final class SignUpViewController: UIViewController, SignUpView {
 
   // MARK: - properties
+
   var interactor: SignUpInteractor?
 
   private var nameIsNotEmpty = false
@@ -32,6 +33,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   private var getCodeButton: UIButton
 
   // MARK: - lifecycle
+
   init() {
     nameLabel = UILabel()
     nameTextField = UITextField()
@@ -56,6 +58,7 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - private layout views
+  
   private func configureNavBar() {
     navigationController?.navigationBar.prefersLargeTitles = false
     navigationItem.title = "Регистрация"
@@ -180,8 +183,11 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - SignUpView methods
+
   func onVerificationCodeRequestCompleted() {}
 }
+
+// MARK: - ContextDataDelegate
 
 extension SignUpViewController: ContextDataDelegate {
   func passedContext(_ context: UIViewController) {
