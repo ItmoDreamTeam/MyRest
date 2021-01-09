@@ -20,7 +20,7 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   }
 
   var interactor: VerificationCodeInteractor?
-
+  var router: VerificationCodeRouter?
 
   @IBOutlet weak var codeTextField: MaskTextField!
   @IBOutlet weak var sendCodeButton: UIButton!
@@ -79,7 +79,8 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   }
 
   func onStartSessionCompleted() {
-    fatalError("Not implemened yet")
+    guard let context = context else { return }
+    router?.verificationCodeShouldBackTo(self, contex: context)
   }
 }
 
