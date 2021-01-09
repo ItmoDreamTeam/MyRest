@@ -20,7 +20,7 @@ class TablePermissionEvaluator(
             "write" -> {
                 val restaurant = table.restaurant
                 val activeManagers = employeeService.getEmployeesOfRestaurant(restaurant.id)
-                    .filter { it.position == EmployeePosition.MANAGER && it.active }
+                    .filter { it.position == EmployeePosition.MANAGER && it.active() }
                     .map { it.user }
                 return authentication.principal in activeManagers
             }
