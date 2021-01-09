@@ -12,12 +12,18 @@ protocol SignInView: UIViewController {}
 
 final class SignInViewController: UIViewController, SignInView {
 
+  // MARK: - properties
+
   private var phoneTextField: MaskTextField
   private var registerButton: UIButton
+  private var toSignUpButton: UIButton
+
+  // MARK: - Lyfecycle
 
   init() {
     phoneTextField = MaskTextField(formattingPattern: "*** ***-**-**", prefix: " +7 ")
     registerButton = UIButton(type: .system)
+    toSignUpButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -30,8 +36,10 @@ final class SignInViewController: UIViewController, SignInView {
     view.backgroundColor = .white
     configureNavBar()
     configurePhoneTextField()
-    configureButton()
+    configureRegisterButton()
   }
+
+  // MARK: - Configure UI
 
   private func configureNavBar() {
     navigationController?.navigationBar.prefersLargeTitles = false
@@ -48,7 +56,7 @@ final class SignInViewController: UIViewController, SignInView {
     phoneTextField.becomeFirstResponder()
   }
 
-  private func configureButton() {
+  private func configureRegisterButton() {
     view.addSubview(registerButton)
     registerButton.center = view.center
     registerButton.translatesAutoresizingMaskIntoConstraints = false
@@ -56,16 +64,31 @@ final class SignInViewController: UIViewController, SignInView {
     registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
     registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    registerButton.backgroundColor = .lightGray
     registerButton.setTitle("Войти", for: .normal)
     registerButton.setTitleColor(.white, for: .normal)
     registerButton.addTarget(self, action: #selector(registerTapped(_:)), for: .touchUpInside)
-    registerButton.isEnabled = false
     registerButton.layer.cornerRadius = 10
+    registerButton.enableButton(isEnabled: false)
+  }
+
+  private func configureToSignUpButton() {
+    view.addSubview(toSignUpButton)
+    toSignUpButton.translatesAutoresizingMaskIntoConstraints = false
+    toSignUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    toSignUpButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    toSignUpButton.setTitle("Ещё не зарегистрированы?", for: .normal)
+    toSignUpButton.setTitleColor(.gray, for: .normal)
+    toSignUpButton.addTarget(self, action: #selector(toSignUpTapped(_:)), for: .touchUpInside)
+  }
+
+  // MARK: - Actions
+
+  @objc private func toSignUpTapped(_ sender: UIButton) {
+    fatalError()
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    // MARK: - not implementer yet
+    fatalError()
   }
 
   @objc private func textFieldFilled(_ sender: UITextField) {
@@ -73,11 +96,9 @@ final class SignInViewController: UIViewController, SignInView {
       let count = sender.text?.count,
       count >= 17
     else {
-      registerButton.isEnabled = false
-      registerButton.backgroundColor = .lightGray
+      registerButton.enableButton(isEnabled: false)
       return
     }
-    registerButton.isEnabled = true
-    registerButton.backgroundColor = .gray
+    registerButton.enableButton(isEnabled: true)
   }
 }
