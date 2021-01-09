@@ -14,6 +14,8 @@
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
+		A72B05A625A9740600DB4BF7 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* EnterCodeViewController.swift */; };
+		A72B05A825A9752100DB4BF7 /* EnterCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* EnterCodeViewController.storyboard */; };
 		A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7436D81258B7574004D3E59 /* SignUpViewController.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
@@ -87,6 +89,8 @@
 		7555FFA2242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A72B05A525A9740600DB4BF7 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
+		A72B05A725A9752100DB4BF7 /* EnterCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EnterCodeViewController.storyboard; sourceTree = "<group>"; };
 		A7436D81258B7574004D3E59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* MaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
@@ -219,6 +223,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A72B05A425A973E000DB4BF7 /* EnterCode */ = {
+			isa = PBXGroup;
+			children = (
+				A72B05A525A9740600DB4BF7 /* EnterCodeViewController.swift */,
+				A72B05A725A9752100DB4BF7 /* EnterCodeViewController.storyboard */,
+			);
+			path = EnterCode;
+			sourceTree = "<group>";
+		};
 		A7436D80258B70D6004D3E59 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +295,7 @@
 		A7D2DA0325704E0900ED74BC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				A72B05A425A973E000DB4BF7 /* EnterCode */,
 				A74D6FFD25A809D200BF1535 /* Shared */,
 				A7D5F4B4259A0CE100756E4E /* UserInfo */,
 				A7436D80258B70D6004D3E59 /* SignUp */,
@@ -454,6 +468,7 @@
 				A7D2DA0D25705BBD00ED74BC /* RestaurantCell.xib in Resources */,
 				A7D5F4B8259A0FB300756E4E /* UserInfoViewController.storyboard in Resources */,
 				7555FF8B242A565B00829871 /* LaunchScreen.storyboard in Resources */,
+				A72B05A825A9752100DB4BF7 /* EnterCodeViewController.storyboard in Resources */,
 				7555FF85242A565B00829871 /* Assets.xcassets in Resources */,
 				A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */,
 			);
@@ -553,6 +568,7 @@
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
+				A72B05A625A9740600DB4BF7 /* EnterCodeViewController.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
 				A74D6FFF25A80BA600BF1535 /* ToSignInRouter.swift in Sources */,

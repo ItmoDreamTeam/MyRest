@@ -16,7 +16,7 @@ final class SignInViewController: UIViewController, SignInView {
   private var registerButton: UIButton
 
   init() {
-    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
+    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-**", prefix: " +7 ")
     registerButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
