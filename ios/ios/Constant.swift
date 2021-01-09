@@ -15,4 +15,6 @@ enum Constant {
   // MARK: - UI constants
   static let textFieldCornerRadius: CGFloat = 5
   static let textFieldBorderWidth: CGFloat = 1
+
+  static let buttonCornerRadius: CGFloat = 10
 }

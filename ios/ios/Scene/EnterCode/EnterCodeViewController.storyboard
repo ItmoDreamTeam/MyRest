@@ -27,6 +27,9 @@
                                 <state key="normal" title="Отправить код">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendCodeTapped:" destination="otJ-vy-6RP" eventType="touchUpInside" id="9g8-Ec-9jh"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEI-me-ZGI">
                                 <rect key="frame" x="5" y="483" width="404" height="50"/>
@@ -60,7 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="qqX-ry-be6"/>
                     </view>
                     <connections>
-                        <outlet property="CodeTextField" destination="ZOp-ok-iiR" id="3ur-I7-xrv"/>
+                        <outlet property="codeTextField" destination="ZOp-ok-iiR" id="3ur-I7-xrv"/>
                         <outlet property="sendCodeButton" destination="3sk-AF-sJq" id="ldL-eu-fme"/>
                         <outlet property="timerLabel" destination="HEI-me-ZGI" id="Bsj-pO-riX"/>
                     </connections>
