@@ -1,2 +1,21 @@
 <resources>
+
+    <string name="title_activity_signIn">Sign In</string>
+    <string name="title_activity_signUp">Sign Up</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_code">Code</string>
+    <string name="prompt_first_name">"First name"</string>
+    <string name="prompt_last_name">"Last name"</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_back">Back</string>
+    <string name="action_send">Send</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_phone">Not a valid phone</string>
+    <string name="invalid_password">Not a valid password</string>
+    <string name="invalid_code">Not a valid code</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="send_failed">"Verification code sending failed"</string>
+
 </resources>

@@ -1,17 +1,17 @@
 package org.itmodreamteam.myrest.shared.user
 
 import io.ktor.client.request.*
-import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
+import org.itmodreamteam.myrest.shared.AccessTokenProvider
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
-class UserClientImpl : UserClient {
+class UserClientImpl(private val accessTokenProvider: AccessTokenProvider) : UserClient {
 
     private val client = HttpClientProvider.provide()
 
     override suspend fun getMe(): Profile {
         return client.get {
             url("/users/me")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
