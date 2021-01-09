@@ -19,6 +19,9 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
     return storyboard.instantiateInitialViewController() as? Self
   }
 
+  var interactor: VerificationCodeInteractor?
+
+
   @IBOutlet weak var codeTextField: MaskTextField!
   @IBOutlet weak var sendCodeButton: UIButton!
   @IBOutlet weak var timerLabel: UILabel!
@@ -63,14 +66,12 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
   }
 
   @IBAction func sendCodeTapped(_ sender: UIButton) {
-    fatalError("Not implemened yet")
+    guard let verificationCode = codeTextField.getText() else { return }
+    interactor?.verificationCodeStartedSession(self, for: phone, and: verificationCode)
   }
 
   @objc private func onCodeTextFieldChanged(_ sender: MaskTextField) {
-    guard
-      let count = sender.getText()?.count,
-      count >= Constant.codeLength
-    else {
+    guard sender.getText()?.count ?? 0 >= Constant.codeLength else {
       enableSendCodeButton(isEnabled: false)
       return
     }
