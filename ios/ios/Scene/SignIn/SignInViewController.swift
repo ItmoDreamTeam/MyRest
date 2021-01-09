@@ -84,11 +84,11 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - Actions
 
   @objc private func toSignUpTapped(_ sender: UIButton) {
-    fatalError()
+    fatalError("Not implemented yet")
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    fatalError()
+    fatalError("Not implemented yet")
   }
 
   @objc private func textFieldFilled(_ sender: UITextField) {

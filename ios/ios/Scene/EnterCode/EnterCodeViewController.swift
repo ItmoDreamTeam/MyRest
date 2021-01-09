@@ -66,8 +66,8 @@ final class EnterCodeViewController: UIViewController, EnterCodeView {
       let count = sender.getText()?.count,
       count >= Constant.codeLength
     else {
-        enableSendCodeButton(isEnabled: false)
-        return
+      enableSendCodeButton(isEnabled: false)
+      return
     }
     enableSendCodeButton(isEnabled: true)
   }

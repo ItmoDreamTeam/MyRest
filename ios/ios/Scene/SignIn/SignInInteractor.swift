@@ -15,6 +15,12 @@ protocol SignInInteractor {
 
 final class SignInInteractorImpl: SignInInteractor {
 
+  private let userClient: UserClient
+
+  init(userClient: UserClient) {
+    self.userClient = userClient
+  }
+
   func signInSceneDidRequestCode(_ signInView: SignInView) {
 
   }

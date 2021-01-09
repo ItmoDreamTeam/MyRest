@@ -18,8 +18,9 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
   }
 
   func handleNSError(context: UIViewController?, error: Error?) {
-    guard let nsError = error as NSError?,
-          let clientError = nsError.userInfo["KotlinException"] as? ClientException
+    guard
+      let nsError = error as NSError?,
+      let clientError = nsError.userInfo["KotlinException"] as? ClientException
     else { return }
     handle(context: context, exception: clientError)
   }
