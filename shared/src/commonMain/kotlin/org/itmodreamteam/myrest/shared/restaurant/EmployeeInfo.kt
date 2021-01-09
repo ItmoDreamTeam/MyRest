@@ -12,5 +12,6 @@ data class EmployeeInfo(
     val userStatus: EmployeeUserStatus,
     val restaurantStatus: EmployeeRestaurantStatus,
 ) {
-    val active: Boolean = userStatus == EmployeeUserStatus.ACTIVE && restaurantStatus == EmployeeRestaurantStatus.ACTIVE
+    fun active(): Boolean =
+        userStatus == EmployeeUserStatus.ACTIVE && restaurantStatus == EmployeeRestaurantStatus.ACTIVE
 }
