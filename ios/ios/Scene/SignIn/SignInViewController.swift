@@ -91,7 +91,8 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - Actions
 
   @objc private func toSignUpTapped(_ sender: UIButton) {
-    router?.signInShouldOpenSignUpScene(self)
+    guard let context = context else { return }
+    router?.signInShouldOpenSignUpScene(self, pass: context)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
@@ -113,8 +114,11 @@ final class SignInViewController: UIViewController, SignInView {
   // MARK: - SignInView methods
 
   func onCodeRequestCompleted() {
-    guard let phone = phoneTextField.getText() else { return }
-    router?.signInShouldOpenVerificationCodeScene(self, pass: phone)
+    guard
+      let phone = phoneTextField.getText(),
+      let context = context
+    else { return }
+    router?.signInShouldOpenVerificationCodeScene(self, pass: phone, and: context)
   }
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInRouter {
-  func signInShouldOpenSignUpScene(_ signInView: SignInView)
+  func signInShouldOpenSignUpScene(_ signInView: SignInView, pass context: UIViewController)
   func signInShouldOpenVerificationCodeScene(
     _ signInView: SignInView,
     pass phone: String,
@@ -19,15 +19,16 @@ protocol SignInRouter {
 
 final class SignInRouterImpl: SignInRouter {
 
-  private let signUpScene: SignUpView
+  private let signUpScene: SignUpScene
   private let verificationCodeScene: VerificationCodeScene
 
-  init(signUpScene: SignUpView, verificationCodeScene: VerificationCodeScene) {
+  init(signUpScene: SignUpScene, verificationCodeScene: VerificationCodeScene) {
     self.signUpScene = signUpScene
     self.verificationCodeScene = verificationCodeScene
   }
 
-  func signInShouldOpenSignUpScene(_ signInView: SignInView) {
+  func signInShouldOpenSignUpScene(_ signInView: SignInView, pass context: UIViewController) {
+    signUpScene.passedContext(context)
     signInView.navigationController?.pushViewController(signUpScene, animated: true)
   }
 

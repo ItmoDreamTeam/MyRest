@@ -12,6 +12,7 @@ import Dip
 import shared
 
 typealias VerificationCodeScene = VerificationCodeView & SignInViewDataDelegate & ContextDataDelegate
+typealias SignUpScene = SignUpView & ContextDataDelegate
 
 final class AppDependencies {
   private let container: DependencyContainer
