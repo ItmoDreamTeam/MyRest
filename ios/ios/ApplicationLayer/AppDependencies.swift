@@ -53,7 +53,7 @@ final class AppDependencies {
     container.register(.shared) {
       VerificationCodePresenterImpl(view: try self.container.resolve()) as VerificationCodePresenter
     }
-    container.register(.shared) { VerificationCodeViewController() }
+    container.register(.shared) { VerificationCodeViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
         view.interactor = try container.resolve()
         view.router = try container.resolve()

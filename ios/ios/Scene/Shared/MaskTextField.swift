@@ -10,16 +10,25 @@ import UIKit
 
 final class MaskTextField: UITextField {
 
-  private let formattingPattern: String
   private let replacementChar: Character = "*"
-  private let prefix: String
-  private var prevIdx: Int
+  private var prevIdx = 0
+  private var _prefix = ""
+
+  @IBInspectable var formattingPattern: String = ""
+  @IBInspectable var prefix: String {
+    get { _prefix }
+    set {
+      _prefix = newValue
+      prevIdx = newValue.count
+      text = newValue
+    }
+  }
 
   init(formattingPattern: String, prefix: String) {
     prevIdx = prefix.count
     self.formattingPattern = formattingPattern
-    self.prefix = prefix
     super.init(frame: .zero)
+    self.prefix = prefix
     translatesAutoresizingMaskIntoConstraints = false
     self.keyboardType = .numberPad
     text = prefix
@@ -27,7 +36,8 @@ final class MaskTextField: UITextField {
   }
 
   required init?(coder: NSCoder) {
-    return nil
+    super.init(coder: coder)
+    registerForNotifications()
   }
 
   override func layoutSubviews() {

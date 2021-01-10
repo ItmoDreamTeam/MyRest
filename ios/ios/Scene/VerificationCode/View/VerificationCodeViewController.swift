@@ -15,10 +15,8 @@ protocol VerificationCodeView: UIViewController {
 final class VerificationCodeViewController: UIViewController, VerificationCodeView {
 
   // MARK: - Class members
-
-  static let storyboardName = "VerificationCodeViewController"
   static func storyboardInstance() -> Self? {
-    let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+    let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
 
@@ -40,6 +38,7 @@ final class VerificationCodeViewController: UIViewController, VerificationCodeVi
     super.viewDidLoad()
     configureTimerLabel()
     configureSendCodeButton()
+    configureCodeTextField()
   }
 
   // MARK: - Configure UI
