@@ -92,7 +92,8 @@ final class AppDependencies {
     container.register(.shared) {
       try SignInInteractorImpl(
         userClient: self.container.resolve(),
-        errorHandler: self.container.resolve()
+        errorHandler: self.container.resolve(),
+        presenter: self.container.resolve()
       ) as SignInInteractor
     }
     container.register(.shared) {

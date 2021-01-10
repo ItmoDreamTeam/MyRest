@@ -17,10 +17,12 @@ final class SignInInteractorImpl: SignInInteractor {
 
   private let userClient: UserClient
   private let errorHandler: IOSErrorHandler
+  private let presenter: SignInPresenter
 
-  init(userClient: UserClient, errorHandler: IOSErrorHandler) {
+  init(userClient: UserClient, errorHandler: IOSErrorHandler, presenter: SignInPresenter) {
     self.userClient = userClient
     self.errorHandler = errorHandler
+    self.presenter = presenter
   }
 
   func signInSceneDidRequestCode(_ signInView: SignInView, for phone: String) {
@@ -30,6 +32,7 @@ final class SignInInteractorImpl: SignInInteractor {
         self?.errorHandler.handleNSError(context: signInView, error: error)
         return
       }
+      self?.presenter.interactorSendedCodeRequest()
     }
   }
 }
