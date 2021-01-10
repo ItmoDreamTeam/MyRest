@@ -50,6 +50,7 @@
 		A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */; };
 		A7D5F4B6259A0D3400756E4E /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */; };
 		A7D5F4B8259A0FB300756E4E /* UserInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */; };
+		A7DBEB4325AB45F60041A1C7 /* ProfileDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */; };
 		A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9752576FA6C00BE53B1 /* SearchView.swift */; };
 		A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 		A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenProviderImpl.swift; sourceTree = "<group>"; };
 		A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserInfoViewController.storyboard; sourceTree = "<group>"; };
+		A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataDelegate.swift; sourceTree = "<group>"; };
 		A7FFA9752576FA6C00BE53B1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRouter.swift; sourceTree = "<group>"; };
 		E813D231D8CD19DF3290ACC7 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -296,10 +298,9 @@
 		A74D6FFD25A809D200BF1535 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A7DBEB4125AB45C80041A1C7 /* DataDelegate */,
 				A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */,
 				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
-				A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */,
-				A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -401,6 +402,16 @@
 				A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A7DBEB4125AB45C80041A1C7 /* DataDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */,
+				A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */,
+				A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */,
+			);
+			path = DataDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -617,6 +628,7 @@
 				A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
 				A72B05AE25A9A39E00DB4BF7 /* SignInPresenter.swift in Sources */,
+				A7DBEB4325AB45F60041A1C7 /* ProfileDataDelegate.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
 				A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */,
 				A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */,
