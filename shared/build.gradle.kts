@@ -125,7 +125,7 @@ android {
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework(mode)
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")

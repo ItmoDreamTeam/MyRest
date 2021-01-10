@@ -13,6 +13,7 @@ import shared
 
 typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & ContextDataDelegate
 typealias SignUpScene = SignUpView & ContextDataDelegate
+typealias SignInScene = SignInView & ContextDataDelegate
 
 final class AppDependencies {
   private let container: DependencyContainer
@@ -102,7 +103,7 @@ final class AppDependencies {
         view.interactor = try container.resolve()
         view.router = try container.resolve()
       }
-    .implements(SignInView.self)
+    .implements(SignInView.self, ContextDataDelegate.self, SignInScene.self)
 
     // MARK: - ToSignInRouter
     container.register(.shared) {

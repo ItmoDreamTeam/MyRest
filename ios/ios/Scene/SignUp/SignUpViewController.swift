@@ -154,9 +154,9 @@ final class SignUpViewController: UIViewController, SignUpView {
       getCodeButton.enableButton(isEnabled: nameIsNotEmpty && surnameIsNotEmpty && phoneIsFilled)
     }
     if sender.text?.count ?? 0 >= 3 {
-      sender.text = "  "
       updateIsNotEmpty(sender: sender, value: true)
     } else {
+      sender.text = "  "
       updateIsNotEmpty(sender: sender, value: false)
     }
   }

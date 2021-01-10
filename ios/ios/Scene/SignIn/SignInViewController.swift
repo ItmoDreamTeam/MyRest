@@ -43,6 +43,7 @@ final class SignInViewController: UIViewController, SignInView {
     view.backgroundColor = .white
     configureNavBar()
     configurePhoneTextField()
+    configureToSignUpButton()
     configureRegisterButton()
   }
 
@@ -82,6 +83,8 @@ final class SignInViewController: UIViewController, SignInView {
     view.addSubview(toSignUpButton)
     toSignUpButton.translatesAutoresizingMaskIntoConstraints = false
     toSignUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    toSignUpButton.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10).isActive = true
+    toSignUpButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
     toSignUpButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     toSignUpButton.setTitle("Ещё не зарегистрированы?", for: .normal)
     toSignUpButton.setTitleColor(.gray, for: .normal)
