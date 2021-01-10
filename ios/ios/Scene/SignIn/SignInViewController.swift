@@ -49,8 +49,9 @@ final class SignInViewController: UIViewController, SignInView {
 
   // MARK: - Configure UI
 
-  private func configureNavBar() {
-    navigationController?.navigationBar.prefersLargeTitles = false
+  func configureNavBar() {
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.title = "Вход"
   }
 

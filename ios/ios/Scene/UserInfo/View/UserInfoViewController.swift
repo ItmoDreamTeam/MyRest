@@ -25,6 +25,13 @@ final class UserInfoViewController: UIViewController, UserInfoView {
     super.viewDidLoad()
     guard let profile = profile else { return }
     nameLabel.text = "\(profile.firstName) \(profile.lastName)"
+    configureNavBar()
+  }
+
+  private func configureNavBar() {
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.title = "MyRest"
   }
 
   @IBAction func bookingTapped(_ sender: UIButton) {

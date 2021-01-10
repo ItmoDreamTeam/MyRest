@@ -59,9 +59,10 @@ final class SignUpViewController: UIViewController, SignUpView {
   }
 
   // MARK: - private layout views
-  
+
   private func configureNavBar() {
-    navigationController?.navigationBar.prefersLargeTitles = false
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.title = "Регистрация"
   }
 
