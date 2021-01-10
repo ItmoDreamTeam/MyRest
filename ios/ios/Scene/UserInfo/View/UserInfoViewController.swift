@@ -11,9 +11,8 @@ import UIKit
 protocol UserInfoView: UIViewController {}
 
 final class UserInfoViewController: UIViewController, UserInfoView {
-  static let storyboardName = "UserInfoViewController"
   static func storyboardInstance() -> Self? {
-    let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+    let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
   @IBOutlet weak var nameLabel: UILabel!

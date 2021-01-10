@@ -389,10 +389,18 @@
 		A7D5F4B4259A0CE100756E4E /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				A7DBEB3E25AB44530041A1C7 /* View */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		A7DBEB3E25AB44530041A1C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */,
 				A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */,
 			);
-			path = UserInfo;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
