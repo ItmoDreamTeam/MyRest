@@ -47,6 +47,7 @@ final class AppDependencies {
       try VerificationCodeInteractorImpl(
         errorHandler: self.container.resolve(),
         userClient: self.container.resolve(),
+        accessTokenProvider: accessTokenProvider as! AccessTokenProviderImpl,
         presenter: self.container.resolve()
       ) as VerificationCodeInteractor
     }
