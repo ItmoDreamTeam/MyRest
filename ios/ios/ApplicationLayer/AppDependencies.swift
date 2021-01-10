@@ -11,6 +11,7 @@ import SwiftKeychainWrapper
 import Dip
 import shared
 
+typealias UserInfoScene = UserInfoView & ProfileDataDelegate
 typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & ContextDataDelegate
 typealias SignUpScene = SignUpView & ContextDataDelegate
 typealias SignInScene = SignInView & ContextDataDelegate
@@ -116,9 +117,8 @@ final class AppDependencies {
     container.register(.shared) { IOSErrorHandler(router: try self.container.resolve()) }
 
     // MARK: - UserInfoScene
-    container.register {
-      UserInfoViewController() as UserInfoView
-    }
+    container.register { UserInfoViewController.storyboardInstance()! }
+      .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - RestaurantListScene
     container.register {
