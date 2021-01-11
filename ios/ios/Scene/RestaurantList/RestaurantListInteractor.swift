@@ -44,20 +44,15 @@ final class RestaurantListInteractorImpl: RestaurantListInteractor {
     let pageable = Pageable(pageNumber: Int32(currentPage), pageSize: Int32(pageSize))
     restaurantClient.search(keyword: byKeyword, pageable: pageable) { [weak self] restaurantsPage, error in
       guard let self = self else { return }
-      guard let restaurantsPage = restaurantsPage, error == nil else {
-        // swiftlint:disable force_unwrapping
-        self.presenter.interactorDidFetched(restaurants: .failure(error!))
-        return
-      }
-      guard let restaurants = restaurantsPage.content as? [RestaurantInfo] else {
-        self.presenter.interactorDidFetched(
-          restaurants: .failure(RestaurantListinteractorError.unexpectedContent)
-        )
+      guard
+        let restaurants = restaurantsPage?.content as? [RestaurantInfo],
+        error == nil else {
+        self.errorHandler.handleNSError(context: restaurantListView, error: error)
         return
       }
       self.currentPage += 1
       self.isFetching = false
-      self.presenter.interactorDidFetched(restaurants: .success(restaurants))
+      self.presenter.interactorDidFetched(restaurants: restaurants)
     }
   }
 

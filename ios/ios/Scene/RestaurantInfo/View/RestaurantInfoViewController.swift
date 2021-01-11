@@ -25,7 +25,6 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   @IBOutlet weak var emailLabel: UILabel!
   @IBOutlet weak var ratingLabel: UILabel!
   
-
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white

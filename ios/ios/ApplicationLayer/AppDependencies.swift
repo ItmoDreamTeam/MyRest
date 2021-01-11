@@ -25,6 +25,7 @@ final class AppDependencies {
     configureDependencies()
   }
 
+  // swiftlint:disable function_body_length
   private func configureDependencies() {
     // MARK: - KeychainWrapper
     let serviceName = "privateService"
@@ -49,6 +50,7 @@ final class AppDependencies {
       try VerificationCodeInteractorImpl(
         errorHandler: self.container.resolve(),
         userClient: self.container.resolve(),
+        // swiftlint:disable force_cast
         accessTokenProvider: accessTokenProvider as! AccessTokenProviderImpl,
         presenter: self.container.resolve()
       ) as VerificationCodeInteractor
@@ -56,6 +58,7 @@ final class AppDependencies {
     container.register(.shared) {
       VerificationCodePresenterImpl(view: try self.container.resolve()) as VerificationCodePresenter
     }
+    // swiftlint:disable force_unwrapping
     container.register(.shared) { VerificationCodeViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
         view.interactor = try container.resolve()
@@ -126,12 +129,14 @@ final class AppDependencies {
     container.register(.shared) { IOSErrorHandler(router: try self.container.resolve()) }
 
     // MARK: - UserInfoScene
+    // swiftlint:disable force_unwrapping
     container.register { UserInfoViewController.storyboardInstance()! }
-      .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
+    .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - RestaurantInfoScene
+    // swiftlint:disable force_unwrapping
     container.register { RestaurantInfoViewController.storyboardInstance()! }
-      .implements(RestaurantInfoView.self, RestaurantInfoDataDelegate.self, RestaurantInfoScene.self) 
+    .implements(RestaurantInfoView.self, RestaurantInfoDataDelegate.self, RestaurantInfoScene.self)
 
     // MARK: - RestaurantListScene
     container.register {

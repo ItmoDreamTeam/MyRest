@@ -10,7 +10,7 @@ import UIKit
 import shared
 
 protocol RestaurantListPresenter {
-  func interactorDidFetched(restaurants: Result<[RestaurantInfo], Error>)
+  func interactorDidFetched(restaurants: [RestaurantInfo])
   func interactorDidFetched(user: Profile)
 }
 
@@ -22,13 +22,8 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
     self.view = view
   }
 
-  func interactorDidFetched(restaurants: Result<[RestaurantInfo], Error>) {
-    switch restaurants {
-    case .success(let restaurantsInfos):
-      view.onRestaurantsFetchCompleted(restaurantsInfos)
-    case .failure(let error):
-      view.onRestaurantsFetchError(error)
-    }
+  func interactorDidFetched(restaurants: [RestaurantInfo]) {
+    view.onRestaurantsFetchCompleted(restaurants)
   }
 
   func interactorDidFetched(user: Profile) {

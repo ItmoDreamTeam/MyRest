@@ -11,7 +11,6 @@ import shared
 
 protocol RestaurantListView: UIViewController {
   func onRestaurantsFetchCompleted(_ restaurants: [RestaurantInfo])
-  func onRestaurantsFetchError(_ error: Error)
   func onUserFetchCompleted(_ user: Profile)
 }
 
@@ -94,14 +93,12 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
     }
   }
 
-  func onRestaurantsFetchError(_ error: Error) {
-    fatalError("Not implemented yet")
-  }
-
   func onUserFetchCompleted(_ user: Profile) {
     router?.restaurantListShouldOpenUserInfoScene(self, pass: user)
   }
 }
+
+// MARK: - VerticalCollectionViewDelegate
 
 extension RestaurantListViewController: VerticalCollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantInfo) {
