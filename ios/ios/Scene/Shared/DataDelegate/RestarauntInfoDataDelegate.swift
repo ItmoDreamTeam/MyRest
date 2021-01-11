@@ -6,6 +6,8 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
+import shared
+
 protocol RestarauntInfoDataDelegate {
-  func passedRestaurantId(_ restaurantId: Int64)
+  func passedRestaurantInfo(_ restaurantInfo: RestaurantInfo)
 }

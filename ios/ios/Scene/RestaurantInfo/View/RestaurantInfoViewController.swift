@@ -17,7 +17,6 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     return storyboard.instantiateInitialViewController() as? Self
   }
 
-  private var restaurantId: Int64 = 0
   private var restaurant: RestaurantInfo?
 
   @IBOutlet weak var photosCollectionView: PhotosCollectionView!
@@ -40,8 +39,8 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   }
 }
 
-extension RestaurantInfoViewController: RestarauntIdDataDelegate {
-  func passedRestaurantId(_ restaurantId: Int64) {
-    self.restaurantId = restaurantId
+extension RestaurantInfoViewController: RestarauntInfoDataDelegate {
+  func passedRestaurantInfo(_ restaurantInfo: RestaurantInfo) {
+    self.restaurant = restaurantInfo
   }
 }
