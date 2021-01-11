@@ -27,6 +27,13 @@ class RestaurantClientImpl : RestaurantClient {
         }
     }
 
+    override suspend fun getRestaurantsOfUser(): List<EmployeeInfo> {
+        return client.get {
+            url("/restaurants/mine")
+            provideAccessToken()
+        }
+    }
+
     override suspend fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
         return client.put {
             url("/restaurants/$id")

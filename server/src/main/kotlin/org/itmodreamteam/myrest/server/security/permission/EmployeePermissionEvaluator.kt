@@ -18,7 +18,7 @@ class EmployeePermissionEvaluator(
             "write-user" -> employee.user == authentication.profile
             "write-manager" -> {
                 val activeManagers = employeeService.getEmployeesOfRestaurant(employee.restaurant.id)
-                    .filter { it.position == EmployeePosition.MANAGER && it.active }
+                    .filter { it.position == EmployeePosition.MANAGER && it.active() }
                     .map { it.user }
                 return authentication.principal in activeManagers
             }

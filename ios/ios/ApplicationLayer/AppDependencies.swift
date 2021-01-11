@@ -67,6 +67,14 @@ final class AppDependencies {
       VerificationCodeScene.self
     )
 
+    // MARK: - ToSignInRouter
+    container.register {
+      ToSignInRouterImp(signInScene: try self.container.resolve()) as ToSignInRouter
+    }
+
+    // MARK: - ErrorHandler
+    container.register { IOSErrorHandler(router: try self.container.resolve()) }
+
     // MARK: - SignUpScene
     container.register(.shared) {
       try SignUpInteractorImpl(
@@ -119,6 +127,11 @@ final class AppDependencies {
     // MARK: - UserInfoScene
     container.register { UserInfoViewController.storyboardInstance()! }
       .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
+
+    // MARK: - UserInfoScene
+    container.register {
+      UserInfoViewController() as UserInfoView
+    }
 
     // MARK: - RestaurantListScene
     container.register {

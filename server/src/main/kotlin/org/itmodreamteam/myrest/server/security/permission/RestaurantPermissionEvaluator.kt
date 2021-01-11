@@ -14,7 +14,7 @@ class RestaurantPermissionEvaluator(
 
     override fun hasPermission(authentication: UserAuthentication, targetId: Long, permission: String): Boolean {
         val activeManagers = employeeService.getEmployeesOfRestaurant(targetId)
-            .filter { it.position == EmployeePosition.MANAGER && it.active }
+            .filter { it.position == EmployeePosition.MANAGER && it.active() }
             .map { it.user }
         return authentication.principal in activeManagers
     }
