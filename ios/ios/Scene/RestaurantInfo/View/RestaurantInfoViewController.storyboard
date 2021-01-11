@@ -59,15 +59,29 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOF-WN-ptT">
+                                <rect key="frame" x="57" y="390" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="3iJ-qV-sh7"/>
+                                    <constraint firstAttribute="height" constant="40" id="hwm-YV-DoF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <state key="normal" title="Забронировать ресторан"/>
+                                <connections>
+                                    <action selector="registerTapped:" destination="nIX-LA-cdV" eventType="touchUpInside" id="rnP-2d-HE6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="iqo-Vb-3d2" firstAttribute="top" secondItem="u7y-xM-RVG" secondAttribute="bottom" constant="20" id="HKT-WW-bCm"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" id="OAh-Ey-Blc"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="top" secondItem="wCO-AA-4EL" secondAttribute="top" id="Qgu-AO-Jz8"/>
+                            <constraint firstItem="qOF-WN-ptT" firstAttribute="centerX" secondItem="5tH-zU-zsk" secondAttribute="centerX" id="Qlf-Xt-sGo"/>
                             <constraint firstItem="iqo-Vb-3d2" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" constant="20" id="QnL-Hz-4a4"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="trailing" secondItem="wCO-AA-4EL" secondAttribute="trailing" id="hsI-ez-GyT"/>
                             <constraint firstItem="wCO-AA-4EL" firstAttribute="trailing" secondItem="iqo-Vb-3d2" secondAttribute="trailing" constant="20" id="lMs-Cc-a1O"/>
+                            <constraint firstItem="qOF-WN-ptT" firstAttribute="top" secondItem="iqo-Vb-3d2" secondAttribute="bottom" constant="20" id="sKb-gn-0mC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wCO-AA-4EL"/>
                     </view>
@@ -76,6 +90,7 @@
                         <outlet property="emailLabel" destination="uZs-5D-rPt" id="FyH-He-EGi"/>
                         <outlet property="photosCollectionView" destination="u7y-xM-RVG" id="6A3-BA-t5d"/>
                         <outlet property="ratingLabel" destination="Cnv-gc-qh3" id="tpm-Pk-gNL"/>
+                        <outlet property="registerButton" destination="qOF-WN-ptT" id="Isb-XX-0ya"/>
                         <outlet property="websiteLabel" destination="GwA-uB-VTX" id="gM5-qh-MSu"/>
                     </connections>
                 </viewController>

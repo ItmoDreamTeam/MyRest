@@ -24,6 +24,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   @IBOutlet weak var websiteLabel: UILabel!
   @IBOutlet weak var emailLabel: UILabel!
   @IBOutlet weak var ratingLabel: UILabel!
+  @IBOutlet weak var registerButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -52,6 +53,10 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     } else {
       label.isEnabled = false
     }
+  }
+
+  @IBAction func registerTapped(_ sender: UIButton) {
+    fatalError("Not implemented yet")
   }
 }
 
