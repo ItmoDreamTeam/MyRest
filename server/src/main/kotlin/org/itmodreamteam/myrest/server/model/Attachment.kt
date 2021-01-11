@@ -3,10 +3,15 @@ package org.itmodreamteam.myrest.server.model
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.Table
+import javax.persistence.UniqueConstraint
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "attachments")
+@Table(
+    name = "attachments", uniqueConstraints = [
+        UniqueConstraint(columnNames = ["objectId"]),
+    ]
+)
 class Attachment : JpaEntity() {
 
     @NotNull
