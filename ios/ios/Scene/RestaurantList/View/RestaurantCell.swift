@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import shared
 
 final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "RestaurantCell"
 
-  typealias Model = RestaurantViewModel
+  typealias Model = RestaurantInfo
   
   @IBOutlet weak var restaurantNameLabel: UILabel!
   @IBOutlet weak var cusineLabel: UILabel!
@@ -22,9 +23,10 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
     restaurantImageView.contentMode = .scaleAspectFit
   }
 
-  func configure(with model: RestaurantViewModel) {
+  func configure(with model: RestaurantInfo) {
     restaurantNameLabel.text = model.name
-    ratingLabel.text = "\(model.rating)"
-    restaurantImageView.image = model.avatar
+    ratingLabel.text = "\(model.internalRating)"
+    //change to real avatar
+    restaurantImageView.image = UIImage(named: "placeholder") ?? UIImage()
   }
 }

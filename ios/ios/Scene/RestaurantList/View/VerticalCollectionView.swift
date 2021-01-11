@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import shared
+
+protocol VerticalCollectionViewDelegate: class {
+  func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantInfo)
+}
 
 final class VerticalCollectionView: UICollectionView, ConfigurableView {
-  typealias Model = [RestaurantViewModel]
+  typealias Model = [RestaurantInfo]
+
+  weak var verticalCollectionViewDelegate: VerticalCollectionViewDelegate?
 
   private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   private let minimumItemSpacing: CGFloat = 3
   private let itemsInRow: CGFloat = 2
 
-  private var viewModel: [RestaurantViewModel] = []
+  private var viewModel: [RestaurantInfo] = []
   var fotterView: LoadingFotter?
 
   init() {
@@ -41,7 +48,7 @@ final class VerticalCollectionView: UICollectionView, ConfigurableView {
     return nil
   }
 
-  func configure(with model: [RestaurantViewModel]) {
+  func configure(with model: [RestaurantInfo]) {
     self.viewModel = model
   }
 }

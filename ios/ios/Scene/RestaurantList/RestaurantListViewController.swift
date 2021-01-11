@@ -10,7 +10,7 @@ import UIKit
 import shared
 
 protocol RestaurantListView: UIViewController {
-  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel])
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantInfo])
   func onRestaurantsFetchError(_ error: Error)
   func onUserFetchCompleted(_ user: Profile)
 }
@@ -71,6 +71,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   private func configureCollectionView() {
     view.addSubview(collectionView)
+    collectionView.verticalCollectionViewDelegate = self
     collectionView.topAnchor.constraint(equalTo: searchView.bottomAnchor).isActive = true
     collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -85,7 +86,7 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   // MARK: - RestaurantListView methods
 
-  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantViewModel]) {
+  func onRestaurantsFetchCompleted(_ restaurants: [RestaurantInfo]) {
     collectionView.configure(with: restaurants)
     collectionView.fotterView?.activityIndicatorView.stopAnimating()
     DispatchQueue.main.async {
@@ -99,5 +100,11 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
   func onUserFetchCompleted(_ user: Profile) {
     router?.restaurantListShouldOpenUserInfoScene(self, pass: user)
+  }
+}
+
+extension RestaurantListViewController: VerticalCollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantInfo) {
+    fatalError("Not implemented yet")
   }
 }

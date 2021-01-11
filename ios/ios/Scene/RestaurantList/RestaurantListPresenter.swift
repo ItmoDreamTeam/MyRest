@@ -25,15 +25,7 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
   func interactorDidFetched(restaurants: Result<[RestaurantInfo], Error>) {
     switch restaurants {
     case .success(let restaurantsInfos):
-      let viewModel = restaurantsInfos.map {
-        return RestaurantViewModel(
-          id: $0.id, 
-          name: $0.name,
-          rating: $0.internalRating,
-          avatar: UIImage(named: "restaurantPlaceholder") ?? UIImage()
-        )
-      }
-      view.onRestaurantsFetchCompleted(viewModel)
+      view.onRestaurantsFetchCompleted(restaurantsInfos)
     case .failure(let error):
       view.onRestaurantsFetchError(error)
     }
