@@ -129,10 +129,9 @@ final class AppDependencies {
     container.register { UserInfoViewController.storyboardInstance()! }
       .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
-    // MARK: - UserInfoScene
-    container.register {
-      UserInfoViewController() as UserInfoView
-    }
+    // MARK: - RestaurantInfoScene
+    container.register { RestaurantInfoViewController.storyboardInstance()! }
+      .implements(RestaurantInfoView.self, RestaurantInfoDataDelegate.self, RestaurantInfoScene.self) 
 
     // MARK: - RestaurantListScene
     container.register {

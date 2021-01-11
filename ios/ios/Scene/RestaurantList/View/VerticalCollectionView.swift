@@ -88,7 +88,8 @@ extension VerticalCollectionView: UICollectionViewDataSource {
 
 extension VerticalCollectionView: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    fatalError("Not implemented yet")
+    let item = viewModel[indexPath.row]
+    verticalCollectionViewDelegate?.collectionView(self, didSelectItem: item)
   }
 }
 

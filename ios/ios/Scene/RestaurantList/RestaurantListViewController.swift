@@ -105,6 +105,6 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
 
 extension RestaurantListViewController: VerticalCollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItem item: RestaurantInfo) {
-    fatalError("Not implemented yet")
+    router?.restaurantListShouldOpenRestaurantInfoScene(self, pass: item)
   }
 }

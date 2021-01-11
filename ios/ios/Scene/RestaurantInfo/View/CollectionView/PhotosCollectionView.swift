@@ -34,7 +34,18 @@ final class PhotosCollectionView: UICollectionView, ConfigurableView {
   }
 
   required init?(coder: NSCoder) {
-    return nil
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    super.init(coder: coder)
+    backgroundColor = .white
+    showsVerticalScrollIndicator = false
+    showsHorizontalScrollIndicator = false
+    delegate = self
+    dataSource = self
+    register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+    translatesAutoresizingMaskIntoConstraints = false
+    layout.minimumLineSpacing = minimumLineSpacing
+    layout.sectionInset = sectionInsets
   }
 
   func configure(with model: [RestaurantInfo]) {

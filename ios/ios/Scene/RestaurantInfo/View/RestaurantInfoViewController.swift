@@ -30,12 +30,29 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     super.viewDidLoad()
     view.backgroundColor = .white
     configureNavBar()
+    configureLabels()
   }
 
   private func configureNavBar() {
     navigationItem.title = restaurant?.name
     navigationItem.largeTitleDisplayMode = .always
     navigationController?.navigationBar.prefersLargeTitles = true
+  }
+
+  private func configureLabels() {
+    guard let restaurant = restaurant else { return }
+    descriptionLabel.text = restaurant.description_
+    setLabelText(label: websiteLabel, text: restaurant.websiteUrl)
+    setLabelText(label: emailLabel, text: restaurant.email)
+    setLabelText(label: ratingLabel, text: "\(restaurant.externalRating)")
+  }
+
+  private func setLabelText(label: UILabel, text: String?) {
+    if let text = text {
+      label.text = "\(label.text ?? "") \(text)"
+    } else {
+      label.isEnabled = false
+    }
   }
 }
 

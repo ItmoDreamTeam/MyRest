@@ -36,6 +36,6 @@ final class RestaurantListRouterImpl: RestaurantListRouter {
     pass restaurantInfo: RestaurantInfo
   ) {
     restaurantInfoScene.passedRestaurantInfo(restaurantInfo)
-    restaurantListScene.navigationController?.pushViewController(restaurantListScene, animated: true)
+    restaurantListScene.navigationController?.pushViewController(restaurantInfoScene, animated: true)
   }
 }
