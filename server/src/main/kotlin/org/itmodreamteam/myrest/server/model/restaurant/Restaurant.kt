@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.server.model.restaurant
 
+import org.itmodreamteam.myrest.server.model.Attachment
 import org.itmodreamteam.myrest.server.model.JpaEntity
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantRegistrationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantStatus
@@ -46,6 +47,16 @@ class Restaurant() : JpaEntity() {
     var internalRating: Double = 0.0
 
     var externalRating: Double = 0.0
+
+    @OneToOne
+    var avatar: Attachment? = null
+
+    @OneToMany
+    private var _photos: MutableSet<Attachment> = mutableSetOf()
+
+    var photos: List<Attachment>
+        get() = _photos.sortedBy { it.created }
+        private set(value) {}
 
     constructor(name: String, description: String, legalInfo: String) : this() {
         this.name = name

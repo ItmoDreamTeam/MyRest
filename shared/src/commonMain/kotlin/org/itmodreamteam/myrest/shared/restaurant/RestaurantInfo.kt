@@ -1,6 +1,7 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
 import kotlinx.serialization.Serializable
+import org.itmodreamteam.myrest.shared.attachment.AttachmentMetadata
 
 @Serializable
 data class RestaurantInfo(
@@ -14,4 +15,6 @@ data class RestaurantInfo(
     val email: String?,
     val internalRating: Double,
     val externalRating: Double,
+    val avatar: AttachmentMetadata?,
+    val photos: List<AttachmentMetadata>,
 )
