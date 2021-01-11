@@ -15,6 +15,7 @@ typealias UserInfoScene = UserInfoView & ProfileDataDelegate
 typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & ContextDataDelegate
 typealias SignUpScene = SignUpView & ContextDataDelegate
 typealias SignInScene = SignInView & ContextDataDelegate
+typealias RestaurantInfoScene = RestaurantInfoView & RestaurantInfoDataDelegate
 
 final class AppDependencies {
   private let container: DependencyContainer
@@ -135,7 +136,10 @@ final class AppDependencies {
 
     // MARK: - RestaurantListScene
     container.register {
-      RestaurantListRouterImpl(userInfoScene: try self.container.resolve()) as RestaurantListRouter
+      try RestaurantListRouterImpl(
+        userInfoScene: self.container.resolve(),
+        restaurantInfoScene: self.container.resolve()
+      ) as RestaurantListRouter
     }
     container.register(.shared) {
       try RestaurantListInteractorImpl(

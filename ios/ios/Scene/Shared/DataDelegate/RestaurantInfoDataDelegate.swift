@@ -8,6 +8,6 @@
 
 import shared
 
-protocol RestarauntInfoDataDelegate: class {
+protocol RestaurantInfoDataDelegate: class {
   func passedRestaurantInfo(_ restaurantInfo: RestaurantInfo)
 }

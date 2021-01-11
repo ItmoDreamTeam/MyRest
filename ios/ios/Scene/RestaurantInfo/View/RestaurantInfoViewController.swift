@@ -39,7 +39,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   }
 }
 
-extension RestaurantInfoViewController: RestarauntInfoDataDelegate {
+extension RestaurantInfoViewController: RestaurantInfoDataDelegate {
   func passedRestaurantInfo(_ restaurantInfo: RestaurantInfo) {
     self.restaurant = restaurantInfo
   }

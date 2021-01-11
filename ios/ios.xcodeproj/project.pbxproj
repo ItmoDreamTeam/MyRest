@@ -54,7 +54,7 @@
 		A7FC7E6D25AC2101002DDB2C /* RestaurantInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC7E6C25AC2101002DDB2C /* RestaurantInfoViewController.swift */; };
 		A7FC7E6F25AC2113002DDB2C /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC7E6E25AC2112002DDB2C /* PhotoCell.swift */; };
 		A7FC7E7125AC211E002DDB2C /* PhotosCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC7E7025AC211E002DDB2C /* PhotosCollectionView.swift */; };
-		A7FC7E7425AC46EF002DDB2C /* RestarauntInfoDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC7E7325AC46EF002DDB2C /* RestarauntInfoDataDelegate.swift */; };
+		A7FC7E7425AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FC7E7325AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift */; };
 		A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9752576FA6C00BE53B1 /* SearchView.swift */; };
 		A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */; };
 /* End PBXBuildFile section */
@@ -145,7 +145,7 @@
 		A7FC7E6C25AC2101002DDB2C /* RestaurantInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantInfoViewController.swift; sourceTree = "<group>"; };
 		A7FC7E6E25AC2112002DDB2C /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A7FC7E7025AC211E002DDB2C /* PhotosCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionView.swift; sourceTree = "<group>"; };
-		A7FC7E7325AC46EF002DDB2C /* RestarauntInfoDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestarauntInfoDataDelegate.swift; sourceTree = "<group>"; };
+		A7FC7E7325AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoDataDelegate.swift; sourceTree = "<group>"; };
 		A7FFA9752576FA6C00BE53B1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRouter.swift; sourceTree = "<group>"; };
 		E813D231D8CD19DF3290ACC7 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -418,7 +418,7 @@
 				A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */,
 				A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */,
 				A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */,
-				A7FC7E7325AC46EF002DDB2C /* RestarauntInfoDataDelegate.swift */,
+				A7FC7E7325AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift */,
 			);
 			path = DataDelegate;
 			sourceTree = "<group>";
@@ -686,7 +686,7 @@
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
 				A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */,
 				A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */,
-				A7FC7E7425AC46EF002DDB2C /* RestarauntInfoDataDelegate.swift in Sources */,
+				A7FC7E7425AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift in Sources */,
 				A74D700325A8AFDF00BF1535 /* UIViewController+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
