@@ -14,6 +14,18 @@
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
+		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
+		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
+		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
+		A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */; };
+		A72B05AE25A9A39E00DB4BF7 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AD25A9A39E00DB4BF7 /* SignInPresenter.swift */; };
+		A72B05B025A9A58300DB4BF7 /* SignInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05AF25A9A58300DB4BF7 /* SignInRouter.swift */; };
+		A72B05B325A9B75700DB4BF7 /* VerificationCodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B225A9B75700DB4BF7 /* VerificationCodeInteractor.swift */; };
+		A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */; };
+		A72B05B725A9C3C600DB4BF7 /* VerificationCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05B625A9C3C600DB4BF7 /* VerificationCodePresenter.swift */; };
+		A72B05BB25A9DA0400DB4BF7 /* ContextDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */; };
+		A72B05BD25AA043400DB4BF7 /* VerificationCodeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */; };
+		A72B05BF25AA073300DB4BF7 /* SignUpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */; };
 		A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7436D81258B7574004D3E59 /* SignUpViewController.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
@@ -38,6 +50,7 @@
 		A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */; };
 		A7D5F4B6259A0D3400756E4E /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */; };
 		A7D5F4B8259A0FB300756E4E /* UserInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */; };
+		A7DBEB4325AB45F60041A1C7 /* ProfileDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */; };
 		A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9752576FA6C00BE53B1 /* SearchView.swift */; };
 		A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +100,18 @@
 		7555FFA2242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
+		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
+		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
+		A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
+		A72B05AD25A9A39E00DB4BF7 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
+		A72B05AF25A9A58300DB4BF7 /* SignInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRouter.swift; sourceTree = "<group>"; };
+		A72B05B225A9B75700DB4BF7 /* VerificationCodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeInteractor.swift; sourceTree = "<group>"; };
+		A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDataDelegate.swift; sourceTree = "<group>"; };
+		A72B05B625A9C3C600DB4BF7 /* VerificationCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodePresenter.swift; sourceTree = "<group>"; };
+		A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDataDelegate.swift; sourceTree = "<group>"; };
+		A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeRouter.swift; sourceTree = "<group>"; };
+		A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRouter.swift; sourceTree = "<group>"; };
 		A7436D81258B7574004D3E59 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A7494BCE257849C80074CE32 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		A7494BD025784EA00074CE32 /* MaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
@@ -112,6 +137,7 @@
 		A7D5F4B22599FE9800756E4E /* AccessTokenProviderImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenProviderImpl.swift; sourceTree = "<group>"; };
 		A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserInfoViewController.storyboard; sourceTree = "<group>"; };
+		A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataDelegate.swift; sourceTree = "<group>"; };
 		A7FFA9752576FA6C00BE53B1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		A7FFA9772577054000BE53B1 /* RestaurantListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListRouter.swift; sourceTree = "<group>"; };
 		E813D231D8CD19DF3290ACC7 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,12 +245,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A72B05A425A973E000DB4BF7 /* VerificationCode */ = {
+			isa = PBXGroup;
+			children = (
+				A72B05B125A9B70E00DB4BF7 /* View */,
+				A72B05B225A9B75700DB4BF7 /* VerificationCodeInteractor.swift */,
+				A72B05B625A9C3C600DB4BF7 /* VerificationCodePresenter.swift */,
+				A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */,
+			);
+			path = VerificationCode;
+			sourceTree = "<group>";
+		};
+		A72B05B125A9B70E00DB4BF7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */,
+				A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A7436D80258B70D6004D3E59 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
 				A7436D81258B7574004D3E59 /* SignUpViewController.swift */,
 				A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */,
 				A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */,
+				A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -233,7 +280,9 @@
 			isa = PBXGroup;
 			children = (
 				A7494BCE257849C80074CE32 /* SignInViewController.swift */,
-				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
+				A72B05AB25A991D200DB4BF7 /* SignInInteractor.swift */,
+				A72B05AD25A9A39E00DB4BF7 /* SignInPresenter.swift */,
+				A72B05AF25A9A58300DB4BF7 /* SignInRouter.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -249,7 +298,9 @@
 		A74D6FFD25A809D200BF1535 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A7DBEB4125AB45C80041A1C7 /* DataDelegate */,
 				A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */,
+				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -283,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				A74D6FFD25A809D200BF1535 /* Shared */,
+				A72B05A425A973E000DB4BF7 /* VerificationCode */,
 				A7D5F4B4259A0CE100756E4E /* UserInfo */,
 				A7436D80258B70D6004D3E59 /* SignUp */,
 				A7494BCD2578480D0074CE32 /* SignIn */,
@@ -330,6 +382,7 @@
 				A7D32C442571455600124AFE /* UIColor+Utils.swift */,
 				A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */,
 				A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */,
+				A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -337,10 +390,28 @@
 		A7D5F4B4259A0CE100756E4E /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				A7DBEB3E25AB44530041A1C7 /* View */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		A7DBEB3E25AB44530041A1C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				A7D5F4B5259A0D3400756E4E /* UserInfoViewController.swift */,
 				A7D5F4B7259A0FB300756E4E /* UserInfoViewController.storyboard */,
 			);
-			path = UserInfo;
+			path = View;
+			sourceTree = "<group>";
+		};
+		A7DBEB4125AB45C80041A1C7 /* DataDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				A72B05B425A9BB1E00DB4BF7 /* PhoneDataDelegate.swift */,
+				A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */,
+				A7DBEB4225AB45F60041A1C7 /* ProfileDataDelegate.swift */,
+			);
+			path = DataDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,6 +525,7 @@
 				A7D2DA0D25705BBD00ED74BC /* RestaurantCell.xib in Resources */,
 				A7D5F4B8259A0FB300756E4E /* UserInfoViewController.storyboard in Resources */,
 				7555FF8B242A565B00829871 /* LaunchScreen.storyboard in Resources */,
+				A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */,
 				7555FF85242A565B00829871 /* Assets.xcassets in Resources */,
 				A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */,
 			);
@@ -539,20 +611,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A72B05BF25AA073300DB4BF7 /* SignUpRouter.swift in Sources */,
 				A76E6C80258CC8FD00E2FCDB /* SignUpInteractor.swift in Sources */,
 				A7D5F4B6259A0D3400756E4E /* UserInfoViewController.swift in Sources */,
 				A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */,
 				A76E6C7E258CA11200E2FCDB /* KeychainWrapper+Keys.swift in Sources */,
+				A72B05B725A9C3C600DB4BF7 /* VerificationCodePresenter.swift in Sources */,
 				A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */,
 				A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */,
+				A72B05B025A9A58300DB4BF7 /* SignInRouter.swift in Sources */,
+				A72B05BD25AA043400DB4BF7 /* VerificationCodeRouter.swift in Sources */,
 				A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */,
 				A7D2DA11257060CD00ED74BC /* ConfigurableView.swift in Sources */,
+				A72B05BB25A9DA0400DB4BF7 /* ContextDataDelegate.swift in Sources */,
 				A74D34DA25A5AB2500BAA574 /* IOSErrorHandler.swift in Sources */,
 				A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */,
 				A7D2DA13257062C000ED74BC /* RestaurantViewModel.swift in Sources */,
+				A72B05AE25A9A39E00DB4BF7 /* SignInPresenter.swift in Sources */,
+				A7DBEB4325AB45F60041A1C7 /* ProfileDataDelegate.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
+				A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */,
+				A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
+				A72B05B325A9B75700DB4BF7 /* VerificationCodeInteractor.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
+				A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
 				A74D6FFF25A80BA600BF1535 /* ToSignInRouter.swift in Sources */,
@@ -560,6 +643,7 @@
 				7555FF7F242A565900829871 /* AppDelegate.swift in Sources */,
 				A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */,
 				A7D2DA0625704F0300ED74BC /* RestaurantListViewController.swift in Sources */,
+				A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */,
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
 				A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */,
 				A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */,
@@ -732,6 +816,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks";
 				INFOPLIST_FILE = ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -740,6 +825,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Debug;
 		};
@@ -753,6 +839,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks";
 				INFOPLIST_FILE = ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -761,6 +848,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Release;
 		};

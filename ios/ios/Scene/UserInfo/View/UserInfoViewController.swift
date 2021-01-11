@@ -7,19 +7,31 @@
 //
 
 import UIKit
+import shared
 
 protocol UserInfoView: UIViewController {}
 
 final class UserInfoViewController: UIViewController, UserInfoView {
-  static let storyboardName = "UserInfoViewController"
   static func storyboardInstance() -> Self? {
-    let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+    let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
+
+  private var profile: Profile?
+
   @IBOutlet weak var nameLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    guard let profile = profile else { return }
+    nameLabel.text = "\(profile.firstName) \(profile.lastName)"
+    configureNavBar()
+  }
+
+  private func configureNavBar() {
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.title = "MyRest"
   }
 
   @IBAction func bookingTapped(_ sender: UIButton) {
@@ -32,5 +44,11 @@ final class UserInfoViewController: UIViewController, UserInfoView {
   
   @IBAction func exitTapped(_ sender: UIButton) {
     fatalError("Not implemented yet")
+  }
+}
+
+extension UserInfoViewController: ProfileDataDelegate {
+  func passedProfile(_ profile: Profile) {
+    self.profile = profile
   }
 }
