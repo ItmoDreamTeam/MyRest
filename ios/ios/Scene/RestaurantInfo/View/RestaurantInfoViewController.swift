@@ -17,6 +17,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     return storyboard.instantiateInitialViewController() as? Self
   }
 
+  private var restaurantId: Int64 = 0
   private var restaurant: RestaurantInfo?
 
   @IBOutlet weak var photosCollectionView: PhotosCollectionView!
@@ -36,5 +37,11 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     navigationItem.title = restaurant?.name
     navigationItem.largeTitleDisplayMode = .always
     navigationController?.navigationBar.prefersLargeTitles = true
+  }
+}
+
+extension RestaurantInfoViewController: RestarauntIdDataDelegate {
+  func passedRestaurantId(_ restaurantId: Int64) {
+    self.restaurantId = restaurantId
   }
 }
