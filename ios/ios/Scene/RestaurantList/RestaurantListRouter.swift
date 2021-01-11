@@ -6,22 +6,22 @@
 //  Copyright © 2020 orgName. All rights reserved.
 //
 
-import Foundation
-import SwiftKeychainWrapper
+import shared
 
 protocol RestaurantListRouter {
-  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView)
+  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView, pass profile: Profile)
 }
 
 final class RestaurantListRouterImpl: RestaurantListRouter {
 
-  private let userInfoScene: UserInfoView
+  private let userInfoScene: UserInfoScene
 
-  init(userInfoScene: UserInfoView) {
+  init(userInfoScene: UserInfoScene) {
     self.userInfoScene = userInfoScene
   }
 
-  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView) {
+  func restaurantListShouldOpenUserInfoScene(_ restaurantListScene: RestaurantListView, pass profile: Profile) {
+    userInfoScene.passedProfile(profile)
     restaurantListScene.navigationController?.pushViewController(userInfoScene, animated: true)
   }
 }

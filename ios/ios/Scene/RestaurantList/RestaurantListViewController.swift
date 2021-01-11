@@ -98,6 +98,6 @@ final class RestaurantListViewController: UIViewController, RestaurantListView {
   }
 
   func onUserFetchCompleted(_ user: Profile) {
-    router?.restaurantListShouldOpenUserInfoScene(self)
+    router?.restaurantListShouldOpenUserInfoScene(self, pass: user)
   }
 }

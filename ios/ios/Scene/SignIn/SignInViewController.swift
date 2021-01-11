@@ -8,16 +8,29 @@
 
 import UIKit
 
-protocol SignInView: UIViewController {}
+protocol SignInView: UIViewController {
+  func onCodeRequestCompleted()
+}
 
 final class SignInViewController: UIViewController, SignInView {
 
+  // MARK: - properties
+
+  var router: SignInRouter?
+  var interactor: SignInInteractor?
+
   private var phoneTextField: MaskTextField
   private var registerButton: UIButton
+  private var toSignUpButton: UIButton
+
+  private var context: UIViewController?
+
+  // MARK: - Lyfecycle
 
   init() {
-    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-** ", prefix: " +7 ")
+    phoneTextField = MaskTextField(formattingPattern: "*** ***-**-**", prefix: " +7 ")
     registerButton = UIButton(type: .system)
+    toSignUpButton = UIButton(type: .system)
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -30,11 +43,15 @@ final class SignInViewController: UIViewController, SignInView {
     view.backgroundColor = .white
     configureNavBar()
     configurePhoneTextField()
-    configureButton()
+    configureToSignUpButton()
+    configureRegisterButton()
   }
 
-  private func configureNavBar() {
-    navigationController?.navigationBar.prefersLargeTitles = false
+  // MARK: - Configure UI
+
+  func configureNavBar() {
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.title = "Вход"
   }
 
@@ -48,7 +65,7 @@ final class SignInViewController: UIViewController, SignInView {
     phoneTextField.becomeFirstResponder()
   }
 
-  private func configureButton() {
+  private func configureRegisterButton() {
     view.addSubview(registerButton)
     registerButton.center = view.center
     registerButton.translatesAutoresizingMaskIntoConstraints = false
@@ -56,16 +73,35 @@ final class SignInViewController: UIViewController, SignInView {
     registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
     registerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    registerButton.backgroundColor = .lightGray
     registerButton.setTitle("Войти", for: .normal)
     registerButton.setTitleColor(.white, for: .normal)
     registerButton.addTarget(self, action: #selector(registerTapped(_:)), for: .touchUpInside)
-    registerButton.isEnabled = false
     registerButton.layer.cornerRadius = 10
+    registerButton.enableButton(isEnabled: false)
+  }
+
+  private func configureToSignUpButton() {
+    view.addSubview(toSignUpButton)
+    toSignUpButton.translatesAutoresizingMaskIntoConstraints = false
+    toSignUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+    toSignUpButton.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10).isActive = true
+    toSignUpButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    toSignUpButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    toSignUpButton.setTitle("Ещё не зарегистрированы?", for: .normal)
+    toSignUpButton.setTitleColor(.gray, for: .normal)
+    toSignUpButton.addTarget(self, action: #selector(toSignUpTapped(_:)), for: .touchUpInside)
+  }
+
+  // MARK: - Actions
+
+  @objc private func toSignUpTapped(_ sender: UIButton) {
+    guard let context = context else { return }
+    router?.signInShouldOpenSignUpScene(self, pass: context)
   }
 
   @objc private func registerTapped(_ sender: UIButton) {
-    // MARK: - not implementer yet
+    guard let phone = phoneTextField.getText() else { return }
+    interactor?.signInSceneDidRequestCode(self, for: phone)
   }
 
   @objc private func textFieldFilled(_ sender: UITextField) {
@@ -73,11 +109,27 @@ final class SignInViewController: UIViewController, SignInView {
       let count = sender.text?.count,
       count >= 17
     else {
-      registerButton.isEnabled = false
-      registerButton.backgroundColor = .lightGray
+      registerButton.enableButton(isEnabled: false)
       return
     }
-    registerButton.isEnabled = true
-    registerButton.backgroundColor = .gray
+    registerButton.enableButton(isEnabled: true)
+  }
+
+  // MARK: - SignInView methods
+
+  func onCodeRequestCompleted() {
+    guard
+      let phone = phoneTextField.getText(),
+      let context = context
+    else { return }
+    router?.signInShouldOpenVerificationCodeScene(self, pass: phone, and: context)
+  }
+}
+
+// MARK: - ContextDataDelegate
+
+extension SignInViewController: ContextDataDelegate {
+  func passedContext(_ context: UIViewController) {
+    self.context = context
   }
 }

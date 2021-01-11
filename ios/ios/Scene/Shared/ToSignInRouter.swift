@@ -14,13 +14,14 @@ protocol ToSignInRouter {
 
 final class ToSignInRouterImp: ToSignInRouter {
 
-  private let signInScene: SignInView
+  private let signInScene: SignInScene
 
-  init(signInScene: SignInView) {
+  init(signInScene: SignInScene) {
     self.signInScene = signInScene
   }
 
   func sceneShouldOpenSignInScene(_ scene: UIViewController) {
+    signInScene.passedContext(scene)
     scene.navigationController?.pushViewController(signInScene, animated: true)
   }
 }
