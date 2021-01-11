@@ -9,6 +9,7 @@
 import UIKit
 
 struct RestaurantViewModel {
+  let id: Int64
   let name: String
   let rating: Double
   let avatar: UIImage

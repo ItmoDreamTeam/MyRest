@@ -27,6 +27,7 @@ final class RestaurantListPresenterImpl: RestaurantListPresenter {
     case .success(let restaurantsInfos):
       let viewModel = restaurantsInfos.map {
         return RestaurantViewModel(
+          id: $0.id, 
           name: $0.name,
           rating: $0.internalRating,
           avatar: UIImage(named: "restaurantPlaceholder") ?? UIImage()
