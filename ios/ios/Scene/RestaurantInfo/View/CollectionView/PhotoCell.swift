@@ -11,7 +11,7 @@ import shared
 
 final class PhotoCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "PhotoCell"
-  typealias Model = RestaurantInfo
+  typealias Model = AttachmentMetadata
 
   private lazy var imageView: UIImageView = {
     let image = UIImageView()
@@ -32,7 +32,7 @@ final class PhotoCell: UICollectionViewCell, ConfigurableView {
     return nil
   }
 
-  func configure(with model: RestaurantInfo) {
+  func configure(with model: AttachmentMetadata) {
     fatalError("Not implemented yet")
   }
 }

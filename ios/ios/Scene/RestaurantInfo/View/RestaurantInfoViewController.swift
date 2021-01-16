@@ -31,6 +31,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     view.backgroundColor = .white
     configureNavBar()
     configureLabels()
+
   }
 
   private func configureNavBar() {
@@ -53,6 +54,11 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     } else {
       label.isEnabled = false
     }
+  }
+
+  private func configureCollectionView() {
+    guard let restaurant = restaurant else { return }
+    photosCollectionView.configure(with: restaurant)
   }
 
   @IBAction func registerTapped(_ sender: UIButton) {

@@ -10,13 +10,13 @@ import UIKit
 import shared
 
 final class PhotosCollectionView: UICollectionView, ConfigurableView {
-  typealias Model = [RestaurantInfo]
+  typealias Model = RestaurantInfo
 
   private let minimumLineSpacing: CGFloat = 3
   private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   private let cellWidth: CGFloat = 50
 
-  private var viewModel: [RestaurantInfo] = []
+  private var viewModel: RestaurantInfo?
 
   init() {
     let layout = UICollectionViewFlowLayout()
@@ -48,14 +48,14 @@ final class PhotosCollectionView: UICollectionView, ConfigurableView {
     layout.sectionInset = sectionInsets
   }
 
-  func configure(with model: [RestaurantInfo]) {
+  func configure(with model: RestaurantInfo) {
     self.viewModel = model
   }
 }
 
 extension PhotosCollectionView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel.count
+    return viewModel?.photos.count ?? 0
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -63,9 +63,10 @@ extension PhotosCollectionView: UICollectionViewDataSource {
       let cell = dequeueReusableCell(
         withReuseIdentifier: PhotoCell.reuseId,
         for: indexPath
-        ) as? PhotoCell
+        ) as? PhotoCell,
+      let photos = viewModel?.photos
     else { return UICollectionViewCell() }
-    cell.configure(with: viewModel[indexPath.row])
+    cell.configure(with: photos[indexPath.row])
     return cell
   }
 }
