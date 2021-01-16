@@ -2,6 +2,7 @@ package restaurant
 
 import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.Pageable
+import org.itmodreamteam.myrest.shared.error.ErrorHandler
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClient
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import react.RBuilder
@@ -19,6 +20,7 @@ class RestaurantSearch(props: Props) : RComponent<RestaurantSearch.Props, Restau
     override fun RBuilder.render() {
         child(RestaurantSearchBar::class) {
             attrs {
+                errorHandler = props.errorHandler
                 restaurantClient = props.restaurantClient
                 searchListener = this@RestaurantSearch
             }
@@ -37,6 +39,7 @@ class RestaurantSearch(props: Props) : RComponent<RestaurantSearch.Props, Restau
     }
 
     interface Props : RProps {
+        var errorHandler: ErrorHandler<Any>
         var restaurantClient: RestaurantClient
     }
 

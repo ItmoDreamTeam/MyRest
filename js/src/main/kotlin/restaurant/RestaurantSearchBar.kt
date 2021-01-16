@@ -5,6 +5,8 @@ import kotlinx.coroutines.launch
 import kotlinx.html.js.onInputFunction
 import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.Pageable
+import org.itmodreamteam.myrest.shared.error.ClientException
+import org.itmodreamteam.myrest.shared.error.ErrorHandler
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClient
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.w3c.dom.HTMLInputElement
@@ -23,8 +25,12 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
                 onInputFunction = {
                     val text = (it.target as HTMLInputElement).value
                     GlobalScope.launch {
-                        val page = props.restaurantClient.search(text, Pageable(0, 100))
-                        props.searchListener.onSearchCompleted(page)
+                        try {
+                            val page = props.restaurantClient.search(text, Pageable(0, 100))
+                            props.searchListener.onSearchCompleted(page)
+                        } catch (e: ClientException) {
+                            props.errorHandler.handle(this, e)
+                        }
                     }
                 }
             }
@@ -32,6 +38,7 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
     }
 
     interface Props : RProps {
+        var errorHandler: ErrorHandler<Any>
         var restaurantClient: RestaurantClient
         var searchListener: SearchListener
     }
