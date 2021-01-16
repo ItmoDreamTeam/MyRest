@@ -8,6 +8,7 @@
 
 import UIKit
 import shared
+import SDWebImage
 
 final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "RestaurantCell"
@@ -26,7 +27,10 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   func configure(with model: RestaurantInfo) {
     restaurantNameLabel.text = model.name
     ratingLabel.text = "\(model.internalRating)"
-    //change to real avatar
-    restaurantImageView.image = UIImage(named: "placeholder") ?? UIImage()
+    guard
+      let avatar = model.avatar,
+      let url = URL(string: avatar.url())
+    else { return }
+    restaurantImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "restaurantPlaceholder"))
   }
 }
