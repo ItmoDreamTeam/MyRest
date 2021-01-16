@@ -8,6 +8,7 @@
 
 import UIKit
 import shared
+import SDWebImage
 
 final class PhotoCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "PhotoCell"
