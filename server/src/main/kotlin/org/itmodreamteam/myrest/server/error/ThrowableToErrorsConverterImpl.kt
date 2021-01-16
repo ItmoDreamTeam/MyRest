@@ -3,9 +3,9 @@ package org.itmodreamteam.myrest.server.error
 import org.itmodreamteam.myrest.server.error.converter.ConcreteThrowableToErrorsConverter
 import org.itmodreamteam.myrest.shared.error.ServerError
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
+@Service
 class ThrowableToErrorsConverterImpl(
     private val converters: Set<ConcreteThrowableToErrorsConverter<*>>
 ) : ThrowableToErrorsConverter {
