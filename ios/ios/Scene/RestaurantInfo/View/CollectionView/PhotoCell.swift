@@ -34,6 +34,7 @@ final class PhotoCell: UICollectionViewCell, ConfigurableView {
   }
 
   func configure(with model: AttachmentMetadata) {
-    fatalError("Not implemented yet")
+    guard let url = URL(string: model.url()) else { return }
+    imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
   }
 }

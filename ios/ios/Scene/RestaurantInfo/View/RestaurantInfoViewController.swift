@@ -31,7 +31,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     view.backgroundColor = .white
     configureNavBar()
     configureLabels()
-
+    configureCollectionView()
   }
 
   private func configureNavBar() {
