@@ -24,16 +24,19 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
                 placeholder = "Поиск ресторанов..."
                 onInputFunction = {
                     val text = (it.target as HTMLInputElement).value
-                    GlobalScope.launch {
-                        try {
-                            val page = props.restaurantClient.search(text, Pageable(0, 100))
-                            props.searchListener.onSearchCompleted(page)
-                        } catch (e: ClientException) {
-                            props.errorHandler.handle(this, e)
-                        }
-                    }
+                    search(text)
                 }
             }
+        }
+        search("")
+    }
+
+    private fun search(text: String) = GlobalScope.launch {
+        try {
+            val page = props.restaurantClient.search(text, Pageable(0, 100))
+            props.searchListener.onSearchCompleted(page)
+        } catch (e: ClientException) {
+            props.errorHandler.handle(this, e)
         }
     }
 
