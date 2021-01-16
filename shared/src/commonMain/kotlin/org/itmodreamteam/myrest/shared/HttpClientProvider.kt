@@ -3,6 +3,7 @@ package org.itmodreamteam.myrest.shared
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.utils.io.*
@@ -19,7 +20,9 @@ object HttpClientProvider {
             port = ClientProperties.Server.port
             contentType(ContentType.Application.Json)
         }
-        install(JsonFeature)
+        install(JsonFeature) {
+            serializer = KotlinxSerializer()
+        }
         HttpResponseValidator {
             validateResponse { response ->
                 when (response.status) {
