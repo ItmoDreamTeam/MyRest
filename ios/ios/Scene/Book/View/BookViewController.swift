@@ -28,11 +28,13 @@ final class BookViewController: UIViewController, BookView {
 
   @IBOutlet weak var tablePicker: UIPickerView!
   @IBOutlet weak var datePicker: UIDatePicker!
-
+  @IBOutlet weak var registerButton: UIButton!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     guard let restaurantId = restaurant?.id else { return }
     configurePickers()
+    configureButton()
     interactor?.bookDidRequestTables(self, forRestautandId: restaurantId)
   }
 
@@ -44,11 +46,17 @@ final class BookViewController: UIViewController, BookView {
 
   private func configureDatePicker() {
     let calendar = Calendar(identifier: .gregorian)
+    datePicker.locale = Locale(identifier: "ru")
     var component = DateComponents()
     component.day = 7
     let maxDate = calendar.date(byAdding: component, to: Date())
     datePicker.minimumDate = Date()
     datePicker.maximumDate = maxDate
+  }
+
+  private func configureButton() {
+    registerButton.backgroundColor = .lightGray
+    registerButton.layer.cornerRadius = Constant.buttonCornerRadius
   }
 
   func onTablesFetchCompleted(_ tables: [TableView]) {
@@ -59,7 +67,17 @@ final class BookViewController: UIViewController, BookView {
   }
 
   func onReservationCompleted() {
-    router?.bookShouldDismiss(self)
+    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+      self.router?.bookShouldDismiss(self)
+    }
+  }
+
+  @IBAction func registerTapped(_ sender: UIButton) {
+    interactor?.bookShouldBookTable(
+      self,
+      withId: tables[tablePicker.selectedRow(inComponent: 0)].id,
+      onDate: datePicker.date
+    )
   }
 }
 

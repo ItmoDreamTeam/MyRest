@@ -28,7 +28,10 @@ final class BookPresenterImpl: BookPresenter {
   }
 
   func interactorBookedTable(reservation: ReservationInfo) {
-    view.presentToast(message: "Ваше бронирование зарегистрированно и появится на странице бронирований")
+    view.presentToast(
+      message: "Ваше бронирование зарегистрированно и появится на странице бронирований",
+      onTime: .now() + .seconds(2)
+    )
     view.onReservationCompleted()
   }
 }

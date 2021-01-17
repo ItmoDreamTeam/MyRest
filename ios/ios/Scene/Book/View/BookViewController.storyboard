@@ -45,6 +45,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <state key="normal" title="Забронировать"/>
+                                        <connections>
+                                            <action selector="registerTapped:" destination="lY3-yG-s15" eventType="touchUpInside" id="Ns7-5Y-FXA"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -60,6 +63,7 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="tOk-np-Ija" id="uZJ-qK-7KM"/>
+                        <outlet property="registerButton" destination="U3o-BX-UDg" id="ZgD-0z-Kl5"/>
                         <outlet property="tablePicker" destination="7dH-uK-foq" id="eFH-Yz-R1U"/>
                     </connections>
                 </viewController>

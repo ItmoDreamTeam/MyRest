@@ -11,6 +11,7 @@ import shared
 
 protocol BookInteractor {
   func bookDidRequestTables(_ bookView: BookView, forRestautandId restaurantId: Int64)
+  func bookShouldBookTable(_ bookView: BookView, withId tableId: Int64, onDate date: Date)
 }
 
 final class BookInteractorImpl: BookInteractor {
