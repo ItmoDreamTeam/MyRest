@@ -134,8 +134,12 @@ final class AppDependencies {
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - RestaurantInfoScene
+    container.register { RestaurantInfoRouterImpl() as RestaurantInfoRouter }
     // swiftlint:disable force_unwrapping
     container.register { RestaurantInfoViewController.storyboardInstance()! }
+      .resolvingProperties { container, view in
+        view.router = try container.resolve()
+      }
     .implements(RestaurantInfoView.self, RestaurantInfoDataDelegate.self, RestaurantInfoScene.self)
 
     // MARK: - RestaurantListScene

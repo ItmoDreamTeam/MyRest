@@ -17,6 +17,8 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     return storyboard.instantiateInitialViewController() as? Self
   }
 
+  var router: RestaurantInfoRouter?
+
   private var restaurant: RestaurantInfo?
 
   @IBOutlet weak var photosCollectionView: PhotosCollectionView!
@@ -68,7 +70,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   }
 
   @IBAction func registerTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    router?.restaurantInfoShouldOpenBookScene(self)
   }
 }
 
