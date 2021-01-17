@@ -15,6 +15,7 @@ import security.AccessTokenHolder
 import styled.css
 import styled.styledDiv
 import user.ProfileComponent
+import user.SignInComponent
 
 interface StateManager {
     fun changeState(state: RootComponent.State)
@@ -43,6 +44,13 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
                         userClient = props.userClient
                     }
                 }
+                State.SIGN_IN -> child(SignInComponent::class) {
+                    attrs {
+                        errorHandler = props.errorHandler
+                        accessTokenHolder = props.accessTokenHolder
+                        userClient = props.userClient
+                    }
+                }
             }
             css {
                 width = LinearDimension("1000px")
@@ -66,6 +74,7 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
     enum class State : RState {
         SEARCH,
         PROFILE,
+        SIGN_IN,
         ;
 
         val fragment = "#" + name.toLowerCase()
