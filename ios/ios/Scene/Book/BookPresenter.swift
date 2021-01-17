@@ -22,6 +22,7 @@ final class BookPresenterImpl: BookPresenter {
   }
 
   func interactorDidFetched(tables: [TableView]) {
-    view.onTablesFetchCompleted(tables)
+    let sortedTables = tables.sorted { $0.info.number > $1.info.number }
+    view.onTablesFetchCompleted(sortedTables)
   }
 }

@@ -22,6 +22,7 @@ final class BookViewController: UIViewController, BookView {
   var interactor: BookInteractor?
 
   private var restaurant: RestaurantInfo?
+  private var tables: [TableView] = []
 
   @IBOutlet weak var tablePicker: UIPickerView!
   @IBOutlet weak var datePicker: UIDatePicker!
@@ -29,11 +30,46 @@ final class BookViewController: UIViewController, BookView {
   override func viewDidLoad() {
     super.viewDidLoad()
     guard let restaurantId = restaurant?.id else { return }
+    configurePickers()
     interactor?.bookDidRequestTables(self, forRestautandId: restaurantId)
   }
 
+  private func configurePickers() {
+    tablePicker.dataSource = self
+    tablePicker.delegate = self
+    configureDatePicker()
+  }
+
+  private func configureDatePicker() {
+    let calendar = Calendar(identifier: .gregorian)
+    var component = DateComponents()
+    component.day = 7
+    let maxDate = calendar.date(byAdding: component, to: Date())
+    datePicker.minimumDate = Date()
+    datePicker.maximumDate = maxDate
+  }
+
   func onTablesFetchCompleted(_ tables: [TableView]) {
-    fatalError("Not implemented yet")
+    self.tables = tables
+    DispatchQueue.main.async {
+      self.tablePicker.reloadAllComponents()
+    }
+  }
+}
+
+extension BookViewController: UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    1
+  }
+
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    tables.count
+  }
+}
+
+extension BookViewController: UIPickerViewDelegate {
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    "Столик \(tables[row].info.number), мест - \(tables[row].info.numberOfSeats)"
   }
 }
 

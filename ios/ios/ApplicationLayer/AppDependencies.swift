@@ -146,11 +146,11 @@ final class AppDependencies {
     container.register(.shared) {
       BookPresenterImpl(view: try self.container.resolve()) as BookPresenter
     }
-    container.register { BookViewController.storyboardInstance()! }
+    container.register(.shared) { BookViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
         view.interactor = try container.resolve()
       }
-      .implements(BookView.self, RestaurantInfoDataDelegate.self, BookView.self)
+      .implements(BookView.self, RestaurantInfoDataDelegate.self, BookScene.self)
 
     // MARK: - RestaurantInfoScene
     container.register {
