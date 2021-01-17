@@ -14,6 +14,7 @@
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
 		A713A87925B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */; };
+		A713A87B25B3F64900CB11B7 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87A25B3F64900CB11B7 /* HalfSizePresentationController.swift */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -106,6 +107,7 @@
 		7599AF8247B3B1665E152B0E /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.debug.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewConstants.swift; sourceTree = "<group>"; };
+		A713A87A25B3F64900CB11B7 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				A7DBEB4125AB45C80041A1C7 /* DataDelegate */,
 				A74D6FFE25A80BA600BF1535 /* ToSignInRouter.swift */,
 				A7494BD025784EA00074CE32 /* MaskTextField.swift */,
+				A713A87A25B3F64900CB11B7 /* HalfSizePresentationController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				A7FC7E7125AC211E002DDB2C /* PhotosCollectionView.swift in Sources */,
 				A7DBEB4325AB45F60041A1C7 /* ProfileDataDelegate.swift in Sources */,
 				A7D32C3E25712A3900124AFE /* AppDependencies.swift in Sources */,
+				A713A87B25B3F64900CB11B7 /* HalfSizePresentationController.swift in Sources */,
 				A7FC7E6F25AC2113002DDB2C /* PhotoCell.swift in Sources */,
 				A72B05AC25A991D200DB4BF7 /* SignInInteractor.swift in Sources */,
 				A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */,
