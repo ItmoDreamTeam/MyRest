@@ -3,13 +3,15 @@ import kotlinx.browser.window
 
 object PreviousPageRedirection {
 
-    private const val KEY = "previousUri"
+    private const val KEY = "previousHash"
 
     fun redirectToPreviousUri() {
-        sessionStorage.getItem(KEY)
+        val hash = sessionStorage.getItem(KEY)
+        window.location.hash = hash ?: ""
+        window.location.reload()
     }
 
     fun saveCurrentUri() {
-        sessionStorage.setItem(KEY, window.location.pathname)
+        sessionStorage.setItem(KEY, window.location.hash)
     }
 }
