@@ -33,7 +33,7 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
 
     private fun search(text: String) = GlobalScope.launch {
         try {
-            val page = props.restaurantClient.search(text, Pageable(0, 100))
+            val page = props.restaurantClient.searchNonGeneric(text, Pageable(0, 100)).toGeneric()
             props.searchListener.onSearchCompleted(page)
         } catch (e: ClientException) {
             props.errorHandler.handle(this, e)
