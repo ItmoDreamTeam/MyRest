@@ -64,6 +64,8 @@ dependencies {
     implementation("androidx.hilt:hilt-work:$hilt_version")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:$hilt_version")
     kapt("androidx.hilt:hilt-compiler:$hilt_version")
+
+    implementation("com.google.android.material:material:1.2.1")
 }
 android {
     compileOptions {

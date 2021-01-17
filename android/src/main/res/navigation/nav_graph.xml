@@ -7,7 +7,7 @@
     <fragment android:id="@+id/placeholder3" />
     <fragment
         android:id="@+id/signIn"
-        android:name="org.itmodreamteam.myrest.android.SignIn"
+        android:name="org.itmodreamteam.myrest.android.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
