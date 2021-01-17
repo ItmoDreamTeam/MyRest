@@ -2,6 +2,8 @@ package restaurant
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.css.LinearDimension
+import kotlinx.css.width
 import kotlinx.html.js.onInputFunction
 import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.Pageable
@@ -14,7 +16,8 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.input
+import styled.css
+import styled.styledInput
 
 class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, RState>(props) {
 
@@ -23,13 +26,16 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
     }
 
     override fun RBuilder.render() {
-        input {
+        styledInput {
             attrs {
                 placeholder = "Поиск ресторанов..."
                 onInputFunction = {
                     val text = (it.target as HTMLInputElement).value
                     search(text)
                 }
+            }
+            css {
+                width = LinearDimension.fillAvailable
             }
         }
     }
