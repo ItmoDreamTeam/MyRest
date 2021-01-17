@@ -3,12 +3,20 @@ package security
 import kotlinx.browser.localStorage
 import org.itmodreamteam.myrest.shared.AccessTokenProvider
 
-class LocalStorageAccessTokenProvider : AccessTokenProvider {
+class LocalStorageAccessTokenProvider : AccessTokenProvider, AccessTokenHolder {
 
     override val accessToken: String?
-        get() = localStorage.getItem(KEY)
+        get() = value
 
-    fun setAccessToken(token: String) = localStorage.setItem(KEY, token)
+    override var value: String?
+        get() = localStorage.getItem(KEY)
+        set(value) {
+            if (value == null) {
+                localStorage.removeItem(KEY)
+            } else {
+                localStorage.setItem(KEY, value)
+            }
+        }
 
     companion object {
         private const val KEY = "accessToken"

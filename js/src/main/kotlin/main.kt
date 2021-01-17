@@ -1,32 +1,26 @@
 import error.JsErrorHandler
 import kotlinx.browser.document
 import kotlinx.browser.window
-import kotlinx.css.LinearDimension
-import kotlinx.css.margin
-import kotlinx.css.width
 import org.itmodreamteam.myrest.shared.AccessTokenProvider
+import org.itmodreamteam.myrest.shared.restaurant.ReservationClientImpl
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClientImpl
+import org.itmodreamteam.myrest.shared.user.UserClientImpl
 import react.dom.render
-import restaurant.RestaurantSearch
 import security.LocalStorageAccessTokenProvider
-import styled.css
-import styled.styledDiv
 
 fun main() {
     window.onload = {
-        AccessTokenProvider.INSTANCE = LocalStorageAccessTokenProvider()
+        val accessTokenProvider = LocalStorageAccessTokenProvider()
+        AccessTokenProvider.INSTANCE = accessTokenProvider
 
         render(document.getElementById("root")) {
-            styledDiv {
-                child(RestaurantSearch::class) {
-                    attrs {
-                        errorHandler = JsErrorHandler()
-                        restaurantClient = RestaurantClientImpl()
-                    }
-                }
-                css {
-                    width = LinearDimension("1000px")
-                    margin = "auto"
+            child(RootComponent::class) {
+                attrs {
+                    errorHandler = JsErrorHandler()
+                    accessTokenHolder = accessTokenProvider
+                    userClient = UserClientImpl()
+                    restaurantClient = RestaurantClientImpl()
+                    reservationClient = ReservationClientImpl()
                 }
             }
         }
