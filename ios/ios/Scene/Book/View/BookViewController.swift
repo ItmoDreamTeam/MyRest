@@ -21,6 +21,7 @@ final class BookViewController: UIViewController, BookView {
   }
 
   var interactor: BookInteractor?
+  var router: BookRouter?
 
   private var restaurant: RestaurantInfo?
   private var tables: [TableView] = []
@@ -58,7 +59,7 @@ final class BookViewController: UIViewController, BookView {
   }
 
   func onReservationCompleted() {
-    fatalError("Not implemented yet")
+    router?.bookShouldDismiss(self)
   }
 }
 

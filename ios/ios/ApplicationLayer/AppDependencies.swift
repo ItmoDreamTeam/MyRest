@@ -137,6 +137,7 @@ final class AppDependencies {
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - BookScene
+    container.register { BookRouterImpl() as BookRouter }
     container.register(.shared) {
       try BookInteractorImpl(
         tableClient: self.container.resolve(),
@@ -151,6 +152,7 @@ final class AppDependencies {
     container.register(.shared) { BookViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
         view.interactor = try container.resolve()
+        view.router = try container.resolve()
       }
       .implements(BookView.self, RestaurantInfoDataDelegate.self, BookScene.self)
 
