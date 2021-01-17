@@ -50,6 +50,7 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
                     attrs {
                         errorHandler = props.errorHandler
                         userClient = props.userClient
+                        restaurantClient = props.restaurantClient
                     }
                 }
                 State.SIGN_IN -> child(SignInComponent::class) {
