@@ -20,6 +20,6 @@ final class BookViewController: UIViewController, BookView {
   @IBOutlet weak var datePicker: UIDatePicker!
 
   override func viewDidLoad() {
-    super.viewDidLoad()
+    super.viewDidLoad
   }
 }
