@@ -18,6 +18,10 @@ import react.dom.input
 
 class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, RState>(props) {
 
+    init {
+        search("")
+    }
+
     override fun RBuilder.render() {
         input {
             attrs {
@@ -28,7 +32,6 @@ class RestaurantSearchBar(props: Props) : RComponent<RestaurantSearchBar.Props, 
                 }
             }
         }
-        search("")
     }
 
     private fun search(text: String) = GlobalScope.launch {
