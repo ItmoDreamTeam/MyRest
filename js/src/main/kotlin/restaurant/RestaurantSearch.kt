@@ -10,6 +10,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.dom.div
 import styled.css
 import styled.styledDiv
 
@@ -31,11 +32,20 @@ class RestaurantSearch(props: Props) : RComponent<RestaurantSearch.Props, Restau
             }
             css {
                 marginTop = LinearDimension("10px")
-                marginBottom = LinearDimension("10px")
+                marginBottom = LinearDimension("20px")
             }
         }
-        styledDiv {
-            for (item in state.items.content) {
+        div {
+            val content = state.items.content
+            if (content.isEmpty()) {
+                styledDiv {
+                    +"Результатов, удовлетворяющих критериям поиска, не найдено"
+                    css {
+                        textAlign = TextAlign.center
+                    }
+                }
+            }
+            for (item in content) {
                 styledDiv {
                     child(RestaurantSearchItem::class) {
                         attrs {
@@ -43,9 +53,9 @@ class RestaurantSearch(props: Props) : RComponent<RestaurantSearch.Props, Restau
                         }
                     }
                     css {
-                        height = LinearDimension("150px")
-                        width = LinearDimension.fillAvailable
-                        marginBottom = LinearDimension("10px")
+                        paddingTop = LinearDimension("20px")
+                        borderTopStyle = BorderStyle.solid
+                        borderTopColor = Color.blueViolet
                     }
                 }
             }
