@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/setPhone">
+    <fragment android:id="@+id/placeholder3" />
+    <fragment
+        android:id="@+id/signIn"
+        android:name="org.itmodreamteam.myrest.android.SignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signIn_to_setPhone"
+            app:destination="@id/setPhone" />
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/signUp" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPhone"
+        android:name="org.itmodreamteam.myrest.android.SetPhone"
+        android:label="fragment_set_phone"
+        tools:layout="@layout/fragment_set_phone" >
+        <action
+            android:id="@+id/action_setPhone_to_signIn"
+            app:destination="@id/signIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="org.itmodreamteam.myrest.android.SignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+</navigation>

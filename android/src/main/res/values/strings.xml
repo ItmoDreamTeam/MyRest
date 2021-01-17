@@ -17,5 +17,7 @@
     <string name="invalid_code">Not a valid code</string>
     <string name="login_failed">"Login failed"</string>
     <string name="send_failed">"Verification code sending failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

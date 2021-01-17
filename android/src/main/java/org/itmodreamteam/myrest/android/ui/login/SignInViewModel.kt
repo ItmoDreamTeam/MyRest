@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.android.ui.login
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,8 @@ import org.itmodreamteam.myrest.android.R
 import org.itmodreamteam.myrest.android.data.Result
 import org.itmodreamteam.myrest.android.data.SignInRepository
 
-class SignInViewModel(private val signInRepository: SignInRepository) : ViewModel() {
+class SignInViewModel @ViewModelInject constructor(
+    private val signInRepository: SignInRepository) : ViewModel() {
     private val _singInFormState = MutableLiveData<SignInFormState>()
     val signInFormState: LiveData<SignInFormState> = _singInFormState
 
