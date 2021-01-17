@@ -45,6 +45,7 @@ final class AppDependencies {
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
     container.register { TableClientImpl() as TableClient }
+    container.register { ReservationClientImpl() as ReservationClient }
 
     // MARK: - VerificationCodeScene
     container.register { VerificationCodeRouterImpl() as VerificationCodeRouter }
@@ -139,6 +140,7 @@ final class AppDependencies {
     container.register(.shared) {
       try BookInteractorImpl(
         tableClient: self.container.resolve(),
+        reservationClient: self.container.resolve(),
         errorHandler: self.container.resolve(),
         presenter: self.container.resolve()
       ) as BookInteractor

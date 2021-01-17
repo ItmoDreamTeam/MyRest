@@ -11,6 +11,7 @@ import shared
 
 protocol BookPresenter {
   func interactorDidFetched(tables: [TableView])
+  func interactorBookedTable(reservation: ReservationInfo)
 }
 
 final class BookPresenterImpl: BookPresenter {
@@ -24,5 +25,10 @@ final class BookPresenterImpl: BookPresenter {
   func interactorDidFetched(tables: [TableView]) {
     let sortedTables = tables.sorted { $0.info.number > $1.info.number }
     view.onTablesFetchCompleted(sortedTables)
+  }
+
+  func interactorBookedTable(reservation: ReservationInfo) {
+    view.presentToast(message: "Ваше бронирование зарегистрированно и появится на странице бронирований")
+    view.onReservationCompleted()
   }
 }

@@ -11,6 +11,7 @@ import shared
 
 protocol BookView: UIViewController {
   func onTablesFetchCompleted(_ tables: [TableView])
+  func onReservationCompleted()
 }
 
 final class BookViewController: UIViewController, BookView {
@@ -54,6 +55,10 @@ final class BookViewController: UIViewController, BookView {
     DispatchQueue.main.async {
       self.tablePicker.reloadAllComponents()
     }
+  }
+
+  func onReservationCompleted() {
+    fatalError("Not implemented yet")
   }
 }
 

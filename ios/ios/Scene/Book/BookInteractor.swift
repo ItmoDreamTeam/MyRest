@@ -41,4 +41,19 @@ final class BookInteractorImpl: BookInteractor {
       self?.presenter.interactorDidFetched(tables: tables)
     }
   }
+
+  func bookShouldBookTable(_ bookView: BookView, withId tableId: Int64, onDate date: Date) {
+    guard let activeUntil = Calendar.current.date(byAdding: .hour, value: 3, to: date) else { return }
+    reservationClient.submitReservationForApproval(
+      tableId: tableId,
+      activeFrom: date.toKotlindatetimeLocalDateTime(),
+      activeUntil: activeUntil.toKotlindatetimeLocalDateTime()
+    ) { [weak self] reservation, error in
+      guard let reservation = reservation, error == nil else {
+        self?.errorHandler.handleNSError(context: bookView, error: error)
+        return
+      }
+      self?.presenter.interactorBookedTable(reservation: reservation)
+    }
+  }
 }
