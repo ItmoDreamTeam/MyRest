@@ -31,6 +31,13 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
     override fun RBuilder.render() {
         window.location.hash = state.fragment
         styledDiv {
+            child(Header::class) {
+                attrs {
+                    stateManager = this@RootComponent
+                    errorHandler = props.errorHandler
+                    userClient = props.userClient
+                }
+            }
             when (state) {
                 State.SEARCH -> child(RestaurantSearch::class) {
                     attrs {
@@ -60,7 +67,8 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
     }
 
     override fun changeState(state: State) {
-        this.state = state
+        window.location.hash = state.fragment
+        window.location.reload()
     }
 
     interface Props : RProps {

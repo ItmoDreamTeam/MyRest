@@ -34,7 +34,7 @@ class ProfileComponent(props: Props) : RComponent<ProfileComponent.Props, Profil
                     +"Имя"
                 }
                 div {
-                    +(me.firstName + " " + me.lastName)
+                    +me.fullName()
                 }
             }
         }
