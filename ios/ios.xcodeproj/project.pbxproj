@@ -14,6 +14,8 @@
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
+		A713A88025B3FCE700CB11B7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87F25B3FCE700CB11B7 /* BookViewController.swift */; };
+		A713A88225B3FD4400CB11B7 /* BookViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -100,6 +102,8 @@
 		7555FFA2242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A713A87F25B3FCE700CB11B7 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -245,6 +249,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A713A87E25B3FCAF00CB11B7 /* Book */ = {
+			isa = PBXGroup;
+			children = (
+				A713A87F25B3FCE700CB11B7 /* BookViewController.swift */,
+				A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */,
+			);
+			path = Book;
+			sourceTree = "<group>";
+		};
 		A72B05A425A973E000DB4BF7 /* VerificationCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +346,7 @@
 		A7D2DA0325704E0900ED74BC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				A713A87E25B3FCAF00CB11B7 /* Book */,
 				A74D6FFD25A809D200BF1535 /* Shared */,
 				A72B05A425A973E000DB4BF7 /* VerificationCode */,
 				A7D5F4B4259A0CE100756E4E /* UserInfo */,
@@ -528,6 +542,7 @@
 				A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */,
 				7555FF85242A565B00829871 /* Assets.xcassets in Resources */,
 				A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */,
+				A713A88225B3FD4400CB11B7 /* BookViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,6 +657,7 @@
 				A7D32C452571455600124AFE /* UIColor+Utils.swift in Sources */,
 				7555FF7F242A565900829871 /* AppDelegate.swift in Sources */,
 				A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */,
+				A713A88025B3FCE700CB11B7 /* BookViewController.swift in Sources */,
 				A7D2DA0625704F0300ED74BC /* RestaurantListViewController.swift in Sources */,
 				A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */,
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
