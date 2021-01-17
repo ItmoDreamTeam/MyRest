@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.login.SignUpActivity" android:label="@string/title_activity_signIn"/>
-        <activity android:name=".ui.login.SignInActivity" android:label="@string/title_activity_signUp" />
-        <activity android:name=".ui.login.SignInOrSignUp"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

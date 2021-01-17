@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.android.data
 
+import android.util.Log
 import org.itmodreamteam.myrest.shared.AccessTokenProvider
 
 class AccessTokenHolder : AccessTokenProvider, AccessTokenMutator {
@@ -9,6 +10,8 @@ class AccessTokenHolder : AccessTokenProvider, AccessTokenMutator {
         get() = _accessToken
 
     override fun setAccessToken(accessToken: String) {
+        // TODO debug
+        Log.i(javaClass.name, "Setting access-token \"$accessToken\"")
         _accessToken = accessToken
     }
 }

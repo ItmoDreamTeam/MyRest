@@ -13,8 +13,6 @@ import org.itmodreamteam.myrest.android.data.SignInRepository
 const val EXTRA_PHONE = "org.itmodreamteam.myrest.android.ui.login.PHONE"
 
 class SignInOrSignUp : AppCompatActivity() {
-    private lateinit var signInRepository: SignInRepository
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in_or_sign_up)
@@ -22,8 +20,6 @@ class SignInOrSignUp : AppCompatActivity() {
         val phone = findViewById<EditText>(R.id.editTextPhone)
         val signIn = findViewById<Button>(R.id.buttonSignIn)
         val signUp = findViewById<Button>(R.id.buttonSignUp)
-
-        signInRepository = (application as MyRestApplication).signInRepository
 
         // TODO view model for phone + validation
 

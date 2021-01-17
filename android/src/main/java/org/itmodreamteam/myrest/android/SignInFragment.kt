@@ -2,19 +2,19 @@ package org.itmodreamteam.myrest.android
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import org.itmodreamteam.myrest.android.data.SignInRepository
 import org.itmodreamteam.myrest.android.databinding.FragmentSignInBinding
 import org.itmodreamteam.myrest.android.ui.afterTextChanged
 import org.itmodreamteam.myrest.android.ui.login.SignInViewModel
@@ -88,12 +88,15 @@ class SignInFragment : Fragment() {
             model.signIn(binding.signInPhone.text.toString())
         }
 
+        model.tryToRecoverSession()
+
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Toast.makeText(context, args.phone, Toast.LENGTH_LONG).show()
+
     }
 
     private fun updateUiWithUser(model: Profile) {
