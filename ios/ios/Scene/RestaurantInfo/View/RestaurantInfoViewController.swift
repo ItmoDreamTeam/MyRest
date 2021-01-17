@@ -32,6 +32,7 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     configureNavBar()
     configureLabels()
     configureCollectionView()
+    configureButton()
   }
 
   private func configureNavBar() {
@@ -46,6 +47,11 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     setLabelText(label: websiteLabel, text: restaurant.websiteUrl)
     setLabelText(label: emailLabel, text: restaurant.email)
     setLabelText(label: ratingLabel, text: "\(restaurant.externalRating)")
+  }
+
+  private func configureButton() {
+    registerButton.layer.cornerRadius = Constant.buttonCornerRadius
+    registerButton.backgroundColor = .lightGray
   }
 
   private func setLabelText(label: UILabel, text: String?) {

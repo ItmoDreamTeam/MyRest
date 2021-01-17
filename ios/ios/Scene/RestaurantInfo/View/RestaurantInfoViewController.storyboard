@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u7y-xM-RVG" customClass="PhotosCollectionView" customModule="ios" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="54" width="414" height="200"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="en6-XR-gJQ"/>
@@ -31,7 +31,7 @@
                                 <cells/>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iqo-Vb-3d2">
-                                <rect key="frame" x="20" y="264" width="374" height="106"/>
+                                <rect key="frame" x="20" y="274" width="374" height="106"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCe-qr-NCN">
                                         <rect key="frame" x="0.0" y="0.0" width="89.5" height="20.5"/>
@@ -60,7 +60,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOF-WN-ptT">
-                                <rect key="frame" x="57" y="390" width="300" height="40"/>
+                                <rect key="frame" x="57" y="400" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="3iJ-qV-sh7"/>
                                     <constraint firstAttribute="height" constant="40" id="hwm-YV-DoF"/>
@@ -76,7 +76,7 @@
                         <constraints>
                             <constraint firstItem="iqo-Vb-3d2" firstAttribute="top" secondItem="u7y-xM-RVG" secondAttribute="bottom" constant="20" id="HKT-WW-bCm"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" id="OAh-Ey-Blc"/>
-                            <constraint firstItem="u7y-xM-RVG" firstAttribute="top" secondItem="wCO-AA-4EL" secondAttribute="top" id="Qgu-AO-Jz8"/>
+                            <constraint firstItem="u7y-xM-RVG" firstAttribute="top" secondItem="wCO-AA-4EL" secondAttribute="top" constant="10" id="Qgu-AO-Jz8"/>
                             <constraint firstItem="qOF-WN-ptT" firstAttribute="centerX" secondItem="5tH-zU-zsk" secondAttribute="centerX" id="Qlf-Xt-sGo"/>
                             <constraint firstItem="iqo-Vb-3d2" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" constant="20" id="QnL-Hz-4a4"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="trailing" secondItem="wCO-AA-4EL" secondAttribute="trailing" id="hsI-ez-GyT"/>

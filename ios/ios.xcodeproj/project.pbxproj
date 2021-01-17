@@ -13,6 +13,7 @@
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
+		A713A87925B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -25,7 +26,7 @@
 		A72B05BB25A9DA0400DB4BF7 /* ContextDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BA25A9DA0400DB4BF7 /* ContextDataDelegate.swift */; };
 		A72B05BD25AA043400DB4BF7 /* VerificationCodeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BC25AA043400DB4BF7 /* VerificationCodeRouter.swift */; };
 		A72B05BF25AA073300DB4BF7 /* SignUpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05BE25AA073300DB4BF7 /* SignUpRouter.swift */; };
-		A72FC81A25B2A7BB00342FDD /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A72FC81925B2A7BB00342FDD /* SwiftPackageProductDependency */; };
+		A72FC81A25B2A7BB00342FDD /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A72FC81925B2A7BB00342FDD /* SDWebImage */; };
 		A7436D82258B7574004D3E59 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7436D81258B7574004D3E59 /* SignUpViewController.swift */; };
 		A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BCE257849C80074CE32 /* SignInViewController.swift */; };
 		A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7494BD025784EA00074CE32 /* MaskTextField.swift */; };
@@ -104,6 +105,7 @@
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		7599AF8247B3B1665E152B0E /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.debug.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewConstants.swift; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72FC81A25B2A7BB00342FDD /* BuildFile in Frameworks */,
+				A72FC81A25B2A7BB00342FDD /* SDWebImage in Frameworks */,
 				7555FFB2242A642300829871 /* shared.framework in Frameworks */,
 				CEF4A4DEFBAA55CA9F3CDD4F /* libPods-ios.a in Frameworks */,
 			);
@@ -448,6 +450,7 @@
 			children = (
 				A7FC7E7025AC211E002DDB2C /* PhotosCollectionView.swift */,
 				A7FC7E6E25AC2112002DDB2C /* PhotoCell.swift */,
+				A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -473,7 +476,7 @@
 			);
 			name = ios;
 			packageProductDependencies = (
-				A72FC81925B2A7BB00342FDD /* SwiftPackageProductDependency */,
+				A72FC81925B2A7BB00342FDD /* SDWebImage */,
 			);
 			productName = ios;
 			productReference = 7555FF7B242A565900829871 /* ios.app */;
@@ -548,7 +551,7 @@
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
-				A72FC81825B2A7BB00342FDD /* RemoteSwiftPackageReference */,
+				A72FC81825B2A7BB00342FDD /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -690,6 +693,7 @@
 				7555FF7F242A565900829871 /* AppDelegate.swift in Sources */,
 				A7494BCF257849C80074CE32 /* SignInViewController.swift in Sources */,
 				A7D2DA0625704F0300ED74BC /* RestaurantListViewController.swift in Sources */,
+				A713A87925B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift in Sources */,
 				A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */,
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
 				A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */,
@@ -1022,7 +1026,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A72FC81825B2A7BB00342FDD /* RemoteSwiftPackageReference */ = {
+		A72FC81825B2A7BB00342FDD /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
 			requirement = {
@@ -1033,9 +1037,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A72FC81925B2A7BB00342FDD /* SwiftPackageProductDependency */ = {
+		A72FC81925B2A7BB00342FDD /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A72FC81825B2A7BB00342FDD /* RemoteSwiftPackageReference */;
+			package = A72FC81825B2A7BB00342FDD /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -12,10 +12,6 @@ import shared
 final class PhotosCollectionView: UICollectionView, ConfigurableView {
   typealias Model = RestaurantInfo
 
-  private let minimumLineSpacing: CGFloat = 3
-  private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-  private let cellWidth: CGFloat = 50
-
   private var viewModel: RestaurantInfo?
 
   init() {
@@ -29,23 +25,24 @@ final class PhotosCollectionView: UICollectionView, ConfigurableView {
     dataSource = self
     register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
     translatesAutoresizingMaskIntoConstraints = false
-    layout.minimumLineSpacing = minimumLineSpacing
-    layout.sectionInset = sectionInsets
+    layout.minimumLineSpacing = PhotosCollectionViewConstants.minimumLineSpacing
+    layout.sectionInset = PhotosCollectionViewConstants.sectionInsets
   }
 
   required init?(coder: NSCoder) {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
     super.init(coder: coder)
     backgroundColor = .white
+    if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+      layout.scrollDirection = .horizontal
+      layout.minimumLineSpacing = PhotosCollectionViewConstants.minimumLineSpacing
+      layout.sectionInset = PhotosCollectionViewConstants.sectionInsets
+    }
     showsVerticalScrollIndicator = false
     showsHorizontalScrollIndicator = false
     delegate = self
     dataSource = self
     register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
     translatesAutoresizingMaskIntoConstraints = false
-    layout.minimumLineSpacing = minimumLineSpacing
-    layout.sectionInset = sectionInsets
   }
 
   func configure(with model: RestaurantInfo) {
@@ -77,7 +74,7 @@ extension PhotosCollectionView: UICollectionViewDelegateFlowLayout {
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
-    return CGSize(width: cellWidth, height: frame.height * 0.8)
+    return CGSize(width: PhotosCollectionViewConstants.cellWidth, height: frame.height * 0.8)
   }
 }
 

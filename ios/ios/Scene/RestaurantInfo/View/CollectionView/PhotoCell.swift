@@ -33,6 +33,11 @@ final class PhotoCell: UICollectionViewCell, ConfigurableView {
     return nil
   }
 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.cornerRadius = Constant.buttonCornerRadius
+  }
+
   func configure(with model: AttachmentMetadata) {
     guard let url = URL(string: model.url()) else { return }
     imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
