@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051009C50AB0E459CB482E92 /* libPods-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23364AA6722E154E830FCD92 /* libPods-ios.a */; };
 		7555FF7F242A565900829871 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF7E242A565900829871 /* AppDelegate.swift */; };
 		7555FF85242A565B00829871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7555FF84242A565B00829871 /* Assets.xcassets */; };
 		7555FF8B242A565B00829871 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7555FF89242A565B00829871 /* LaunchScreen.storyboard */; };
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A70E0571257A944400FB25B3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E0570257A944400FB25B3 /* Constant.swift */; };
-		A713A88025B3FCE700CB11B7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87F25B3FCE700CB11B7 /* BookViewController.swift */; };
-		A713A88225B3FD4400CB11B7 /* BookViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */; };
 		A713A87925B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */; };
 		A713A87B25B3F64900CB11B7 /* HalfSizePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87A25B3F64900CB11B7 /* HalfSizePresentationController.swift */; };
 		A713A87D25B3F7A400CB11B7 /* RestaurantInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87C25B3F7A400CB11B7 /* RestaurantInfoRouter.swift */; };
+		A713A88025B3FCE700CB11B7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87F25B3FCE700CB11B7 /* BookViewController.swift */; };
+		A713A88225B3FD4400CB11B7 /* BookViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -98,8 +97,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0D22A2F546426D09FCC80171 /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.debug.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
-		23364AA6722E154E830FCD92 /* libPods-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7B242A565900829871 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7E242A565900829871 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7555FF84242A565B00829871 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,11 +109,11 @@
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		7599AF8247B3B1665E152B0E /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.debug.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		A70E0570257A944400FB25B3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		A713A87F25B3FCE700CB11B7 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
-		A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookViewController.storyboard; sourceTree = "<group>"; };
 		A713A87825B3ED1A00CB11B7 /* PhotosCollectionViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewConstants.swift; sourceTree = "<group>"; };
 		A713A87A25B3F64900CB11B7 /* HalfSizePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSizePresentationController.swift; sourceTree = "<group>"; };
 		A713A87C25B3F7A400CB11B7 /* RestaurantInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoRouter.swift; sourceTree = "<group>"; };
+		A713A87F25B3FCE700CB11B7 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
+		A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -366,13 +363,13 @@
 		A7D2DA0325704E0900ED74BC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				A713A87E25B3FCAF00CB11B7 /* Book */,
 				A74D6FFD25A809D200BF1535 /* Shared */,
 				A72B05A425A973E000DB4BF7 /* VerificationCode */,
 				A7D5F4B4259A0CE100756E4E /* UserInfo */,
 				A7436D80258B70D6004D3E59 /* SignUp */,
 				A7494BCD2578480D0074CE32 /* SignIn */,
 				A7FC7E6825AC20A4002DDB2C /* RestaurantInfo */,
+				A713A87E25B3FCAF00CB11B7 /* Book */,
 				A7D2DA0425704E1500ED74BC /* RestaurantList */,
 			);
 			path = Scene;

@@ -70,7 +70,8 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
   }
 
   @IBAction func registerTapped(_ sender: UIButton) {
-    router?.restaurantInfoShouldOpenBookScene(self)
+    guard let restaurant = restaurant else { return }
+    router?.restaurantInfoShouldOpenBookScene(self, passRestaurant: restaurant)
   }
 }
 

@@ -16,6 +16,7 @@ typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & Con
 typealias SignUpScene = SignUpView & ContextDataDelegate
 typealias SignInScene = SignInView & ContextDataDelegate
 typealias RestaurantInfoScene = RestaurantInfoView & RestaurantInfoDataDelegate
+typealias BookScene = BookView & RestaurantInfoDataDelegate
 
 final class AppDependencies {
   private let container: DependencyContainer
@@ -133,8 +134,14 @@ final class AppDependencies {
     container.register { UserInfoViewController.storyboardInstance()! }
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
+    // MARK: - BookScene
+    container.register { BookViewController.storyboardInstance()! }
+      .implements(BookView.self, RestaurantInfoDataDelegate.self, BookView.self)
+
     // MARK: - RestaurantInfoScene
-    container.register { RestaurantInfoRouterImpl() as RestaurantInfoRouter }
+    container.register {
+      RestaurantInfoRouterImpl(bookScene: try self.container.resolve()) as RestaurantInfoRouter
+    }
     // swiftlint:disable force_unwrapping
     container.register { RestaurantInfoViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
