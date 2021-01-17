@@ -16,6 +16,7 @@ import styled.css
 import styled.styledDiv
 import user.ProfileComponent
 import user.SignInComponent
+import user.SignUpComponent
 
 interface StateManager {
     fun changeState(state: RootComponent.State)
@@ -56,6 +57,14 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
                         errorHandler = props.errorHandler
                         accessTokenHolder = props.accessTokenHolder
                         userClient = props.userClient
+                        stateManager = this@RootComponent
+                    }
+                }
+                State.SIGN_UP -> child(SignUpComponent::class) {
+                    attrs {
+                        errorHandler = props.errorHandler
+                        accessTokenHolder = props.accessTokenHolder
+                        userClient = props.userClient
                     }
                 }
             }
@@ -83,6 +92,7 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
         SEARCH,
         PROFILE,
         SIGN_IN,
+        SIGN_UP,
         ;
 
         val fragment = "#" + name.toLowerCase()

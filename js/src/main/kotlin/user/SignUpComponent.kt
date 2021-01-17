@@ -1,7 +1,5 @@
 package user
 
-import RootComponent
-import StateManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.css.*
@@ -10,7 +8,7 @@ import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onInputFunction
 import org.itmodreamteam.myrest.shared.error.ClientException
 import org.itmodreamteam.myrest.shared.error.ErrorHandler
-import org.itmodreamteam.myrest.shared.user.SignIn
+import org.itmodreamteam.myrest.shared.user.SignUp
 import org.itmodreamteam.myrest.shared.user.UserClient
 import org.w3c.dom.HTMLInputElement
 import react.RBuilder
@@ -20,18 +18,51 @@ import react.RState
 import react.dom.button
 import react.dom.label
 import security.AccessTokenHolder
+import styled.StyleSheet
 import styled.css
 import styled.styledDiv
 import styled.styledInput
 
-class SignInComponent(props: Props) : RComponent<SignInComponent.Props, SignInComponent.State>(props) {
+class SignUpComponent(props: Props) : RComponent<SignUpComponent.Props, SignUpComponent.State>(props) {
 
     init {
-        state = State(null)
+        state = State(null, null, null)
     }
 
     override fun RBuilder.render() {
         styledDiv {
+            label {
+                +"Имя:"
+            }
+            styledInput {
+                attrs {
+                    readonly = state.verificationRequested
+                    onInputFunction = {
+                        val firstName = (it.target as HTMLInputElement).value
+                        setState(State(firstName, state.lastName, state.phone))
+                    }
+                }
+                css {
+                    +SignUpStyles.field
+                }
+            }
+
+            label {
+                +"Фамилия:"
+            }
+            styledInput {
+                attrs {
+                    readonly = state.verificationRequested
+                    onInputFunction = {
+                        val lastName = (it.target as HTMLInputElement).value
+                        setState(State(state.firstName, lastName, state.phone))
+                    }
+                }
+                css {
+                    +SignUpStyles.field
+                }
+            }
+
             label {
                 +"Номер телефона:"
             }
@@ -41,22 +72,22 @@ class SignInComponent(props: Props) : RComponent<SignInComponent.Props, SignInCo
                     placeholder = "79123456789"
                     onInputFunction = {
                         val phone = (it.target as HTMLInputElement).value
-                        setState(State(phone))
+                        setState(State(state.firstName, state.lastName, phone))
                     }
                 }
                 css {
-                    width = LinearDimension.fillAvailable
-                    marginBottom = LinearDimension("5px")
+                    +SignUpStyles.field
                 }
             }
+
             if (!state.verificationRequested) {
                 styledDiv {
                     button(type = ButtonType.submit) {
-                        +"Войти"
+                        +"Зарегистрироваться"
                         attrs {
-                            disabled = !state.phoneMatchesPattern
+                            disabled = !state.fieldsValid
                             onClickFunction = {
-                                signIn()
+                                signUp()
                             }
                         }
                     }
@@ -74,21 +105,6 @@ class SignInComponent(props: Props) : RComponent<SignInComponent.Props, SignInCo
                     }
                 }
             }
-            styledDiv {
-                attrs {
-                    onClickFunction = {
-                        props.stateManager.changeState(RootComponent.State.SIGN_UP)
-                    }
-                }
-                +"Ещё не зарегистрированы?"
-                css {
-                    marginTop = LinearDimension("30px")
-                    fontSize = LinearDimension("11pt")
-                    textAlign = TextAlign.center
-                    color = Color.deepSkyBlue
-                    cursor = Cursor.pointer
-                }
-            }
             css {
                 width = LinearDimension("200px")
                 margin = "auto"
@@ -96,11 +112,13 @@ class SignInComponent(props: Props) : RComponent<SignInComponent.Props, SignInCo
         }
     }
 
-    private fun signIn() = GlobalScope.launch {
+    private fun signUp() = GlobalScope.launch {
         try {
+            val firstName = state.firstName ?: return@launch
+            val lastName = state.lastName ?: return@launch
             val phone = state.phone ?: return@launch
-            props.userClient.signIn(SignIn(phone))
-            setState(State(phone, verificationRequested = true))
+            props.userClient.signUp(SignUp(firstName, lastName, phone))
+            setState(State(firstName, lastName, phone, verificationRequested = true))
         } catch (e: ClientException) {
             props.errorHandler.handle(this, e)
         }
@@ -110,23 +128,33 @@ class SignInComponent(props: Props) : RComponent<SignInComponent.Props, SignInCo
         var errorHandler: ErrorHandler<Any>
         var accessTokenHolder: AccessTokenHolder
         var userClient: UserClient
-        var stateManager: StateManager
     }
 
     data class State(
+        val firstName: String?,
+        val lastName: String?,
         val phone: String?,
         val verificationRequested: Boolean = false,
     ) : RState {
 
-        val phoneMatchesPattern: Boolean =
+        private val phoneMatchesPattern: Boolean =
             if (phone == null) {
                 false
             } else {
                 PHONE_PATTERN.matches(phone)
             }
 
+        val fieldsValid: Boolean = !firstName.isNullOrBlank() && !lastName.isNullOrBlank() && phoneMatchesPattern
+
         companion object {
             private val PHONE_PATTERN = Regex("79\\d{9}")
+        }
+    }
+
+    object SignUpStyles : StyleSheet("signUp", isStatic = true) {
+        val field by css {
+            width = LinearDimension.fillAvailable
+            marginBottom = LinearDimension("5px")
         }
     }
 }
