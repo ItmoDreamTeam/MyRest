@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import shared
+import SDWebImage
 
 final class RestaurantCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "RestaurantCell"
 
-  typealias Model = RestaurantViewModel
+  typealias Model = RestaurantInfo
   
   @IBOutlet weak var restaurantNameLabel: UILabel!
   @IBOutlet weak var cusineLabel: UILabel!
@@ -22,9 +24,13 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
     restaurantImageView.contentMode = .scaleAspectFit
   }
 
-  func configure(with model: RestaurantViewModel) {
+  func configure(with model: RestaurantInfo) {
     restaurantNameLabel.text = model.name
-    ratingLabel.text = "\(model.rating)"
-    restaurantImageView.image = model.avatar
+    ratingLabel.text = "\(model.internalRating)"
+    guard
+      let avatar = model.avatar,
+      let url = URL(string: avatar.url())
+    else { return }
+    restaurantImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "restaurantPlaceholder"))
   }
 }
