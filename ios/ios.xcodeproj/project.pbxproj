@@ -44,6 +44,7 @@
 		A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */; };
 		A7D05E3025B44B4A00B11CE3 /* BookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D05E2F25B44B4A00B11CE3 /* BookInteractor.swift */; };
 		A7D05E3225B44D1100B11CE3 /* BookPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D05E3125B44D1100B11CE3 /* BookPresenter.swift */; };
+		A7D05E3525B467BC00B11CE3 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D05E3425B467BC00B11CE3 /* Date+Utils.swift */; };
 		A7D2DA0125704B8E00ED74BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */; };
 		A7D2DA0625704F0300ED74BC /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */; };
 		A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2DA082570510800ED74BC /* LoadingFotter.swift */; };
@@ -142,6 +143,7 @@
 		A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		A7D05E2F25B44B4A00B11CE3 /* BookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInteractor.swift; sourceTree = "<group>"; };
 		A7D05E3125B44D1100B11CE3 /* BookPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPresenter.swift; sourceTree = "<group>"; };
+		A7D05E3425B467BC00B11CE3 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		A7D2DA0025704B8D00ED74BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7D2DA0525704F0300ED74BC /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
 		A7D2DA082570510800ED74BC /* LoadingFotter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFotter.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */,
 				A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */,
 				A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */,
+				A7D05E3425B467BC00B11CE3 /* Date+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */,
 				A7D2DA092570510800ED74BC /* LoadingFotter.swift in Sources */,
 				A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */,
+				A7D05E3525B467BC00B11CE3 /* Date+Utils.swift in Sources */,
 				A7FFA9782577054000BE53B1 /* RestaurantListRouter.swift in Sources */,
 				A7FC7E7425AC46EF002DDB2C /* RestaurantInfoDataDelegate.swift in Sources */,
 				A74D700325A8AFDF00BF1535 /* UIViewController+Utils.swift in Sources */,

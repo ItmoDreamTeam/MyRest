@@ -16,15 +16,18 @@ protocol BookInteractor {
 final class BookInteractorImpl: BookInteractor {
 
   private let tableClient: TableClient
+  private let reservationClient: ReservationClient
   private let errorHandler: IOSErrorHandler
   private let presenter: BookPresenter
 
   init(
     tableClient: TableClient,
+    reservationClient: ReservationClient,
     errorHandler: IOSErrorHandler,
     presenter: BookPresenter
   ) {
     self.tableClient = tableClient
+    self.reservationClient = reservationClient
     self.errorHandler = errorHandler
     self.presenter = presenter
   }
