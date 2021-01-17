@@ -14,6 +14,7 @@ import restaurant.RestaurantSearch
 import security.AccessTokenHolder
 import styled.css
 import styled.styledDiv
+import user.ProfileComponent
 
 interface StateManager {
     fun changeState(state: RootComponent.State)
@@ -34,6 +35,12 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
                     attrs {
                         errorHandler = props.errorHandler
                         restaurantClient = props.restaurantClient
+                    }
+                }
+                State.PROFILE -> child(ProfileComponent::class) {
+                    attrs {
+                        errorHandler = props.errorHandler
+                        userClient = props.userClient
                     }
                 }
             }
@@ -61,7 +68,7 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
         PROFILE,
         ;
 
-        val fragment = name
+        val fragment = "#" + name.toLowerCase()
 
         companion object {
             fun fromCurrentFragment(): State {
