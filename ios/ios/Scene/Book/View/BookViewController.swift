@@ -9,13 +9,17 @@
 import UIKit
 import shared
 
-protocol BookView: UIViewController {}
+protocol BookView: UIViewController {
+  func onTablesFetchCompleted(_ tables: [TableView])
+}
 
 final class BookViewController: UIViewController, BookView {
   static func storyboardInstance() -> Self? {
     let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
     return storyboard.instantiateInitialViewController() as? Self
   }
+
+  var interactor: BookInteractor?
 
   private var restaurant: RestaurantInfo?
 
@@ -24,6 +28,12 @@ final class BookViewController: UIViewController, BookView {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    guard let restaurantId = restaurant?.id else { return }
+    interactor?.bookDidRequestTables(self, forRestautandId: restaurantId)
+  }
+
+  func onTablesFetchCompleted(_ tables: [TableView]) {
+    fatalError("Not implemented yet")
   }
 }
 

@@ -44,6 +44,7 @@ final class AppDependencies {
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
+    container.register { TableClientImpl() as TableClient }
 
     // MARK: - VerificationCodeScene
     container.register { VerificationCodeRouterImpl() as VerificationCodeRouter }
@@ -135,7 +136,20 @@ final class AppDependencies {
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - BookScene
+    container.register(.shared) {
+      try BookInteractorImpl(
+        tableClient: self.container.resolve(),
+        errorHandler: self.container.resolve(),
+        presenter: self.container.resolve()
+      ) as BookInteractor
+    }
+    container.register(.shared) {
+      BookPresenterImpl(view: try self.container.resolve()) as BookPresenter
+    }
     container.register { BookViewController.storyboardInstance()! }
+      .resolvingProperties { container, view in
+        view.interactor = try container.resolve()
+      }
       .implements(BookView.self, RestaurantInfoDataDelegate.self, BookView.self)
 
     // MARK: - RestaurantInfoScene
