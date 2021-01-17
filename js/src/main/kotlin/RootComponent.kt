@@ -10,6 +10,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import reservation.ReservationList
 import restaurant.RestaurantSearch
 import security.AccessTokenHolder
 import styled.css
@@ -44,6 +45,12 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
                     attrs {
                         errorHandler = props.errorHandler
                         restaurantClient = props.restaurantClient
+                    }
+                }
+                State.RESERVATIONS -> child(ReservationList::class) {
+                    attrs {
+                        errorHandler = props.errorHandler
+                        reservationClient = props.reservationClient
                     }
                 }
                 State.PROFILE -> child(ProfileComponent::class) {
@@ -91,6 +98,7 @@ class RootComponent(props: Props) : RComponent<RootComponent.Props, RootComponen
 
     enum class State : RState {
         SEARCH,
+        RESERVATIONS,
         PROFILE,
         SIGN_IN,
         SIGN_UP,

@@ -38,7 +38,7 @@ class Header(props: Props) : RComponent<Header.Props, Header.State>(props) {
                 +"Бронирования"
                 attrs {
                     onClickFunction = {
-                        props.stateManager.changeState(RootComponent.State.SEARCH)
+                        props.stateManager.changeState(RootComponent.State.RESERVATIONS)
                     }
                 }
                 css {
