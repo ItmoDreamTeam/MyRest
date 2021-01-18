@@ -1,14 +1,14 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
 import io.ktor.client.request.*
-import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
+import org.itmodreamteam.myrest.shared.AccessTokenProvider
 import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.Pageable.Companion.addPageableParameters
 import org.itmodreamteam.myrest.shared.RestaurantInfoContentPage
 
-class RestaurantClientImpl : RestaurantClient {
+class RestaurantClientImpl(private val accessTokenProvider: AccessTokenProvider) : RestaurantClient {
 
     private val client = HttpClientProvider.provide()
 
@@ -37,7 +37,7 @@ class RestaurantClientImpl : RestaurantClient {
     override suspend fun register(newRestaurant: RestaurantRegistrationInfo): RestaurantInfo {
         return client.put {
             url("/restaurants")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = newRestaurant
         }
     }
@@ -45,14 +45,14 @@ class RestaurantClientImpl : RestaurantClient {
     override suspend fun getRestaurantsOfUser(): List<EmployeeInfo> {
         return client.get {
             url("/restaurants/mine")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun update(id: Long, updateInfo: RestaurantUpdateInfo): RestaurantInfo {
         return client.put {
             url("/restaurants/$id")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = updateInfo
         }
     }
@@ -67,7 +67,7 @@ class RestaurantClientImpl : RestaurantClient {
             parameter("keyword", keyword)
             parameter("statuses", statuses.joinToString())
             addPageableParameters(pageable)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
@@ -75,7 +75,7 @@ class RestaurantClientImpl : RestaurantClient {
         return client.put {
             url("/restaurants/$id/status")
             parameter("status", status)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 }

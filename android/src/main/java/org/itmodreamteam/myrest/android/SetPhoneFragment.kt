@@ -66,7 +66,8 @@ class SetPhone : Fragment() {
             val signInResult = it ?: return@Observer
             if (signInResult.success != null) {
                 Log.i(javaClass.name, "Already signed in")
-                // TODO navigate to profile
+                val action = SetPhoneDirections.actionSetPhoneToRestaurantListFragment()
+                findNavController().navigate(action)
             }
         })
 

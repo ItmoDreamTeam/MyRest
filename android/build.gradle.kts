@@ -50,6 +50,7 @@ dependencies {
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
 
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
@@ -66,6 +67,10 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:$hilt_version")
 
     implementation("com.google.android.material:material:1.2.1")
+
+    val glide_version = "4.10.0"
+    kapt("com.github.bumptech.glide:compiler:$glide_version")
+    implementation("com.github.bumptech.glide:glide:$glide_version")
 }
 android {
     compileOptions {

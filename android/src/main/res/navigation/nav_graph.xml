@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/setPhone">
-    <fragment android:id="@+id/placeholder3" />
     <fragment
         android:id="@+id/signIn"
         android:name="org.itmodreamteam.myrest.android.SignInFragment"
@@ -28,10 +27,17 @@
         <action
             android:id="@+id/action_setPhone_to_signIn"
             app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_setPhone_to_restaurantListFragment"
+            app:destination="@id/restaurantListFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUp"
         android:name="org.itmodreamteam.myrest.android.SignUp"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="org.itmodreamteam.myrest.android.RestaurantListFragment"
+        android:label="RestaurantListFragment" />
 </navigation>
