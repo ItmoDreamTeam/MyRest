@@ -25,7 +25,19 @@ _Requirements_: Java 11
 In order for clients to communicate with the server deployed locally, the server's host and port must be specified
 in `org.itmodreamteam.myrest.shared.ClientProperties.Server` (module `shared`)
 
-`./gradlew build -i`
+### Server
+
+`./gradlew :server:build`
+
+### Website
+
+`./gradlew :js:build`
+
+### Android App
+
+_Requirements_: Android SDK (SDK location should be specified in local.properties file)
+
+`./gradlew :android:build`
 
 ## Deploy
 
@@ -55,7 +67,5 @@ cd ..
 
 ### Android App
 
-_Requirements_: Android SDK
-
-After the project has been built, the location of the artifact to deploy on an Android smartphone
+After the android module has been built, the location of the artifact to deploy on an Android smartphone
 is `android/build/outputs/apk/debug/android-debug.apk`.
