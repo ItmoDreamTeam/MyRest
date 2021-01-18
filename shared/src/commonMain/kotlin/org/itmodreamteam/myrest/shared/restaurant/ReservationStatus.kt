@@ -1,9 +1,9 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
-enum class ReservationStatus {
-    PENDING,
-    APPROVED,
-    REJECTED,
-    IN_PROGRESS,
-    COMPLETED,
+enum class ReservationStatus(val representation: String) {
+    PENDING("Заявка обрабатывается"),
+    APPROVED("Одобрено"),
+    REJECTED("Отклонено"),
+    IN_PROGRESS("Выполняется"),
+    COMPLETED("Завершено"),
 }
