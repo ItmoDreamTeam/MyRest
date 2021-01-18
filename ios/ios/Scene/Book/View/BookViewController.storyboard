@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lY3-yG-s15">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Book View Controller-->
+        <scene sceneID="MbG-zG-RLz">
+            <objects>
+                <viewController id="lY3-yG-s15" customClass="BookViewController" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dNT-Xc-1tH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cup-9O-Aqv">
+                                <rect key="frame" x="0.0" y="84" width="414" height="738"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите столик" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ez-V7-R9C">
+                                        <rect key="frame" x="122" y="0.0" width="170.5" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dH-uK-foq">
+                                        <rect key="frame" x="47" y="44" width="320" height="286"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите время" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Bi-c5-Bvc">
+                                        <rect key="frame" x="125" y="340" width="164" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="tOk-np-Ija">
+                                        <rect key="frame" x="47" y="384" width="320" height="294"/>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3o-BX-UDg">
+                                        <rect key="frame" x="107" y="688" width="200" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="bjn-ZL-wCu"/>
+                                            <constraint firstAttribute="height" constant="50" id="lp9-vz-EJF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <state key="normal" title="Забронировать"/>
+                                        <connections>
+                                            <action selector="registerTapped:" destination="lY3-yG-s15" eventType="touchUpInside" id="Ns7-5Y-FXA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Cup-9O-Aqv" firstAttribute="leading" secondItem="h4R-dc-FDv" secondAttribute="leading" id="GKd-yP-KhH"/>
+                            <constraint firstItem="h4R-dc-FDv" firstAttribute="trailing" secondItem="Cup-9O-Aqv" secondAttribute="trailing" id="I6o-5P-eLX"/>
+                            <constraint firstItem="h4R-dc-FDv" firstAttribute="bottom" secondItem="Cup-9O-Aqv" secondAttribute="bottom" constant="40" id="Ku4-bU-XJK"/>
+                            <constraint firstItem="Cup-9O-Aqv" firstAttribute="top" secondItem="h4R-dc-FDv" secondAttribute="top" constant="40" id="ha8-7J-ZX7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h4R-dc-FDv"/>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="tOk-np-Ija" id="uZJ-qK-7KM"/>
+                        <outlet property="registerButton" destination="U3o-BX-UDg" id="ZgD-0z-Kl5"/>
+                        <outlet property="tablePicker" destination="7dH-uK-foq" id="eFH-Yz-R1U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MB1-3z-1CU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="147.82608695652175" y="119.86607142857142"/>
+        </scene>
+    </scenes>
+</document>

@@ -35,6 +35,6 @@ final class IOSErrorHandler: ErrorHandler<UIViewController> {
       let context = context,
       let message = errors.first?.userMessage
       else { return }
-    context.presentToast(message: message)
+    context.presentToast(message: message, onTime: .now() + .seconds(3))
   }
 }
