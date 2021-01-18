@@ -10,4 +10,6 @@ data class Profile(
     val enabled: Boolean,
     val locked: Boolean,
     val role: Role?,
-)
+) {
+    fun fullName(): String = "$firstName $lastName"
+}

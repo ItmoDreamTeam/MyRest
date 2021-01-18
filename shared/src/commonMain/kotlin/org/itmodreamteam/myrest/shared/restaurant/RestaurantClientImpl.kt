@@ -6,12 +6,21 @@ import org.itmodreamteam.myrest.shared.ContentPage
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 import org.itmodreamteam.myrest.shared.Pageable
 import org.itmodreamteam.myrest.shared.Pageable.Companion.addPageableParameters
+import org.itmodreamteam.myrest.shared.RestaurantInfoContentPage
 
 class RestaurantClientImpl : RestaurantClient {
 
     private val client = HttpClientProvider.provide()
 
     override suspend fun search(keyword: String, pageable: Pageable): ContentPage<RestaurantInfo> {
+        return client.get {
+            url("/restaurants")
+            parameter("keyword", keyword)
+            addPageableParameters(pageable)
+        }
+    }
+
+    override suspend fun searchNonGeneric(keyword: String, pageable: Pageable): RestaurantInfoContentPage {
         return client.get {
             url("/restaurants")
             parameter("keyword", keyword)
