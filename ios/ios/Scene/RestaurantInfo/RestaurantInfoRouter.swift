@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import shared
 
 protocol RestaurantInfoRouter {
-  func restaurantInfoShouldOpenBookScene(_ restaurantInfoView: RestaurantInfoView)
+  func restaurantInfoShouldOpenBookScene(_ restaurantInfoView: RestaurantInfoView, passRestaurant restaurant: RestaurantInfo)
 }
 
 final class RestaurantInfoRouterImpl: RestaurantInfoRouter {
-  func restaurantInfoShouldOpenBookScene(_ restaurantInfoView: RestaurantInfoView) {
-    fatalError("Not implemented yet")
+
+  private var bookScene: BookScene
+
+  init(bookScene: BookScene) {
+    self.bookScene = bookScene
+  }
+
+  func restaurantInfoShouldOpenBookScene(_ restaurantInfoView: RestaurantInfoView, passRestaurant restaurant: RestaurantInfo) {
+    bookScene.passedRestaurantInfo(restaurant)
+    restaurantInfoView.present(bookScene, animated: true, completion: nil)
   }
 }

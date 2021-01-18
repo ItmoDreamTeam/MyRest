@@ -16,6 +16,7 @@ typealias VerificationCodeScene = VerificationCodeView & PhoneDataDelegate & Con
 typealias SignUpScene = SignUpView & ContextDataDelegate
 typealias SignInScene = SignInView & ContextDataDelegate
 typealias RestaurantInfoScene = RestaurantInfoView & RestaurantInfoDataDelegate
+typealias BookScene = BookView & RestaurantInfoDataDelegate
 
 final class AppDependencies {
   private let container: DependencyContainer
@@ -43,6 +44,8 @@ final class AppDependencies {
     // MARK: - Clients
     container.register { RestaurantClientImpl() as RestaurantClient }
     container.register { UserClientImpl() as UserClient }
+    container.register { TableClientImpl() as TableClient }
+    container.register { ReservationClientImpl() as ReservationClient }
 
     // MARK: - VerificationCodeScene
     container.register { VerificationCodeRouterImpl() as VerificationCodeRouter }
@@ -133,8 +136,30 @@ final class AppDependencies {
     container.register { UserInfoViewController.storyboardInstance()! }
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
+    // MARK: - BookScene
+    container.register { BookRouterImpl() as BookRouter }
+    container.register(.shared) {
+      try BookInteractorImpl(
+        tableClient: self.container.resolve(),
+        reservationClient: self.container.resolve(),
+        errorHandler: self.container.resolve(),
+        presenter: self.container.resolve()
+      ) as BookInteractor
+    }
+    container.register(.shared) {
+      BookPresenterImpl(view: try self.container.resolve()) as BookPresenter
+    }
+    container.register(.shared) { BookViewController.storyboardInstance()! }
+      .resolvingProperties { container, view in
+        view.interactor = try container.resolve()
+        view.router = try container.resolve()
+      }
+      .implements(BookView.self, RestaurantInfoDataDelegate.self, BookScene.self)
+
     // MARK: - RestaurantInfoScene
-    container.register { RestaurantInfoRouterImpl() as RestaurantInfoRouter }
+    container.register {
+      RestaurantInfoRouterImpl(bookScene: try self.container.resolve()) as RestaurantInfoRouter
+    }
     // swiftlint:disable force_unwrapping
     container.register { RestaurantInfoViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
