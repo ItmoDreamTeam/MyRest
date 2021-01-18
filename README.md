@@ -69,3 +69,32 @@ cd ..
 
 After the android module has been built, the location of the artifact to deploy on an Android smartphone
 is `android/build/outputs/apk/debug/android-debug.apk`.
+
+## Development with IntelliJ IDEA
+
+### Server
+
+The configuration `MyRestServer` is created automatically on project initialization
+
+The server requires connection to PostgreSQL database
+
+Overridable VM options (Configuration / Environment / VM options):
+
+* -Dserver.port=9339
+* -Dspring.datasource.url=jdbc:postgresql://postgres:5432/main
+* -Dspring.datasource.username=postgres
+* -Dspring.datasource.password=
+* -Dstorage.directory=/home/user/Documents/storage
+
+### Website
+
+Run `./gradlew :js:run --continuous`
+
+### Android App
+
+_Requirements_: Android SDK
+
+The configuration `MyRest.android` is created automatically on project initialization
+
+If an Android device emulator is available, it will be configured. If a real Android device is connected via USB cable
+and debug mode is enabled, the device will be configured for running.
