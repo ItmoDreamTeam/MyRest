@@ -30,7 +30,12 @@ class NotificationServiceImpl(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    private val firebaseMessaging = FirebaseMessaging.getInstance()
+    private val firebaseMessaging: FirebaseMessaging? = try {
+        FirebaseMessaging.getInstance()
+    } catch (e: Exception) {
+        log.warn("FirebaseMessaging not initialized")
+        null
+    }
 
     override fun notify(user: User, content: NotificationContent) {
         log.info("Notifying user ${user.id}: $content")
@@ -46,7 +51,7 @@ class NotificationServiceImpl(
                 val message = messageContent
                     .setToken(token.value)
                     .build()
-                firebaseMessaging.send(message)
+                firebaseMessaging?.send(message)
             } catch (e: FirebaseMessagingException) {
                 if (e.messagingErrorCode == MessagingErrorCode.UNREGISTERED) {
                     log.info("Unregistering messaging token ${token.id}")

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  main:
+    build: .
+    restart: always
+    environment:
+      PORT:
+    ports:
+      - $PORT:$PORT
