@@ -16,6 +16,10 @@ jobs:
         with:
           name: server-test
           path: server/build/reports/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: web
+          path: js/build/distributions/
   build-on-macos:
     runs-on: macos-latest
     steps:
@@ -42,3 +46,19 @@ jobs:
       - run: |
           cd server
           docker-compose -p myrest up -d --build
+  deploy-web:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: self-hosted
+    env:
+      PROFILE: prod
+      PORT: 80
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: web
+          path: js/build/distributions/
+      - run: |
+          cd js
+          docker-compose -p myrest-web up -d --build
