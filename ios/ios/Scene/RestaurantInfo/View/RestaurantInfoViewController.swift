@@ -21,20 +21,30 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
 
   private var restaurant: RestaurantInfo?
 
-  @IBOutlet weak var photosCollectionView: PhotosCollectionView!
-  @IBOutlet weak var descriptionLabel: UILabel!
-  @IBOutlet weak var websiteLabel: UILabel!
-  @IBOutlet weak var emailLabel: UILabel!
-  @IBOutlet weak var ratingLabel: UILabel!
-  @IBOutlet weak var registerButton: UIButton!
+  @IBOutlet private weak var photosCollectionView: PhotosCollectionView!
+  @IBOutlet private weak var websiteLabel: UILabel!
+  @IBOutlet private weak var descriptionTextView: UITextView!
+  @IBOutlet private weak var emailLabel: UILabel!
+  @IBOutlet private weak var ratingLabel: UILabel!
+  @IBOutlet private weak var registerButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    hideLabels()
     configureNavBar()
-    configureLabels()
+    showLabels()
     configureCollectionView()
     configureButton()
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    hideLabels()
   }
 
   private func configureNavBar() {
@@ -43,30 +53,43 @@ final class RestaurantInfoViewController: UIViewController, RestaurantInfoView {
     navigationController?.navigationBar.prefersLargeTitles = true
   }
 
-  private func configureLabels() {
-    guard let restaurant = restaurant else { return }
-    descriptionLabel.text = restaurant.description_
-    setLabelText(label: websiteLabel, text: restaurant.websiteUrl)
-    setLabelText(label: emailLabel, text: restaurant.email)
-    setLabelText(label: ratingLabel, text: "\(restaurant.externalRating)")
-  }
-
   private func configureButton() {
     registerButton.layer.cornerRadius = Constant.buttonCornerRadius
     registerButton.backgroundColor = .lightGray
   }
 
-  private func setLabelText(label: UILabel, text: String?) {
+  private func showLabels() {
+    guard let restaurant = restaurant else { return }
+    descriptionTextView.text = restaurant.description_
+    setLabelText(label: websiteLabel, prefixText: "Сайт: ", text: restaurant.websiteUrl)
+    setLabelText(label: emailLabel, prefixText: "Почта: ", text: restaurant.email)
+    setLabelText(label: ratingLabel, prefixText: "Рейтинг: ", text: "\(restaurant.externalRating)")
+  }
+
+  private func hideLabels() {
+    hideLabel(label: websiteLabel)
+    hideLabel(label: emailLabel)
+    hideLabel(label: ratingLabel)
+  }
+
+  private func hideLabel(label: UILabel) {
+    label.text = ""
+    label.isEnabled = false
+  }
+
+  private func setLabelText(label: UILabel, prefixText: String, text: String?) {
     if let text = text {
-      label.text = "\(label.text ?? "") \(text)"
-    } else {
-      label.isEnabled = false
+      label.isEnabled = true
+      label.text = prefixText + text
     }
   }
 
   private func configureCollectionView() {
     guard let restaurant = restaurant else { return }
     photosCollectionView.configure(with: restaurant)
+    DispatchQueue.main.async {
+      self.photosCollectionView.reloadData()
+    }
   }
 
   @IBAction func registerTapped(_ sender: UIButton) {

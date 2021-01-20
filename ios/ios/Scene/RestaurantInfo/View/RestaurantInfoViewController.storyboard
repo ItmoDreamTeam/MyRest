@@ -30,63 +30,87 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iqo-Vb-3d2">
-                                <rect key="frame" x="20" y="274" width="374" height="106"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCe-qr-NCN">
-                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сайт: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwA-uB-VTX">
-                                        <rect key="frame" x="0.0" y="28.5" width="48.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZs-5D-rPt">
-                                        <rect key="frame" x="0.0" y="57" width="50" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рэйтинг: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnv-gc-qh3">
-                                        <rect key="frame" x="0.0" y="85.5" width="74.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOF-WN-ptT">
-                                <rect key="frame" x="57" y="400" width="300" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="3iJ-qV-sh7"/>
-                                    <constraint firstAttribute="height" constant="40" id="hwm-YV-DoF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <state key="normal" title="Забронировать ресторан"/>
-                                <connections>
-                                    <action selector="registerTapped:" destination="nIX-LA-cdV" eventType="touchUpInside" id="rnP-2d-HE6"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4ox-bb-bTs">
+                                <rect key="frame" x="0.0" y="264" width="414" height="598"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="5fU-tZ-HIk">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="315"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iqo-Vb-3d2">
+                                            <rect key="frame" x="20" y="110" width="374" height="91.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сайт: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwA-uB-VTX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="48.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZs-5D-rPt">
+                                                    <rect key="frame" x="0.0" y="35.5" width="50" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рэйтинг: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnv-gc-qh3">
+                                                    <rect key="frame" x="0.0" y="71" width="74.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOF-WN-ptT">
+                                            <rect key="frame" x="57" y="236.5" width="300" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="3iJ-qV-sh7"/>
+                                                <constraint firstAttribute="height" constant="40" id="hwm-YV-DoF"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                            <state key="normal" title="Забронировать ресторан"/>
+                                            <connections>
+                                                <action selector="registerTapped:" destination="nIX-LA-cdV" eventType="touchUpInside" id="rnP-2d-HE6"/>
+                                            </connections>
+                                        </button>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="J4P-bA-5mh">
+                                            <rect key="frame" x="20" y="10" width="374" height="80"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="KIn-IP-MTS"/>
+                                            </constraints>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="iqo-Vb-3d2" secondAttribute="trailing" constant="20" id="0oH-hi-H2f"/>
+                                        <constraint firstItem="qOF-WN-ptT" firstAttribute="centerX" secondItem="5fU-tZ-HIk" secondAttribute="centerX" id="9v3-lm-8J3"/>
+                                        <constraint firstItem="iqo-Vb-3d2" firstAttribute="leading" secondItem="5fU-tZ-HIk" secondAttribute="leading" constant="20" id="Btn-We-uQi"/>
+                                        <constraint firstItem="J4P-bA-5mh" firstAttribute="leading" secondItem="5fU-tZ-HIk" secondAttribute="leading" constant="20" id="NeD-6P-cpV"/>
+                                        <constraint firstItem="J4P-bA-5mh" firstAttribute="top" secondItem="5fU-tZ-HIk" secondAttribute="top" constant="10" id="bw6-lJ-Uy3"/>
+                                        <constraint firstAttribute="trailing" secondItem="J4P-bA-5mh" secondAttribute="trailing" constant="20" id="lQ5-ey-geQ"/>
+                                        <constraint firstItem="qOF-WN-ptT" firstAttribute="top" secondItem="iqo-Vb-3d2" secondAttribute="bottom" constant="35" id="pXR-Us-2CJ"/>
+                                        <constraint firstItem="iqo-Vb-3d2" firstAttribute="top" secondItem="J4P-bA-5mh" secondAttribute="bottom" constant="20" id="pYd-nc-ohC"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="iqo-Vb-3d2" firstAttribute="top" secondItem="u7y-xM-RVG" secondAttribute="bottom" constant="20" id="HKT-WW-bCm"/>
+                            <constraint firstItem="4ox-bb-bTs" firstAttribute="top" secondItem="u7y-xM-RVG" secondAttribute="bottom" constant="10" id="7Oy-2a-Foq"/>
+                            <constraint firstItem="4ox-bb-bTs" firstAttribute="trailing" secondItem="wCO-AA-4EL" secondAttribute="trailing" id="8WJ-aZ-8EG"/>
+                            <constraint firstItem="4ox-bb-bTs" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" id="Mw4-jq-3D6"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" id="OAh-Ey-Blc"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="top" secondItem="wCO-AA-4EL" secondAttribute="top" constant="10" id="Qgu-AO-Jz8"/>
-                            <constraint firstItem="qOF-WN-ptT" firstAttribute="centerX" secondItem="5tH-zU-zsk" secondAttribute="centerX" id="Qlf-Xt-sGo"/>
-                            <constraint firstItem="iqo-Vb-3d2" firstAttribute="leading" secondItem="wCO-AA-4EL" secondAttribute="leading" constant="20" id="QnL-Hz-4a4"/>
+                            <constraint firstItem="4ox-bb-bTs" firstAttribute="bottom" secondItem="wCO-AA-4EL" secondAttribute="bottom" id="efE-Ll-Scf"/>
                             <constraint firstItem="u7y-xM-RVG" firstAttribute="trailing" secondItem="wCO-AA-4EL" secondAttribute="trailing" id="hsI-ez-GyT"/>
-                            <constraint firstItem="wCO-AA-4EL" firstAttribute="trailing" secondItem="iqo-Vb-3d2" secondAttribute="trailing" constant="20" id="lMs-Cc-a1O"/>
-                            <constraint firstItem="qOF-WN-ptT" firstAttribute="top" secondItem="iqo-Vb-3d2" secondAttribute="bottom" constant="20" id="sKb-gn-0mC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wCO-AA-4EL"/>
                     </view>
                     <connections>
-                        <outlet property="descriptionLabel" destination="zCe-qr-NCN" id="x8X-pc-fZt"/>
+                        <outlet property="descriptionTextView" destination="J4P-bA-5mh" id="fjR-p4-gGI"/>
                         <outlet property="emailLabel" destination="uZs-5D-rPt" id="FyH-He-EGi"/>
                         <outlet property="photosCollectionView" destination="u7y-xM-RVG" id="6A3-BA-t5d"/>
                         <outlet property="ratingLabel" destination="Cnv-gc-qh3" id="tpm-Pk-gNL"/>
