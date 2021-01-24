@@ -17,6 +17,8 @@ final class UserInfoViewController: UIViewController, UserInfoView {
     return storyboard.instantiateInitialViewController() as? Self
   }
 
+  var router: UserInfoRouter?
+
   private var profile: Profile?
 
   @IBOutlet weak var nameLabel: UILabel!
@@ -35,7 +37,7 @@ final class UserInfoViewController: UIViewController, UserInfoView {
   }
 
   @IBAction func bookingTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    router?.userInfoShouldOpenUsersBookScene(self)
   }
 
   @IBAction func settingsTapped(_ sender: UIButton) {
