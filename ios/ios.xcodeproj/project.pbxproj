@@ -21,6 +21,7 @@
 		A726FAE825BD208200A3EDE1 /* UsersBookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAE725BD208200A3EDE1 /* UsersBookInteractor.swift */; };
 		A726FAEA25BD232B00A3EDE1 /* UsersBookPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAE925BD232B00A3EDE1 /* UsersBookPresenter.swift */; };
 		A726FAEC25BD284B00A3EDE1 /* UserInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAEB25BD284B00A3EDE1 /* UserInfoRouter.swift */; };
+		A726FAEE25BD2C1700A3EDE1 /* Kotlinx_datetimeLocalDateTime+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAED25BD2C1700A3EDE1 /* Kotlinx_datetimeLocalDateTime+Utils.swift */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -127,6 +128,7 @@
 		A726FAE725BD208200A3EDE1 /* UsersBookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersBookInteractor.swift; sourceTree = "<group>"; };
 		A726FAE925BD232B00A3EDE1 /* UsersBookPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersBookPresenter.swift; sourceTree = "<group>"; };
 		A726FAEB25BD284B00A3EDE1 /* UserInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRouter.swift; sourceTree = "<group>"; };
+		A726FAED25BD2C1700A3EDE1 /* Kotlinx_datetimeLocalDateTime+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kotlinx_datetimeLocalDateTime+Utils.swift"; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				A74D700225A8AFDF00BF1535 /* UIViewController+Utils.swift */,
 				A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */,
 				A7D05E3425B467BC00B11CE3 /* Date+Utils.swift */,
+				A726FAED25BD2C1700A3EDE1 /* Kotlinx_datetimeLocalDateTime+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				A7FFA9762576FA6C00BE53B1 /* SearchView.swift in Sources */,
 				A7D05E3725B47B4E00B11CE3 /* BookRouter.swift in Sources */,
 				A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */,
+				A726FAEE25BD2C1700A3EDE1 /* Kotlinx_datetimeLocalDateTime+Utils.swift in Sources */,
 				A72B05B025A9A58300DB4BF7 /* SignInRouter.swift in Sources */,
 				A72B05BD25AA043400DB4BF7 /* VerificationCodeRouter.swift in Sources */,
 				A7D32C40257136CA00124AFE /* VerticalCollectionView.swift in Sources */,
