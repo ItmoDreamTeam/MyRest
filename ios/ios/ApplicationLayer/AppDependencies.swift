@@ -131,9 +131,32 @@ final class AppDependencies {
     // MARK: - ErrorHandler
     container.register(.shared) { IOSErrorHandler(router: try self.container.resolve()) }
 
+    // MARK: - UsersBookScene
+    container.register(.shared) {
+      try UsersBookInteractorImpl(
+        reservationClient: self.container.resolve(),
+        errorHandler: self.container.resolve(),
+        presenter: self.container.resolve()
+      ) as UsersBookInteractor
+    }
+    container.register(.shared) {
+      UsersBookPresenterImpl(view: try self.container.resolve()) as UsersBookPresenter
+    }
+    container.register(.shared) { UsersBookViewController.storyboardInstance()! }
+      .resolvingProperties { container, view in
+        view.interactor = try container.resolve()
+      }
+      .implements(UsersBookView.self)
+
     // MARK: - UserInfoScene
     // swiftlint:disable force_unwrapping
+    container.register {
+      UserInfoRouterImpl(usersBookScene: try self.container.resolve()) as UserInfoRouter
+    }
     container.register { UserInfoViewController.storyboardInstance()! }
+      .resolvingProperties { container, view in
+        view.router = try container.resolve()
+      }
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 
     // MARK: - BookScene
