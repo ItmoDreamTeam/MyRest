@@ -47,8 +47,8 @@ final class BookInteractorImpl: BookInteractor {
     guard let activeUntil = Calendar.current.date(byAdding: .hour, value: 3, to: date) else { return }
     reservationClient.submitReservationForApproval(
       tableId: tableId,
-      activeFrom: date.toKotlindatetimeLocalDateTime(),
-      activeUntil: activeUntil.toKotlindatetimeLocalDateTime()
+      activeFrom: date.toKotlinxDatetimeLocalDateTime(),
+      activeUntil: activeUntil.toKotlinxDatetimeLocalDateTime()
     ) { [weak self] reservation, error in
       guard let reservation = reservation, error == nil else {
         self?.errorHandler.handleNSError(context: bookView, error: error)

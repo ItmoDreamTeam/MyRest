@@ -18,6 +18,8 @@
 		A713A87D25B3F7A400CB11B7 /* RestaurantInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87C25B3F7A400CB11B7 /* RestaurantInfoRouter.swift */; };
 		A713A88025B3FCE700CB11B7 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713A87F25B3FCE700CB11B7 /* BookViewController.swift */; };
 		A713A88225B3FD4400CB11B7 /* BookViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */; };
+		A726FAE825BD208200A3EDE1 /* UsersBookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAE725BD208200A3EDE1 /* UsersBookInteractor.swift */; };
+		A726FAEA25BD232B00A3EDE1 /* UsersBookPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726FAE925BD232B00A3EDE1 /* UsersBookPresenter.swift */; };
 		A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */; };
 		A72B05A825A9752100DB4BF7 /* VerificationCodeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */; };
 		A72B05AA25A98AE500DB4BF7 /* UIButtton+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */; };
@@ -121,6 +123,8 @@
 		A713A87C25B3F7A400CB11B7 /* RestaurantInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoRouter.swift; sourceTree = "<group>"; };
 		A713A87F25B3FCE700CB11B7 /* BookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		A713A88125B3FD4400CB11B7 /* BookViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookViewController.storyboard; sourceTree = "<group>"; };
+		A726FAE725BD208200A3EDE1 /* UsersBookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersBookInteractor.swift; sourceTree = "<group>"; };
+		A726FAE925BD232B00A3EDE1 /* UsersBookPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersBookPresenter.swift; sourceTree = "<group>"; };
 		A72B05A525A9740600DB4BF7 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		A72B05A725A9752100DB4BF7 /* VerificationCodeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VerificationCodeViewController.storyboard; sourceTree = "<group>"; };
 		A72B05A925A98AE500DB4BF7 /* UIButtton+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButtton+Utils.swift"; sourceTree = "<group>"; };
@@ -286,6 +290,15 @@
 				A7D05E3625B47B4E00B11CE3 /* BookRouter.swift */,
 			);
 			path = Book;
+			sourceTree = "<group>";
+		};
+		A726FAE525BD205600A3EDE1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A7FC80BC25B8455600A648F4 /* ReservationInfoCell.swift */,
+				A7FC80BD25B8455600A648F4 /* ReservationInfoCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A72B05A425A973E000DB4BF7 /* VerificationCode */ = {
@@ -506,6 +519,8 @@
 			isa = PBXGroup;
 			children = (
 				A7FC80B725B8387E00A648F4 /* View */,
+				A726FAE725BD208200A3EDE1 /* UsersBookInteractor.swift */,
+				A726FAE925BD232B00A3EDE1 /* UsersBookPresenter.swift */,
 			);
 			path = UsersBook;
 			sourceTree = "<group>";
@@ -513,10 +528,9 @@
 		A7FC80B725B8387E00A648F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A726FAE525BD205600A3EDE1 /* Cell */,
 				A7FC80B825B8403700A648F4 /* UsersBookViewController.swift */,
 				A7FC80BA25B843FA00A648F4 /* UsersBookViewController.storyboard */,
-				A7FC80BC25B8455600A648F4 /* ReservationInfoCell.swift */,
-				A7FC80BD25B8455600A648F4 /* ReservationInfoCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -755,9 +769,11 @@
 				A72B05B525A9BB1E00DB4BF7 /* PhoneDataDelegate.swift in Sources */,
 				A7494BD125784EA00074CE32 /* MaskTextField.swift in Sources */,
 				A7D05E3225B44D1100B11CE3 /* BookPresenter.swift in Sources */,
+				A726FAEA25BD232B00A3EDE1 /* UsersBookPresenter.swift in Sources */,
 				A72B05B325A9B75700DB4BF7 /* VerificationCodeInteractor.swift in Sources */,
 				A7D05E3025B44B4A00B11CE3 /* BookInteractor.swift in Sources */,
 				A7FC80BE25B8455600A648F4 /* ReservationInfoCell.swift in Sources */,
+				A726FAE825BD208200A3EDE1 /* UsersBookInteractor.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
 				A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,

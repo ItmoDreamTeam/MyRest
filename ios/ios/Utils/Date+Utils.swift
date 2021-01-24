@@ -18,7 +18,7 @@ extension Date {
     return calendar.component(component, from: self)
   }
 
-  func toKotlindatetimeLocalDateTime() -> Kotlinx_datetimeLocalDateTime {
+  func toKotlinxDatetimeLocalDateTime() -> Kotlinx_datetimeLocalDateTime {
     Kotlinx_datetimeLocalDateTime(
       year: Int32(self.get(.year)),
       monthNumber: Int32(self.get(.month)),
@@ -27,6 +27,14 @@ extension Date {
       minute: Int32(self.get(.minute)),
       second: Int32(self.get(.second)),
       nanosecond: Int32(self.get(.nanosecond))
+    )
+  }
+
+  func toKotlinxDatetimeLocalDate() -> Kotlinx_datetimeLocalDate {
+    Kotlinx_datetimeLocalDate(
+      year: Int32(self.get(.year)),
+      monthNumber: Int32(self.get(.month)),
+      dayOfMonth: Int32(self.get(.day))
     )
   }
 }
