@@ -8,7 +8,7 @@
 
 import UIKit
 import shared
-import SDWebImage
+//import SDWebImage
 
 final class PhotoCell: UICollectionViewCell, ConfigurableView {
   static let reuseId = "PhotoCell"
@@ -40,6 +40,6 @@ final class PhotoCell: UICollectionViewCell, ConfigurableView {
 
   func configure(with model: AttachmentMetadata) {
     guard let url = URL(string: model.url()) else { return }
-    imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
+    //imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
   }
 }
