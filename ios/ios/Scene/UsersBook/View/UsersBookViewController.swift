@@ -7,15 +7,39 @@
 //
 
 import UIKit
+import shared
 
 protocol UsersBookView: UIViewController {}
 
 final class UsersBookViewController: UIViewController, UsersBookView {
 
-  @IBOutlet weak var tableView: UITableView!
-  
+  private var reservations: [ReservationInfo] = []
+
+  @IBOutlet private weak var tableView: UITableView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureTableView()
+  }
+
+  private func configureTableView() {
+    tableView.dataSource = self
+    tableView.register(
+      UINib(nibName: ReservationInfoCell.reuseId, bundle: nil), forCellReuseIdentifier: ReservationInfoCell.reuseId
+    )
+  }
+}
+
+extension UsersBookViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    reservations.count
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard
+      let cell = tableView.dequeueReusableCell(withIdentifier: ReservationInfoCell.reuseId, for: indexPath) as? ReservationInfoCell
+    else { return UITableViewCell() }
+    cell.configure(with: reservations[indexPath.row])
+    return cell
   }
 }

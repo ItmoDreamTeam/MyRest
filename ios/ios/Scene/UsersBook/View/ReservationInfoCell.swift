@@ -10,6 +10,7 @@ import UIKit
 import shared
 
 final class ReservationInfoCell: UITableViewCell, ConfigurableView {
+  static let reuseId = "ReservationInfoCell"
   typealias Model = ReservationInfo
 
   @IBOutlet weak var dateLabel: UILabel!
