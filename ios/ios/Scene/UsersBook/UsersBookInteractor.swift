@@ -30,7 +30,8 @@ final class UsersBookInteractorImpl: UsersBookInteractor {
   }
 
   func usersBookDidRequestReservation(_ usersBookView: UsersBookView) {
-    reservationClient.getReservationsOfUser(date: Date().toKotlinxDatetimeLocalDate()) { [weak self] reservations, error in
+    let date = Date().toKotlinxDatetimeLocalDate()
+    reservationClient.getReservationsOfUser(date: date) { [weak self] reservations, error in
       guard let reservations = reservations, error != nil else {
         self?.errorHandler.handleNSError(context: usersBookView, error: error)
         return

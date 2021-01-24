@@ -11,3 +11,16 @@ import shared
 protocol UsersBookPresenter {
   func interactorDidFetched(reservations: [ReservationInfo])
 }
+
+final class UsersBookPresenterImpl: UsersBookPresenter {
+
+  private let view: UsersBookView
+
+  init(view: UsersBookView) {
+    self.view = view
+  }
+
+  func interactorDidFetched(reservations: [ReservationInfo]) {
+    view.onReservationsFetchCompleted(reservations)
+  }
+}

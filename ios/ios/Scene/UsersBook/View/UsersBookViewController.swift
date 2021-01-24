@@ -9,7 +9,9 @@
 import UIKit
 import shared
 
-protocol UsersBookView: UIViewController {}
+protocol UsersBookView: UIViewController {
+  func onReservationsFetchCompleted(_ reservations: [ReservationInfo])
+}
 
 final class UsersBookViewController: UIViewController, UsersBookView {
 
@@ -27,6 +29,10 @@ final class UsersBookViewController: UIViewController, UsersBookView {
     tableView.register(
       UINib(nibName: ReservationInfoCell.reuseId, bundle: nil), forCellReuseIdentifier: ReservationInfoCell.reuseId
     )
+  }
+
+  func onReservationsFetchCompleted(_ reservations: [ReservationInfo]) {
+    fatalError("Not implemented yet")
   }
 }
 
