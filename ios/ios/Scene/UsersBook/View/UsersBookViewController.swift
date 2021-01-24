@@ -14,6 +14,12 @@ protocol UsersBookView: UIViewController {
 }
 
 final class UsersBookViewController: UIViewController, UsersBookView {
+  static func storyboardInstance() -> Self? {
+    let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
+    return storyboard.instantiateInitialViewController() as? Self
+  }
+
+  var interactor: UsersBookInteractor?
 
   private var reservations: [ReservationInfo] = []
 
@@ -24,6 +30,18 @@ final class UsersBookViewController: UIViewController, UsersBookView {
     configureTableView()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    configureNavBar()
+    interactor?.usersBookDidRequestReservation(self)
+  }
+
+  private func configureNavBar() {
+    navigationItem.largeTitleDisplayMode = .never
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.title = "Бронирования"
+  }
+
   private func configureTableView() {
     tableView.dataSource = self
     tableView.register(
@@ -32,7 +50,10 @@ final class UsersBookViewController: UIViewController, UsersBookView {
   }
 
   func onReservationsFetchCompleted(_ reservations: [ReservationInfo]) {
-    fatalError("Not implemented yet")
+    self.reservations = reservations
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
   }
 }
 
@@ -42,8 +63,10 @@ extension UsersBookViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard
-      let cell = tableView.dequeueReusableCell(withIdentifier: ReservationInfoCell.reuseId, for: indexPath) as? ReservationInfoCell
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: ReservationInfoCell.reuseId,
+      for: indexPath
+      ) as? ReservationInfoCell
     else { return UITableViewCell() }
     cell.configure(with: reservations[indexPath.row])
     return cell
