@@ -18,6 +18,7 @@ final class UserInfoViewController: UIViewController, UserInfoView {
   }
 
   var router: UserInfoRouter?
+  var interactor: UserInfoInteractor?
 
   private var profile: Profile?
 
@@ -45,7 +46,7 @@ final class UserInfoViewController: UIViewController, UserInfoView {
   }
   
   @IBAction func exitTapped(_ sender: UIButton) {
-    fatalError("Not implemented yet")
+    interactor?.userInfoShouldLogOut(self)
   }
 }
 

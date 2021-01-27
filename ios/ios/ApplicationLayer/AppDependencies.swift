@@ -33,9 +33,8 @@ final class AppDependencies {
     container.register { KeychainWrapper(serviceName: serviceName) }
 
     // MARK: - Security
-    container.register {
-      AccessTokenProviderImpl(keychainWrapper: try self.container.resolve()) as AccessTokenProvider
-    }
+    container.register { AccessTokenProviderImpl(keychainWrapper: try self.container.resolve())}
+      .implements(AccessTokenProvider.self, AccessTokenProviderImpl.self)
     guard let accessTokenProvider = try? container.resolve() as AccessTokenProvider else {
       fatalError("AccessTokenProvider not registered")
     }
@@ -153,9 +152,13 @@ final class AppDependencies {
     container.register {
       UserInfoRouterImpl(usersBookScene: try self.container.resolve()) as UserInfoRouter
     }
+    container.register {
+      UserInfoInteractorImpl(accessTokenProvider: try self.container.resolve()) as UserInfoInteractor
+    }
     container.register { UserInfoViewController.storyboardInstance()! }
       .resolvingProperties { container, view in
         view.router = try container.resolve()
+        view.interactor = try container.resolve()
       }
     .implements(UserInfoView.self, ProfileDataDelegate.self, UserInfoScene.self)
 

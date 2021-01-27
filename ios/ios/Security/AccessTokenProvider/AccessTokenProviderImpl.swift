@@ -26,4 +26,8 @@ final class AccessTokenProviderImpl: AccessTokenProvider {
       }
     }
   }
+
+  func removeToken() {
+    keychainWrapper.removeObject(forKey: "token")
+  }
 }

@@ -44,6 +44,7 @@
 		A76E6C80258CC8FD00E2FCDB /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */; };
 		A76E6C82258CCDEA00E2FCDB /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */; };
 		A77817AA25C19A71002C7A76 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = A77817A925C19A71002C7A76 /* SDWebImage */; };
+		A77817AC25C1AA4B002C7A76 /* UserInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77817AB25C1AA4B002C7A76 /* UserInfoInteractor.swift */; };
 		A780EE3B257D7AF600D4CBDE /* RestaurantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */; };
 		A780EE3D257D82F400D4CBDE /* RestaurantListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */; };
 		A7D05E3025B44B4A00B11CE3 /* BookInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D05E2F25B44B4A00B11CE3 /* BookInteractor.swift */; };
@@ -152,6 +153,7 @@
 		A76E6C7D258CA11200E2FCDB /* KeychainWrapper+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeychainWrapper+Keys.swift"; sourceTree = "<group>"; };
 		A76E6C7F258CC8FD00E2FCDB /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		A76E6C81258CCDEA00E2FCDB /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		A77817AB25C1AA4B002C7A76 /* UserInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInteractor.swift; sourceTree = "<group>"; };
 		A780EE3A257D7AF600D4CBDE /* RestaurantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListInteractor.swift; sourceTree = "<group>"; };
 		A780EE3C257D82F400D4CBDE /* RestaurantListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListPresenter.swift; sourceTree = "<group>"; };
 		A7D05E2F25B44B4A00B11CE3 /* BookInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInteractor.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 			children = (
 				A7DBEB3E25AB44530041A1C7 /* View */,
 				A726FAEB25BD284B00A3EDE1 /* UserInfoRouter.swift */,
+				A77817AB25C1AA4B002C7A76 /* UserInfoInteractor.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				A7FC80BE25B8455600A648F4 /* ReservationInfoCell.swift in Sources */,
 				A726FAE825BD208200A3EDE1 /* UsersBookInteractor.swift in Sources */,
 				A7D5F4B32599FE9800756E4E /* AccessTokenProviderImpl.swift in Sources */,
+				A77817AC25C1AA4B002C7A76 /* UserInfoInteractor.swift in Sources */,
 				A72B05A625A9740600DB4BF7 /* VerificationCodeViewController.swift in Sources */,
 				A7D2DA0C25705BBD00ED74BC /* RestaurantCell.swift in Sources */,
 				A70E0571257A944400FB25B3 /* Constant.swift in Sources */,
