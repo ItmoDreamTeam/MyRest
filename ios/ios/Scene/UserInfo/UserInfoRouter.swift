@@ -8,6 +8,7 @@
 
 protocol UserInfoRouter {
   func userInfoShouldOpenUsersBookScene(_ userInfoScene: UserInfoView)
+  func userInfoShouldDismiss(_ userInfoScene: UserInfoView)
 }
 
 final class UserInfoRouterImpl: UserInfoRouter {
@@ -20,5 +21,9 @@ final class UserInfoRouterImpl: UserInfoRouter {
 
   func userInfoShouldOpenUsersBookScene(_ userInfoScene: UserInfoView) {
     userInfoScene.navigationController?.pushViewController(usersBookScene, animated: true)
+  }
+
+  func userInfoShouldDismiss(_ userInfoScene: UserInfoView) {
+    userInfoScene.navigationController?.popViewController(animated: true)
   }
 }

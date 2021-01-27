@@ -22,6 +22,10 @@ final class ToSignInRouterImp: ToSignInRouter {
 
   func sceneShouldOpenSignInScene(_ scene: UIViewController) {
     signInScene.passedContext(scene)
-    scene.navigationController?.pushViewController(signInScene, animated: true)
+    guard let navigationController = scene.navigationController else {
+      scene.present(signInScene, animated: true, completion: nil)
+      return
+    }
+    navigationController.pushViewController(signInScene, animated: true)
   }
 }

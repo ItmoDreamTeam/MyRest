@@ -47,6 +47,7 @@ final class UserInfoViewController: UIViewController, UserInfoView {
   
   @IBAction func exitTapped(_ sender: UIButton) {
     interactor?.userInfoShouldLogOut(self)
+    router?.userInfoShouldDismiss(self)
   }
 }
 
