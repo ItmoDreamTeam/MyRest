@@ -20,7 +20,7 @@ final class ReservationInfoCell: UITableViewCell, ConfigurableView {
 
   func configure(with model: ReservationInfo) {
     dateLabel.text = model.activeFrom.toString()
-    restaurantNameLabel.text = "\(model.table.restaurant)"
+    restaurantNameLabel.text = "\(model.table.restaurant.name)"
     checkStatus(status: model.status)
   }
 
@@ -35,7 +35,7 @@ final class ReservationInfoCell: UITableViewCell, ConfigurableView {
       statusLabel.text = "В процессе"
     case .pending:
       statusImageView.image = UIImage(named: "pending")
-      statusLabel.text = "В ожидание"
+      statusLabel.text = "В ожидании"
     case .rejected:
       statusImageView.image = UIImage(named: "rejected")
       statusLabel.text = "Отменено"

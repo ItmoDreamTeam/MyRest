@@ -20,44 +20,49 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khW-XC-lJo">
                         <rect key="frame" x="10" y="10" width="306" height="81"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vkW-7F-hXk">
-                                <rect key="frame" x="10" y="8" width="193" height="65"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="73" translatesAutoresizingMaskIntoConstraints="NO" id="7fe-bR-abs">
+                                <rect key="frame" x="10" y="10" width="286" height="61"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a75-o3-fCE">
-                                        <rect key="frame" x="0.0" y="0.0" width="193" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название ресторана" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMT-I8-cX5">
-                                        <rect key="frame" x="0.0" y="20" width="193" height="23"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статус" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-Mr-a1T">
-                                        <rect key="frame" x="0.0" y="47" width="193" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vkW-7F-hXk">
+                                        <rect key="frame" x="0.0" y="0.0" width="193" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a75-o3-fCE">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название ресторана" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMT-I8-cX5">
+                                                <rect key="frame" x="0.0" y="20" width="193" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Статус" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-Mr-a1T">
+                                                <rect key="frame" x="0.0" y="47" width="193" height="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iD0-bj-aRc">
+                                        <rect key="frame" x="266" y="21" width="20" height="19"/>
+                                        <color key="tintColor" red="0.0" green="0.69019607839999997" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="T42-gN-zaK"/>
+                                            <constraint firstAttribute="width" constant="20" id="y0D-OM-Pck"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iD0-bj-aRc">
-                                <rect key="frame" x="276" y="31" width="20" height="19"/>
-                                <color key="tintColor" red="0.0" green="0.69019607839999997" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="T42-gN-zaK"/>
-                                    <constraint firstAttribute="width" constant="20" id="y0D-OM-Pck"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="iD0-bj-aRc" firstAttribute="centerY" secondItem="khW-XC-lJo" secondAttribute="centerY" id="9Me-gl-0FF"/>
-                            <constraint firstItem="vkW-7F-hXk" firstAttribute="leading" secondItem="khW-XC-lJo" secondAttribute="leading" constant="10" id="B04-0g-Y9G"/>
-                            <constraint firstItem="vkW-7F-hXk" firstAttribute="centerY" secondItem="khW-XC-lJo" secondAttribute="centerY" id="Ldo-m0-AXA"/>
-                            <constraint firstAttribute="trailing" secondItem="iD0-bj-aRc" secondAttribute="trailing" constant="10" id="RFv-xU-Jtq"/>
+                            <constraint firstItem="7fe-bR-abs" firstAttribute="leading" secondItem="khW-XC-lJo" secondAttribute="leading" constant="10" id="MjX-3z-fXs"/>
+                            <constraint firstAttribute="bottom" secondItem="7fe-bR-abs" secondAttribute="bottom" constant="10" id="Ud1-pf-Ybt"/>
+                            <constraint firstAttribute="trailing" secondItem="7fe-bR-abs" secondAttribute="trailing" constant="10" id="xMv-DQ-5iz"/>
+                            <constraint firstItem="7fe-bR-abs" firstAttribute="top" secondItem="khW-XC-lJo" secondAttribute="top" constant="10" id="xbu-vX-ti4"/>
                         </constraints>
                     </view>
                 </subviews>

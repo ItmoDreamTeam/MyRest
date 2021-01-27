@@ -43,6 +43,7 @@ final class UsersBookViewController: UIViewController, UsersBookView {
   }
 
   private func configureTableView() {
+    tableView.separatorStyle = .none
     tableView.dataSource = self
     tableView.register(
       UINib(nibName: ReservationInfoCell.reuseId, bundle: nil), forCellReuseIdentifier: ReservationInfoCell.reuseId
@@ -50,7 +51,8 @@ final class UsersBookViewController: UIViewController, UsersBookView {
   }
 
   func onReservationsFetchCompleted(_ reservations: [ReservationInfo]) {
-    self.reservations = reservations
+    self.reservations.append(contentsOf: reservations)
+    self.reservations.sort { $0.activeFrom > $1.activeFrom }
     DispatchQueue.main.async {
       self.tableView.reloadData()
     }
@@ -69,6 +71,7 @@ extension UsersBookViewController: UITableViewDataSource {
       ) as? ReservationInfoCell
     else { return UITableViewCell() }
     cell.configure(with: reservations[indexPath.row])
+    cell.selectionStyle = .none
     return cell
   }
 }

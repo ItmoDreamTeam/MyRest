@@ -38,3 +38,9 @@ extension Date {
     )
   }
 }
+
+extension Kotlinx_datetimeLocalDateTime: Comparable {
+  public static func < (lhs: Kotlinx_datetimeLocalDateTime, rhs: Kotlinx_datetimeLocalDateTime) -> Bool {
+    return lhs.dayOfYear < rhs.dayOfYear
+  }
+}

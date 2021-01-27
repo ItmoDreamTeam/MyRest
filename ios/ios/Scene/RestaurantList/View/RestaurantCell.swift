@@ -31,6 +31,6 @@ final class RestaurantCell: UICollectionViewCell, ConfigurableView {
       let avatar = model.avatar,
       let url = URL(string: avatar.url())
     else { return }
-    //restaurantImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "restaurantPlaceholder"))
+    restaurantImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "restaurantPlaceholder"))
   }
 }
