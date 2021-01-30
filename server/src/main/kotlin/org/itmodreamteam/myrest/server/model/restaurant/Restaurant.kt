@@ -58,6 +58,13 @@ class Restaurant() : JpaEntity() {
         get() = _photos.sortedBy { it.created }
         private set(value) {}
 
+    @OneToMany
+    private var _seatingCharts: MutableSet<Attachment> = mutableSetOf()
+
+    var seatingCharts: List<Attachment>
+        get() = _seatingCharts.sortedBy { it.created }
+        private set(value) {}
+
     constructor(name: String, description: String, legalInfo: String) : this() {
         this.name = name
         this.description = description

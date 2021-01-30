@@ -25,6 +25,7 @@ class RestaurantToRestaurantInfoAssembler(
             model.externalRating,
             if (model.avatar != null) attachmentMetadataAssembler.toView(model.avatar!!) else null,
             attachmentMetadataAssembler.toViewList(model.photos),
+            attachmentMetadataAssembler.toViewList(model.seatingCharts),
         )
     }
 }

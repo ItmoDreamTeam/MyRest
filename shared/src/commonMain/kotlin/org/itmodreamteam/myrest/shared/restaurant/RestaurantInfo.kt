@@ -17,4 +17,5 @@ data class RestaurantInfo(
     val externalRating: Double,
     val avatar: AttachmentMetadata?,
     val photos: List<AttachmentMetadata>,
+    val seatingCharts: List<AttachmentMetadata>,
 )
