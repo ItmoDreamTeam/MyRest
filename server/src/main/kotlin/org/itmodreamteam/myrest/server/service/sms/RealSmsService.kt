@@ -11,7 +11,8 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.web.client.postForEntity
 import java.nio.charset.Charset
-import java.time.*
+import java.time.Duration
+import java.time.LocalDateTime
 
 @Service
 @Primary
@@ -31,20 +32,9 @@ class RealSmsService(private var smsMessageRepository: SmsMessageRepository) : S
 
     override fun send(phone: String, text: String) {
         log.info("Sending SMS to $phone. Message: $text")
-        checkDailyLimit()
         checkFrequencyLimit()
         val message = registerMessage(phone, text)
         executeSending(message)
-    }
-
-    private fun checkDailyLimit() {
-        val periodPassed = Period.between(LocalDate.of(2020, Month.DECEMBER, 22), LocalDate.now())
-        val currentLimit = 10 * periodPassed.days
-        val sent = smsMessageRepository.count()
-        log.info("SMS sent: $sent, current limit: $currentLimit")
-        if (sent >= currentLimit) {
-            throw UserException("sms.limit.daily")
-        }
     }
 
     private fun checkFrequencyLimit() {
