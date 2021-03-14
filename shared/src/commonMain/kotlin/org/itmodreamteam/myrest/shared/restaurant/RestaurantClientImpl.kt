@@ -12,6 +12,13 @@ class RestaurantClientImpl : RestaurantClient {
 
     private val client = HttpClientProvider.provide()
 
+    override suspend fun getById(id: Long): RestaurantInfo {
+        return client.get {
+            url("/restaurants/$id")
+            provideAccessToken()
+        }
+    }
+
     override suspend fun search(keyword: String, pageable: Pageable): ContentPage<RestaurantInfo> {
         return client.get {
             url("/restaurants")
