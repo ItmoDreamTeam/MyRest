@@ -15,7 +15,6 @@ class RestaurantClientImpl : RestaurantClient {
     override suspend fun getById(id: Long): RestaurantInfo {
         return client.get {
             url("/restaurants/$id")
-            provideAccessToken()
         }
     }
 
