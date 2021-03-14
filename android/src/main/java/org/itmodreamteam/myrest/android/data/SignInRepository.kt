@@ -25,6 +25,13 @@ class SignInRepository(
        return sharedPreferences.getString(PHONE_PREFERENCE_KEY, null)
     }
 
+    fun logout() {
+        accessTokenMutator.removeAccessToken()
+        sharedPreferences.edit()
+            .remove(ACCESS_TOKEN_KEY)
+            .apply()
+    }
+
     suspend fun tryToRecoverSession(): Result<Profile>? {
         val phone  = getLastUsedPhone()
         val accessToken  = sharedPreferences.getString(ACCESS_TOKEN_KEY, null)

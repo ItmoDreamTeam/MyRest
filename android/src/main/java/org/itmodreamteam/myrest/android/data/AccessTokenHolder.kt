@@ -14,4 +14,8 @@ class AccessTokenHolder : AccessTokenProvider, AccessTokenMutator {
         Log.i(javaClass.name, "Setting access-token \"$accessToken\"")
         _accessToken = accessToken
     }
+
+    override fun removeAccessToken() {
+        _accessToken = null
+    }
 }

@@ -30,6 +30,10 @@ class SignInViewModel @ViewModelInject constructor(
         }
     }
 
+    fun logout() {
+        signInRepository.logout()
+    }
+
     fun getLastUsedPhone() : String? = signInRepository.getLastUsedPhone()
 
     fun signIn(phone: String) {

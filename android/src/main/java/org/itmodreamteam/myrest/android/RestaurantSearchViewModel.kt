@@ -20,13 +20,7 @@ class RestaurantSearchViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             // TODO pageable
             val search = restaurantClient.search(keyword, Pageable(0, 10))
-            // TODO debug x4
-            val test = mutableListOf<RestaurantInfo>()
-            for (i in (0..3)) {
-                test.addAll(search.content)
-            }
-            _restaurants.value = test
-//            _restaurants.value = search.content
+            _restaurants.value = search.content
         }
     }
 }
