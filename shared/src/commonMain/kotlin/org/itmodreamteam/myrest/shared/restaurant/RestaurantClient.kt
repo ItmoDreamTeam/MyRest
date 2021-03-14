@@ -9,6 +9,9 @@ import kotlin.coroutines.cancellation.CancellationException
 interface RestaurantClient {
 
     @Throws(CancellationException::class, ClientException::class)
+    suspend fun getById(id: Long): RestaurantInfo
+
+    @Throws(CancellationException::class, ClientException::class)
     suspend fun search(keyword: String, pageable: Pageable): ContentPage<RestaurantInfo>
 
     @Throws(CancellationException::class, ClientException::class)

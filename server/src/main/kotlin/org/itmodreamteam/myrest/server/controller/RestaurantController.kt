@@ -37,6 +37,11 @@ class RestaurantController(
         return restaurantService.register(newRestaurant, user)
     }
 
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: Long): RestaurantInfo {
+        return restaurantService.getById(id)
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasPermission(#id, 'Restaurant', 'write')")
     fun update(@PathVariable id: Long, @RequestBody updateInfo: RestaurantUpdateInfo): RestaurantInfo {
