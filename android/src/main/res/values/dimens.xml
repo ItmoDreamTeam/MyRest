@@ -18,6 +18,6 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_extra_small">4dp</dimen>
 
-    <dimen name="restaurant_item_image_height">95dp</dimen>
+    <dimen name="restaurant_item_image_height">150dp</dimen>
     <dimen name="tall_toolbar_height">48dp</dimen>
 </resources>

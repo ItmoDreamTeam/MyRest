@@ -1,10 +1,11 @@
 package org.itmodreamteam.myrest.shared.table
 
 import io.ktor.client.request.*
+import org.itmodreamteam.myrest.shared.AccessTokenProvider
 import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
-class TableClientImpl : TableClient {
+class TableClientImpl(private val accessTokenProvider: AccessTokenProvider) : TableClient {
 
     private val client = HttpClientProvider.provide()
 
@@ -17,7 +18,7 @@ class TableClientImpl : TableClient {
     override suspend fun addTable(restaurantId: Long, info: TableInfo): TableView {
         return client.put {
             url("/restaurants/$restaurantId/tables")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = info
         }
     }
@@ -25,7 +26,7 @@ class TableClientImpl : TableClient {
     override suspend fun updateTable(tableId: Long, info: TableInfo): TableView {
         return client.put {
             url("/tables/$tableId")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = info
         }
     }
@@ -33,7 +34,7 @@ class TableClientImpl : TableClient {
     override suspend fun removeTable(tableId: Long): TableView {
         return client.delete {
             url("/tables/$tableId")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 }

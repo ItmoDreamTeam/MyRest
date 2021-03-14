@@ -11,8 +11,12 @@ import org.itmodreamteam.myrest.android.data.AccessTokenHolder
 import org.itmodreamteam.myrest.android.data.AccessTokenMutator
 import org.itmodreamteam.myrest.android.data.SignInRepository
 import org.itmodreamteam.myrest.shared.AccessTokenProvider
+import org.itmodreamteam.myrest.shared.restaurant.ReservationClient
+import org.itmodreamteam.myrest.shared.restaurant.ReservationClientImpl
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClient
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClientImpl
+import org.itmodreamteam.myrest.shared.table.TableClient
+import org.itmodreamteam.myrest.shared.table.TableClientImpl
 import org.itmodreamteam.myrest.shared.user.UserClient
 import org.itmodreamteam.myrest.shared.user.UserClientImpl
 
@@ -37,6 +41,12 @@ object HiltModule {
     fun restaurantClient(accessTokenProvider: AccessTokenProvider): RestaurantClient = RestaurantClientImpl(
         accessTokenProvider
     )
+
+    @Provides
+    fun reservationClient(accessTokenProvider: AccessTokenProvider): ReservationClient = ReservationClientImpl(accessTokenProvider)
+
+    @Provides
+    fun tableClient(accessTokenProvider: AccessTokenProvider): TableClient = TableClientImpl(accessTokenProvider)
 
     @Provides
     fun signInRepository(

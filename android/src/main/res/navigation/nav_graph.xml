@@ -39,5 +39,18 @@
     <fragment
         android:id="@+id/restaurantListFragment"
         android:name="org.itmodreamteam.myrest.android.RestaurantListFragment"
-        android:label="RestaurantListFragment" />
+        android:label="RestaurantListFragment" >
+        <action
+            android:id="@+id/action_restaurantListFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailsFragment"
+        android:name="org.itmodreamteam.myrest.android.RestaurantDetailsFragment"
+        android:label="fragment_restaurant_details"
+        tools:layout="@layout/fragment_restaurant_details" >
+        <argument
+            android:name="restaurantId"
+            app:argType="long" />
+    </fragment>
 </navigation>

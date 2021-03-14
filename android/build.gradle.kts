@@ -33,7 +33,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.activity:activity-ktx:1.1.0")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.4.0-alpha01")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
@@ -71,6 +71,9 @@ dependencies {
     val glide_version = "4.10.0"
     kapt("com.github.bumptech.glide:compiler:$glide_version")
     implementation("com.github.bumptech.glide:glide:$glide_version")
+
+    compileOnly("com.squareup.inject:assisted-inject-annotations-dagger2:0.5.2")
+    kapt("com.squareup.inject:assisted-inject-processor-dagger2:0.5.2")
 }
 android {
     compileOptions {
@@ -83,10 +86,15 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "org.itmodreamteam.myrest.android"
-        minSdkVersion(24)
+        minSdkVersion(26)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
+        }
     }
     buildTypes {
         getByName("release") {
