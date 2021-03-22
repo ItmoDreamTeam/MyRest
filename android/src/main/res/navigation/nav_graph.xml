@@ -60,4 +60,12 @@
         android:id="@+id/tableListFragment"
         android:name="org.itmodreamteam.myrest.android.TableListFragment"
         android:label="TableListFragment" />
+    <fragment
+        android:id="@+id/reservationListFragment"
+        android:name="org.itmodreamteam.myrest.android.ReservationListFragment"
+        android:label="ReservationListFragment" >
+        <action
+            android:id="@+id/action_reservationListFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+    </fragment>
 </navigation>

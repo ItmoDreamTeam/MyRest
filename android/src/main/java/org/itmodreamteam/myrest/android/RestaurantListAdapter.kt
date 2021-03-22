@@ -1,22 +1,19 @@
 package org.itmodreamteam.myrest.android
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import org.itmodreamteam.myrest.android.databinding.FragmentRestaurantBinding
-
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 
 
 class RestaurantListAdapter: ListAdapter<RestaurantInfo, RestaurantListAdapter.RestaurantViewHolder>(RestaurantDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val binding = FragmentRestaurantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.fragment_restaurant, parent, false)
         return RestaurantViewHolder(binding)
     }
 
