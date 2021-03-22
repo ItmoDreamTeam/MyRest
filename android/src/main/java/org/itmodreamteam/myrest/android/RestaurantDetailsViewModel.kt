@@ -1,22 +1,25 @@
 package org.itmodreamteam.myrest.android
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.itmodreamteam.myrest.shared.restaurant.ReservationClient
+import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantClient
 import org.itmodreamteam.myrest.shared.restaurant.RestaurantInfo
 import org.itmodreamteam.myrest.shared.table.TableClient
 import org.itmodreamteam.myrest.shared.table.TableView
 import java.time.*
+import java.time.temporal.ChronoUnit
 
 class RestaurantDetailsViewModel @AssistedInject constructor(
     private val restaurantClient: RestaurantClient,
     private val reservationClient: ReservationClient,
     private val tableClient: TableClient,
-    @Assisted private val restaurantId: Long
+    @Assisted private var restaurantId: Long
 ) : ViewModel() {
     private val _restaurant: MutableLiveData<RestaurantInfo> = MutableLiveData()
     val restaurant: LiveData<RestaurantInfo> = _restaurant
@@ -28,40 +31,70 @@ class RestaurantDetailsViewModel @AssistedInject constructor(
     private val _reservationDate: MutableLiveData<LocalDate> = MutableLiveData(LocalDate.now())
     val reservationDate: LiveData<LocalDate> = _reservationDate
 
-    private val _reservationTime: MutableLiveData<LocalTime> = MutableLiveData(LocalTime.now().plusHours(1))
+    private val _reservationTime: MutableLiveData<LocalTime> = MutableLiveData(LocalTime.now()
+        .plusHours(1)
+        .truncatedTo(ChronoUnit.HOURS))
     val reservationTime: LiveData<LocalTime> = _reservationTime
 
     // TODO
     private val _reservationDuration: MutableLiveData<Duration> =
-        MutableLiveData(Duration.ofDays(2))
+        MutableLiveData(Duration.ofHours(2))
+
+    private val _dataValid: MutableLiveData<Boolean> = MutableLiveData(false)
+    val dataValid: LiveData<Boolean> = _dataValid
+
+    private val _reservation: MutableLiveData<ReservationInfo> = MutableLiveData()
+    val reservation: LiveData<ReservationInfo> = _reservation
+
 
     init {
+        Log.i(javaClass.name,"Creating view model with restaurant id: $restaurantId")
         viewModelScope.launch {
             _restaurant.value = restaurantClient.getById(restaurantId)
             _tables.value = tableClient.getRestaurantTables(restaurantId)
         }
     }
 
+    fun reset(restaurantId: Long) {
+        if (this.restaurantId == restaurantId) {
+            return
+        }
+        this.restaurantId = restaurantId
+        _reservation.value = null
+        viewModelScope.launch {
+            _restaurant.value = restaurantClient.getById(restaurantId)
+            _tables.value = tableClient.getRestaurantTables(restaurantId)
+        }
+        _selectedTable.value = null
+        checkData()
+    }
+
     fun setReservationDate(date: LocalDate) {
         _reservationDate.value = date
+        checkData()
     }
 
     fun setReservationTime(time: LocalTime) {
         _reservationTime.value = time
+        checkData()
     }
 
     fun setReservationTable(tableView: TableView) {
         _selectedTable.value = tableView
+        checkData()
+    }
+
+    private fun checkData() {
+        _dataValid.value = _selectedTable.value != null && _reservationDate.value != null && _reservationTime.value != null
     }
 
     fun reserve() {
-        // TODO disable button until all is valid
         viewModelScope.launch {
             val utc = ZoneId.of("UTC")
             val from = LocalDateTime.of(_reservationDate.value, _reservationTime.value)
             val until = LocalDateTime.of(_reservationDate.value, _reservationTime.value)
                 .plus(_reservationDuration.value)
-            reservationClient.submitReservationForApproval(
+            _reservation.value = reservationClient.submitReservationForApproval(
                 _selectedTable.value!!.id,
                 from.toKotlinLocalDateTime(),
                 until.toKotlinLocalDateTime()

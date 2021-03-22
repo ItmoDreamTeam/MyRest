@@ -52,5 +52,12 @@
         <argument
             android:name="restaurantId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tableListFragment"
+        android:name="org.itmodreamteam.myrest.android.TableListFragment"
+        android:label="TableListFragment" />
 </navigation>
