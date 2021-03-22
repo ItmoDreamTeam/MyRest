@@ -68,4 +68,9 @@
             android:id="@+id/action_reservationListFragment_to_restaurantDetailsFragment"
             app:destination="@id/restaurantDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="org.itmodreamteam.myrest.android.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

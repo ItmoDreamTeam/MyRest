@@ -9,4 +9,7 @@
     <item android:id="@+id/reservationListFragment"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="@string/reservations" />
+    <item android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Настройки" />
 </menu>

@@ -2,18 +2,27 @@ package org.itmodreamteam.myrest.android.data
 
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import org.itmodreamteam.myrest.shared.error.ClientException
-import org.itmodreamteam.myrest.shared.user.*
+import org.itmodreamteam.myrest.shared.user.Profile
+import org.itmodreamteam.myrest.shared.user.SignIn
+import org.itmodreamteam.myrest.shared.user.SignInVerification
+import org.itmodreamteam.myrest.shared.user.UserClient
 
 private val PHONE_PREFERENCE_KEY: String = "phone"
 private val ACCESS_TOKEN_KEY: String = "access-token"
+
 
 class SignInRepository(
     private val userClient: UserClient,
     private val accessTokenMutator: AccessTokenMutator,
     private val sharedPreferences: SharedPreferences
 ) {
-    private var signedInUser: Profile? = null
+    private val _signedInUser: MutableLiveData<Profile> = MutableLiveData()
+    val signedInUser: LiveData<Profile> = _signedInUser
+
+    val employeeMode: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var user: Profile? = null
         private set
@@ -26,6 +35,7 @@ class SignInRepository(
     }
 
     fun logout() {
+        _signedInUser.value = null
         accessTokenMutator.removeAccessToken()
         sharedPreferences.edit()
             .remove(ACCESS_TOKEN_KEY)
@@ -44,7 +54,7 @@ class SignInRepository(
         return try {
             val me = userClient.getMe()
             Log.i(javaClass.name, "Session has been successfully recovered, profile: $me")
-            this.signedInUser = me
+            this._signedInUser.value = me
             return Result.Success(me)
         } catch (e: ClientException) {
             Result.Error(e)
@@ -72,7 +82,7 @@ class SignInRepository(
                 .putString(ACCESS_TOKEN_KEY, session.token)
                 .apply()
             val me = userClient.getMe()
-            this.signedInUser = me
+            this._signedInUser.value = me
             Result.Success(me)
         } catch (e: ClientException) {
             Result.Error(e)
