@@ -1,9 +1,14 @@
 package org.itmodreamteam.myrest.android
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.iterator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -34,7 +39,32 @@ class MainActivity() : AppCompatActivity() {
         nav.setupWithNavController(navController)
         val menu = nav.menu
         signInRepository.employeeMode.observe(this) { employeeMode ->
-            Log.i(javaClass.name, "Employee mode $employeeMode")
+            fixMenu(menu, signInRepository.isLoggedIn, employeeMode)
+        }
+        signInRepository.signedInUser.observe(this) {
+            fixMenu(menu, it != null, signInRepository.employeeMode.value?:false)
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun fixMenu(menu: Menu, loggedIn: Boolean, employeeMode: Boolean) {
+        Log.i(javaClass.name, "logged in: $loggedIn, employee: $employeeMode")
+        if (!loggedIn) {
+            for (item in menu.iterator()) {
+                item.isVisible = false
+            }
+        } else {
+            for (item in menu.iterator()) {
+                item.isVisible = true
+            }
             menu.findItem(R.id.reservationListFragment).isVisible = employeeMode
         }
     }

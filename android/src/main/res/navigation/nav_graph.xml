@@ -10,18 +10,20 @@
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
-            android:id="@+id/action_signIn_to_setPhone"
-            app:destination="@id/setPhone" />
-        <action
             android:id="@+id/action_signIn_to_signUp"
             app:destination="@id/signUp" />
         <argument
             android:name="phone"
             app:argType="string" />
+        <action
+            android:id="@+id/action_signIn_to_reservationListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            app:destination="@id/reservationListFragment" />
     </fragment>
     <fragment
         android:id="@+id/setPhone"
-        android:name="org.itmodreamteam.myrest.android.SetPhone"
+        android:name="org.itmodreamteam.myrest.android.SetPhoneFragment"
         android:label="fragment_set_phone"
         tools:layout="@layout/fragment_set_phone" >
         <action
@@ -72,5 +74,9 @@
         android:id="@+id/settingsFragment"
         android:name="org.itmodreamteam.myrest.android.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_setPhone"
+            app:destination="@id/setPhone" />
+    </fragment>
 </navigation>

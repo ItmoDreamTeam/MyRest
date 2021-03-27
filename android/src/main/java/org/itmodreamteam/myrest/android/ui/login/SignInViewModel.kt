@@ -37,6 +37,7 @@ class SignInViewModel @ViewModelInject constructor(
     fun getLastUsedPhone() : String? = signInRepository.getLastUsedPhone()
 
     fun signIn(phone: String) {
+        Log.i(javaClass.name, "Phone: $phone")
         viewModelScope.launch {
             val signIn = signInRepository.signIn(phone)
             if (signIn is Result.Error) {
@@ -49,7 +50,6 @@ class SignInViewModel @ViewModelInject constructor(
     fun startSession(phone: String, code: String) {
         viewModelScope.launch {
             val user = signInRepository.startSession(phone, code)
-            signInRepository.user
             if (user is Result.Success) {
                 _signIn.value = SignInResult(success = user.data)
             } else if (user is Result.Error) {
@@ -67,6 +67,7 @@ class SignInViewModel @ViewModelInject constructor(
         } else {
             _singInFormState.value = SignInFormState(isDataValid = true)
         }
+        Log.i(javaClass.name, "$phone $code ${_singInFormState.value}")
     }
 
     private fun isPhoneValid(phone: String): Boolean {

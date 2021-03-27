@@ -24,11 +24,8 @@ class SignInRepository(
 
     val employeeMode: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var user: Profile? = null
-        private set
-
     val isLoggedIn: Boolean
-        get() = user != null
+        get() = _signedInUser.value != null
 
     fun getLastUsedPhone() : String? {
        return sharedPreferences.getString(PHONE_PREFERENCE_KEY, null)

@@ -14,73 +14,102 @@
         android:layout_height="match_parent"
         tools:context=".SignInFragment">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_collapseMode="pin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_detail_back"
-            app:titleTextColor="?attr/colorOnSurface" />
-
-
-        <EditText
-            android:id="@+id/signInPhone"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="@string/prompt_phone"
-            android:inputType="phone"
-            android:text="@{phone}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <EditText
-            android:id="@+id/signInCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="@string/prompt_code"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signInPhone" />
+        <!-- -->
 
-        <Button
-            android:id="@+id/signInSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/action_sign_in"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signInCode" />
 
-        <ProgressBar
-            android:id="@+id/signInprogressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/signInSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/action_send"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signInSubmit" />
+                <!-- Media -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="384dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/myrest" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MYREST"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Лучшие заведения в одном месте"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/signInPhone"
+                        android:layout_marginTop="16dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="@string/prompt_phone"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        android:maxLines="1"
+                        app:prefixText="+7">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:text="@{phone}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/signInCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="@string/prompt_code"
+                        app:counterEnabled="true"
+                        android:inputType="numberDecimal"
+                        app:counterMaxLength="6"
+                        app:endIconMode="clear_text"
+                        app:errorEnabled="true"
+                        android:maxLines="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/signInCodeEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/signInSendAgain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Запросить код снова"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
+                </LinearLayout>
+            </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
