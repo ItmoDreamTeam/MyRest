@@ -44,11 +44,11 @@ class SetPhoneFragment : Fragment() {
             }
         }
 
-        binding.phoneEdit.setOnFocusChangeListener { view, hasFocus ->
-            if (!hasFocus) {
-                hideKeyboard(view)
-            }
-        }
+//        binding.phoneEdit.setOnFocusChangeListener { view, hasFocus ->
+//            if (!hasFocus) {
+//                hideKeyboard(view)
+//            }
+//        }
 
         binding.phoneEdit.setOnEditorActionListener { _, actionId, _ ->
             when (actionId) {
@@ -67,6 +67,11 @@ class SetPhoneFragment : Fragment() {
             Toast.makeText(context, "SMS на номер $phone отправлено", LENGTH_LONG).show()
             val action =
                 SetPhoneFragmentDirections.actionSetPhoneToSignIn(binding.phoneEdit.text.toString())
+            findNavController().navigate(action)
+        }
+        binding.buttonSignUp.setOnClickListener {
+            val action =
+                SetPhoneFragmentDirections.actionSetPhoneToSignUp(binding.phoneEdit.text.toString())
             findNavController().navigate(action)
         }
 

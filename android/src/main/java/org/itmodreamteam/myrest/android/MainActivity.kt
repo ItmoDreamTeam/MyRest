@@ -32,7 +32,7 @@ class MainActivity() : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.setPhone, R.id.restaurantListFragment, R.id.reservationListFragment, R.id.settingsFragment))
         layout.setupWithNavController(toolbar, navController, appBarConfiguration)
 
         val nav = findViewById<BottomNavigationView>(R.id.bottom_nav)

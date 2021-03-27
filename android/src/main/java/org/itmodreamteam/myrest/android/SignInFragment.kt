@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
     private val args: SignInFragmentArgs by navArgs()
-//    private val model: SignInViewModel by navGraphViewModels(R.navigation.nav_graph)
     private val model: SignInViewModel by viewModels()
 
     override fun onCreateView(

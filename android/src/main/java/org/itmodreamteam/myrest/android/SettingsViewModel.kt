@@ -16,4 +16,8 @@ class SettingsViewModel @ViewModelInject constructor(
     fun employeeModeChanged(mode: Boolean) {
         signInRepository.employeeMode.value = mode
     }
+
+    fun logout() {
+        signInRepository.logout()
+    }
 }

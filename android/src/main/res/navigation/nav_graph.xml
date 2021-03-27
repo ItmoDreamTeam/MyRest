@@ -9,9 +9,6 @@
         android:name="org.itmodreamteam.myrest.android.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
-        <action
-            android:id="@+id/action_signIn_to_signUp"
-            app:destination="@id/signUp" />
         <argument
             android:name="phone"
             app:argType="string" />
@@ -31,13 +28,25 @@
             app:destination="@id/signIn" />
         <action
             android:id="@+id/action_setPhone_to_restaurantListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
             app:destination="@id/restaurantListFragment" />
+        <action
+            android:id="@+id/action_setPhone_to_signUp"
+            app:destination="@id/signUp" />
     </fragment>
     <fragment
         android:id="@+id/signUp"
-        android:name="org.itmodreamteam.myrest.android.SignUp"
+        android:name="org.itmodreamteam.myrest.android.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUp_to_signIn"
+            app:destination="@id/signIn" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantListFragment"
         android:name="org.itmodreamteam.myrest.android.RestaurantListFragment"
