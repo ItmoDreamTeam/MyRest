@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class EmployeeController(private val employeeService: EmployeeService) {
 
+    @GetMapping("/employees/{id}")
+    @PreAuthorize("isAuthenticated()")
+    fun getById(@PathVariable id: Long): EmployeeInfo {
+        // TODO permissions
+        return employeeService.getById(id)
+    }
+
     @GetMapping("/restaurants/{restaurantId}/employees")
     @PreAuthorize("hasPermission(#restaurantId, 'Restaurant', 'read')")
     fun getEmployeesOfRestaurant(@PathVariable restaurantId: Long): List<EmployeeInfo> {

@@ -6,6 +6,9 @@ import kotlin.coroutines.cancellation.CancellationException
 interface EmployeeClient {
 
     @Throws(CancellationException::class, ClientException::class)
+    suspend fun getById(id: Long): EmployeeInfo
+
+    @Throws(CancellationException::class, ClientException::class)
     suspend fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo>
 
     @Throws(CancellationException::class, ClientException::class)
