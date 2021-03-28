@@ -9,6 +9,9 @@ interface UserClient {
     suspend fun getMe(): Profile
 
     @Throws(CancellationException::class, ClientException::class)
+    suspend fun update(patch: ProfilePatch): Profile
+
+    @Throws(CancellationException::class, ClientException::class)
     suspend fun signUp(signUp: SignUp)
 
     @Throws(CancellationException::class, ClientException::class)

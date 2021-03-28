@@ -15,6 +15,14 @@ class UserClientImpl : UserClient {
         }
     }
 
+    override suspend fun update(patch: ProfilePatch): Profile {
+        return client.put {
+            url("/users/me")
+            provideAccessToken()
+            body = patch
+        }
+    }
+
     override suspend fun signUp(signUp: SignUp) {
         return client.post {
             url("/users/sign-up")

@@ -8,6 +8,8 @@ interface UserService {
 
     fun signIn(signIn: SignIn)
 
+    fun update(patch: ProfilePatch): Profile
+
     fun startSession(signInVerification: SignInVerification): ActiveSession
 
     fun verifySession(token: String): Profile

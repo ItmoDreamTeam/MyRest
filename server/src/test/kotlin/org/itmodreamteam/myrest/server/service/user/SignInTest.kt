@@ -6,6 +6,7 @@ import org.itmodreamteam.myrest.server.model.user.Identifier
 import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.user.SignIn
@@ -38,6 +39,9 @@ class SignInTest {
 
     @MockBean
     lateinit var smsService: SmsService
+
+    @MockBean
+    lateinit var currentUserService: CurrentUserService
 
     lateinit var user: User
     lateinit var oldVerificationCode: String

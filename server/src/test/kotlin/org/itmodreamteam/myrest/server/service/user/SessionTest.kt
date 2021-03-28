@@ -9,6 +9,7 @@ import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.shared.user.SignInVerification
 import org.junit.Before
@@ -132,6 +133,6 @@ class SessionTest {
 
     @TestConfiguration
     @ComponentScan
-    @MockBean(SmsService::class)
+    @MockBean(value = [SmsService::class, CurrentUserService::class])
     open class Config
 }
