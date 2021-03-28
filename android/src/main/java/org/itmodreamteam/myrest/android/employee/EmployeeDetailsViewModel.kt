@@ -7,10 +7,7 @@ import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.datetime.toKotlinLocalDate
 import org.itmodreamteam.myrest.shared.error.ClientException
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeClient
-import org.itmodreamteam.myrest.shared.restaurant.EmployeeInfo
-import org.itmodreamteam.myrest.shared.restaurant.ReservationClient
-import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
+import org.itmodreamteam.myrest.shared.restaurant.*
 import java.time.LocalDate
 
 class EmployeeDetailsViewModel @AssistedInject constructor(
@@ -22,11 +19,18 @@ class EmployeeDetailsViewModel @AssistedInject constructor(
     private val _employee: MutableLiveData<EmployeeInfo> = MutableLiveData()
     val employee: LiveData<EmployeeInfo> = _employee
 
-    private val _reservations: MutableLiveData<List<ReservationInfo>> = MutableLiveData()
-    val reservations: LiveData<List<ReservationInfo>> = _reservations
+    private val _fetchedReservations: MutableLiveData<List<ReservationInfo>> = MutableLiveData()
+    private val _filteredReservations: MutableLiveData<List<ReservationInfo>> = MutableLiveData()
+    val reservations: LiveData<List<ReservationInfo>> = _filteredReservations
 
     private val _date: MutableLiveData<LocalDate> = MutableLiveData(LocalDate.now())
     val date: LiveData<LocalDate> = _date
+
+    private val _search: MutableLiveData<String> = MutableLiveData("")
+    val search: LiveData<String> = _search
+
+    private val _showAll: MutableLiveData<Boolean> = MutableLiveData(false)
+    val showAll: LiveData<Boolean> = _showAll
 
     init {
         viewModelScope.launch {
@@ -34,6 +38,23 @@ class EmployeeDetailsViewModel @AssistedInject constructor(
             Log.i(javaClass.name, _employee.value.toString())
             fetchReservations()
         }
+    }
+
+    fun search(keyword: String) {
+        _search.value = keyword
+        filterReservations()
+    }
+
+    fun setSearchDate(date: LocalDate) {
+        _date.value = date
+        viewModelScope.launch {
+            fetchReservations()
+        }
+    }
+
+    fun setShowAll(boolean: Boolean) {
+        _showAll.value = boolean
+        filterReservations()
     }
 
     fun approve(reservation: ReservationInfo) {
@@ -47,27 +68,26 @@ class EmployeeDetailsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             reservationClient.reject(reservation.id)
             fetchReservations()
-//            val list = mutableListOf<ReservationInfo>()
-//            for (reservation in _reservations.value!!) {
-//                if (reservation.id == rejected.id) {
-//                    list.add(rejected)
-//                } else {
-//                    list.add(reservation)
-//                }
-//            }
-
         }
     }
 
     private suspend fun fetchReservations() {
         try {
-            _reservations.value = reservationClient.getReservationsOfRestaurant(
+            _fetchedReservations.value = reservationClient.getReservationsOfRestaurant(
                 employee.value!!.restaurant.id,
                 date.value!!.toKotlinLocalDate()
             )
+            filterReservations()
         } catch (e: ClientException) {
             Log.w(javaClass.name, "failed to fetch reservations", e)
         }
+    }
+
+    private fun filterReservations() {
+        val showAll = showAll.value!!
+        _filteredReservations.value = _fetchedReservations.value!!
+            .filter { reservation -> showAll || reservation.status == ReservationStatus.PENDING }
+            .filter { reservation -> reservation.toString().contains(search.value!!) }
     }
 
     @AssistedInject.Factory

@@ -25,7 +25,7 @@ class RestaurantListAdapter: ListAdapter<RestaurantInfo, RestaurantListAdapter.R
     inner class RestaurantViewHolder(private val binding: FragmentRestaurantBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.restarturant?.let { restaurant ->
+                binding.restaurant?.let { restaurant ->
                     navigateToRestaurant(restaurant, it)
                 }
             }
@@ -33,7 +33,7 @@ class RestaurantListAdapter: ListAdapter<RestaurantInfo, RestaurantListAdapter.R
 
         fun bind(item: RestaurantInfo) {
             binding.apply {
-                restarturant = item
+                restaurant = item
                 executePendingBindings()
             }
         }

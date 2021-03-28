@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.itmodreamteam.myrest.android.databinding.FragmentEmployeeDetailsBinding
+import org.itmodreamteam.myrest.android.ui.afterTextChanged
 import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,6 +61,26 @@ class EmployeeDetailsFragment : Fragment() {
         model.reservations.observe(viewLifecycleOwner) { reservations ->
             adapter.submitList(reservations)
         }
+
+        binding.dateEdit.setOnClickListener {
+            val picker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Выберите дату")
+                .build()
+            picker.addOnPositiveButtonClickListener {
+                val date = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(it),
+                    ZoneId.of("UTC")
+                ).toLocalDate()
+                model.setSearchDate(date)
+                binding.dateEdit.setText("${date.month.value} ${date.dayOfMonth}")
+            }
+            picker.show(childFragmentManager, picker.toString())
+        }
+
+        binding.searchEdit.afterTextChanged {
+            model.search(it)
+        }
+
         return binding.root
     }
 }

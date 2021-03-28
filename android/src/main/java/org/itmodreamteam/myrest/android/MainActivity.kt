@@ -81,13 +81,6 @@ class MainActivity() : AppCompatActivity() {
         } else {
             false
         }
-        if (onlySettings) {
-            Toast.makeText(
-                applicationContext,
-                "Для пользования сервисом необходимо указать имя",
-                LENGTH_LONG
-            ).show()
-        }
         Log.i(
             javaClass.name,
             "logged in: $loggedIn, employee: $employeeMode, onlySettings: $onlySettings"

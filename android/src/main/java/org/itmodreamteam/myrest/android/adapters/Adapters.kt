@@ -29,13 +29,12 @@ fun bindPrintTime(view: TextView, time: LocalDateTime?) {
 fun bindPrintInterval(view: TextView, reservationInfo: ReservationInfo) {
     val from = reservationInfo.activeFrom
     val until = reservationInfo.activeUntil
+    view.text = "$from - $until"
     if (from.year == until.year) {
         if (from.month == until.month) {
             if (from.dayOfMonth == until.dayOfMonth) {
                 view.text = "${from.year} ${from.month} ${from.dayOfWeek}: ${from.hour}:${from.minute} - ${until.hour}:${until.minute}"
             }
         }
-    } else {
-        view.text = "$from - $until"
     }
 }
