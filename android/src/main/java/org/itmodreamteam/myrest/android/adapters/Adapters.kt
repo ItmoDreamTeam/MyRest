@@ -33,8 +33,14 @@ fun bindPrintInterval(view: TextView, reservationInfo: ReservationInfo) {
     if (from.year == until.year) {
         if (from.month == until.month) {
             if (from.dayOfMonth == until.dayOfMonth) {
-                view.text = "${from.year} ${from.month} ${from.dayOfWeek}: ${from.hour}:${from.minute} - ${until.hour}:${until.minute}"
+                view.text = "${from.year}-${from.month.value}-${from.dayOfMonth}: ${from.hour}:${from.minute} - ${until.hour}:${until.minute}"
+            } else {
+                view.text = "${from.year}-${from.month.value}: ${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.dayOfMonth} ${until.hour}:${until.minute}"
             }
+        } else {
+            view.text = "${from.year}: ${from.month.value}-${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.month.value}-${until.dayOfMonth} ${until.hour}:${until.minute}"
         }
+    } else {
+        view.text = "${from.year}-${from.month.value}-${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.year}-${until.month.value}-${until.dayOfMonth} ${until.hour}:${until.minute}"
     }
 }
