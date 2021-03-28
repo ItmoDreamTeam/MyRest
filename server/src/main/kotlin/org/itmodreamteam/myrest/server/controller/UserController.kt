@@ -18,7 +18,7 @@ class UserController(private val userService: UserService) {
 
     @PutMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    fun update(patch: ProfilePatch): Profile {
+    fun update(@RequestBody patch: ProfilePatch): Profile {
         return userService.update(patch)
     }
 
