@@ -8,6 +8,13 @@ class EmployeeClientImpl : EmployeeClient {
 
     private val client = HttpClientProvider.provide()
 
+    override suspend fun getById(id: Long): EmployeeInfo {
+        return client.get {
+            url("/employees/$id")
+            provideAccessToken()
+        }
+    }
+
     override suspend fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo> {
         return client.get {
             url("/restaurants/$restaurantId/employees")
