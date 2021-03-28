@@ -16,6 +16,12 @@ class UserController(private val userService: UserService) {
         return userAuthentication.profile
     }
 
+    @PutMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    fun update(patch: ProfilePatch): Profile {
+        return userService.update(patch)
+    }
+
     @PostMapping("/sign-up")
     fun signUp(@RequestBody signUp: SignUp) {
         userService.signUp(signUp)

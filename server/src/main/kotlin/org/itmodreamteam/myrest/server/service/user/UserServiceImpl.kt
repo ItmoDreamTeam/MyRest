@@ -8,6 +8,7 @@ import org.itmodreamteam.myrest.server.model.user.User
 import org.itmodreamteam.myrest.server.repository.user.IdentifierRepository
 import org.itmodreamteam.myrest.server.repository.user.SessionRepository
 import org.itmodreamteam.myrest.server.repository.user.UserRepository
+import org.itmodreamteam.myrest.server.security.CurrentUserService
 import org.itmodreamteam.myrest.server.service.sms.SmsService
 import org.itmodreamteam.myrest.server.view.assembler.ModelViewAssembler
 import org.itmodreamteam.myrest.shared.user.*
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserServiceImpl(
+    private val currentUserService: CurrentUserService,
     private val userRepository: UserRepository,
     private val identifierRepository: IdentifierRepository,
     private val sessionRepository: SessionRepository,
@@ -60,6 +62,14 @@ class UserServiceImpl(
         val verificationCode = identifier.updateVerificationCode()
         val text = "Вход в MyRest. Код подтверждения: $verificationCode"
         smsService.send(identifier.value, text)
+    }
+
+    override fun update(patch: ProfilePatch): Profile {
+        val user = currentUserService.currentUserEntity
+        user.firstName = patch.firstName
+        user.lastName = patch.lastName
+        val saved = userRepository.save(user)
+        return userToProfileAssembler.toView(saved)
     }
 
     override fun startSession(signInVerification: SignInVerification): ActiveSession {
