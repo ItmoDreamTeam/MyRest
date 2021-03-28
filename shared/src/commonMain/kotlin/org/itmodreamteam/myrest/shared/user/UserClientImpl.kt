@@ -18,7 +18,7 @@ class UserClientImpl(private val accessTokenProvider: AccessTokenProvider) : Use
     override suspend fun update(patch: ProfilePatch): Profile {
         return client.put {
             url("/users/me")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = patch
         }
     }

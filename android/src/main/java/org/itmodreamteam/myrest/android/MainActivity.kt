@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.iterator
@@ -16,6 +18,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import org.itmodreamteam.myrest.android.data.SignInRepository
+import org.itmodreamteam.myrest.shared.user.Profile
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,10 +42,10 @@ class MainActivity() : AppCompatActivity() {
         nav.setupWithNavController(navController)
         val menu = nav.menu
         signInRepository.employeeMode.observe(this) { employeeMode ->
-            fixMenu(menu, signInRepository.isLoggedIn, employeeMode)
+            fixMenu(menu, signInRepository.signedInUser.value, employeeMode)
         }
         signInRepository.signedInUser.observe(this) {
-            fixMenu(menu, it != null, signInRepository.employeeMode.value?:false)
+            fixMenu(menu, it, signInRepository.employeeMode.value?:false)
         }
     }
 
@@ -55,17 +58,42 @@ class MainActivity() : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun fixMenu(menu: Menu, loggedIn: Boolean, employeeMode: Boolean) {
-        Log.i(javaClass.name, "logged in: $loggedIn, employee: $employeeMode")
+    private fun fixMenu(menu: Menu, profile: Profile?, employeeMode: Boolean) {
+        val loggedIn = profile != null
+        val onlySettings: Boolean = if (profile != null) {
+            if (profile.lastName.isBlank() && profile.firstName.isBlank()) {
+                Toast.makeText(
+                    applicationContext,
+                    "Для пользования сервисом необходимо указать имя",
+                    LENGTH_LONG
+                ).show()
+                true
+            } else {
+                false
+            }
+        } else {
+            false
+        }
+        if (onlySettings) {
+            Toast.makeText(applicationContext, "Для пользования сервисом необходимо указать имя", LENGTH_LONG).show()
+        }
+        Log.i(javaClass.name, "logged in: $loggedIn, employee: $employeeMode, onlySettings: $onlySettings")
         if (!loggedIn) {
             for (item in menu.iterator()) {
                 item.isVisible = false
             }
         } else {
+            if (!onlySettings) {
             for (item in menu.iterator()) {
                 item.isVisible = true
             }
             menu.findItem(R.id.reservationListFragment).isVisible = employeeMode
+            } else {
+                for (item in menu.iterator()) {
+                    item.isVisible = false
+                }
+                menu.findItem(R.id.settingsFragment).isVisible = true
+            }
         }
     }
 }

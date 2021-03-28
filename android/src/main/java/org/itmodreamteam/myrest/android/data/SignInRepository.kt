@@ -1,14 +1,14 @@
 package org.itmodreamteam.myrest.android.data
 
 import android.content.SharedPreferences
+import android.os.SystemClock
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.itmodreamteam.myrest.shared.error.ClientException
-import org.itmodreamteam.myrest.shared.user.Profile
-import org.itmodreamteam.myrest.shared.user.SignIn
-import org.itmodreamteam.myrest.shared.user.SignInVerification
-import org.itmodreamteam.myrest.shared.user.UserClient
+import org.itmodreamteam.myrest.shared.error.ServerError
+import org.itmodreamteam.myrest.shared.user.*
+import java.util.concurrent.TimeUnit
 
 private val PHONE_PREFERENCE_KEY: String = "phone"
 private val ACCESS_TOKEN_KEY: String = "access-token"
@@ -26,6 +26,10 @@ class SignInRepository(
 
     val isLoggedIn: Boolean
         get() = _signedInUser.value != null
+
+    private val _nextAllowedSignInAt : MutableLiveData<Long> = MutableLiveData(SystemClock.elapsedRealtime())
+
+    val nextAllowedSignInAt : LiveData<Long> = _nextAllowedSignInAt
 
     fun getLastUsedPhone() : String? {
        return sharedPreferences.getString(PHONE_PREFERENCE_KEY, null)
@@ -59,12 +63,51 @@ class SignInRepository(
     }
 
     suspend fun signIn(phone: String): Result<Any> {
+        val diff = TimeUnit.MILLISECONDS.toSeconds(nextAllowedSignInAt.value!! - SystemClock.elapsedRealtime())
+        if (diff > 0) {
+            return Result.Error(exception = ClientException(listOf(ServerError("", "Отправка кода будет доступна через $diff секунд"))))
+        }
+        _nextAllowedSignInAt.value = SystemClock.elapsedRealtime() + TimeUnit.SECONDS.toMillis(60)
+        val signIn = justSignIn(phone)
+        if (signIn is Result.Error) {
+            if (signIn.exception.errors.any { it.key == "user.phone.not-found" }) {
+                Log.i(
+                    javaClass.name,
+                    "Phone not found, try to bypass sign up",
+                    signIn.exception
+                )
+                return justSignUp(phone)
+            }
+        }
+        return signIn
+    }
+
+    suspend fun updateProfile(firstName: String, lastName: String): Result<Profile> {
+        return try {
+            val me = userClient.update(ProfilePatch(firstName, lastName))
+            this._signedInUser.value = me
+            return Result.Success(me)
+        } catch (e: ClientException) {
+            Result.Error(e)
+        }
+    }
+
+    private suspend fun justSignIn(phone: String): Result<Any> {
         return try {
             userClient.signIn(SignIn(phone))
             sharedPreferences.edit()
                 .putString(PHONE_PREFERENCE_KEY, phone)
                 .apply()
             // TODO passing 1 is not clear, how to return Void?
+            return Result.Success(1)
+        } catch (e: ClientException) {
+            Result.Error(e)
+        }
+    }
+
+    private suspend fun justSignUp(phone: String): Result<Any> {
+        return try {
+            userClient.signUp(SignUp("", "", phone))
             return Result.Success(1)
         } catch (e: ClientException) {
             Result.Error(e)

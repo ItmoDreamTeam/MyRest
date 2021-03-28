@@ -1,5 +1,6 @@
 package org.itmodreamteam.myrest.android.ui.login
 
+import android.os.SystemClock
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import kotlinx.coroutines.launch
 import org.itmodreamteam.myrest.android.R
 import org.itmodreamteam.myrest.android.data.Result
 import org.itmodreamteam.myrest.android.data.SignInRepository
+import java.util.concurrent.TimeUnit
 
 
 class SignInViewModel @ViewModelInject constructor(
@@ -19,6 +21,8 @@ class SignInViewModel @ViewModelInject constructor(
 
     private val _signIn = MutableLiveData<SignInResult>()
     val signInResult: LiveData<SignInResult> = _signIn
+
+    val nextAllowedSignInAt : LiveData<Long> = signInRepository.nextAllowedSignInAt
 
     fun tryToRecoverSession() {
         Log.i(javaClass.name, "Try to recover session")
@@ -35,6 +39,10 @@ class SignInViewModel @ViewModelInject constructor(
     }
 
     fun getLastUsedPhone() : String? = signInRepository.getLastUsedPhone()
+
+    fun canSignIn(): Boolean {
+        return TimeUnit.MILLISECONDS.toSeconds(SystemClock.elapsedRealtime() - nextAllowedSignInAt.value!!) >= 0
+    }
 
     fun signIn(phone: String) {
         Log.i(javaClass.name, "Phone: $phone")

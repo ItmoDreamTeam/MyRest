@@ -73,15 +73,6 @@
                             android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
-
-                <!-- Buttons -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="horizontal">
-
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSignIn"
                         android:layout_width="wrap_content"
@@ -89,13 +80,8 @@
                         android:layout_marginEnd="8dp"
                         android:text="Получить код по SMS" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/buttonSignUp"
-                        style="?attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Регистрация" />
                 </LinearLayout>
+
 
             </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,5 +11,19 @@ data class Profile(
     val locked: Boolean,
     val role: Role?,
 ) {
-    fun fullName(): String = "$firstName $lastName"
+    fun fullName(): String {
+        if (lastName.isBlank()) {
+            if (firstName.isBlank()) {
+                return id.toString();
+            } else {
+                return firstName
+            }
+        } else {
+            if (firstName.isBlank()) {
+                return lastName
+            } else {
+                return "$firstName $lastName"
+            }
+        }
+    }
 }

@@ -17,6 +17,9 @@
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"
             app:destination="@id/reservationListFragment" />
+        <action
+            android:id="@+id/editProfile"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/setPhone"
@@ -32,20 +35,8 @@
             app:popUpToInclusive="true"
             app:destination="@id/restaurantListFragment" />
         <action
-            android:id="@+id/action_setPhone_to_signUp"
-            app:destination="@id/signUp" />
-    </fragment>
-    <fragment
-        android:id="@+id/signUp"
-        android:name="org.itmodreamteam.myrest.android.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUp_to_signIn"
-            app:destination="@id/signIn" />
-        <argument
-            android:name="phone"
-            app:argType="string" />
+            android:id="@+id/autoSessionEditProfile"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/restaurantListFragment"
@@ -87,5 +78,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_setPhone"
             app:destination="@id/setPhone" />
+        <argument
+            android:name="editProfile"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

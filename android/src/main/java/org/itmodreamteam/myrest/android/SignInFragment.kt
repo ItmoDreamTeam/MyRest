@@ -2,7 +2,7 @@ package org.itmodreamteam.myrest.android
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -10,7 +10,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.annotation.StringRes
+import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,7 +21,7 @@ import org.itmodreamteam.myrest.android.databinding.FragmentSignInBinding
 import org.itmodreamteam.myrest.android.ui.afterTextChanged
 import org.itmodreamteam.myrest.android.ui.hideKeyboard
 import org.itmodreamteam.myrest.android.ui.login.SignInViewModel
-import org.itmodreamteam.myrest.shared.error.ClientException
+import org.itmodreamteam.myrest.android.ui.showFail
 import org.itmodreamteam.myrest.shared.user.Profile
 import java.util.concurrent.TimeUnit
 
@@ -36,6 +36,13 @@ class SignInFragment : Fragment() {
     ): View? {
         val binding = FragmentSignInBinding.inflate(inflater, container, false)
         binding.phone = args.phone
+
+        val phone = phone()
+        if (model.canSignIn()) {
+            model.signIn(phone)
+            Toast.makeText(context, "SMS на номер $phone отправлено", LENGTH_LONG).show()
+        }
+        countDown(binding)
 
         model.signInFormState.observe(viewLifecycleOwner, Observer {
             val signInState = it ?: return@Observer
@@ -56,13 +63,20 @@ class SignInFragment : Fragment() {
             binding.progress.visibility = GONE
             val signInResult = it ?: return@Observer
             if (signInResult.error != null) {
-                showLoginFailed(signInResult.error, signInResult.exception)
+                showFail(signInResult.error, signInResult.exception)
             }
             if (signInResult.success != null) {
                 updateUiWithUser(signInResult.success)
-                val action =
-                    SignInFragmentDirections.actionSignInToReservationListFragment()
-                findNavController().navigate(action)
+
+                if (signInResult.success.firstName.isBlank() || signInResult.success.lastName.isBlank()) {
+                    Toast.makeText(context, "Пожалуйста, укажите Ваше имя", LENGTH_LONG).show()
+                    val action = SignInFragmentDirections.editProfile(true)
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        SignInFragmentDirections.actionSignInToReservationListFragment()
+                    findNavController().navigate(action)
+                }
             }
         })
 
@@ -90,7 +104,6 @@ class SignInFragment : Fragment() {
             countDown(binding)
         }
 
-        model.tryToRecoverSession()
         countDown(binding)
         return binding.root
     }
@@ -98,7 +111,7 @@ class SignInFragment : Fragment() {
     private fun phone() = "7${args.phone}"
 
     private fun countDown(binding: FragmentSignInBinding) {
-        object: CountDownTimer(TimeUnit.SECONDS.toMillis(20), TimeUnit.SECONDS.toMillis(1)) {
+        object: CountDownTimer(model.nextAllowedSignInAt.value!! - SystemClock.elapsedRealtime(), TimeUnit.SECONDS.toMillis(1)) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.signInSendAgain.text = "Повторно запросить код через ${TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)}"
             }
@@ -125,11 +138,5 @@ class SignInFragment : Fragment() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int, exception: ClientException?) {
-        // TODO show client exception in a toast?
-        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
-        Log.w(javaClass.name, exception)
     }
 }

@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,16 +27,13 @@ class SetPhoneFragment : Fragment() {
         val binding = FragmentSetPhoneBinding.inflate(inflater, container, false)
 
         binding.buttonSignIn.isEnabled = false
-        binding.buttonSignUp.isEnabled = false
 
         // TODO duplicated checks, use ViewModel
         binding.phoneEdit.afterTextChanged {
             if (it.length != 10) {
                 binding.buttonSignIn.isEnabled = false
-                binding.buttonSignUp.isEnabled = false
             } else {
                 binding.buttonSignIn.isEnabled = true
-                binding.buttonSignUp.isEnabled = true
                 binding.phoneEdit.error = null
                 hideKeyboard(binding.phoneEdit)
             }
@@ -62,16 +57,8 @@ class SetPhoneFragment : Fragment() {
             false
         }
         binding.buttonSignIn.setOnClickListener {
-            val phone = "7${binding.phoneEdit.text}"
-            model.signIn(phone)
-            Toast.makeText(context, "SMS на номер $phone отправлено", LENGTH_LONG).show()
             val action =
                 SetPhoneFragmentDirections.actionSetPhoneToSignIn(binding.phoneEdit.text.toString())
-            findNavController().navigate(action)
-        }
-        binding.buttonSignUp.setOnClickListener {
-            val action =
-                SetPhoneFragmentDirections.actionSetPhoneToSignUp(binding.phoneEdit.text.toString())
             findNavController().navigate(action)
         }
 
@@ -86,8 +73,13 @@ class SetPhoneFragment : Fragment() {
             val signInResult = it ?: return@Observer
             if (signInResult.success != null) {
                 Log.i(javaClass.name, "Already signed in")
-                val action = SetPhoneFragmentDirections.actionSetPhoneToRestaurantListFragment()
-                findNavController().navigate(action)
+                if (signInResult.success.firstName.isBlank() && signInResult.success.lastName.isBlank()) {
+                    val action = SetPhoneFragmentDirections.autoSessionEditProfile(true)
+                    findNavController().navigate(action)
+                } else {
+                    val action = SetPhoneFragmentDirections.actionSetPhoneToRestaurantListFragment()
+                    findNavController().navigate(action)
+                }
             }
         })
 
