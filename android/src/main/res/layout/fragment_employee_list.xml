@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".employee.EmployeeListFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:name="org.itmodreamteam.myrest.android.employee.EmployeeListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="@dimen/card_side_margin"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingTop="@dimen/header_margin"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".RestaurantListFragment"
+            tools:listitem="@layout/fragment_employee" />
+    </FrameLayout>
+</layout>

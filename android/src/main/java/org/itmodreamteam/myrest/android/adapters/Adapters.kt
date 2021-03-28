@@ -35,6 +35,7 @@ fun bindPrintInterval(view: TextView, reservationInfo: ReservationInfo) {
                 view.text = "${from.year} ${from.month} ${from.dayOfWeek}: ${from.hour}:${from.minute} - ${until.hour}:${until.minute}"
             }
         }
+    } else {
+        view.text = "$from - $until"
     }
-    // TODO
 }

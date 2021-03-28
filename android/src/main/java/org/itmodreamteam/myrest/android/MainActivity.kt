@@ -35,7 +35,14 @@ class MainActivity() : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.setPhone, R.id.restaurantListFragment, R.id.reservationListFragment, R.id.settingsFragment))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.setPhone,
+                R.id.restaurantListFragment,
+                R.id.reservationListFragment,
+                R.id.settingsFragment
+            )
+        )
         layout.setupWithNavController(toolbar, navController, appBarConfiguration)
 
         val nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
@@ -45,7 +52,7 @@ class MainActivity() : AppCompatActivity() {
             fixMenu(menu, signInRepository.signedInUser.value, employeeMode)
         }
         signInRepository.signedInUser.observe(this) {
-            fixMenu(menu, it, signInRepository.employeeMode.value?:false)
+            fixMenu(menu, it, signInRepository.employeeMode.value ?: false)
         }
     }
 
@@ -75,19 +82,26 @@ class MainActivity() : AppCompatActivity() {
             false
         }
         if (onlySettings) {
-            Toast.makeText(applicationContext, "Для пользования сервисом необходимо указать имя", LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                "Для пользования сервисом необходимо указать имя",
+                LENGTH_LONG
+            ).show()
         }
-        Log.i(javaClass.name, "logged in: $loggedIn, employee: $employeeMode, onlySettings: $onlySettings")
+        Log.i(
+            javaClass.name,
+            "logged in: $loggedIn, employee: $employeeMode, onlySettings: $onlySettings"
+        )
         if (!loggedIn) {
             for (item in menu.iterator()) {
                 item.isVisible = false
             }
         } else {
             if (!onlySettings) {
-            for (item in menu.iterator()) {
-                item.isVisible = true
-            }
-            menu.findItem(R.id.reservationListFragment).isVisible = employeeMode
+                menu.findItem(R.id.restaurantListFragment).isVisible = !employeeMode
+                menu.findItem(R.id.reservationListFragment).isVisible = !employeeMode
+                menu.findItem(R.id.settingsFragment).isVisible = true
+                menu.findItem(R.id.employeeListFragment).isVisible = employeeMode
             } else {
                 for (item in menu.iterator()) {
                     item.isVisible = false

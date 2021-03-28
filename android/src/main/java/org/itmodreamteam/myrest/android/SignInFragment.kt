@@ -68,7 +68,7 @@ class SignInFragment : Fragment() {
             if (signInResult.success != null) {
                 updateUiWithUser(signInResult.success)
 
-                if (signInResult.success.firstName.isBlank() || signInResult.success.lastName.isBlank()) {
+                if (signInResult.success.firstName.isBlank() && signInResult.success.lastName.isBlank()) {
                     Toast.makeText(context, "Пожалуйста, укажите Ваше имя", LENGTH_LONG).show()
                     val action = SignInFragmentDirections.editProfile(true)
                     findNavController().navigate(action)

@@ -20,6 +20,7 @@ class ReservationListFragment : Fragment() {
         val binding = FragmentReservationListBinding.inflate(inflater, container, false)
         val adapter = ReservationListAdapter()
         binding.list.adapter = adapter
+        binding.lifecycleOwner = viewLifecycleOwner
         model.reservations.observe(viewLifecycleOwner) { reservations ->
             adapter.submitList(reservations)
         }
