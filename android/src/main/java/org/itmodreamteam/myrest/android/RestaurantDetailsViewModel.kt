@@ -56,16 +56,15 @@ class RestaurantDetailsViewModel @AssistedInject constructor(
     }
 
     fun reset(restaurantId: Long) {
+        _reservation.value = null
         if (this.restaurantId == restaurantId) {
             return
         }
         this.restaurantId = restaurantId
-        _reservation.value = null
         viewModelScope.launch {
             _restaurant.value = restaurantClient.getById(restaurantId)
             _tables.value = tableClient.getRestaurantTables(restaurantId)
         }
-        _selectedTable.value = null
         checkData()
     }
 
