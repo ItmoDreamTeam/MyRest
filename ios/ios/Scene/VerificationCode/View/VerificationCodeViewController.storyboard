@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="otJ-vy-6RP">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Verification Code View Controller-->
+        <scene sceneID="uCB-9E-VCG">
+            <objects>
+                <viewController id="otJ-vy-6RP" customClass="VerificationCodeViewController" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NeQ-er-JkA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sk-AF-sJq">
+                                <rect key="frame" x="107" y="423" width="200" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="0eV-3R-HJO"/>
+                                    <constraint firstAttribute="height" constant="50" id="75d-nW-YTT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Отправить код">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendCodeTapped:" destination="otJ-vy-6RP" eventType="touchUpInside" id="9g8-Ec-9jh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEI-me-ZGI">
+                                <rect key="frame" x="5" y="483" width="404" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="HkA-5F-aPO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZOp-ok-iiR" customClass="MaskTextField" customModule="ios" customModuleProvider="target">
+                                <rect key="frame" x="97" y="343" width="220" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Pm4-mb-FcI"/>
+                                    <constraint firstAttribute="width" constant="220" id="iDC-cB-k3X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="formattingPattern" value="***-***"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3sk-AF-sJq" firstAttribute="centerY" secondItem="NeQ-er-JkA" secondAttribute="centerY" id="815-dU-Lm9"/>
+                            <constraint firstItem="HEI-me-ZGI" firstAttribute="top" secondItem="3sk-AF-sJq" secondAttribute="bottom" constant="10" id="FeC-xX-wWp"/>
+                            <constraint firstItem="HEI-me-ZGI" firstAttribute="leading" secondItem="qqX-ry-be6" secondAttribute="leading" constant="5" id="Mx2-JS-ovo"/>
+                            <constraint firstItem="ZOp-ok-iiR" firstAttribute="centerX" secondItem="NeQ-er-JkA" secondAttribute="centerX" id="cDM-g9-Cwp"/>
+                            <constraint firstItem="3sk-AF-sJq" firstAttribute="top" secondItem="ZOp-ok-iiR" secondAttribute="bottom" constant="30" id="hpE-tP-2Pg"/>
+                            <constraint firstItem="qqX-ry-be6" firstAttribute="trailing" secondItem="HEI-me-ZGI" secondAttribute="trailing" constant="5" id="rla-S0-ri3"/>
+                            <constraint firstItem="3sk-AF-sJq" firstAttribute="centerX" secondItem="NeQ-er-JkA" secondAttribute="centerX" id="uC4-hP-V6U"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qqX-ry-be6"/>
+                    </view>
+                    <connections>
+                        <outlet property="codeTextField" destination="ZOp-ok-iiR" id="3ur-I7-xrv"/>
+                        <outlet property="sendCodeButton" destination="3sk-AF-sJq" id="ldL-eu-fme"/>
+                        <outlet property="timerLabel" destination="HEI-me-ZGI" id="Bsj-pO-riX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g2V-yK-EAv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="328" y="-273"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,29 @@
+version: '3'
+services:
+  main:
+    build: .
+    restart: always
+    environment:
+      PROFILE:
+      DB_PASSWORD:
+      SMS_SERVICE_USERNAME:
+      SMS_SERVICE_PASSWORD:
+      GOOGLE_APPLICATION_CREDENTIALS: /config/google-application-credentials.json
+    ports:
+      - 9339:8080
+    volumes:
+      - config:/config
+      - storage:/storage
+  postgres:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: main
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: $DB_PASSWORD
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  config:
+  storage:
+  postgres:

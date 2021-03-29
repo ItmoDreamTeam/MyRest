@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    <item android:id="@+id/signUp"-->
+<!--        android:icon="@drawable/ic_add_black_24dp"-->
+<!--        android:title="@string/new_game"/>-->
+    <item android:id="@+id/restaurantListFragment"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/places" />
+    <item android:id="@+id/reservationListFragment"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/reservations" />
+    <item android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Настройки" />
+    <item android:id="@+id/employeeListFragment"
+        android:icon="@drawable/ic_baseline_work_24"
+        android:title="Сотрудник" />
+</menu>

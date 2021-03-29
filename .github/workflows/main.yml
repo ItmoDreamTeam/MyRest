@@ -1,0 +1,64 @@
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: ./gradlew build -i
+      - uses: actions/upload-artifact@v2
+        with:
+          name: server
+          path: server/build/libs/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: server-test
+          path: server/build/reports/
+      - uses: actions/upload-artifact@v2
+        with:
+          name: web
+          path: js/build/distributions/
+  build-on-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: ./gradlew build -i
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: self-hosted
+    env:
+      PROFILE: prod
+      DB_PASSWORD: uC5c98Ez3i
+      SMS_SERVICE_USERNAME: ${{ secrets.SMS_SERVICE_USERNAME }}
+      SMS_SERVICE_PASSWORD: ${{ secrets.SMS_SERVICE_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: server
+          path: server/build/libs/
+      - run: |
+          cd server
+          docker-compose -p myrest up -d --build
+  deploy-web:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: self-hosted
+    env:
+      PROFILE: prod
+      PORT: 80
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: web
+          path: js/build/distributions/
+      - run: |
+          cd js
+          docker-compose -p myrest-web up -d --build
