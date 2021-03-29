@@ -43,21 +43,78 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:printInterval="@{reservation}"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Заявка обрабатывается"
                     android:text="@{reservation.status.representation}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_marginTop="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    app:singleLine="true">
+                    <com.google.android.material.chip.Chip
+                        app:chipIcon="@drawable/ic_baseline_place_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:printTableNumber="@{reservation.table.info.number}"/>
+                    <com.google.android.material.chip.Chip
+                        app:chipIcon="@drawable/ic_baseline_event_seat_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:printNumberOfSeats="@{reservation.table.info.numberOfSeats}"/>
+                </com.google.android.material.chip.ChipGroup>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/date"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:hint="Дата"
+                        android:maxLines="1"
+                        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dateEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            app:printDate="@{reservation.activeFrom}"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/time"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:layout_marginLeft="8dp"
+                        android:hint="Время"
+                        android:maxLines="1"
+                        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/timeEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            app:printTime="@{reservation.activeFrom}"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

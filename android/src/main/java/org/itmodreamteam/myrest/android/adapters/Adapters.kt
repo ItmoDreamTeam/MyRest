@@ -1,12 +1,14 @@
 package org.itmodreamteam.myrest.android.adapters
 
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.chip.Chip
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.datetime.LocalDateTime
-import org.itmodreamteam.myrest.shared.restaurant.ReservationInfo
+import kotlinx.datetime.toJavaLocalDateTime
+import java.time.format.DateTimeFormatter
 
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
@@ -19,28 +21,29 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
 }
 
 @BindingAdapter("printTime")
-fun bindPrintTime(view: TextView, time: LocalDateTime?) {
+fun bindPrintTime(view: TextInputEditText, time: LocalDateTime?) {
     if (time != null) {
-        view.text = time.toString()
+        view.setText(time.toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("hh:mm")))
     }
 }
 
-@BindingAdapter("printInterval")
-fun bindPrintInterval(view: TextView, reservationInfo: ReservationInfo) {
-    val from = reservationInfo.activeFrom
-    val until = reservationInfo.activeUntil
-    view.text = "$from - $until"
-    if (from.year == until.year) {
-        if (from.month == until.month) {
-            if (from.dayOfMonth == until.dayOfMonth) {
-                view.text = "${from.year}-${from.month.value}-${from.dayOfMonth}: ${from.hour}:${from.minute} - ${until.hour}:${until.minute}"
-            } else {
-                view.text = "${from.year}-${from.month.value}: ${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.dayOfMonth} ${until.hour}:${until.minute}"
-            }
-        } else {
-            view.text = "${from.year}: ${from.month.value}-${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.month.value}-${until.dayOfMonth} ${until.hour}:${until.minute}"
-        }
-    } else {
-        view.text = "${from.year}-${from.month.value}-${from.dayOfMonth} ${from.hour}:${from.minute} - ${until.year}-${until.month.value}-${until.dayOfMonth} ${until.hour}:${until.minute}"
+@BindingAdapter("printDate")
+fun bindPrintDate(view: TextInputEditText, time: LocalDateTime?) {
+    if (time != null) {
+        view.setText(time.toJavaLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+    }
+}
+
+@BindingAdapter("printTableNumber")
+fun bindPrintTableNumber(view: Chip, table: Int?) {
+    if (table != null) {
+        view.text = "Столик #${table}"
+    }
+}
+
+@BindingAdapter("printNumberOfSeats")
+fun bindPrintNumberOfSeats(view: Chip, numberOfSeats: Int?) {
+    if (numberOfSeats != null) {
+        view.text = "Мест: ${numberOfSeats}"
     }
 }
