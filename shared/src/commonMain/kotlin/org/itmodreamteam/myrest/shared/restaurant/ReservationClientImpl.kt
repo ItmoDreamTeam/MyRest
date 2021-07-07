@@ -3,10 +3,10 @@ package org.itmodreamteam.myrest.shared.restaurant
 import io.ktor.client.request.*
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
+import org.itmodreamteam.myrest.shared.AccessTokenProvider
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
-class ReservationClientImpl : ReservationClient {
+class ReservationClientImpl(private val accessTokenProvider: AccessTokenProvider) : ReservationClient {
 
     private val client = HttpClientProvider.provide()
 
@@ -14,7 +14,7 @@ class ReservationClientImpl : ReservationClient {
         return client.get {
             url("/restaurants/$restaurantId/reservations")
             parameter("date", date)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
@@ -22,7 +22,7 @@ class ReservationClientImpl : ReservationClient {
         return client.get {
             url("/reservations")
             parameter("date", date)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
@@ -36,35 +36,35 @@ class ReservationClientImpl : ReservationClient {
             parameter("tableId", tableId)
             parameter("activeFrom", activeFrom)
             parameter("activeUntil", activeUntil)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun reject(reservationId: Long): ReservationInfo {
         return client.put {
             url("/reservations/$reservationId/reject")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun approve(reservationId: Long): ReservationInfo {
         return client.put {
             url("/reservations/$reservationId/approve")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun start(reservationId: Long): ReservationInfo {
         return client.put {
             url("/reservations/$reservationId/start")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun complete(reservationId: Long): ReservationInfo {
         return client.put {
             url("/reservations/$reservationId/complete")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 }

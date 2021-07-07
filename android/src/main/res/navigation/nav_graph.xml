@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/setPhone">
+    <fragment
+        android:id="@+id/signIn"
+        android:name="org.itmodreamteam.myrest.android.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <argument
+            android:name="phone"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_signIn_to_reservationListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            app:destination="@id/reservationListFragment" />
+        <action
+            android:id="@+id/editProfile"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPhone"
+        android:name="org.itmodreamteam.myrest.android.SetPhoneFragment"
+        android:label="fragment_set_phone"
+        tools:layout="@layout/fragment_set_phone" >
+        <action
+            android:id="@+id/action_setPhone_to_signIn"
+            app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_setPhone_to_restaurantListFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            app:destination="@id/restaurantListFragment" />
+        <action
+            android:id="@+id/autoSessionEditProfile"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="org.itmodreamteam.myrest.android.RestaurantListFragment"
+        android:label="RestaurantListFragment" >
+        <action
+            android:id="@+id/action_restaurantListFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailsFragment"
+        android:name="org.itmodreamteam.myrest.android.RestaurantDetailsFragment"
+        android:label="fragment_restaurant_details"
+        tools:layout="@layout/fragment_restaurant_details" >
+        <argument
+            android:name="restaurantId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableListFragment"
+        android:name="org.itmodreamteam.myrest.android.TableListFragment"
+        android:label="TableListFragment" />
+    <fragment
+        android:id="@+id/reservationListFragment"
+        android:name="org.itmodreamteam.myrest.android.ReservationListFragment"
+        android:label="ReservationListFragment" >
+        <action
+            android:id="@+id/action_reservationListFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="org.itmodreamteam.myrest.android.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_setPhone"
+            app:destination="@id/setPhone" />
+        <argument
+            android:name="editProfile"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeListFragment"
+        android:name="org.itmodreamteam.myrest.android.employee.EmployeeListFragment"
+        android:label="EmployeeListFragment" >
+        <action
+            android:id="@+id/action_employeeListFragment_to_employeeDetailsFragment"
+            app:destination="@id/employeeDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/employeeDetailsFragment"
+        android:name="org.itmodreamteam.myrest.android.employee.EmployeeDetailsFragment"
+        android:label="EmployeeDetailsFragment" >
+        <argument
+            android:name="employeeId"
+            app:argType="long" />
+    </fragment>
+
+</navigation>

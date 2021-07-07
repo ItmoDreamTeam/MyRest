@@ -1,31 +1,31 @@
 package org.itmodreamteam.myrest.shared.restaurant
 
 import io.ktor.client.request.*
-import org.itmodreamteam.myrest.shared.AccessTokenProvider.Companion.provideAccessToken
+import org.itmodreamteam.myrest.shared.AccessTokenProvider
 import org.itmodreamteam.myrest.shared.HttpClientProvider
 
-class EmployeeClientImpl : EmployeeClient {
+class EmployeeClientImpl(private val accessTokenProvider: AccessTokenProvider) : EmployeeClient {
 
     private val client = HttpClientProvider.provide()
 
     override suspend fun getById(id: Long): EmployeeInfo {
         return client.get {
             url("/employees/$id")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun getEmployeesOfRestaurant(restaurantId: Long): List<EmployeeInfo> {
         return client.get {
             url("/restaurants/$restaurantId/employees")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
     override suspend fun inviteEmployee(restaurantId: Long, invitation: EmployeeInvitation): EmployeeInfo {
         return client.put {
             url("/restaurants/$restaurantId/employees")
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
             body = invitation
         }
     }
@@ -34,7 +34,7 @@ class EmployeeClientImpl : EmployeeClient {
         return client.put {
             url("/employees/$id")
             parameter("status", status)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 
@@ -42,7 +42,7 @@ class EmployeeClientImpl : EmployeeClient {
         return client.put {
             url("/employees/$id/manager")
             parameter("status", status)
-            provideAccessToken()
+            header("Authorization", "Bearer ${accessTokenProvider.accessToken}")
         }
     }
 }

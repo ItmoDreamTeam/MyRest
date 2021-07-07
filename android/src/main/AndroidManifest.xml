@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.itmodreamteam.myrest.android">
+    package="org.itmodreamteam.myrest.android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:label="MyRest"
-            android:icon="@drawable/myrest"
-            android:allowBackup="true"
-            android:supportsRtl="true"
-            android:usesCleartextTraffic="true"
-            android:theme="@style/AppTheme">
+        android:name=".MyRestApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/myrest"
+        android:label="MyRest"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        android:usesCleartextTraffic="true">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".restaurant.search.RestaurantSearchActivity">
-        </activity>
+                <action android:name="android.intent.action.MAIN" />
 
-        <service
-                android:name=".service.FirebaseMessagingServiceImpl"
-                android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </service>
+        </activity>
     </application>
 
 </manifest>
